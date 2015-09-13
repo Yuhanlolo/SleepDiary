@@ -30,6 +30,15 @@
             android:name=".SleepActivity">
         </activity>
 
+        <activity
+            android:name=".SettingsActivity">
+        </activity>
+
+        <activity
+            android:name=".SleepDiaryActivity">
+        </activity>
+
+
     </application>
 
 </manifest>

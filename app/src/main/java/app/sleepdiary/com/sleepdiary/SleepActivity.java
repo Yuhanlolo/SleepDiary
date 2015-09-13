@@ -20,6 +20,21 @@ public class SleepActivity extends ActionBarActivity{
         String userid = getIntent().getStringExtra("userid");
         TextView tv = (TextView)findViewById(R.id.title);
         tv.setText(userid);
-
     }
+
+    public void bedtimeOnClick(View view)
+    {
+        if(view.getId() == R.id.settings)
+        {
+            Intent i = new Intent(SleepActivity.this,SettingsActivity.class);
+            SleepActivity.this.startActivity(i);
+        }
+
+        else if(view.getId() == R.id.bedtime)
+        {
+            Intent i = new Intent(SleepActivity.this,SleepDiaryActivity.class);
+            SleepActivity.this.startActivity(i);
+        }
+
+     }
 }
