@@ -38,6 +38,12 @@ public class CreateIdActivity extends ActionBarActivity {
                 pass.show();
             }
 
+            else if(helper.findExistId(useridstr))
+            {
+                Toast pass = Toast.makeText(CreateIdActivity.this,"The ID has already existed!", Toast.LENGTH_SHORT);
+                pass.show();
+            }
+
             else
             {
                 Contact c = new Contact();

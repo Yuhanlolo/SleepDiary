@@ -43,6 +43,31 @@ public class dataBaseHelper extends SQLiteOpenHelper
         db.close();
     }
 
+    public boolean findExistId(String str)
+    {
+        String uid = "";
+        db = this.getWritableDatabase();
+        boolean find = false;
+        String query = "select userid, pwd from " + TABLE_NAME;
+        Cursor cursor = db.rawQuery(query, null);
+        if(cursor.moveToFirst())
+        {
+            do
+            {
+                uid = cursor.getString(0);
+                if(uid.equals(str))
+                {
+                    find = true;
+                    break;
+                }
+            }
+            while(cursor.moveToNext());
+        }
+
+
+        return find;
+    }
+
     public String searchpass(String str)
     {
         String uid = "";
