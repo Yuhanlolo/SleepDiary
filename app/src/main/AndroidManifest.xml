@@ -26,6 +26,10 @@
             android:name=".LoginActivity">
         </activity>
 
+        <activity
+            android:name=".SleepActivity">
+        </activity>
+
     </application>
 
 </manifest>
