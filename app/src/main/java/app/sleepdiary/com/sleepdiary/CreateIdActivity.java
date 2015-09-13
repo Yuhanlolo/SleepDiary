@@ -46,6 +46,10 @@ public class CreateIdActivity extends ActionBarActivity {
 
                 helper.insertColumn(c);
 
+                Intent i = new Intent(CreateIdActivity.this,SleepActivity.class);
+                i.putExtra("userid",useridstr);
+                CreateIdActivity.this.startActivity(i);
+
             }
 
         }

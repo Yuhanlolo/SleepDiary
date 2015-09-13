@@ -17,7 +17,7 @@ public class SleepActivity extends ActionBarActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sleep);
 
-        String userid = getIntent().getStringExtra("useridl");
+        String userid = getIntent().getStringExtra("userid");
         TextView tv = (TextView)findViewById(R.id.title);
         tv.setText(userid);
 

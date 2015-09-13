@@ -30,10 +30,11 @@ public class LoginActivity extends ActionBarActivity{
             String strpass = pwd.getText().toString();
 
             String password = helper.searchpass(stracc);
+            System.out.println(password);
             if(strpass.equals(password))
             {
             Intent i = new Intent(LoginActivity.this,SleepActivity.class);
-            i.putExtra("useridl",stracc);
+            i.putExtra("userid",stracc);
             i.putExtra("userpwd",strpass);
             LoginActivity.this.startActivity(i);
             }
