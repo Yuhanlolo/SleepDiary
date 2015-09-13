@@ -10,6 +10,9 @@ import android.widget.Toast;
  * Created by apple on 8/31/15.
  */
 public class CreateIdActivity extends ActionBarActivity {
+
+    dataBaseHelper helper = new dataBaseHelper(this);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,7 +27,7 @@ public class CreateIdActivity extends ActionBarActivity {
             EditText pass1 = (EditText)findViewById(R.id.pwd);
             EditText pass2 = (EditText)findViewById(R.id.conpwd);
 
-            //String useridstr = userid.getText().toString();
+            String useridstr = userid.getText().toString();
             String pass1str = pass1.getText().toString();
             String pass2str = pass2.getText().toString();
 
@@ -35,6 +38,16 @@ public class CreateIdActivity extends ActionBarActivity {
                 pass.show();
             }
 
+            else
+            {
+                Contact c = new Contact();
+                c.setId(useridstr);
+                c.setPwd(pass1str);
+
+                helper.insertColumn(c);
+
+            }
+
         }
 
         if(view.getId() == R.id.cancel_c)
@@ -42,6 +55,8 @@ public class CreateIdActivity extends ActionBarActivity {
             Intent i = new Intent(CreateIdActivity.this,MainActivity.class);
             CreateIdActivity.this.startActivity(i);
         }
+
+
 
     }
 }

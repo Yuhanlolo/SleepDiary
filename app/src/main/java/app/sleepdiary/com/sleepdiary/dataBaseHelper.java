@@ -1,0 +1,80 @@
+package app.sleepdiary.com.sleepdiary;
+
+import android.content.ContentValues;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
+import android.content.Context;
+import android.database.Cursor;
+
+/**
+ * Created by apple on 9/13/15.
+ */
+public class dataBaseHelper extends SQLiteOpenHelper
+{
+    private static final int DATABASE_VERSION = 1;
+    private static final String DATABASE_NAME = "Contact.db";
+    private static final String TABLE_NAME = "Contacts";
+    private static final String COLUMN_ID = "userid";
+    private static final String COLUMN_PASS = "pwd";
+
+    SQLiteDatabase db;
+    private static final String TABLE_CREATE = "Create Table Contacts (userid text primary key not null, pwd text not null);";
+
+
+    public dataBaseHelper (Context context)
+    {
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+    }
+
+    @Override
+    public void onCreate(SQLiteDatabase db) {
+        db.execSQL(TABLE_CREATE);
+        this.db = db;
+    }
+
+    public void insertColumn(Contact c)
+    {
+         db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_ID, c.getId());
+        values.put(COLUMN_PASS,c.getPwd());
+
+        db.insert(TABLE_NAME, null, values);
+        db.close();
+    }
+
+    public String searchpass(String str)
+    {
+        String uid = "";
+        String password= "Not found!";
+        db = this.getWritableDatabase();
+        String query = "select userid, pwd from " + TABLE_NAME;
+        Cursor cursor = db.rawQuery(query, null);
+
+        if(cursor.moveToFirst())
+        {
+            do
+            {
+               uid = cursor.getString(0);
+                if(uid.equals(str))
+                {
+                    password = cursor.getString(1);
+                    break;
+                }
+            }
+            while(cursor.moveToNext());
+
+        }
+
+        db.close();
+        return password;
+
+    }
+
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        String query = "DROP TABLE IF EXISTS"+TABLE_NAME;
+        db.execSQL(query);
+        this.onCreate(db);
+    }
+}

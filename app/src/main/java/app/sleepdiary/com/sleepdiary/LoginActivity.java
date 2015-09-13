@@ -5,12 +5,16 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 
 /**
  * Created by apple on 9/9/15.
  */
 public class LoginActivity extends ActionBarActivity{
+
+    dataBaseHelper helper = new dataBaseHelper(this);
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
@@ -24,12 +28,22 @@ public class LoginActivity extends ActionBarActivity{
             String stracc = account.getText().toString();
             EditText pwd = (EditText)findViewById(R.id.password);
             String strpass = pwd.getText().toString();
+
+            String password = helper.searchpass(stracc);
+            if(strpass.equals(password))
+            {
             Intent i = new Intent(LoginActivity.this,SleepActivity.class);
             i.putExtra("useridl",stracc);
             i.putExtra("userpwd",strpass);
-
-            //startActivity(i);
             LoginActivity.this.startActivity(i);
+            }
+
+            else
+            {
+                //popup msg
+                Toast errorlogin = Toast.makeText(LoginActivity.this,"User ID and Password don't match!", Toast.LENGTH_SHORT);
+                errorlogin.show();
+            }
         }
 
         if(view.getId() == R.id.cancel_l)
