@@ -31,19 +31,19 @@ public class CreateIdActivity extends ActionBarActivity {
             String pass1str = pass1.getText().toString();
             String pass2str = pass2.getText().toString();
 
-            if(!pass1str.equals(pass2str))
-            {
-                //popup msg
-                Toast pass = Toast.makeText(CreateIdActivity.this,"Password don't match!", Toast.LENGTH_SHORT);
-                pass.show();
-            }
 
-            else if(helper.findExistId(useridstr))
+
+           if(helper.findExistId(useridstr))
             {
                 Toast pass = Toast.makeText(CreateIdActivity.this,"The ID has already existed!", Toast.LENGTH_SHORT);
                 pass.show();
             }
-
+            else  if(!pass1str.equals(pass2str))
+           {
+               //popup msg
+               Toast pass = Toast.makeText(CreateIdActivity.this,"Password don't match!", Toast.LENGTH_SHORT);
+               pass.show();
+           }
             else
             {
                 Contact c = new Contact();
