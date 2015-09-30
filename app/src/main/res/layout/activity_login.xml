@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#fafafa"
-
+    android:icon="@drawable/ic_launcher"
     android:useDefaultMargins="true"
     android:orientation="vertical">
 

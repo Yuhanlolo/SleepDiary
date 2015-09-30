@@ -9,7 +9,7 @@ import android.widget.Toast;
 
 
 /**
- * Created by apple on 9/9/15.
+ * Created by Yuhan on 9/9/15.
  */
 public class LoginActivity extends ActionBarActivity{
 

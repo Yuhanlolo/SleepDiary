@@ -7,7 +7,7 @@ import android.widget.EditText;
 import android.support.v7.app.ActionBarActivity;
 import android.widget.Toast;
 /**
- * Created by apple on 8/31/15.
+ * Created by Yuhan on 8/31/15.
  */
 public class CreateIdActivity extends ActionBarActivity {
 

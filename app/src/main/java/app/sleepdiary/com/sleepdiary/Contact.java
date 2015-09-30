@@ -1,7 +1,7 @@
 package app.sleepdiary.com.sleepdiary;
 
 /**
- * Created by apple on 9/13/15.
+ * Created by Yuhan on 9/13/15.
  */
 public class Contact {
 

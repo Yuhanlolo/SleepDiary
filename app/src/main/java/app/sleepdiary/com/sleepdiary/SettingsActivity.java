@@ -5,7 +5,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.widget.TextView;
 
 /**
- * Created by apple on 9/13/15.
+ * Created by Yuhan on 9/13/15.
  */
 public class SettingsActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {

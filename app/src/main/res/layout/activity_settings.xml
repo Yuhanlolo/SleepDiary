@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:background="#fafafa"
     android:minWidth="400dp"
+    android:icon="@drawable/ic_launcher"
     android:nestedScrollingEnabled="false">
 
     <TextView

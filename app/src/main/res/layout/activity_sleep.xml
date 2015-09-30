@@ -7,6 +7,7 @@
     android:layout_height="match_parent"
     android:background="#fafafa"
     android:columnCount="20"
+    android:icon="@drawable/ic_launcher"
     >
 
     <TextView
@@ -14,13 +15,11 @@
         android:text=""
         android:textSize="60dp"
         android:textColor="#000000"
-
-        android:textStyle="italic"
         android:paddingTop="90dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:focusableInTouchMode="false"
-        android:typeface="serif"
+        android:typeface="sans"
         android:layout_marginTop="98dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
@@ -29,13 +28,20 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+        android:layout_height="fill_parent"
+        android:weightSum="1">
+
+        <StackView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/stackView"
+            android:layout_gravity="right" />
 
         <ImageView
             android:minHeight="70dp"
             android:minWidth="200dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:id="@+id/settings"
             android:src="@drawable/settings"
 
@@ -43,20 +49,63 @@
             android:layout_row="0"
             android:layout_column="19"
             android:layout_gravity="right"
-            android:onClick="bedtimeOnClick" />
-    </LinearLayout>
+            android:onClick="bedtimeOnClick"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="15dp" />
 
-    <ImageView
-        android:minHeight="200dp"
-        android:minWidth="500dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/bedtime"
-        android:src="@drawable/bedtime"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:clickable="true"
-        android:onClick="bedtimeOnClick" />
+        <ImageView
+              android:minHeight="200dp"
+              android:minWidth="500dp"
+              android:layout_width="400dp"
+              android:layout_height="wrap_content"
+              android:id="@+id/brain_test"
+              android:src="@drawable/brain_test"
+              android:layout_centerVertical="true"
+              android:layout_centerHorizontal="true"
+              android:clickable="true"
+              android:onClick="bedtimeOnClick"
+            android:layout_marginLeft="200dp" />
+
+        <ImageView
+            android:minHeight="200dp"
+            android:minWidth="500dp"
+            android:layout_width="400dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/bedtime"
+            android:src="@drawable/bedtime"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:clickable="true"
+            android:onClick="bedtimeOnClick"
+            android:layout_marginLeft="200dp" />
+
+        <ImageView
+            android:minHeight="200dp"
+            android:minWidth="500dp"
+            android:layout_width="400dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/movesleep"
+            android:src="@drawable/movesleep"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:clickable="true"
+            android:onClick="bedtimeOnClick"
+            android:layout_marginLeft="200dp" />
+
+        <ImageView
+            android:minHeight="200dp"
+            android:minWidth="500dp"
+            android:layout_width="400dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/scopa"
+            android:src="@drawable/scopa"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:clickable="true"
+            android:onClick="bedtimeOnClick"
+            android:layout_marginLeft="200dp" />
+
+    </LinearLayout>
 
 
 </RelativeLayout>

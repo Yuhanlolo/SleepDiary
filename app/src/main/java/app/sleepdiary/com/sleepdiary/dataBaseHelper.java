@@ -7,7 +7,7 @@ import android.content.Context;
 import android.database.Cursor;
 
 /**
- * Created by apple on 9/13/15.
+ * Created by Yuhan on 9/13/15.
  */
 public class dataBaseHelper extends SQLiteOpenHelper
 {

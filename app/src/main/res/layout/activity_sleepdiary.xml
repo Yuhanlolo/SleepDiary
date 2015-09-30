@@ -4,102 +4,78 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#fafafa"
+    android:icon="@drawable/ic_launcher"
     >
 
-    <TextView
-        android:id="@+id/nap"
-        android:text="I naped for"
-        android:textSize="28dp"
-        android:textColor="#000000"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_row="0"
-        android:layout_column="0"
-        android:layout_marginStart="40dp"
-        android:paddingTop="55dp"
-        />
 
-    <Button
-        android:id="@+id/naptime"
-        android:width="140dp"
-        android:height="29dp"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:text="0 minute"
-
-        android:layout_marginEnd="40dp"
-        android:layout_centerHorizontal="true"
-
-        android:textSize="26dp"
-        android:background="#959595"
-        android:layout_row="0"
-        android:layout_column="1"
-        android:layout_marginTop="10dp" />
 
     <TextView
         android:id="@+id/caff"
-        android:text="I had caffeinated drinks \n What time did you have \n your last caffeinated drink"
+        android:text="I drank Coffee/Tea/Coke/Pepsi/Redbull:"
         android:textSize="28dp"
         android:textColor="#000000"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_row="1"
+        android:layout_row="0"
         android:layout_column="0"
         android:layout_marginStart="40dp"
         android:paddingTop="25dp"
-        />
-
-    <Button
-        android:id="@+id/drinktime"
-        android:width="140dp"
-        android:height="29dp"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:text="Pick Time"
-
-        android:layout_marginEnd="40dp"
-        android:layout_centerHorizontal="true"
-
-        android:textSize="26dp"
-        android:background="#959595"
-        android:layout_row="1"
-        android:layout_column="1"
         android:layout_marginTop="50dp" />
+
+    <ExpandableListView
+        android:layout_width="150dp"
+        android:layout_height="40dp"
+        android:id="@+id/coffee"
+        android:layout_row="0"
+        android:layout_column="2"
+        android:layout_marginTop="70dp" />
 
     <TextView
         android:id="@+id/alco"
-        android:text="I had alcoholic drinks \n What time did you have \n your last alcoholic drink"
+        android:text="I drank wine/beer/whisky or similar:"
         android:textSize="28dp"
         android:textColor="#000000"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_row="2"
+        android:layout_row="1"
         android:layout_column="0"
         android:layout_marginStart="40dp"
-        android:paddingTop="25dp"
-        />
+        android:paddingTop="75dp"
+         />
 
-    <Button
-        android:id="@+id/alcotime"
-        android:width="140dp"
-        android:height="29dp"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:text="Pick Time"
 
-        android:layout_marginEnd="40dp"
-        android:layout_centerHorizontal="true"
-
-        android:textSize="26dp"
-        android:background="#959595"
-        android:layout_row="2"
-        android:layout_column="1"
-        android:layout_marginTop="50dp" />
-
+    <ExpandableListView
+        android:layout_width="150dp"
+        android:layout_height="40dp"
+        android:id="@+id/tea"
+        android:layout_row="1"
+        android:layout_column="2"
+        android:paddingTop="95dp"
+         />
 
     <TextView
         android:id="@+id/tobacco"
-        android:text="I used tobacco \n What time did you have \n your last tobacco"
+        android:text="I smoked cigarettes/cigars/pipes:"
+        android:textSize="28dp"
+        android:textColor="#000000"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_row="2"
+        android:layout_column="0"
+        android:layout_marginStart="40dp"
+        android:paddingTop="75dp" />
+
+    <ExpandableListView
+        android:layout_width="150dp"
+        android:layout_height="40dp"
+        android:id="@+id/smoke"
+        android:layout_row="2"
+        android:layout_column="1"
+        android:paddingTop="95dp" />
+
+    <TextView
+        android:id="@+id/nap"
+        android:text="I naped:"
         android:textSize="28dp"
         android:textColor="#000000"
         android:layout_width="wrap_content"
@@ -107,133 +83,50 @@
         android:layout_row="3"
         android:layout_column="0"
         android:layout_marginStart="40dp"
-        android:paddingTop="25dp"
-        />
+        android:paddingTop="75dp" />
 
-    <Button
-        android:id="@+id/tobactime"
-        android:width="140dp"
-        android:height="29dp"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:text="Pick Time"
-
-        android:layout_marginEnd="40dp"
-        android:layout_centerHorizontal="true"
-
-        android:textSize="26dp"
-        android:background="#959595"
+    <ExpandableListView
+        android:layout_width="150dp"
+        android:layout_height="40dp"
+        android:id="@+id/naptime"
         android:layout_row="3"
         android:layout_column="1"
-        android:layout_marginTop="50dp" />
+        android:paddingTop="95dp"/>
 
     <TextView
-        android:id="@+id/medic"
-        android:text="I took medications"
+        android:id="@+id/sleep_totally"
+        android:text="During daytime naps I totally slept:"
         android:textSize="28dp"
         android:textColor="#000000"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_row="5"
         android:layout_column="0"
-        android:layout_marginStart="40dp"
-        android:paddingTop="25dp"
-        />
+        android:paddingTop="75dp"
+        android:layout_marginLeft="40dp" />
 
-    <Button
-        android:id="@+id/medicheck"
-        android:width="140dp"
-        android:height="29dp"
-        android:layout_height="wrap_content"
+
+    <TimePicker
         android:layout_width="wrap_content"
-        android:text="Check"
-
-        android:layout_marginEnd="40dp"
-        android:layout_centerHorizontal="true"
-
-        android:textSize="26dp"
-        android:background="#959595"
+        android:layout_height="wrap_content"
+        android:id="@+id/sleepdurationday"
+        android:paddingTop="75dp"
         android:layout_row="5"
         android:layout_column="1"
-        android:layout_marginTop="20dp" />
-
-
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Yes"
-        android:id="@+id/checkBox"
-        android:layout_row="3"
-        android:layout_column="1"
-        android:minWidth="100dp"
-        android:layout_marginLeft="45dp" />
-
-    <TextView
-        android:id="@+id/stress"
-        android:text="How would you rate your stree level today?"
-        android:textSize="28dp"
-        android:textColor="#000000"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_row="6"
-        android:layout_column="0"
-        android:layout_marginStart="40dp"
-        android:paddingTop="25dp"
-        />
-
-    <SeekBar
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/seekBar"
-        android:layout_row="7"
-        android:layout_column="0"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp"
-        android:minWidth="500dp" />
-
-    <TextView
-        android:id="@+id/activity"
-        android:text="About 1 hour before going to bed,\n I did the following activities"
-        android:textSize="28dp"
-        android:textColor="#000000"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_row="8"
-        android:layout_column="0"
-        android:layout_marginStart="40dp"
-        android:paddingTop="25dp"
-        />
-
-    <Button
-        android:id="@+id/check_s"
-        android:width="140dp"
-        android:height="29dp"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:text="Check"
-
-        android:layout_marginEnd="40dp"
-        android:layout_centerHorizontal="true"
-
-        android:textSize="26dp"
-        android:background="#959595"
-        android:layout_row="8"
-        android:layout_column="1"
-        android:layout_marginTop="20dp" />
+        android:amPmBackgroundColor="#ffffff"
+        android:amPmTextColor="#ffffff"
+        android:background="#ffffff" />
 
     <RadioGroup
         android:id="@+id/buttongroup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="472dp"
+        android:layout_height="180dp"
         android:layout_marginStart="50dp"
-        android:layout_marginTop="15dp"
-
-        android:fadingEdge="none"
         android:orientation="horizontal"
         android:minHeight="100dp"
         android:minWidth="200dp"
-        android:nestedScrollingEnabled="true"
-        android:layout_row="9"
+
+        android:layout_row="7"
         android:layout_column="0">
 
 
@@ -242,14 +135,13 @@
             android:width="200dp"
             android:height="45dp"
             android:text="Cancel"
-
+            android:textAllCaps="false"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="15dp"
+
             android:textSize="28dp"
             android:background="#959595"
-            android:layout_width="wrap_content"
+            android:layout_width="139dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.12"
             android:onClick="button_CIdOnClick"
             />
 
@@ -259,38 +151,17 @@
             android:height="45dp"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:text="Save"
-
+            android:text="Save &amp; Continue"
+            android:textAllCaps="false"
             android:layout_marginStart="50dp"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="15dp"
+
             android:textSize="28dp"
             android:background="#959595"
-            android:layout_weight="0.12"
+            android:layout_weight="4.69"
             android:checked="false"
             android:onClick="button_CIdOnClick" />
 
     </RadioGroup>
 
-    <ImageView
-        android:src="@drawable/drink"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/caffdrink"
-        android:layout_row="1"
-        android:layout_column="1"
-        android:layout_marginTop="15dp"
-        android:minHeight="50dp"
-        android:minWidth="140dp" />
-
-    <ImageView
-        android:src="@drawable/drink"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/alcodrink"
-        android:layout_row="2"
-        android:layout_column="1"
-        android:layout_marginTop="15dp"
-        android:minHeight="50dp"
-        android:minWidth="140dp" />
 </GridLayout>

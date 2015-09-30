@@ -1,7 +1,7 @@
 package app.sleepdiary.com.sleepdiary;
 
 /**
- * Created by apple on 9/11/15.
+ * Created by Yuhan on 9/11/15.
  */
 
 import android.content.Intent;
@@ -19,7 +19,7 @@ public class SleepActivity extends ActionBarActivity{
 
         String userid = getIntent().getStringExtra("userid");
         TextView tv = (TextView)findViewById(R.id.title);
-        tv.setText(userid);
+        tv.setText("Welcome"+userid);
     }
 
     public void bedtimeOnClick(View view)
