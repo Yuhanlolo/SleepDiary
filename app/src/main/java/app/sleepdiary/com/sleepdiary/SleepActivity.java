@@ -17,9 +17,9 @@ public class SleepActivity extends ActionBarActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sleep);
 
-        String userid = getIntent().getStringExtra("userid");
-        TextView tv = (TextView)findViewById(R.id.title);
-        tv.setText("Welcome"+userid);
+       // String userid = getIntent().getStringExtra("userid");
+        //TextView tv = (TextView)findViewById(R.id.title);
+        //tv.setText("Welcome"+userid);
     }
 
     public void bedtimeOnClick(View view)
