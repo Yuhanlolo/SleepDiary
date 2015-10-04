@@ -98,7 +98,7 @@
             android:background="#959595"
             android:layout_width="139dp"
             android:layout_height="wrap_content"
-            android:onClick="button_CIdOnClick"
+            android:onClick="button_SDdOnClick"
             />
 
         <Button
@@ -116,7 +116,7 @@
             android:background="#959595"
             android:layout_weight="4.69"
             android:checked="false"
-            android:onClick="button_CIdOnClick" />
+            android:onClick="button_SDdOnClick" />
 
     </RadioGroup>
 
@@ -134,7 +134,7 @@
     <Spinner
         android:layout_width="160dp"
         android:layout_height="wrap_content"
-        android:id="@+id/tea_spinner"
+        android:id="@+id/wine_spinner"
         android:entries="@array/number"
         android:layout_row="1"
         android:layout_column="2"

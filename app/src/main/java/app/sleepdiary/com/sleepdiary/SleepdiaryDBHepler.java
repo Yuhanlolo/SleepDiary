@@ -14,14 +14,14 @@ public class SleepdiaryDBHepler extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "Contact.db";
     private static final String TABLE_NAME = "Sleepdiary";
     private static final String COLUMN_coffee = "no_coffee";
-    private static final String COLUMN_tea = "no_tea";
+    private static final String COLUMN_wine = "no_wine";
     private static final String COLUMN_smoke = "no_smoke";
     private static final String COLUMN_naptime = "no_naptime";
     private static final String COLUMN_sleepdurationday = "sleepdurationday";
 
 
     SQLiteDatabase db;
-    private static final String TABLE_CREATE = "Create Table Contacts (no_coffee integer not null, no_tea integer not null, no_smoke integer not null, no_naptime integer not null, sleepdurationday text not null);";
+    private static final String TABLE_CREATE = "Create Table Contacts (no_coffee integer not null, no_wine integer not null, no_smoke integer not null, no_naptime integer not null, sleepdurationday text not null);";
 
 
     public SleepdiaryDBHepler (Context context)
@@ -40,7 +40,7 @@ public class SleepdiaryDBHepler extends SQLiteOpenHelper {
         db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COLUMN_coffee, s.getNo_coffee());
-        values.put(COLUMN_tea, s.getNo_tea());
+        values.put(COLUMN_wine, s.getNo_wine());
         values.put(COLUMN_smoke, s.getNo_smoke());
         values.put(COLUMN_naptime,s.getNo_naptime());
         values.put(COLUMN_sleepdurationday, s.getSleepdurationday());
