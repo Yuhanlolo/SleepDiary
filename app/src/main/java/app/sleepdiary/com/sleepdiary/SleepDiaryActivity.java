@@ -101,7 +101,7 @@ public class SleepDiaryActivity extends ActionBarActivity implements AdapterView
             EditText pill = (EditText)findViewById(R.id.pillname);
             pillname = pill.getText().toString();
 
-            if(no_coffee.startsWith("-")||no_wine.startsWith("-")||no_smoke.startsWith("-")||no_naptime.startsWith("-")||pillname.isEmpty()||pilltime.isEmpty()||sleepduration.isEmpty())
+            if(no_coffee.isEmpty()||no_wine.isEmpty()||no_smoke.isEmpty()||no_naptime.isEmpty()||pillname.isEmpty()||pilltime.isEmpty()||sleepduration.isEmpty())
             {
                 //popup msg
                 Toast errormsg = Toast.makeText(SleepDiaryActivity.this,"Please finish all the questions!", Toast.LENGTH_SHORT);

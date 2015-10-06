@@ -38,11 +38,17 @@
         <activity
             android:name=".SleepDiaryActivity">
         </activity>
+
         <activity
             android:name=".SleepDiaryActivity2">
         </activity>
+
         <activity
             android:name=".TimePickerActivity">
+        </activity>
+
+        <activity
+            android:name=".SleepDiaryActivity3">
         </activity>
 
 
