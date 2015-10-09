@@ -37,13 +37,13 @@
             android:layout_column="19"
             android:layout_gravity="right"
             android:onClick="bedtimeOnClick"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="10dp"
             android:layout_marginRight="15dp" />
 
         <ImageView
               android:minHeight="200dp"
               android:minWidth="500dp"
-              android:layout_width="400dp"
+              android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:id="@+id/brain_test"
               android:src="@drawable/brain_test"
@@ -51,12 +51,13 @@
               android:layout_centerHorizontal="true"
               android:clickable="true"
               android:onClick="bedtimeOnClick"
-            android:layout_marginLeft="200dp" />
+            android:layout_gravity="left"
+            android:layout_marginLeft="150dp" />
 
         <ImageView
             android:minHeight="200dp"
             android:minWidth="500dp"
-            android:layout_width="400dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/bedtime"
             android:src="@drawable/bedtime"
@@ -64,12 +65,12 @@
             android:layout_centerHorizontal="true"
             android:clickable="true"
             android:onClick="bedtimeOnClick"
-            android:layout_marginLeft="200dp" />
+            android:layout_marginLeft="150dp" />
 
         <ImageView
             android:minHeight="200dp"
             android:minWidth="500dp"
-            android:layout_width="400dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/movesleep"
             android:src="@drawable/movesleep"
@@ -77,12 +78,12 @@
             android:layout_centerHorizontal="true"
             android:clickable="true"
             android:onClick="bedtimeOnClick"
-            android:layout_marginLeft="200dp" />
+            android:layout_marginLeft="150dp" />
 
         <ImageView
             android:minHeight="200dp"
             android:minWidth="500dp"
-            android:layout_width="400dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/scopa"
             android:src="@drawable/scopa"
@@ -90,7 +91,7 @@
             android:layout_centerHorizontal="true"
             android:clickable="true"
             android:onClick="bedtimeOnClick"
-            android:layout_marginLeft="200dp" />
+            android:layout_marginLeft="150dp" />
 
     </LinearLayout>
 

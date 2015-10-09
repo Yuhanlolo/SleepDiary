@@ -6,14 +6,18 @@ import android.support.v7.app.ActionBarActivity;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.Spinner;
+
 import android.view.View;
 import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.SeekBar;
+import android.widget.SeekBar.OnSeekBarChangeListener;
+import android.widget.TextView;
 import android.widget.EditText;
 import android.widget.Toast;
 import android.widget.ArrayAdapter;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
-import android.widget.TextView;
+
 import android.widget.TimePicker;
 
 import java.util.Calendar;
@@ -22,20 +26,29 @@ import java.util.Timer;
 /**
  * Created by Yuhan on 9/13/15.
  */
-public class SleepDiaryActivity extends ActionBarActivity implements AdapterView.OnItemSelectedListener{
+public class SleepDiaryActivity extends ActionBarActivity implements SeekBar.OnSeekBarChangeListener{
 
 
-    String no_coffee = "";
-    String no_wine = "";
-    String no_smoke = "";
-    String no_naptime = "";
+//    String no_coffee = "";
+//    String no_wine = "";
+//    String no_smoke = "";
+//    String no_nap = "";
+    int no_coffee = -1;
+    int no_wine = -1;
+    int no_smoke = -1;
+    int no_nap = -1;
     String sleepduration = "";
     String pilltime = "";
     String pillname = "";
-    Spinner coffee, wine, smoke, naptime;
+   // Spinner coffee, wine, smoke, naptime;
+    SeekBar coffee,wine,smoke,nap;
     //private TextView displayTime;
     private Button timeperiod;
     private Button pickTime;
+    private TextView t_coffe;
+    private TextView t_wine;
+    private TextView t_smoke;
+    private TextView t_nap;
     private int pHour;
     private int pMinute;
     /** This integer will uniquely define the dialog to be used for displaying time picker.*/
@@ -48,21 +61,25 @@ public class SleepDiaryActivity extends ActionBarActivity implements AdapterView
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sleepdiary);
 
-       coffee = (Spinner)findViewById(R.id.coffee_spinner);
-        //int no_coffee = 0;
+        coffee = (SeekBar)findViewById(R.id.s_coffee);
+        wine = ( SeekBar)findViewById(R.id.s_wine);
+        smoke = (SeekBar)findViewById(R.id.s_smoke);
+        nap = ( SeekBar)findViewById(R.id.s_nap);
 
-        wine = (Spinner)findViewById(R.id.wine_spinner);
-        // int no_tea = 0;
+        t_coffe = (TextView)findViewById(R.id.d_coffee);
+        t_wine = (TextView)findViewById(R.id.d_wine);
+        t_smoke = (TextView)findViewById(R.id.d_smoke);
+        t_nap = (TextView)findViewById(R.id.d_nap);
 
-        smoke = (Spinner)findViewById(R.id.smoke_spinner);
-        //int no_smoke = 0;
-        naptime = (Spinner)findViewById(R.id.naptime_spinner);
-        //int no_naptime = 0;
+//        coffee.setOnItemSelectedListener(this);
+//        wine.setOnItemSelectedListener(this);
+//        smoke.setOnItemSelectedListener(this);
+//        naptime.setOnItemSelectedListener(this);
 
-        coffee.setOnItemSelectedListener(this);
-        wine.setOnItemSelectedListener(this);
-        smoke.setOnItemSelectedListener(this);
-        naptime.setOnItemSelectedListener(this);
+        coffee.setOnSeekBarChangeListener(this);
+        wine.setOnSeekBarChangeListener(this);
+        smoke.setOnSeekBarChangeListener(this);
+        nap.setOnSeekBarChangeListener(this);
 
         /** Listener for click event of the button */
         //displayTime = (TextView) findViewById(R.id.timeDisplay);
@@ -101,7 +118,7 @@ public class SleepDiaryActivity extends ActionBarActivity implements AdapterView
             EditText pill = (EditText)findViewById(R.id.pillname);
             pillname = pill.getText().toString();
 
-            if(no_coffee.isEmpty()||no_wine.isEmpty()||no_smoke.isEmpty()||no_naptime.isEmpty()||pillname.isEmpty()||pilltime.isEmpty()||sleepduration.isEmpty())
+            if(no_coffee==-1||no_wine==-1||no_smoke==-1||no_nap==-1||pillname.isEmpty()||pilltime.isEmpty()||sleepduration.isEmpty())
             {
                 //popup msg
                 Toast errormsg = Toast.makeText(SleepDiaryActivity.this,"Please finish all the questions!", Toast.LENGTH_SHORT);
@@ -118,7 +135,7 @@ public class SleepDiaryActivity extends ActionBarActivity implements AdapterView
 //                s.setNo_wine(no_wine);
 //
 //                s.setNo_smoke(no_smoke);
-//                s.setNo_naptime(no_naptime)
+//                s.setNo_naptime(no_nap)
  //               s.setSleepdurationday(sleepduration);
 //                s.setPilltime(pilltime);
 //                s.setPillname(pillname);
@@ -138,45 +155,80 @@ public class SleepDiaryActivity extends ActionBarActivity implements AdapterView
             SleepDiaryActivity.this.startActivity(i);
         }
 
-//        if(view.getId() == R.id.pilltime)
+
+    }
+
+    @Override
+//    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+//
+//        String[] numbers = getResources().getStringArray(R.array.number);
+//        if(parent == findViewById(R.id.coffee_spinner))
 //        {
-//            Intent i = new Intent(SleepDiaryActivity.this,TimePickerActivity.class);
-//            SleepDiaryActivity.this.startActivity(i);
+//            no_coffee = numbers[pos];
+//            //Toast.makeText(SleepDiaryActivity.this, "you choose coffee"+no_coffee, Toast.LENGTH_LONG).show();
 //        }
+//        else if(parent == findViewById(R.id.wine_spinner))
+//        {
+//            no_wine = numbers[pos];
+//
+//        }
+//        else if(parent == findViewById(R.id.smoke_spinner))
+//        {
+//            no_smoke = numbers[pos];
+//
+//        }
+//        else if(parent == findViewById(R.id.naptime_spinner))
+//        {
+//            no_naptime = numbers[pos];
+//
+//        }
+//
+//
+//    }
+//
+//    @Override
+//    public void onNothingSelected(AdapterView<?> parent) {
+//
+//    }
+
+
+
+    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+
+        if(seekBar == coffee)
+        {
+            no_coffee =progress;
+            t_coffe.setText(no_coffee + " glass(es)");
+        }
+
+        else if(seekBar == wine)
+        {
+            no_wine = progress;
+            t_wine.setText(no_wine + " glass(es)");
+        }
+        else if(seekBar == smoke)
+        {
+            no_smoke = progress;
+            t_smoke.setText(no_smoke + " pipe(s)");
+        }
+        else if(seekBar == nap)
+        {
+            no_nap = progress;
+            t_nap.setText(no_nap + " time(s)");
+        }
+
     }
 
     @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-
-        String[] numbers = getResources().getStringArray(R.array.number);
-        if(parent == findViewById(R.id.coffee_spinner))
-        {
-            no_coffee = numbers[pos];
-            //Toast.makeText(SleepDiaryActivity.this, "you choose coffee"+no_coffee, Toast.LENGTH_LONG).show();
-        }
-        else if(parent == findViewById(R.id.wine_spinner))
-        {
-            no_wine = numbers[pos];
-            //Toast.makeText(SleepDiaryActivity.this, "you choose tea"+no_wine, Toast.LENGTH_LONG).show();
-        }
-        else if(parent == findViewById(R.id.smoke_spinner))
-        {
-            no_smoke = numbers[pos];
-            //Toast.makeText(SleepDiaryActivity.this, "you choose smoke"+no_smoke, Toast.LENGTH_LONG).show();
-        }
-        else if(parent == findViewById(R.id.naptime_spinner))
-        {
-            no_naptime = numbers[pos];
-            //Toast.makeText(SleepDiaryActivity.this, "you choose naptime"+no_naptime, Toast.LENGTH_LONG).show();
-        }
-
+    public void onStartTrackingTouch(SeekBar seekBar) {
 
     }
 
     @Override
-    public void onNothingSelected(AdapterView<?> parent) {
+    public void onStopTrackingTouch(SeekBar seekBar) {
 
     }
+
 
 
     private TimePickerDialog.OnTimeSetListener mTimeSetListener =
@@ -263,5 +315,7 @@ public class SleepDiaryActivity extends ActionBarActivity implements AdapterView
         }
         return null;
     }
+
+
 }
 

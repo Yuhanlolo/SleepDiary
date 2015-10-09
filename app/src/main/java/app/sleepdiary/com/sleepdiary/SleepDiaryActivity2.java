@@ -20,16 +20,19 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.EditText;
 import android.widget.TimePicker;
 import android.widget.Toast;
-import android.widget.ArrayAdapter;
-import android.widget.AdapterView;
+import android.widget.SeekBar;
+import android.widget.SeekBar.OnSeekBarChangeListener;
+import android.widget.TextView;
 
-public class SleepDiaryActivity2 extends ActionBarActivity implements AdapterView.OnItemSelectedListener {
+public class SleepDiaryActivity2 extends ActionBarActivity implements SeekBar.OnSeekBarChangeListener{
 
     private Button Bbedtime;
     private Button Basleeptime;
     private Button Bwoketime;
     private Button Bouttime;
-    Spinner Snowake;
+    //Spinner Snowake;
+    SeekBar Snowake;
+    private TextView waket;
     private int pHour;
     private int pMinute;
 
@@ -37,7 +40,7 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements AdapterVie
     String asleeptime = "";
     String woketime = "";
     String outtime = "";
-    String no_wake = "";
+    int no_wake = -1;
     int facesleep = 0;
     int facewake =0;
 
@@ -86,8 +89,10 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements AdapterVie
             }
         });
 
-        Snowake = (Spinner)findViewById(R.id.wakeno);
-        Snowake.setOnItemSelectedListener(this);
+        Snowake = (SeekBar)findViewById(R.id.wakeno);
+        Snowake.setOnSeekBarChangeListener(this);
+
+        waket = (TextView)findViewById(R.id.d_wake);
 
     }
 
@@ -98,7 +103,7 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements AdapterVie
 
 
 
-            if(bedtime.isEmpty()||asleeptime.isEmpty()||woketime.isEmpty()||outtime.isEmpty()||no_wake.isEmpty())
+            if(bedtime.isEmpty()||asleeptime.isEmpty()||woketime.isEmpty()||outtime.isEmpty()||no_wake == -1)
             {
                 //popup msg
                 Toast errormsg = Toast.makeText(SleepDiaryActivity2.this,"Please finish all the questions!", Toast.LENGTH_SHORT);
@@ -139,23 +144,6 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements AdapterVie
     }
 
 
-
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-
-        String[] numbers = getResources().getStringArray(R.array.number);
-        if(parent == findViewById(R.id.wakeno))
-        {
-            no_wake = numbers[pos];
-            //Toast.makeText(SleepDiaryActivity.this, "you choose coffee"+no_coffee, Toast.LENGTH_LONG).show();
-        }
-
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-
-    }
 
     private TimePickerDialog.OnTimeSetListener bedTimeSetListener =
             new TimePickerDialog.OnTimeSetListener() {
@@ -278,6 +266,26 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements AdapterVie
                         ofbedTimeSetListener, pHour, pMinute, false);
         }
         return null;
+    }
+
+    @Override
+    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+        if(seekBar == Snowake)
+        {
+            no_wake = progress;
+            waket.setText(no_wake + " time(s)");
+
+        }
+    }
+
+    @Override
+    public void onStartTrackingTouch(SeekBar seekBar) {
+
+    }
+
+    @Override
+    public void onStopTrackingTouch(SeekBar seekBar) {
+
     }
 }
 
