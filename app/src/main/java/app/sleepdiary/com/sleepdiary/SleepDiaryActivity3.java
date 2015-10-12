@@ -2,13 +2,12 @@ package app.sleepdiary.com.sleepdiary;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.app.Activity;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Toast;
 import android.widget.RadioGroup;
 import android.widget.RadioButton;
-
+import android.support.v7.app.ActionBarActivity;
 /**
  * Created by ypl5142 on 10/5/15.
  */

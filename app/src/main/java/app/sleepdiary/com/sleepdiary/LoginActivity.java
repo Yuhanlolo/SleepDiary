@@ -2,11 +2,11 @@ package app.sleepdiary.com.sleepdiary;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.app.Activity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
-
+import android.support.v7.app.ActionBarActivity;
 
 /**
  * Created by Yuhan on 9/9/15.

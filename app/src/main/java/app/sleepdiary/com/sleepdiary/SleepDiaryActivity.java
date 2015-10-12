@@ -2,22 +2,16 @@ package app.sleepdiary.com.sleepdiary;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
-import android.widget.AdapterView;
+import android.app.Activity;
 import android.widget.Button;
-import android.widget.Spinner;
-
 import android.view.View;
-import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.SeekBar;
-import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 import android.widget.EditText;
 import android.widget.Toast;
-import android.widget.ArrayAdapter;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
-
+import android.support.v7.app.ActionBarActivity;
 import android.widget.TimePicker;
 
 import java.util.Calendar;
@@ -28,11 +22,6 @@ import java.util.Timer;
  */
 public class SleepDiaryActivity extends ActionBarActivity implements SeekBar.OnSeekBarChangeListener{
 
-
-//    String no_coffee = "";
-//    String no_wine = "";
-//    String no_smoke = "";
-//    String no_nap = "";
     int no_coffee = -1;
     int no_wine = -1;
     int no_smoke = -1;

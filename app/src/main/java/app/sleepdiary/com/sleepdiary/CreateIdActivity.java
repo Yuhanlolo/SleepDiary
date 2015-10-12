@@ -4,11 +4,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
-import android.support.v7.app.ActionBarActivity;
+import android.app.Activity;
 import android.widget.Toast;
+import android.support.v7.app.ActionBarActivity;
+
 /**
  * Created by Yuhan on 8/31/15.
  */
+
 public class CreateIdActivity extends ActionBarActivity {
 
     dataBaseHelper helper = new dataBaseHelper(this);

@@ -1,31 +1,26 @@
 package app.sleepdiary.com.sleepdiary;
 
-import android.app.Dialog;
-import android.app.TimePickerDialog;
-import android.media.Image;
-import android.support.v7.app.ActionBarActivity;
-import android.widget.AdapterView;
 
 /**
  * Created by ypl5142 on 10/4/15.
  */
+import android.app.Dialog;
+import android.app.TimePickerDialog;
 
+import android.support.v7.app.ActionBarActivity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
-import android.widget.AdapterView;
+import android.app.Activity;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.RadioGroup;
-import android.widget.Spinner;
 import android.view.View;
-import android.widget.AdapterView.OnItemSelectedListener;
-import android.widget.EditText;
 import android.widget.TimePicker;
 import android.widget.Toast;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
+
+
 
 public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarChangeListener{
 
@@ -260,7 +255,7 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
 
             }
 
-            else if(view.getId() == R.id.cancel_s2)
+            else
             {
                 Intent i = new Intent(SleepDiaryActivity2.this,SleepDiaryActivity3.class);
                 SleepDiaryActivity2.this.startActivity(i);
@@ -268,7 +263,7 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
             }
         }
 
-        if(view.getId() == R.id.cancel_s2)
+        else if(view.getId() == R.id.cancel_s2)
         {
             Intent i = new Intent(SleepDiaryActivity2.this,SleepActivity.class);
             SleepDiaryActivity2.this.startActivity(i);

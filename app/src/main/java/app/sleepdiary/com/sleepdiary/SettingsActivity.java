@@ -1,9 +1,9 @@
 package app.sleepdiary.com.sleepdiary;
 
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.app.Activity;
 import android.widget.TextView;
-
+import android.support.v7.app.ActionBarActivity;
 /**
  * Created by Yuhan on 9/13/15.
  */

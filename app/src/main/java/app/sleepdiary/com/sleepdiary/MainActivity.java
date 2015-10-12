@@ -1,13 +1,13 @@
 package app.sleepdiary.com.sleepdiary;
 
-import android.support.v7.app.ActionBarActivity;
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
-
+import android.support.v7.app.ActionBarActivity;
 
 public class MainActivity extends ActionBarActivity {
 
@@ -17,14 +17,7 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
     }
 
-//    class buttoncreateIDListener implements OnClickListener{
-//        @Override
-//        public void onClick(View view) {
-//            Intent intent = new Intent();
-//            intent.setClass(MainActivity.this, CreateIdActivity.class);
-//            MainActivity.this.startActivity(intent);
-//        }
-//    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
