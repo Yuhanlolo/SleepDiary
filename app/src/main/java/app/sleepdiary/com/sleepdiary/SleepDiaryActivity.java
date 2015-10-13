@@ -3,6 +3,8 @@ package app.sleepdiary.com.sleepdiary;
 import android.content.Intent;
 import android.os.Bundle;
 import android.app.Activity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Button;
 import android.view.View;
 import android.widget.SeekBar;
@@ -40,6 +42,7 @@ public class SleepDiaryActivity extends ActionBarActivity implements SeekBar.OnS
     private TextView t_nap;
     private int pHour;
     private int pMinute;
+    EditText pill;
     /** This integer will uniquely define the dialog to be used for displaying time picker.*/
     static final int TIME_DIALOG_ID = 0;
     static final int TIME_PERIOD = 1;
@@ -60,15 +63,26 @@ public class SleepDiaryActivity extends ActionBarActivity implements SeekBar.OnS
         t_smoke = (TextView)findViewById(R.id.d_smoke);
         t_nap = (TextView)findViewById(R.id.d_nap);
 
-//        coffee.setOnItemSelectedListener(this);
-//        wine.setOnItemSelectedListener(this);
-//        smoke.setOnItemSelectedListener(this);
-//        naptime.setOnItemSelectedListener(this);
 
         coffee.setOnSeekBarChangeListener(this);
         wine.setOnSeekBarChangeListener(this);
         smoke.setOnSeekBarChangeListener(this);
         nap.setOnSeekBarChangeListener(this);
+
+//        if(no_coffee != -1)
+//        {
+//            wine.setActivated(true);
+//        }
+//
+//        if(no_wine != -1)
+//        {
+//            smoke.setActivated(true);
+//        }
+//
+//        if(no_smoke != -1)
+//        {
+//            nap.setActivated(true);
+//        }
 
         /** Listener for click event of the button */
         //displayTime = (TextView) findViewById(R.id.timeDisplay);
@@ -84,9 +98,15 @@ public class SleepDiaryActivity extends ActionBarActivity implements SeekBar.OnS
         timeperiod.setText("Time Period");
         timeperiod.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-               showDialog(TIME_PERIOD);
+                showDialog(TIME_PERIOD);
             }
         });
+
+        pill = (EditText)findViewById(R.id.pillname);
+
+//            pillname = pill.getText().toString();
+
+
 
         /** Get the current time */
 //        final Calendar cal = Calendar.getInstance();
@@ -99,13 +119,38 @@ public class SleepDiaryActivity extends ActionBarActivity implements SeekBar.OnS
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+//            return true;
+            Intent i = new Intent(SleepDiaryActivity.this,SettingsActivity.class);
+            SleepDiaryActivity.this.startActivity(i);
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+
     public void button_SDdOnClick(View view)
     {
         if(view.getId() == R.id.save_s)
         {
 
-            EditText pill = (EditText)findViewById(R.id.pillname);
-            pillname = pill.getText().toString();
+//            EditText pill = (EditText)findViewById(R.id.pillname);
+             pillname = pill.getText().toString();
 
             if(no_coffee==-1||no_wine==-1||no_smoke==-1||no_nap==-1||pillname.isEmpty()||pilltime.isEmpty()||sleepduration.isEmpty())
             {
@@ -146,39 +191,6 @@ public class SleepDiaryActivity extends ActionBarActivity implements SeekBar.OnS
 
 
     }
-
-    @Override
-//    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-//
-//        String[] numbers = getResources().getStringArray(R.array.number);
-//        if(parent == findViewById(R.id.coffee_spinner))
-//        {
-//            no_coffee = numbers[pos];
-//            //Toast.makeText(SleepDiaryActivity.this, "you choose coffee"+no_coffee, Toast.LENGTH_LONG).show();
-//        }
-//        else if(parent == findViewById(R.id.wine_spinner))
-//        {
-//            no_wine = numbers[pos];
-//
-//        }
-//        else if(parent == findViewById(R.id.smoke_spinner))
-//        {
-//            no_smoke = numbers[pos];
-//
-//        }
-//        else if(parent == findViewById(R.id.naptime_spinner))
-//        {
-//            no_naptime = numbers[pos];
-//
-//        }
-//
-//
-//    }
-//
-//    @Override
-//    public void onNothingSelected(AdapterView<?> parent) {
-//
-//    }
 
 
 
@@ -226,10 +238,8 @@ public class SleepDiaryActivity extends ActionBarActivity implements SeekBar.OnS
                     pHour = hourOfDay;
                     pMinute = minute;
 
-                    //if (getParent().equals(findViewById(R.id.pilltime)))
-
                     updateDisplay();
-                    displayToast();
+                    //displayToast();
 
                 }
 
@@ -244,7 +254,7 @@ public class SleepDiaryActivity extends ActionBarActivity implements SeekBar.OnS
                     //if (getParent().equals(findViewById(R.id.pilltime)))
 
                     updateDisplay2();
-                    displayToast2();
+                   // displayToast2();
 
                 }
 
@@ -252,21 +262,47 @@ public class SleepDiaryActivity extends ActionBarActivity implements SeekBar.OnS
 
     /** Updates the time in the TextView */
     private void updateDisplay() {
-        pickTime.setText(
-                new StringBuilder()
-                        .append(pad(pHour)).append(":")
-                        .append(pad(pMinute)));
-
         pilltime = pad(pHour) + ":" + pad(pMinute);
+        if(pHour>12)
+        {
+            pHour = pHour - 12;
+            pickTime.setText(
+                    new StringBuilder()
+                            .append(pad(pHour)).append(":")
+                            .append(pad(pMinute)).append(" pm"));
+        }
+
+        else
+        {
+            pickTime.setText(
+                    new StringBuilder()
+                            .append(pad(pHour)).append(":")
+                            .append(pad(pMinute)).append(" am"));
+        }
 
 
     }
+
     private void updateDisplay2() {
+
+            sleepduration = pad(pHour) + ":" + pad(pMinute);
+
+        if(pHour>12)
+        {
+            pHour = pHour - 12;
             timeperiod.setText(
                     new StringBuilder()
                             .append(pad(pHour)).append(":")
-                            .append(pad(pMinute)));
-            sleepduration = pad(pHour) + ":" + pad(pMinute);
+                            .append(pad(pMinute)).append(" pm"));
+        }
+
+        else
+        {
+            timeperiod.setText(
+                    new StringBuilder()
+                            .append(pad(pHour)).append(":")
+                            .append(pad(pMinute)).append(" am"));
+        }
     }
 
     /** Displays a notification when the time is updated */

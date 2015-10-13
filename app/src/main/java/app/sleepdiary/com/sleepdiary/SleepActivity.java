@@ -8,6 +8,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.app.Activity;
 import android.support.v7.app.ActionBarActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -22,15 +24,34 @@ public class SleepActivity extends ActionBarActivity{
         //tv.setText("Welcome"+userid);
     }
 
-    public void bedtimeOnClick(View view)
-    {
-        if(view.getId() == R.id.settings)
-        {
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+//            return true;
             Intent i = new Intent(SleepActivity.this,SettingsActivity.class);
             SleepActivity.this.startActivity(i);
         }
 
-        else if(view.getId() == R.id.bedtime)
+        return super.onOptionsItemSelected(item);
+    }
+
+
+    public void bedtimeOnClick(View view)
+    {
+       if(view.getId() == R.id.bedtime)
         {
             Intent i = new Intent(SleepActivity.this,SleepDiaryActivity.class);
             SleepActivity.this.startActivity(i);

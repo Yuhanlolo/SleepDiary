@@ -9,12 +9,18 @@ import android.view.View;
 import android.widget.Button;
 import android.support.v7.app.ActionBarActivity;
 
+import com.parse.Parse;
+import com.parse.ParseObject;
+import com.parse.ParseAnalytics;
+
 public class MainActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
     }
 
 
@@ -35,7 +41,9 @@ public class MainActivity extends ActionBarActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            return true;
+//            return true;
+            Intent i = new Intent(MainActivity.this,SettingsActivity.class);
+            MainActivity.this.startActivity(i);
         }
 
         return super.onOptionsItemSelected(item);

@@ -13,6 +13,10 @@
     android:icon="@drawable/ic_launcher"
     >
 
+    <!--<include-->
+        <!--android:id="@+id/tool_bar"-->
+        <!--layout="@layout/tool_bar"-->
+        <!--></include>-->
 
 
     <TextView
