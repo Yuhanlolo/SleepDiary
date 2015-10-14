@@ -4,6 +4,7 @@ package app.sleepdiary.com.sleepdiary;
 /**
  * Created by ypl5142 on 10/4/15.
  */
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 
@@ -21,8 +22,8 @@ import android.widget.Toast;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
-
-
+import java.util.Calendar;
+import android.view.Menu;
 
 public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarChangeListener{
 
@@ -35,7 +36,10 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
     private TextView waket;
     private int pHour;
     private int pMinute;
-
+    TextView lastnight;
+    int month;
+    int date;
+    int year;
 //    private RadioGroup SQ;
 //    private RadioGroup AWQ;
 
@@ -68,7 +72,7 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
     String asleeptime = "";
     String woketime = "";
     String outtime = "";
-    int no_wake = -1;
+    int no_wake = 0;
 
 
     /** This integer will uniquely define the dialog to be used for displaying time picker.*/
@@ -92,7 +96,9 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
         });
 
         Basleeptime = (Button) findViewById(R.id.asleept);
-        Basleeptime.setText("Pick Time");
+        Basleeptime.setText("Time Period");
+        Basleeptime.setEnabled(false);
+        Basleeptime.setTextColor(0xFF808080);
         Basleeptime.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 showDialog(TIME_DIALOG_1);
@@ -101,6 +107,8 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
 
         Bwoketime = (Button) findViewById(R.id.woket);
         Bwoketime.setText("Pick Time");
+        Bwoketime.setEnabled(false);
+        Bwoketime.setTextColor(0xFF808080);
         Bwoketime.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 showDialog(TIME_DIALOG_2);
@@ -109,6 +117,8 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
 
         Bouttime = (Button) findViewById(R.id.ofbed);
         Bouttime.setText("Pick Time");
+        Bouttime.setEnabled(false);
+        Bouttime.setTextColor(0xFF808080);
         Bouttime.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 showDialog(TIME_DIALOG_3);
@@ -143,6 +153,30 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
         AWQ4 = (ImageView)findViewById(R.id.AWQquality4);
         AWQ5_g = (ImageView)findViewById(R.id.AWQquality5_gray);
         AWQ5 = (ImageView)findViewById(R.id.AWQquality5);
+
+        final Calendar cal = Calendar.getInstance();
+        month = cal.get(Calendar.MONTH) + 1;
+        date = cal.get(Calendar.DATE);
+        year = cal.get(Calendar.YEAR);
+
+        if (date == 1){
+            month = month -1;
+            if(month == 1||month == 3||month == 5||month == 7||month == 8||month == 10||month == 12)
+            {
+                date = 31;
+            }
+            else
+            {
+                date = 30;
+            }
+        }
+        else
+        {
+            date = date -1;
+        }
+
+        lastnight = (TextView)findViewById(R.id.lastnight);
+        lastnight.setText("Sleep Diary for Yesterday (" + String.valueOf(month)+"/"+String.valueOf(date)+"/"+String.valueOf(year)+")");
 
     }
 
@@ -269,10 +303,7 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
 
         else if(view.getId() == R.id.save_s2)
         {
-
-
-
-            if(bedtime.isEmpty()||asleeptime.isEmpty()||woketime.isEmpty()||outtime.isEmpty()||no_wake == -1||sq==0||awq==0)
+            if(bedtime.isEmpty()||asleeptime.isEmpty()||woketime.isEmpty()||outtime.isEmpty()||sq==0||awq==0)
             {
                 //popup msg
                 Toast errormsg = Toast.makeText(SleepDiaryActivity2.this,"Please finish all the questions!", Toast.LENGTH_SHORT);
@@ -304,12 +335,7 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
                 public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                     pHour = hourOfDay;
                     pMinute = minute;
-
-                    //if (getParent().equals(findViewById(R.id.pilltime)))
-
                     updateDisplay0();
-
-
                 }
 
             };
@@ -319,12 +345,8 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
                 public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                     pHour = hourOfDay;
                     pMinute = minute;
-
-                    //if (getParent().equals(findViewById(R.id.pilltime)))
-
+                    if (pHour == 0){pHour = 12;}
                     updateDisplay1();
-
-
                 }
 
             };
@@ -334,11 +356,7 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
                 public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                     pHour = hourOfDay;
                     pMinute = minute;
-
-                    //if (getParent().equals(findViewById(R.id.pilltime)))
-
                     updateDisplay2();
-
 
                 }
 
@@ -349,12 +367,7 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
                 public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                     pHour = hourOfDay;
                     pMinute = minute;
-
-                    //if (getParent().equals(findViewById(R.id.pilltime)))
-
                     updateDisplay3();
-
-
                 }
 
             };
@@ -373,6 +386,7 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
                             .append(pad(pMinute)).append(" pm"));
         }
 
+
         else
         {
             Bbedtime.setText(
@@ -381,49 +395,51 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
                             .append(pad(pMinute)).append(" am"));
         }
 
+        Basleeptime.setEnabled(true);
+        Basleeptime.setTextColor(0xFF000000);
+
 
     }
     private void updateDisplay1() {
-        asleeptime = pad(pHour) + ":" + pad(pMinute);
-
-        if(pHour>12)
-        {
-            pHour = pHour - 12;
-            Basleeptime.setText(
-                    new StringBuilder()
-                            .append(pad(pHour)).append(":")
-                            .append(pad(pMinute)).append(" pm"));
-        }
-
-        else
-        {
-            Basleeptime.setText(
-                    new StringBuilder()
-                            .append(pad(pHour)).append(":")
-                            .append(pad(pMinute)).append(" am"));
-        }
+        asleeptime = String.valueOf(pHour) + ":" + pad(pMinute);
+        Basleeptime.setTextSize(20);
+        Basleeptime.setText(
+                new StringBuilder()
+                        .append(String.valueOf(pHour)).append(" hrs ")
+                        .append(pad(pMinute)).append(" mins"));
+        Bwoketime.setEnabled(true);
+        Bwoketime.setTextColor(0xFF000000);
     }
 
     private void updateDisplay2() {
 
-        woketime = pad(pHour) + ":" + pad(pMinute);
+//        int temp_bedtime = Integer.parseInt(bedtime);
+//        if(pHour+(24-temp_bedtime)>12)
+//        {
+//            AlertDialog dlg = new AlertDialog.Builder(this).create();
+//            dlg.setTitle("Input Alert");
+//            dlg.setMessage("You slept over 12 hours!");
+//            Toast pass = Toast.makeText(SleepDiaryActivity2.this,"You slept over 12 hours!", Toast.LENGTH_SHORT);
+//            pass.show();
+//        }
 
-        if(pHour>12)
-        {
-            pHour = pHour - 12;
-            Bwoketime.setText(
-                    new StringBuilder()
-                            .append(pad(pHour)).append(":")
-                            .append(pad(pMinute)).append(" pm"));
-        }
+            woketime = pad(pHour) + ":" + pad(pMinute);
 
-        else
-        {
-            Bwoketime.setText(
-                    new StringBuilder()
-                            .append(pad(pHour)).append(":")
-                            .append(pad(pMinute)).append(" am"));
-        }
+            if (pHour > 12) {
+                pHour = pHour - 12;
+                Bwoketime.setText(
+                        new StringBuilder()
+                                .append(pad(pHour)).append(":")
+                                .append(pad(pMinute)).append(" pm"));
+            } else {
+                Bwoketime.setText(
+                        new StringBuilder()
+                                .append(pad(pHour)).append(":")
+                                .append(pad(pMinute)).append(" am"));
+            }
+
+            Bouttime.setEnabled(true);
+            Bouttime.setTextColor(0xFF000000);
 
     }
     private void updateDisplay3() {
@@ -462,7 +478,7 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
                         bedTimeSetListener, pHour, pMinute, false);
             case TIME_DIALOG_1:
                 return new TimePickerDialog(this,
-                        asleepTimeSetListener, pHour, pMinute, false);
+                        asleepTimeSetListener, pHour, pMinute, true);
             case TIME_DIALOG_2:
                 return new TimePickerDialog(this,
                         wokeTimeSetListener, pHour, pMinute, false);
@@ -493,115 +509,6 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
 
     }
 
-
-//    public void onCheckedChanged(RadioGroup group, int checkedId) {
-//        if(group == SQ)
-//        {
-//            if(checkedId == sq1)
-//            {
-//                sq =1;
-//                SQ1.setVisibility(View.VISIBLE);
-//                SQ2.setVisibility(View.INVISIBLE);
-//                SQ3.setVisibility(View.INVISIBLE);
-//                SQ4.setVisibility(View.INVISIBLE);
-//                SQ5.setVisibility(View.INVISIBLE);
-//               Toast msg = Toast.makeText(SleepDiaryActivity2.this,"1", Toast.LENGTH_SHORT);
-//               msg.show();
-//            }
-//            else if (checkedId == sq2)
-//            {
-//                sq = 2;
-//                SQ2.setVisibility(View.VISIBLE);
-//                SQ1.setVisibility(View.INVISIBLE);
-//                SQ3.setVisibility(View.INVISIBLE);
-//                SQ4.setVisibility(View.INVISIBLE);
-//                SQ5.setVisibility(View.INVISIBLE);
-//                Toast msg = Toast.makeText(SleepDiaryActivity2.this,"2", Toast.LENGTH_SHORT);
-//                msg.show();
-//            }
-//            else if (checkedId == sq3)
-//            {
-//                sq = 3;
-//                SQ3.setVisibility(View.VISIBLE);
-//                SQ2.setVisibility(View.INVISIBLE);
-//                SQ1.setVisibility(View.INVISIBLE);
-//                SQ4.setVisibility(View.INVISIBLE);
-//                SQ5.setVisibility(View.INVISIBLE);
-//                Toast msg = Toast.makeText(SleepDiaryActivity2.this,"3", Toast.LENGTH_SHORT);
-//                msg.show();
-//            }
-//            else if (checkedId == sq4)
-//            {
-//                sq = 4;
-//                SQ4.setVisibility(View.VISIBLE);
-//                SQ2.setVisibility(View.INVISIBLE);
-//                SQ3.setVisibility(View.INVISIBLE);
-//                SQ1.setVisibility(View.INVISIBLE);
-//                SQ5.setVisibility(View.INVISIBLE);
-//                Toast msg = Toast.makeText(SleepDiaryActivity2.this,"4", Toast.LENGTH_SHORT);
-//                msg.show();
-//            }
-//            else if (checkedId == sq5)
-//            {
-//                sq = 5;
-//                SQ5.setVisibility(View.VISIBLE);
-//                SQ2.setVisibility(View.INVISIBLE);
-//                SQ3.setVisibility(View.INVISIBLE);
-//                SQ4.setVisibility(View.INVISIBLE);
-//                SQ1.setVisibility(View.INVISIBLE);
-//                Toast msg = Toast.makeText(SleepDiaryActivity2.this,"5", Toast.LENGTH_SHORT);
-//                msg.show();
-//            }
-//        }
-//        if(group == AWQ)
-//        {
-//            if(checkedId == awq1)
-//            {
-//                awq = 1;
-//                AWQ1.setVisibility(View.VISIBLE);
-//                AWQ2.setVisibility(View.INVISIBLE);
-//                AWQ3.setVisibility(View.INVISIBLE);
-//                AWQ4.setVisibility(View.INVISIBLE);
-//                AWQ5.setVisibility(View.INVISIBLE);
-//            }
-//            else if(checkedId == awq2)
-//            {
-//                awq = 2;
-//                AWQ2.setVisibility(View.VISIBLE);
-//                AWQ1.setVisibility(View.INVISIBLE);
-//                AWQ3.setVisibility(View.INVISIBLE);
-//                AWQ4.setVisibility(View.INVISIBLE);
-//                AWQ5.setVisibility(View.INVISIBLE);
-//            }
-//            else if(checkedId == awq3)
-//            {
-//                awq = 3;
-//                AWQ3.setVisibility(View.VISIBLE);
-//                AWQ2.setVisibility(View.INVISIBLE);
-//                AWQ1.setVisibility(View.INVISIBLE);
-//                AWQ4.setVisibility(View.INVISIBLE);
-//                AWQ5.setVisibility(View.INVISIBLE);
-//            }
-//            else if(checkedId == awq4)
-//            {
-//                awq = 4;
-//                AWQ4.setVisibility(View.VISIBLE);
-//                AWQ2.setVisibility(View.INVISIBLE);
-//                AWQ3.setVisibility(View.INVISIBLE);
-//                AWQ1.setVisibility(View.INVISIBLE);
-//                AWQ5.setVisibility(View.INVISIBLE);
-//            }
-//            else if(checkedId == awq5)
-//            {
-//                awq = 5;
-//                AWQ5.setVisibility(View.VISIBLE);
-//                AWQ2.setVisibility(View.INVISIBLE);
-//                AWQ3.setVisibility(View.INVISIBLE);
-//                AWQ4.setVisibility(View.INVISIBLE);
-//                AWQ1.setVisibility(View.INVISIBLE);
-//            }
-//        }
-//    }
 }
 
 

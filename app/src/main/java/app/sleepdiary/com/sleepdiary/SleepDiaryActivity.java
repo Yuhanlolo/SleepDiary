@@ -3,6 +3,7 @@ package app.sleepdiary.com.sleepdiary;
 import android.content.Intent;
 import android.os.Bundle;
 import android.app.Activity;
+import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
@@ -15,19 +16,20 @@ import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.support.v7.app.ActionBarActivity;
 import android.widget.TimePicker;
-
+import android.view.inputmethod.InputMethodManager;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Timer;
-
+import java.util.*;
 /**
  * Created by Yuhan on 9/13/15.
  */
 public class SleepDiaryActivity extends ActionBarActivity implements SeekBar.OnSeekBarChangeListener{
 
-    int no_coffee = -1;
-    int no_wine = -1;
-    int no_smoke = -1;
-    int no_nap = -1;
+    int no_coffee = 0;
+    int no_wine = 0;
+    int no_smoke = 0;
+    int no_nap = 0;
     String sleepduration = "";
     String pilltime = "";
     String pillname = "";
@@ -42,7 +44,13 @@ public class SleepDiaryActivity extends ActionBarActivity implements SeekBar.OnS
     private TextView t_nap;
     private int pHour;
     private int pMinute;
+    int month;
+    int date;
+    int year;
     EditText pill;
+    TextView yesterday;
+    EditText edtView;
+    String am_pm = "";
     /** This integer will uniquely define the dialog to be used for displaying time picker.*/
     static final int TIME_DIALOG_ID = 0;
     static final int TIME_PERIOD = 1;
@@ -52,6 +60,9 @@ public class SleepDiaryActivity extends ActionBarActivity implements SeekBar.OnS
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sleepdiary);
+
+        edtView=(EditText)findViewById(R.id.pillname);
+        edtView.setInputType(InputType.TYPE_NULL);
 
         coffee = (SeekBar)findViewById(R.id.s_coffee);
         wine = ( SeekBar)findViewById(R.id.s_wine);
@@ -69,20 +80,6 @@ public class SleepDiaryActivity extends ActionBarActivity implements SeekBar.OnS
         smoke.setOnSeekBarChangeListener(this);
         nap.setOnSeekBarChangeListener(this);
 
-//        if(no_coffee != -1)
-//        {
-//            wine.setActivated(true);
-//        }
-//
-//        if(no_wine != -1)
-//        {
-//            smoke.setActivated(true);
-//        }
-//
-//        if(no_smoke != -1)
-//        {
-//            nap.setActivated(true);
-//        }
 
         /** Listener for click event of the button */
         //displayTime = (TextView) findViewById(R.id.timeDisplay);
@@ -96,28 +93,49 @@ public class SleepDiaryActivity extends ActionBarActivity implements SeekBar.OnS
 
         timeperiod = (Button) findViewById(R.id.sleepdu);
         timeperiod.setText("Time Period");
+        timeperiod.setTextColor(0xFF808080);
+        timeperiod.setEnabled(false);
         timeperiod.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 showDialog(TIME_PERIOD);
             }
         });
 
+
         pill = (EditText)findViewById(R.id.pillname);
 
-//            pillname = pill.getText().toString();
-
-
-
+        yesterday = (TextView)findViewById(R.id.yesterday);
         /** Get the current time */
-//        final Calendar cal = Calendar.getInstance();
-//        pHour = cal.get(Calendar.HOUR_OF_DAY);
-//        pMinute = cal.get(Calendar.MINUTE);
+        final Calendar cal = Calendar.getInstance();
+        month = cal.get(Calendar.MONTH) + 1;
+        date = cal.get(Calendar.DATE);
+        year = cal.get(Calendar.YEAR);
+
+        if (date == 1){
+            month = month -1;
+            if(month == 1||month == 3||month == 5||month == 7||month == 8||month == 10||month == 12)
+            {
+                date = 31;
+            }
+            else
+            {
+                date = 30;
+            }
+        }
+        else
+        {
+            date = date -1;
+        }
+
+        yesterday.setText("Sleep Diary for Yesterday (" + String.valueOf(month)+"/"+String.valueOf(date)+"/"+String.valueOf(year)+")");
 
         /** Display the current time in the TextView */
        // updateDisplay();
 
 
     }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -152,7 +170,7 @@ public class SleepDiaryActivity extends ActionBarActivity implements SeekBar.OnS
 //            EditText pill = (EditText)findViewById(R.id.pillname);
              pillname = pill.getText().toString();
 
-            if(no_coffee==-1||no_wine==-1||no_smoke==-1||no_nap==-1||pillname.isEmpty()||pilltime.isEmpty()||sleepduration.isEmpty())
+            if((!pilltime.isEmpty()&&pillname.isEmpty())||(no_nap != 0)&&(sleepduration.isEmpty()))
             {
                 //popup msg
                 Toast errormsg = Toast.makeText(SleepDiaryActivity.this,"Please finish all the questions!", Toast.LENGTH_SHORT);
@@ -216,6 +234,18 @@ public class SleepDiaryActivity extends ActionBarActivity implements SeekBar.OnS
         {
             no_nap = progress;
             t_nap.setText(no_nap + " time(s)");
+            if(no_nap>0)
+            {
+            timeperiod.setTextColor(0xFF000000);
+            timeperiod.setEnabled(true);
+            }
+            else
+            {
+                timeperiod.setTextColor(0xFF808080);
+                timeperiod.setText("Time Period");
+                sleepduration  = "";
+                timeperiod.setEnabled(false);
+            }
         }
 
     }
@@ -237,7 +267,7 @@ public class SleepDiaryActivity extends ActionBarActivity implements SeekBar.OnS
                 public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                     pHour = hourOfDay;
                     pMinute = minute;
-
+                    edtView.setInputType(1);
                     updateDisplay();
                     //displayToast();
 
@@ -249,10 +279,8 @@ public class SleepDiaryActivity extends ActionBarActivity implements SeekBar.OnS
             new TimePickerDialog.OnTimeSetListener() {
                 public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                     pHour = hourOfDay;
+                    if (pHour == 0){pHour = 12;}
                     pMinute = minute;
-
-                    //if (getParent().equals(findViewById(R.id.pilltime)))
-
                     updateDisplay2();
                    // displayToast2();
 
@@ -263,6 +291,8 @@ public class SleepDiaryActivity extends ActionBarActivity implements SeekBar.OnS
     /** Updates the time in the TextView */
     private void updateDisplay() {
         pilltime = pad(pHour) + ":" + pad(pMinute);
+        Toast pass = Toast.makeText(SleepDiaryActivity.this, am_pm, Toast.LENGTH_SHORT);
+        //pass.show();
         if(pHour>12)
         {
             pHour = pHour - 12;
@@ -285,24 +315,13 @@ public class SleepDiaryActivity extends ActionBarActivity implements SeekBar.OnS
 
     private void updateDisplay2() {
 
-            sleepduration = pad(pHour) + ":" + pad(pMinute);
-
-        if(pHour>12)
-        {
-            pHour = pHour - 12;
+            sleepduration = String.valueOf(pHour) + ":" + pad(pMinute);
+            timeperiod.setTextSize(20);
             timeperiod.setText(
                     new StringBuilder()
-                            .append(pad(pHour)).append(":")
-                            .append(pad(pMinute)).append(" pm"));
-        }
+                            .append(String.valueOf(pHour)).append(" hrs ")
+                            .append(pad(pMinute)).append(" mins"));
 
-        else
-        {
-            timeperiod.setText(
-                    new StringBuilder()
-                            .append(pad(pHour)).append(":")
-                            .append(pad(pMinute)).append(" am"));
-        }
     }
 
     /** Displays a notification when the time is updated */
@@ -336,7 +355,7 @@ public class SleepDiaryActivity extends ActionBarActivity implements SeekBar.OnS
                         mTimeSetListener, pHour, pMinute, false);
             case TIME_PERIOD:
                 return new TimePickerDialog(this,
-                        dTimeSetListener, pHour, pMinute, false);
+                        dTimeSetListener, pHour, pMinute, true);
         }
         return null;
     }

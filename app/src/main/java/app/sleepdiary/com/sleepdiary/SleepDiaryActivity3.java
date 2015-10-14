@@ -6,10 +6,14 @@ import android.app.Activity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.RadioGroup;
 import android.widget.RadioButton;
 import android.support.v7.app.ActionBarActivity;
+
+import java.util.Calendar;
+
 /**
  * Created by ypl5142 on 10/5/15.
  */
@@ -17,15 +21,11 @@ public class SleepDiaryActivity3 extends ActionBarActivity implements RadioGroup
 
     SleepdiaryDBHepler sleephelper = new SleepdiaryDBHepler(this);
     RadioGroup  rg0, rg1, rg2, rg3, rg4, rg5, rg6, rg7, rg8;
-//    int index_urge = -1;
-//    int index_muscle = -1;
-//    int index_turnbed = -1;
-//    int index_pain = -1;
-//    int index_dream = -1;
-//    int index_hall = -1;
-//    int index_breath = -1;
-//    int index_urine = -1;
-//    int index_distur = -1;
+
+    int month;
+    int date;
+    int year;
+    TextView lastnight;
 
     RadioButton rg0_1, rg0_0;
     RadioButton rg1_1, rg1_0;
@@ -142,6 +142,29 @@ public class SleepDiaryActivity3 extends ActionBarActivity implements RadioGroup
         rg6.setOnCheckedChangeListener(this);
         rg7.setOnCheckedChangeListener(this);
         rg8.setOnCheckedChangeListener(this);
+
+        final Calendar cal = Calendar.getInstance();
+        month = cal.get(Calendar.MONTH) + 1;
+        date = cal.get(Calendar.DATE);
+        year = cal.get(Calendar.YEAR);
+
+        if (date == 1){
+            month = month -1;
+            if(month == 1||month == 3||month == 5||month == 7||month == 8||month == 10||month == 12)
+            {
+                date = 31;
+            }
+            else
+            {
+                date = 30;
+            }
+        }
+        else
+        {
+            date = date -1;
+        }
+        lastnight = (TextView)findViewById(R.id.lastnight3);
+        lastnight.setText("Sleep Diary for Yesterday (" + String.valueOf(month) + "/" + String.valueOf(date) + "/" + String.valueOf(year) + ")");
 
 
     }

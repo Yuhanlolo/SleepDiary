@@ -25,22 +25,6 @@
             android:layout_gravity="right" />
 
         <ImageView
-            android:minHeight="70dp"
-            android:minWidth="200dp"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:id="@+id/settings"
-            android:src="@drawable/settings"
-
-            android:clickable="true"
-            android:layout_row="0"
-            android:layout_column="19"
-            android:layout_gravity="right"
-            android:onClick="bedtimeOnClick"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="15dp" />
-
-        <ImageView
               android:minHeight="200dp"
               android:minWidth="500dp"
               android:layout_width="wrap_content"
@@ -49,10 +33,11 @@
               android:src="@drawable/brain_test"
               android:layout_centerVertical="true"
               android:layout_centerHorizontal="true"
-              android:clickable="true"
-              android:onClick="bedtimeOnClick"
+
+            android:onClick="bedtimeOnClick"
             android:layout_gravity="left"
-            android:layout_marginLeft="150dp" />
+            android:layout_marginLeft="150dp"
+            android:layout_marginTop="40dp" />
 
         <ImageView
             android:minHeight="200dp"
