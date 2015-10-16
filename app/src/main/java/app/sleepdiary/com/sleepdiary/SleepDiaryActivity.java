@@ -279,7 +279,7 @@ public class SleepDiaryActivity extends ActionBarActivity implements SeekBar.OnS
             new TimePickerDialog.OnTimeSetListener() {
                 public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                     pHour = hourOfDay;
-                    if (pHour == 0){pHour = 12;}
+                   // if (pHour == 0){pHour = 12;}
                     pMinute = minute;
                     updateDisplay2();
                    // displayToast2();
@@ -291,10 +291,11 @@ public class SleepDiaryActivity extends ActionBarActivity implements SeekBar.OnS
     /** Updates the time in the TextView */
     private void updateDisplay() {
         pilltime = pad(pHour) + ":" + pad(pMinute);
-        Toast pass = Toast.makeText(SleepDiaryActivity.this, am_pm, Toast.LENGTH_SHORT);
+        //Toast pass = Toast.makeText(SleepDiaryActivity.this, am_pm, Toast.LENGTH_SHORT);
         //pass.show();
-        if(pHour>12)
+        if(pHour>12 ||pHour ==12)
         {
+            if(pHour>12)
             pHour = pHour - 12;
             pickTime.setText(
                     new StringBuilder()

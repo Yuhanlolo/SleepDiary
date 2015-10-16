@@ -40,6 +40,10 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
     int month;
     int date;
     int year;
+    int temp_bed = -1;
+    int temp_wake_h = -1;
+    int temp_wake_m = -1;
+
 //    private RadioGroup SQ;
 //    private RadioGroup AWQ;
 
@@ -345,7 +349,7 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
                 public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                     pHour = hourOfDay;
                     pMinute = minute;
-                    if (pHour == 0){pHour = 12;}
+                   // if (pHour == 0){pHour = 12;}
                     updateDisplay1();
                 }
 
@@ -375,10 +379,12 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
     /** Updates the time in the TextView */
     private void updateDisplay0() {
 
+        temp_bed = pHour;
         bedtime = pad(pHour) + ":" + pad(pMinute);
 
-        if(pHour>12)
+        if(pHour>12||pHour==12)
         {
+            if(pHour>12)
             pHour = pHour - 12;
             Bbedtime.setText(
                     new StringBuilder()
@@ -403,63 +409,86 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
     private void updateDisplay1() {
         asleeptime = String.valueOf(pHour) + ":" + pad(pMinute);
         Basleeptime.setTextSize(20);
+
+        if(pHour>12 || pHour == 12)
+        {
+            Toast pass = Toast.makeText(SleepDiaryActivity2.this,"You slept over 12 hours!", Toast.LENGTH_SHORT);
+            Bwoketime.setText("Time Period");
+            pass.show();
+        }
+
+        else{
         Basleeptime.setText(
                 new StringBuilder()
                         .append(String.valueOf(pHour)).append(" hrs ")
                         .append(pad(pMinute)).append(" mins"));
         Bwoketime.setEnabled(true);
         Bwoketime.setTextColor(0xFF000000);
+        }
     }
 
     private void updateDisplay2() {
 
-//        int temp_bedtime = Integer.parseInt(bedtime);
-//        if(pHour+(24-temp_bedtime)>12)
-//        {
-//            AlertDialog dlg = new AlertDialog.Builder(this).create();
-//            dlg.setTitle("Input Alert");
-//            dlg.setMessage("You slept over 12 hours!");
-//            Toast pass = Toast.makeText(SleepDiaryActivity2.this,"You slept over 12 hours!", Toast.LENGTH_SHORT);
-//            pass.show();
-//        }
+        woketime = pad(pHour) + ":" + pad(pMinute);
+        if(temp_bed == 0)
+        {
+            temp_bed = 24;
+        }
+        temp_wake_h = pHour;
+        temp_wake_m = pMinute;
+            if(pHour+(24-temp_bed)>12||pHour+(24-temp_bed)==12)
+            {
+                Toast pass = Toast.makeText(SleepDiaryActivity2.this,"You slept over 12 hours!", Toast.LENGTH_SHORT);
+                Bwoketime.setText("Pick Time");
+                pass.show();
+            }
+        else {
 
-            woketime = pad(pHour) + ":" + pad(pMinute);
+                if (pHour > 12 || pHour == 12) {
+                    if (pHour > 12)
+                        pHour = pHour - 12;
+                    Bwoketime.setText(
+                            new StringBuilder()
+                                    .append(pad(pHour)).append(":")
+                                    .append(pad(pMinute)).append(" pm"));
+                } else {
+                    Bwoketime.setText(
+                            new StringBuilder()
+                                    .append(pad(pHour)).append(":")
+                                    .append(pad(pMinute)).append(" am"));
+                }
 
-            if (pHour > 12) {
-                pHour = pHour - 12;
-                Bwoketime.setText(
+                Bouttime.setEnabled(true);
+                Bouttime.setTextColor(0xFF000000);
+            }
+    }
+
+    private void updateDisplay3() {
+
+        outtime = pad(pHour) + ":" + pad(pMinute);
+        if(pHour<temp_wake_h||(pHour == temp_wake_h && pMinute<temp_wake_m))
+        {
+            Toast pass = Toast.makeText(SleepDiaryActivity2.this,"You get out of bed earlier than you wake up!", Toast.LENGTH_SHORT);
+            pass.show();
+            Bouttime.setText("Pick Time");
+        }
+
+        else {
+
+            outtime = pad(pHour) + ":" + pad(pMinute);
+            if (pHour > 12 || pHour == 12) {
+                if (pHour > 12)
+                    pHour = pHour - 12;
+                Bouttime.setText(
                         new StringBuilder()
                                 .append(pad(pHour)).append(":")
                                 .append(pad(pMinute)).append(" pm"));
             } else {
-                Bwoketime.setText(
+                Bouttime.setText(
                         new StringBuilder()
                                 .append(pad(pHour)).append(":")
                                 .append(pad(pMinute)).append(" am"));
             }
-
-            Bouttime.setEnabled(true);
-            Bouttime.setTextColor(0xFF000000);
-
-    }
-    private void updateDisplay3() {
-
-       outtime = pad(pHour) + ":" + pad(pMinute);
-        if(pHour>12)
-        {
-            pHour = pHour - 12;
-            Bouttime.setText(
-                    new StringBuilder()
-                            .append(pad(pHour)).append(":")
-                            .append(pad(pMinute)).append(" pm"));
-        }
-
-        else
-        {
-            Bouttime.setText(
-                    new StringBuilder()
-                            .append(pad(pHour)).append(":")
-                            .append(pad(pMinute)).append(" am"));
         }
     }
 
