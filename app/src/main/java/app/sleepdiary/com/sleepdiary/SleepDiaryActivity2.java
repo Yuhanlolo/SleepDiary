@@ -40,9 +40,12 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
     int month;
     int date;
     int year;
-    int temp_bed = -1;
+    int temp_bed_h = -1;
+    int temp_bed_m = -1;
     int temp_wake_h = -1;
     int temp_wake_m = -1;
+    int temp_asleep_h = -1;
+    int temp_asleep_m = -1;
 
 //    private RadioGroup SQ;
 //    private RadioGroup AWQ;
@@ -379,7 +382,8 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
     /** Updates the time in the TextView */
     private void updateDisplay0() {
 
-        temp_bed = pHour;
+        temp_bed_h = pHour;
+        temp_asleep_m = pMinute;
         bedtime = pad(pHour) + ":" + pad(pMinute);
 
         if(pHour>12||pHour==12)
@@ -409,7 +413,8 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
     private void updateDisplay1() {
         asleeptime = String.valueOf(pHour) + ":" + pad(pMinute);
         Basleeptime.setTextSize(20);
-
+        temp_asleep_h = pHour;
+        temp_asleep_m =pMinute;
         if(pHour>12 || pHour == 12)
         {
             Toast pass = Toast.makeText(SleepDiaryActivity2.this,"You slept over 12 hours!", Toast.LENGTH_SHORT);
@@ -430,13 +435,21 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
     private void updateDisplay2() {
 
         woketime = pad(pHour) + ":" + pad(pMinute);
-        if(temp_bed == 0)
+        if(temp_bed_h == 0)
         {
-            temp_bed = 24;
+            temp_bed_h = 24;
         }
         temp_wake_h = pHour;
         temp_wake_m = pMinute;
-            if(pHour+(24-temp_bed)>12||pHour+(24-temp_bed)==12)
+
+        if((pHour+(24-temp_bed_h)<temp_asleep_h)||((pHour+(24-temp_bed_h)==temp_asleep_h))&&(pMinute-temp_bed_m)<temp_asleep_m)
+        {
+            Toast pass = Toast.makeText(SleepDiaryActivity2.this,"Your woke-up time is earlier than you actually did!", Toast.LENGTH_SHORT);
+            Bwoketime.setText("Pick Time");
+            pass.show();
+        }
+
+            else if(pHour+(24-temp_bed_h)>12||(pHour+(24-temp_bed_h)==12&&pMinute>temp_bed_m))
             {
                 Toast pass = Toast.makeText(SleepDiaryActivity2.this,"You slept over 12 hours!", Toast.LENGTH_SHORT);
                 Bwoketime.setText("Pick Time");
