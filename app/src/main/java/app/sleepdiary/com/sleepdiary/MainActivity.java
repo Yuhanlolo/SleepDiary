@@ -20,7 +20,7 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Parse.initialize(this, getString(R.string.parse_app_id), getString(R.string.parse_client_key));
+        //Parse.initialize(this, getString(R.string.parse_app_id), getString(R.string.parse_client_key));
         ParseObject testObject = new ParseObject("TestObject");
         testObject.put("foo", "bar");
         testObject.saveInBackground();
