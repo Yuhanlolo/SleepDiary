@@ -14,6 +14,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.net.Uri;
+import android.widget.Toast;
 
 import com.parse.Parse;
 
@@ -23,6 +25,8 @@ public class SleepActivity extends ActionBarActivity{
     boolean finish_sleepdiary = false;
     boolean finish_movesleep = false;
     boolean finish_scopa = false;
+
+    boolean tempbraintest = false;
 
 //    String finish_braintest ="";
 //    String finish_sleepdiary = "";
@@ -43,7 +47,7 @@ public class SleepActivity extends ActionBarActivity{
         f2 = (ImageView)findViewById(R.id.finish_sleepdiary);
 
         finish_sleepdiary = getIntent().getBooleanExtra("f2",false);
-
+        finish_braintest =  getIntent().getBooleanExtra("f1",false);
 
         if(finish_braintest)
         {
@@ -91,6 +95,17 @@ public class SleepActivity extends ActionBarActivity{
         {
             Intent i = new Intent(SleepActivity.this,SleepDiaryActivity.class);
             SleepActivity.this.startActivity(i);
+        }
+
+        if(view.getId() == R.id.brain_test)
+        {
+
+            Uri uri = Uri.parse("http://www.braintaptest.com/"); // missing 'http://' will cause crashed
+            Intent i = new Intent(Intent.ACTION_VIEW, uri);
+            tempbraintest = true;
+            i.putExtra("f1",tempbraintest);
+            startActivity(i);
+            //f1.setVisibility(View.VISIBLE);
         }
 
      }

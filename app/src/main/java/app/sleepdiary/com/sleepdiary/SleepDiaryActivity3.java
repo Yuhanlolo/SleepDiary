@@ -230,8 +230,8 @@ public class SleepDiaryActivity3 extends ActionBarActivity implements RadioGroup
                 Intent i = new Intent(SleepDiaryActivity3.this,SleepActivity.class);
                 i.putExtra("f2",f);
                 SleepDiaryActivity3.this.startActivity(i);
-//                Toast msg = Toast.makeText(SleepDiaryActivity.this,"Finished this page!", Toast.LENGTH_SHORT);
-//                msg.show();
+//              Toast msg = Toast.makeText(SleepDiaryActivity.this,"Finished this page!", Toast.LENGTH_SHORT);
+//              msg.show();
             }
         }
 

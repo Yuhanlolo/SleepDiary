@@ -383,7 +383,7 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
     private void updateDisplay0() {
 
         temp_bed_h = pHour;
-        temp_asleep_m = pMinute;
+        temp_bed_m = pMinute;
         bedtime = pad(pHour) + ":" + pad(pMinute);
 
         if(pHour>12||pHour==12)
@@ -414,7 +414,7 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
         asleeptime = String.valueOf(pHour) + ":" + pad(pMinute);
         Basleeptime.setTextSize(20);
         temp_asleep_h = pHour;
-        temp_asleep_m =pMinute;
+        temp_asleep_m = pMinute;
         if(pHour>12 || pHour == 12)
         {
             Toast pass = Toast.makeText(SleepDiaryActivity2.this,"You slept over 12 hours!", Toast.LENGTH_SHORT);
@@ -442,7 +442,7 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
         temp_wake_h = pHour;
         temp_wake_m = pMinute;
 
-        if((temp_bed_h < 12)&&((pHour-temp_bed_h >12)||(pHour-temp_bed_h == 12)&&(pMinute>temp_bed_m)))
+        if((temp_bed_h < 12)&&((pHour-temp_bed_h >12)||(pHour-temp_bed_h == 12)&&((pMinute>temp_bed_m)||((pMinute==temp_bed_m)))))
         {
             Toast pass = Toast.makeText(SleepDiaryActivity2.this,"You slept over 12 hours!", Toast.LENGTH_SHORT);
             Bwoketime.setText("Pick Time");
@@ -462,7 +462,7 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
             Bwoketime.setText("Pick Time");
             pass.show();
         }
-            else if((temp_bed_h>12||temp_bed_h==12)&&(pHour+(24-temp_bed_h)>12||(pHour+(24-temp_bed_h)==12&&pMinute>temp_bed_m)))
+            else if((temp_bed_h>12||temp_bed_h==12)&&(pHour+24-temp_bed_h>12||((pHour+24-temp_bed_h==12)&&((pMinute>temp_bed_m)||((pMinute==temp_bed_m))))))
             {
                 Toast pass = Toast.makeText(SleepDiaryActivity2.this,"You slept over 12 hours!", Toast.LENGTH_SHORT);
                 Bwoketime.setText("Pick Time");
