@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string name="parse_app_id">8wojV1DKT8Wc5mj3VG2J7LY3wHpN9zzuXmoGSRHm</string>
+    <string name="parse_client_key">ygOecPEu6Umd4QIqWhp3qUW3hSzoe5kIxJ7r9Czc</string>
+
     <string name="app_name">Sleep Diary</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>

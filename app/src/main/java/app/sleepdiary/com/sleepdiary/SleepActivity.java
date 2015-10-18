@@ -12,13 +12,49 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.parse.Parse;
+
 public class SleepActivity extends ActionBarActivity{
+
+    boolean finish_braintest = false;
+    boolean finish_sleepdiary = false;
+    boolean finish_movesleep = false;
+    boolean finish_scopa = false;
+
+//    String finish_braintest ="";
+//    String finish_sleepdiary = "";
+//    String finish_movesleep = "";
+//    String finish_scopa = "";
+
+    ImageView f1;
+    ImageView f2;
+    ImageView f3;
+    ImageView f4;
+
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sleep);
 
+        f1 = (ImageView)findViewById(R.id.finish_braintest);
+        f2 = (ImageView)findViewById(R.id.finish_sleepdiary);
+
+        finish_sleepdiary = getIntent().getBooleanExtra("f2",false);
+
+
+        if(finish_braintest)
+        {
+            f1.setVisibility(View.VISIBLE);
+        }
+
+        if(finish_sleepdiary)
+        {
+            f2.setVisibility(View.VISIBLE);
+        }
+        //Parse.initialize(this, getString(R.string.parse_app_id), getString(R.string.parse_client_key));
        // String userid = getIntent().getStringExtra("userid");
         //TextView tv = (TextView)findViewById(R.id.title);
         //tv.setText("Welcome"+userid);

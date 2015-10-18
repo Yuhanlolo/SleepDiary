@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.app.Activity;
 import android.widget.Toast;
@@ -23,10 +24,23 @@ public class CreateIdActivity extends ActionBarActivity {
 
     dataBaseHelper helper = new dataBaseHelper(this);
 
+    EditText userid;
+    EditText pass1;
+    EditText pass2;
+
+    String useridstr = "";
+    String pass1str = "";
+    String pass2str = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_createid);
+
+        getWindow().setSoftInputMode(
+                WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN
+        );
+
 
     }
 
@@ -59,21 +73,38 @@ public class CreateIdActivity extends ActionBarActivity {
     {
         if(view.getId()==R.id.createdId)
         {
-            EditText userid = (EditText)findViewById(R.id.useridc);
-            EditText pass1 = (EditText)findViewById(R.id.pwd);
-            EditText pass2 = (EditText)findViewById(R.id.conpwd);
 
-            String useridstr = userid.getText().toString();
-            String pass1str = pass1.getText().toString();
-            String pass2str = pass2.getText().toString();
+            userid = (EditText)findViewById(R.id.useridc);
+            pass1 = (EditText)findViewById(R.id.pwd);
+            pass2 = (EditText)findViewById(R.id.conpwd);
 
+            useridstr = userid.getText().toString();
+            pass1str = pass1.getText().toString();
+            pass2str = pass2.getText().toString();
 
-
-           if(helper.findExistId(useridstr))
+            if(useridstr.isEmpty())
             {
-                Toast pass = Toast.makeText(CreateIdActivity.this,"The ID has already existed!", Toast.LENGTH_SHORT);
+                Toast pass = Toast.makeText(CreateIdActivity.this,"Please set your User ID!", Toast.LENGTH_SHORT);
                 pass.show();
             }
+
+            else if(pass1str.isEmpty())
+            {
+                Toast pass = Toast.makeText(CreateIdActivity.this,"Please set your Password!", Toast.LENGTH_SHORT);
+                pass.show();
+            }
+
+            else if(pass2str.isEmpty())
+            {
+                Toast pass = Toast.makeText(CreateIdActivity.this,"Please confirm your Password!", Toast.LENGTH_SHORT);
+                pass.show();
+            }
+
+//            else if(helper.findExistId(useridstr))
+//            {
+//                Toast pass = Toast.makeText(CreateIdActivity.this,"The ID has already existed!", Toast.LENGTH_SHORT);
+//                pass.show();
+//            }
             else  if(!pass1str.equals(pass2str))
            {
                //popup msg
@@ -88,16 +119,34 @@ public class CreateIdActivity extends ActionBarActivity {
                 c.setId(useridstr);
                 c.setPwd(pass1str);
 
-//                ParseUser user = new ParseUser();
-//                user.setUsername(useridstr);
-//                user.setPassword(pass1str);
+                ParseUser user = new ParseUser();
+                user.setUsername(useridstr);
+                user.setPassword(pass1str);
 
                 helper.insertColumn(c);
 
+                user.signUpInBackground(new SignUpCallback ()
+                {
+                    public void done(ParseException e)
+                    {
+                        if (e != null)
+                        {
+                            Toast pass = Toast.makeText(CreateIdActivity.this,e.getMessage(), Toast.LENGTH_SHORT);
+                            pass.show();
+                        }
+                        else
+                        {
+                            Intent i = new Intent(CreateIdActivity.this,SleepActivity.class);
+                            i.addFlags(i.FLAG_ACTIVITY_CLEAR_TASK|i.FLAG_ACTIVITY_NEW_TASK);
+                            CreateIdActivity.this.startActivity(i);
+                        }
+                    }
 
-                Intent i = new Intent(CreateIdActivity.this,SleepActivity.class);
-                i.putExtra("userid",useridstr);
-                CreateIdActivity.this.startActivity(i);
+                });
+
+//                Intent i = new Intent(CreateIdActivity.this,SleepActivity.class);
+//                i.putExtra("userid",useridstr);
+//                CreateIdActivity.this.startActivity(i);
 
             }
 

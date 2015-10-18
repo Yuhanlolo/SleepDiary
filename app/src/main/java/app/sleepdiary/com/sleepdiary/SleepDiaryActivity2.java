@@ -442,14 +442,27 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
         temp_wake_h = pHour;
         temp_wake_m = pMinute;
 
-        if((pHour+(24-temp_bed_h)<temp_asleep_h)||((pHour+(24-temp_bed_h)==temp_asleep_h))&&(pMinute-temp_bed_m)<temp_asleep_m)
+        if((temp_bed_h < 12)&&((pHour-temp_bed_h >12)||(pHour-temp_bed_h == 12)&&(pMinute>temp_bed_m)))
+        {
+            Toast pass = Toast.makeText(SleepDiaryActivity2.this,"You slept over 12 hours!", Toast.LENGTH_SHORT);
+            Bwoketime.setText("Pick Time");
+            pass.show();
+        }
+
+        else if((temp_bed_h>12||temp_bed_h==12)&&((pHour+(24-temp_bed_h)<temp_asleep_h)||((pHour+(24-temp_bed_h)==temp_asleep_h))&&((pMinute-temp_bed_m)<temp_asleep_m)||(pMinute-temp_asleep_m==temp_asleep_m)))
         {
             Toast pass = Toast.makeText(SleepDiaryActivity2.this,"Your woke-up time is earlier than you actually did!", Toast.LENGTH_SHORT);
             Bwoketime.setText("Pick Time");
             pass.show();
         }
 
-            else if(pHour+(24-temp_bed_h)>12||(pHour+(24-temp_bed_h)==12&&pMinute>temp_bed_m))
+        else if((temp_bed_h < 12)&&((pHour-temp_bed_h >temp_asleep_h)||(pHour-temp_bed_h ==temp_asleep_h)&&((pMinute-temp_asleep_m<temp_asleep_m)||(pMinute-temp_asleep_m==temp_asleep_m))))
+        {
+            Toast pass = Toast.makeText(SleepDiaryActivity2.this,"Your woke-up time is earlier than you actually did!", Toast.LENGTH_SHORT);
+            Bwoketime.setText("Pick Time");
+            pass.show();
+        }
+            else if((temp_bed_h>12||temp_bed_h==12)&&(pHour+(24-temp_bed_h)>12||(pHour+(24-temp_bed_h)==12&&pMinute>temp_bed_m)))
             {
                 Toast pass = Toast.makeText(SleepDiaryActivity2.this,"You slept over 12 hours!", Toast.LENGTH_SHORT);
                 Bwoketime.setText("Pick Time");

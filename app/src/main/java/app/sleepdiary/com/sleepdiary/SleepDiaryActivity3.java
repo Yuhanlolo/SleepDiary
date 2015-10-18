@@ -22,6 +22,7 @@ public class SleepDiaryActivity3 extends ActionBarActivity implements RadioGroup
     SleepdiaryDBHepler sleephelper = new SleepdiaryDBHepler(this);
     RadioGroup  rg0, rg1, rg2, rg3, rg4, rg5, rg6, rg7, rg8;
 
+    boolean f = false;
     int month;
     int date;
     int year;
@@ -225,7 +226,9 @@ public class SleepDiaryActivity3 extends ActionBarActivity implements RadioGroup
 //                s.setPillname(pillname);
 //                sleephelper.insertColumn(s);
 
+                f = true;
                 Intent i = new Intent(SleepDiaryActivity3.this,SleepActivity.class);
+                i.putExtra("f2",f);
                 SleepDiaryActivity3.this.startActivity(i);
 //                Toast msg = Toast.makeText(SleepDiaryActivity.this,"Finished this page!", Toast.LENGTH_SHORT);
 //                msg.show();
