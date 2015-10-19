@@ -374,12 +374,20 @@ public class SleepDiaryActivity extends ActionBarActivity implements SeekBar.OnS
     private void updateDisplay2() {
 
             sleepduration = String.valueOf(pHour) + ":" + pad(pMinute);
-            timeperiod.setTextSize(20);
-            timeperiod.setText(
-                    new StringBuilder()
-                            .append(String.valueOf(pHour)).append(" hrs ")
-                            .append(pad(pMinute)).append(" mins"));
-
+            int temp_duration = 100*pHour + pMinute;
+            if(temp_duration>1200)
+            {
+                Toast pass = Toast.makeText(SleepDiaryActivity.this,"You napped over 12 hours!", Toast.LENGTH_SHORT);
+                timeperiod.setText("Time Period");
+                pass.show();
+            }
+            else {
+                timeperiod.setTextSize(20);
+                timeperiod.setText(
+                        new StringBuilder()
+                                .append(String.valueOf(pHour)).append(" hrs ")
+                                .append(pad(pMinute)).append(" mins"));
+            }
     }
 
     /** Displays a notification when the time is updated */
