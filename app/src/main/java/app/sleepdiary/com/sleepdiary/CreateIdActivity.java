@@ -137,6 +137,7 @@ public class CreateIdActivity extends ActionBarActivity {
                         else
                         {
                             Intent i = new Intent(CreateIdActivity.this,SleepActivity.class);
+                            i.putExtra("userid",useridstr);
                             i.addFlags(i.FLAG_ACTIVITY_CLEAR_TASK|i.FLAG_ACTIVITY_NEW_TASK);
                             CreateIdActivity.this.startActivity(i);
                         }

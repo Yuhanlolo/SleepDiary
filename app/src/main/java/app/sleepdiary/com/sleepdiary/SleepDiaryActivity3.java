@@ -12,6 +12,11 @@ import android.widget.RadioGroup;
 import android.widget.RadioButton;
 import android.support.v7.app.ActionBarActivity;
 
+import com.parse.GetCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+
 import java.util.Calendar;
 
 /**
@@ -75,9 +80,18 @@ public class SleepDiaryActivity3 extends ActionBarActivity implements RadioGroup
     String a_urine = "";
     String a_distur = "";
 
+    String objectID = "";
+
+    ParseQuery<ParseObject> query = ParseQuery.getQuery("UserActivity");
+    //ParseObject userActivity = new ParseObject("UserActivity");
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_3sleepdiary);
+
+        objectID = getIntent().getStringExtra("objectID");
+//        Toast pass = Toast.makeText(SleepDiaryActivity3.this,"3 "+objectID, Toast.LENGTH_SHORT);
+//        pass.show();
 
         rg0 = (RadioGroup)findViewById(R.id.group0);
         rg1 = (RadioGroup)findViewById(R.id.group1);
@@ -225,6 +239,45 @@ public class SleepDiaryActivity3 extends ActionBarActivity implements RadioGroup
 //                s.setPilltime(pilltime);
 //                s.setPillname(pillname);
 //                sleephelper.insertColumn(s);
+
+                query.getInBackground(objectID, new GetCallback<ParseObject>() {
+                    @Override
+                    public void done(ParseObject object, ParseException e) {
+                        if (e != null)
+                        {
+                            Toast pass = Toast.makeText(SleepDiaryActivity3.this, "Error: "+e.getMessage(), Toast.LENGTH_SHORT);
+                            pass.show();
+                        }
+                        else
+                        {
+                            object.put("Urge_move",a_urge);
+                            object.put("Muscle_cramp",a_muscle);
+                            object.put("Difficulty_turn_bed",a_tobed);
+                            object.put("Pain",a_pain);
+                            object.put("distressDream",a_dream);
+                            object.put("Visual_hallucinations",a_hall);
+                            object.put("Difficulty_Breath", a_breath);
+                            object.put("Pass_Urine",a_urine);
+                            object.put("Enviro_Disturbance", a_distur);
+                            //userActivity.pinInBackground();
+                            object.saveInBackground();
+
+                        }
+                    }
+                });
+
+//                userActivity.put("Urge_move", a_urge);
+//                userActivity.put("Muscle_cramp",a_muscle);
+//                userActivity.put("Difficulty_turn_bed",a_tobed);
+//                userActivity.put("Pain",a_pain);
+//                userActivity.put("distressDream",a_dream);
+//                userActivity.put("Visual_hallucinations",a_hall);
+//                userActivity.put("Difficulty_Breath", a_breath);
+//                userActivity.put("Pass_Urine",a_urine);
+//                userActivity.put("Enviro_Disturbance", a_distur);
+//                //userActivity.pinInBackground();
+//                userActivity.saveInBackground();
+
 
                 f = true;
                 Intent i = new Intent(SleepDiaryActivity3.this,SleepActivity.class);

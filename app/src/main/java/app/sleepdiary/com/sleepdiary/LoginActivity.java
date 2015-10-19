@@ -25,6 +25,8 @@ public class LoginActivity extends ActionBarActivity{
     dataBaseHelper helper = new dataBaseHelper(this);
     EditText account;
     EditText pwd;
+    String stracc  = "";
+    String strpass = "";
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,8 +71,8 @@ public class LoginActivity extends ActionBarActivity{
             account = (EditText)findViewById(R.id.useridl);
             pwd = (EditText)findViewById(R.id.password);
 
-            String stracc = account.getText().toString();
-            String strpass = pwd.getText().toString();
+            stracc = account.getText().toString();
+            strpass = pwd.getText().toString();
 
             String password = helper.searchpass(stracc);
             System.out.println(password);
@@ -86,6 +88,7 @@ public class LoginActivity extends ActionBarActivity{
                     else
                     {
                         Intent i = new Intent(LoginActivity.this,SleepActivity.class);
+                        i.putExtra("userid",stracc);
                         i.addFlags(i.FLAG_ACTIVITY_CLEAR_TASK|i.FLAG_ACTIVITY_NEW_TASK);
                         LoginActivity.this.startActivity(i);
                     }

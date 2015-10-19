@@ -37,7 +37,7 @@ public class SleepActivity extends ActionBarActivity{
     ImageView f2;
     ImageView f3;
     ImageView f4;
-
+    String userid= "";
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,7 +59,7 @@ public class SleepActivity extends ActionBarActivity{
             f2.setVisibility(View.VISIBLE);
         }
         //Parse.initialize(this, getString(R.string.parse_app_id), getString(R.string.parse_client_key));
-       // String userid = getIntent().getStringExtra("userid");
+       userid = getIntent().getStringExtra("userid");
         //TextView tv = (TextView)findViewById(R.id.title);
         //tv.setText("Welcome"+userid);
     }
@@ -94,6 +94,7 @@ public class SleepActivity extends ActionBarActivity{
        if(view.getId() == R.id.bedtime)
         {
             Intent i = new Intent(SleepActivity.this,SleepDiaryActivity.class);
+            i.putExtra("userid",userid);
             SleepActivity.this.startActivity(i);
         }
 
@@ -102,6 +103,7 @@ public class SleepActivity extends ActionBarActivity{
 
             Uri uri = Uri.parse("http://www.braintaptest.com/"); // missing 'http://' will cause crashed
             Intent i = new Intent(Intent.ACTION_VIEW, uri);
+            i.putExtra("userid",userid);
             tempbraintest = true;
             i.putExtra("f1",tempbraintest);
             startActivity(i);

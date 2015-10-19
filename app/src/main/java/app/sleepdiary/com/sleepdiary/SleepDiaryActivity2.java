@@ -25,6 +25,13 @@ import android.widget.TextView;
 import java.util.Calendar;
 import android.view.Menu;
 
+import com.parse.GetCallback;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+import com.parse.ParseException;
+import com.parse.ParseUser;
+import com.parse.SaveCallback;
+
 public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarChangeListener{
 
     private Button Bbedtime;
@@ -81,18 +88,26 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
     String outtime = "";
     int no_wake = 0;
 
-
+    String objectID = "";
     /** This integer will uniquely define the dialog to be used for displaying time picker.*/
     static final int TIME_DIALOG_0 = 0;
     static final int TIME_DIALOG_1 = 1;
     static final int TIME_DIALOG_2 = 2;
     static final int TIME_DIALOG_3 = 3;
 
-    SleepdiaryDBHepler sleephelper = new SleepdiaryDBHepler(this);
+    //SleepdiaryDBHepler sleephelper = new SleepdiaryDBHepler(this);
+    ParseObject userActivity = new ParseObject("UserActivity");
+    ParseQuery <ParseObject>  query = ParseQuery.getQuery("UserActivity"); ;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_2sleepdiary);
+
+
+        objectID = getIntent().getStringExtra("objectID");
+
+//        Toast pass = Toast.makeText(SleepDiaryActivity2.this, "id 2: "+objectID, Toast.LENGTH_SHORT);
+//        pass.show();
 
         Bbedtime = (Button) findViewById(R.id.bedt);
         Bbedtime.setText("Pick Time");
@@ -320,7 +335,52 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
 
             else
             {
+                //query.whereEqualTo("User_ID",objectID);
+                query.getInBackground(objectID, new GetCallback<ParseObject>() {
+                    @Override
+                    public void done(ParseObject object, ParseException e) {
+                        if (e != null) {
+                            Toast pass = Toast.makeText(SleepDiaryActivity2.this, "Error: "+e.getMessage(), Toast.LENGTH_SHORT);
+                            pass.show();
+                        } else {
+                            object.put("Bed_Time", bedtime);
+                            object.put("Sleep_Duration",asleeptime);
+                            object.put("Wake_Time",woketime);
+                            object.put("OutofBed_Time",outtime);
+                            object.put("No_Awakenings",no_wake);
+                            object.put("Sleep_Quality",sq);
+                            object.put("Awake_Quality", awq);
+                            //userActivity.pinInBackground();
+                            object.saveInBackground();
+                        }
+                    }
+                });
+
+//                userActivity.put("Bed_Time", bedtime);
+//                userActivity.put("Sleep_Duration",asleeptime);
+//                userActivity.put("Wake_Time",woketime);
+//                userActivity.put("OutofBed_Time", outtime);
+//                userActivity.put("No_Awakenings",no_wake);
+//                userActivity.put("Sleep_Quality",sq);
+//                userActivity.put("Awake_Quality", awq);
+                //userActivity.pinInBackground();
+                //userActivity.saveInBackground();
+//                userActivity.saveInBackground(new SaveCallback() {
+//                    @Override
+//                    public void done(ParseException e) {
+//                        if(e!=null)
+//                        {
+//                            Toast pass = Toast.makeText(SleepDiaryActivity2.this,"error"+e.getMessage(), Toast.LENGTH_SHORT);
+//                            pass.show();
+//                        }
+//                        else{
+//                            objectID = userActivity.getObjectId();
+//                        }
+//                    }
+//                });
+
                 Intent i = new Intent(SleepDiaryActivity2.this,SleepDiaryActivity3.class);
+                i.putExtra("objectID",objectID);
                 SleepDiaryActivity2.this.startActivity(i);
 
             }
@@ -449,16 +509,16 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
             pass.show();
         }
 
-        else if((temp_bed_h>12||temp_bed_h==12)&&((pHour+(24-temp_bed_h)<temp_asleep_h)||((pHour+(24-temp_bed_h)==temp_asleep_h))&&((pMinute-temp_bed_m)<temp_asleep_m)||(pMinute-temp_asleep_m==temp_asleep_m)))
+        else if((temp_bed_h>12||temp_bed_h==12)&&((pHour+(24-temp_bed_h)<temp_asleep_h)||((pHour+24-temp_bed_h==temp_asleep_h))&&((pMinute-temp_bed_m)<temp_asleep_m)))
         {
-            Toast pass = Toast.makeText(SleepDiaryActivity2.this,"Your woke-up time is earlier than you actually did!", Toast.LENGTH_SHORT);
+            Toast pass = Toast.makeText(SleepDiaryActivity2.this,"Your woke up earlier than you actually did!", Toast.LENGTH_SHORT);
             Bwoketime.setText("Pick Time");
             pass.show();
         }
 
-        else if((temp_bed_h < 12)&&((pHour-temp_bed_h >temp_asleep_h)||(pHour-temp_bed_h ==temp_asleep_h)&&((pMinute-temp_asleep_m<temp_asleep_m)||(pMinute-temp_asleep_m==temp_asleep_m))))
+        else if((temp_bed_h < 12)&&(pHour-temp_bed_h <temp_asleep_h)||(pHour-temp_bed_h ==temp_asleep_h)&&((pMinute-temp_bed_m<temp_asleep_m)))
         {
-            Toast pass = Toast.makeText(SleepDiaryActivity2.this,"Your woke-up time is earlier than you actually did!", Toast.LENGTH_SHORT);
+            Toast pass = Toast.makeText(SleepDiaryActivity2.this,"Your woke up earlier than you actually did!", Toast.LENGTH_SHORT);
             Bwoketime.setText("Pick Time");
             pass.show();
         }

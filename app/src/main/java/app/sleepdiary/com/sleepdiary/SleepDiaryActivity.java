@@ -16,11 +16,13 @@ import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.support.v7.app.ActionBarActivity;
 import android.widget.TimePicker;
-import android.view.inputmethod.InputMethodManager;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Timer;
-import java.util.*;
+import com.parse.Parse;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseUser;
+import com.parse.SaveCallback;
+
 /**
  * Created by Yuhan on 9/13/15.
  */
@@ -33,6 +35,7 @@ public class SleepDiaryActivity extends ActionBarActivity implements SeekBar.OnS
     String sleepduration = "";
     String pilltime = "";
     String pillname = "";
+    String yesterdaystr ="";
    // Spinner coffee, wine, smoke, naptime;
     SeekBar coffee,wine,smoke,nap;
     //private TextView displayTime;
@@ -47,15 +50,17 @@ public class SleepDiaryActivity extends ActionBarActivity implements SeekBar.OnS
     int month;
     int date;
     int year;
-    EditText pill;
-    TextView yesterday;
-    EditText edtView;
-    String am_pm = "";
+    private EditText pill;
+    private TextView yesterday;
+    private EditText edtView;
+
+    String objectID = "";
     /** This integer will uniquely define the dialog to be used for displaying time picker.*/
     static final int TIME_DIALOG_ID = 0;
     static final int TIME_PERIOD = 1;
 
-    SleepdiaryDBHepler sleephelper = new SleepdiaryDBHepler(this);
+    //SleepdiaryDBHepler sleephelper = new SleepdiaryDBHepler(this);
+    ParseObject userActivity  = new ParseObject("UserActivity");
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -127,6 +132,7 @@ public class SleepDiaryActivity extends ActionBarActivity implements SeekBar.OnS
             date = date -1;
         }
 
+        yesterdaystr = String.valueOf(month)+"/"+String.valueOf(date)+"/"+String.valueOf(year);
         yesterday.setText("Sleep Diary for Yesterday (" + String.valueOf(month)+"/"+String.valueOf(date)+"/"+String.valueOf(year)+")");
 
         /** Display the current time in the TextView */
@@ -182,7 +188,6 @@ public class SleepDiaryActivity extends ActionBarActivity implements SeekBar.OnS
             {
 
 //                SleepdiaryInfo s = new SleepdiaryInfo();
-//                s.setNo_coffee(Integer.parseInt(no_coffee));
 //                s.setNo_coffee(no_coffee);
 //                s.setNo_wine(no_wine);
 //
@@ -193,11 +198,63 @@ public class SleepDiaryActivity extends ActionBarActivity implements SeekBar.OnS
 //                s.setPillname(pillname);
 //                sleephelper.insertColumn(s);
 
-                Intent i = new Intent(SleepDiaryActivity.this,SleepDiaryActivity2.class);
 
-                SleepDiaryActivity.this.startActivity(i);
-//                Toast msg = Toast.makeText(SleepDiaryActivity.this,"Finished this page!", Toast.LENGTH_SHORT);
-//                msg.show();
+                userActivity.put("User_ID",ParseUser.getCurrentUser().getUsername());
+                userActivity.put("Date",yesterdaystr);
+                userActivity.put("No_Coffee",no_coffee);
+                userActivity.put("No_Alcohol",no_wine);
+                userActivity.put("No_Tobacco",no_smoke);
+                userActivity.put("Nap_Time",no_nap);
+                userActivity.put("Nap_Duration",sleepduration);
+                userActivity.put("Pill_Time",pilltime);
+                userActivity.put("Pill_Name",pillname);
+
+                userActivity.put("Bed_Time", "");
+                userActivity.put("Sleep_Duration","");
+                userActivity.put("Wake_Time","");
+                userActivity.put("OutofBed_Time","");
+                userActivity.put("No_Awakenings",0);
+                userActivity.put("Sleep_Quality",0);
+                userActivity.put("Awake_Quality",0);
+
+                userActivity.put("Urge_move","");
+                userActivity.put("Muscle_cramp", "");
+                userActivity.put("Difficulty_turn_bed", "");
+                userActivity.put("Pain", "");
+                userActivity.put("distressDream", "");
+                userActivity.put("Visual_hallucinations", "");
+                userActivity.put("Difficulty_Breath", "");
+                userActivity.put("Pass_Urine", "");
+                userActivity.put("Enviro_Disturbance", "");
+                userActivity.pinInBackground();
+
+                //userActivity.saveInBackground();
+
+                userActivity.saveInBackground(new SaveCallback() {
+                    @Override
+                    public void done(ParseException e) {
+                        if(e!=null)
+                        {
+                            Toast pass = Toast.makeText(SleepDiaryActivity.this,"Error: "+e.getMessage(), Toast.LENGTH_SHORT);
+                            pass.show();
+                        }
+                        else{
+                             objectID = userActivity.getObjectId();
+//                             Toast pass = Toast.makeText(SleepDiaryActivity.this,"id 1: "+objectID, Toast.LENGTH_SHORT);
+//                             pass.show();
+                            Intent i = new Intent(SleepDiaryActivity.this,SleepDiaryActivity2.class);
+                            i.putExtra("objectID",objectID);
+                            SleepDiaryActivity.this.startActivity(i);
+                        }
+                    }
+                });
+
+
+
+//                Intent i = new Intent(SleepDiaryActivity.this,SleepDiaryActivity2.class);
+//                i.putExtra("objectID",objectID);
+//                SleepDiaryActivity.this.startActivity(i);
+
             }
         }
 
