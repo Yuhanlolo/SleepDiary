@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -20,13 +21,19 @@ import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.support.v7.app.ActionBarActivity;
 import android.widget.TimePicker;
+
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
+
 import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
+import android.text.format.DateFormat;
 import android.app.AlertDialog;
+import android.app.DialogFragment;
 
 /**
  * Created by Yuhan on 9/13/15.
@@ -57,7 +64,7 @@ public class SleepDiaryActivity extends ActionBarActivity implements SeekBar.OnS
     int month;
     int date;
     int year;
-    private EditText pill;
+
     private TextView yesterday;
     private EditText edtView;
 
@@ -67,6 +74,10 @@ public class SleepDiaryActivity extends ActionBarActivity implements SeekBar.OnS
     static final int TIME_PERIOD = 1;
 
     final Context context = this;
+
+    List <ImageView>  bever = new ArrayList<ImageView>(10);
+    //ImageView bever0, bever1,bever2, bever3,bever4, bever5,bever6, bever7,bever8, bever9,bever10;
+
     //SleepdiaryDBHepler sleephelper = new SleepdiaryDBHepler(this);
     ParseObject userActivity  = new ParseObject("UserActivity");
 
@@ -76,8 +87,34 @@ public class SleepDiaryActivity extends ActionBarActivity implements SeekBar.OnS
 
         edtView=(EditText)findViewById(R.id.pillname);
         edtView.setInputType(InputType.TYPE_NULL);
+        edtView.setActivated(false);
+
 
         coffee = (SeekBar)findViewById(R.id.s_coffee);
+        bever.add((ImageView)findViewById(R.id.beverg0));
+        bever.add((ImageView)findViewById(R.id.beverg1));
+        bever.add((ImageView)findViewById(R.id.beverg2));
+        bever.add((ImageView)findViewById(R.id.beverg3));
+        bever.add((ImageView)findViewById(R.id.beverg4));
+        bever.add((ImageView)findViewById(R.id.beverg5));
+        bever.add((ImageView)findViewById(R.id.beverg6));
+        bever.add((ImageView)findViewById(R.id.beverg7));
+        bever.add((ImageView)findViewById(R.id.beverg8));
+        bever.add((ImageView)findViewById(R.id.beverg9));
+        bever.add((ImageView)findViewById(R.id.beverg10));
+
+//        bever1 = (ImageView)findViewById(R.id.beverg1);
+//        bever2 = (ImageView)findViewById(R.id.beverg2);
+//        bever3 = (ImageView)findViewById(R.id.beverg3);
+//        bever4 = (ImageView)findViewById(R.id.beverg4);
+//        bever5 = (ImageView)findViewById(R.id.beverg5);
+//        bever6 = (ImageView)findViewById(R.id.beverg6);
+//        bever7 = (ImageView)findViewById(R.id.beverg7);
+//        bever8 = (ImageView)findViewById(R.id.beverg8);
+//        bever9 = (ImageView)findViewById(R.id.beverg9);
+//        bever10 = (ImageView)findViewById(R.id.beverg10);
+
+
         wine = ( SeekBar)findViewById(R.id.s_wine);
 
         nap = ( SeekBar)findViewById(R.id.s_nap);
@@ -170,7 +207,7 @@ public class SleepDiaryActivity extends ActionBarActivity implements SeekBar.OnS
         });
 
 
-        pill = (EditText)findViewById(R.id.pillname);
+
 
         yesterday = (TextView)findViewById(R.id.yesterday);
         /** Get the current time */
@@ -237,14 +274,20 @@ public class SleepDiaryActivity extends ActionBarActivity implements SeekBar.OnS
         {
 
 //            EditText pill = (EditText)findViewById(R.id.pillname);
-             pillname = pill.getText().toString();
+             pillname = edtView.getText().toString();
 
-            if((!pilltime.isEmpty()&&pillname.isEmpty())||(no_nap != 0)&&(sleepduration.isEmpty()))
+            if((!pilltime.isEmpty()&&pillname.isEmpty()))
             {
+
                 //popup msg
-                Toast errormsg = Toast.makeText(SleepDiaryActivity.this,"Please finish all the questions!", Toast.LENGTH_SHORT);
+                Toast errormsg = Toast.makeText(SleepDiaryActivity.this,"Please finish Question 5!", Toast.LENGTH_SHORT);
                 errormsg.show();
 
+            }
+            else if ((no_nap != 0)&&(sleepduration.isEmpty()))
+            {
+                Toast errormsg = Toast.makeText(SleepDiaryActivity.this,"Please finish Question 7!", Toast.LENGTH_SHORT);
+                errormsg.show();
             }
 
             else
@@ -337,13 +380,29 @@ public class SleepDiaryActivity extends ActionBarActivity implements SeekBar.OnS
         if(seekBar == coffee)
         {
             no_coffee =progress;
+            for (int bc = 0; bc<11;bc++)
+            {
+                if(bc == no_coffee)
+                    continue;
+                bever.get(bc).setVisibility(View.INVISIBLE);
+            }
+
+            bever.get(no_coffee).setVisibility(View.VISIBLE);
+            
             if(no_coffee>1)
             {
-            t_coffe.setText(no_coffee + " glasses");
+                t_coffe.setText(no_coffee + " glasses");
+
+            }
+            else if(no_coffee ==10)
+            {
+                t_coffe.setText("10 or more glasses");
+
             }
             else
             {
                 t_coffe.setText(no_coffee + " glass");
+
             }
         }
 
@@ -417,6 +476,7 @@ public class SleepDiaryActivity extends ActionBarActivity implements SeekBar.OnS
                     pHour = hourOfDay;
                     pMinute = minute;
                     edtView.setInputType(1);
+                    edtView.setActivated(true);
                     updateDisplay();
                     //displayToast();
 
@@ -442,23 +502,10 @@ public class SleepDiaryActivity extends ActionBarActivity implements SeekBar.OnS
         pilltime = pad(pHour) + ":" + pad(pMinute);
         //Toast pass = Toast.makeText(SleepDiaryActivity.this, am_pm, Toast.LENGTH_SHORT);
         //pass.show();
-        if(pHour>12 ||pHour ==12)
-        {
-            if(pHour>12)
-            pHour = pHour - 12;
             pickTime.setText(
                     new StringBuilder()
                             .append(pad(pHour)).append(":")
-                            .append(pad(pMinute)).append(" pm"));
-        }
-
-        else
-        {
-            pickTime.setText(
-                    new StringBuilder()
-                            .append(pad(pHour)).append(":")
-                            .append(pad(pMinute)).append(" am"));
-        }
+                            .append(pad(pMinute)));
 
 
     }
@@ -474,11 +521,35 @@ public class SleepDiaryActivity extends ActionBarActivity implements SeekBar.OnS
                 pass.show();
             }
             else {
+                String ast = "";
+                if(pHour >1 && pMinute>1)
+                {
+                    ast= pad(pHour)+ "hrs"+pad(pMinute)+"mins";
+                }
+                if (pHour==0 && (pMinute ==0)||(pMinute==1))
+                {
+                    ast= pad(pMinute)+"min";
+                }
+                else if (pHour ==0 && pMinute>1)
+                {
+                    ast= pad(pMinute)+"mins";
+                }
+
+                else if (pHour==1 &&(pMinute ==0)||(pMinute==1))
+                {
+                    ast= pad(pHour)+ "hr"+pad(pMinute)+"min";
+                }
+
+                else if (pHour==1 &&pMinute>1)
+                {
+                    ast= pad(pHour)+ "hr"+pad(pMinute)+"mins";
+                }
+                else if (pHour>1 &&(pMinute ==0)||(pMinute==1))
+                {
+                    ast= pad(pHour)+ "hrs"+pad(pMinute)+"min";
+                }
                 timeperiod.setTextSize(20);
-                timeperiod.setText(
-                        new StringBuilder()
-                                .append(String.valueOf(pHour)).append(" hrs ")
-                                .append(pad(pMinute)).append(" mins"));
+                timeperiod.setText(ast);
             }
     }
 
@@ -510,13 +581,14 @@ public class SleepDiaryActivity extends ActionBarActivity implements SeekBar.OnS
         switch (id) {
             case TIME_DIALOG_ID:
                 return new TimePickerDialog(this,
-                        mTimeSetListener, pHour, pMinute, false);
+                        mTimeSetListener, pHour, pMinute, true);
             case TIME_PERIOD:
                 return new TimePickerDialog(this,
                         dTimeSetListener, pHour, pMinute, true);
         }
         return null;
     }
+
 
 
 }

@@ -452,24 +452,11 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
         //temp_bed = 100*pHour + pMinute;
         bedtime = pad(pHour) + ":" + pad(pMinute);
 
-        if(pHour>12||pHour==12)
-        {
-            if(pHour>12)
-            pHour = pHour - 12;
             Bbedtime.setText(
                     new StringBuilder()
                             .append(pad(pHour)).append(":")
-                            .append(pad(pMinute)).append(" pm"));
-        }
+                            .append(pad(pMinute)));
 
-
-        else
-        {
-            Bbedtime.setText(
-                    new StringBuilder()
-                            .append(pad(pHour)).append(":")
-                            .append(pad(pMinute)).append(" am"));
-        }
 
         Basleeptime.setEnabled(true);
         Basleeptime.setTextColor(0xFF000000);
@@ -482,21 +469,40 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
         temp_asleep_h = pHour;
         temp_asleep_m = pMinute;
         //temp_asleep = 100*pHour + pMinute;
-        if(pHour>12 || pHour == 12)
-        {
-            Toast pass = Toast.makeText(SleepDiaryActivity2.this,"You slept over 12 hours!", Toast.LENGTH_SHORT);
-            Bwoketime.setText("Time Period");
-            pass.show();
-        }
 
-        else{
-        Basleeptime.setText(
-                new StringBuilder()
-                        .append(String.valueOf(pHour)).append(" hrs ")
-                        .append(pad(pMinute)).append(" mins"));
+            String ast = "";
+            if(pHour >1 && pMinute>1)
+            {
+                ast= pad(pHour)+ "hrs"+pad(pMinute)+"mins";
+            }
+            if (pHour==0 && (pMinute ==0)||(pMinute==1))
+            {
+               ast= pad(pMinute)+"min";
+            }
+            else if (pHour ==0 && pMinute>1)
+            {
+                ast= pad(pMinute)+"mins";
+            }
+
+            else if (pHour==1 &&(pMinute ==0)||(pMinute==1))
+            {
+                ast= pad(pHour)+ "hr"+pad(pMinute)+"min";
+            }
+
+            else if (pHour==1 &&pMinute>1)
+            {
+                ast= pad(pHour)+ "hr"+pad(pMinute)+"mins";
+            }
+            else if (pHour>1 &&(pMinute ==0)||(pMinute==1))
+            {
+                ast= pad(pHour)+ "hrs"+pad(pMinute)+"min";
+            }
+
+        Basleeptime.setText(ast);
+
         Bwoketime.setEnabled(true);
         Bwoketime.setTextColor(0xFF000000);
-        }
+
     }
 
     private void updateDisplay2() {
@@ -530,52 +536,13 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
 
         }
 
-        else if((temp_bed_h < 12)&&(temp_wake_h-temp_bed_h ==temp_asleep_h+1)&&(temp_wake_m<temp_asleep_m+temp_bed_m-60))
-        {
-            Toast pass = Toast.makeText(SleepDiaryActivity2.this,"Your woke up earlier than you actually did!", Toast.LENGTH_SHORT);
-            Bwoketime.setText("Pick Time");
-            pass.show();
-        }
-
-        else if(((temp_bed_h>12)||(temp_bed_h==12))&&((temp_wake_h+24-temp_bed_h==temp_asleep_h+1)&&(temp_wake_m<temp_asleep_m+temp_bed_m-60)))
-        {
-            Toast pass = Toast.makeText(SleepDiaryActivity2.this,"Your woke up earlier than you actually did!", Toast.LENGTH_SHORT);
-            Bwoketime.setText("Pick Time");
-            pass.show();
-        }
-
-
-        else if((temp_bed_h < 12)&&((temp_wake_h-temp_bed_h <temp_asleep_h)||(temp_wake_h-temp_bed_h ==temp_asleep_h)&&(temp_wake_m-temp_bed_m<temp_asleep_m)))
-        {
-            Toast pass = Toast.makeText(SleepDiaryActivity2.this,"Your woke up earlier than you actually did!", Toast.LENGTH_SHORT);
-            Bwoketime.setText("Pick Time");
-            pass.show();
-        }
-
-        else if(((temp_bed_h>12)||(temp_bed_h==12))&&((temp_wake_h+24-temp_bed_h<temp_asleep_h)||(temp_wake_h+24-temp_bed_h ==temp_asleep_h)&&(temp_wake_m-temp_bed_m<temp_asleep_m)))
-        {
-            Toast pass = Toast.makeText(SleepDiaryActivity2.this,"Your woke up earlier than you actually did!", Toast.LENGTH_SHORT);
-            Bwoketime.setText("Pick Time");
-            pass.show();
-        }
-
-
 
         else {
+                    Bwoketime.setText(
+                            new StringBuilder()
+                                    .append(pad(pHour)).append(":")
+                                    .append(pad(pMinute)));
 
-                if (pHour > 12 || pHour == 12) {
-                    if (pHour > 12)
-                        pHour = pHour - 12;
-                    Bwoketime.setText(
-                            new StringBuilder()
-                                    .append(pad(pHour)).append(":")
-                                    .append(pad(pMinute)).append(" pm"));
-                } else {
-                    Bwoketime.setText(
-                            new StringBuilder()
-                                    .append(pad(pHour)).append(":")
-                                    .append(pad(pMinute)).append(" am"));
-                }
 
                 Bouttime.setEnabled(true);
                 Bouttime.setTextColor(0xFF000000);
@@ -588,27 +555,21 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
         temp_out = 100*pHour + pMinute;
         if(temp_out<temp_wake)
         {
-            Toast pass = Toast.makeText(SleepDiaryActivity2.this,"You get out of bed earlier than you wake up!", Toast.LENGTH_SHORT);
-            pass.show();
+            Toast pass = Toast.makeText(SleepDiaryActivity2.this,"Question 11 should be later than the wake up time!", Toast.LENGTH_SHORT);
             Bouttime.setText("Pick Time");
+            for(int x = 0; x<2000;x++)//delay the notification
+            pass.show();
         }
 
         else {
 
             outtime = pad(pHour) + ":" + pad(pMinute);
-            if (pHour > 12 || pHour == 12) {
-                if (pHour > 12)
-                    pHour = pHour - 12;
+
                 Bouttime.setText(
                         new StringBuilder()
                                 .append(pad(pHour)).append(":")
-                                .append(pad(pMinute)).append(" pm"));
-            } else {
-                Bouttime.setText(
-                        new StringBuilder()
-                                .append(pad(pHour)).append(":")
-                                .append(pad(pMinute)).append(" am"));
-            }
+                                .append(pad(pMinute)));
+
         }
     }
 
@@ -624,16 +585,16 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
         switch (id) {
             case TIME_DIALOG_0:
                 return new TimePickerDialog(this,
-                        bedTimeSetListener, pHour, pMinute, false);
+                        bedTimeSetListener, pHour, pMinute, true);
             case TIME_DIALOG_1:
                 return new TimePickerDialog(this,
                         asleepTimeSetListener, pHour, pMinute, true);
             case TIME_DIALOG_2:
                 return new TimePickerDialog(this,
-                        wokeTimeSetListener, pHour, pMinute, false);
+                        wokeTimeSetListener, pHour, pMinute, true);
             case TIME_DIALOG_3:
                 return new TimePickerDialog(this,
-                        ofbedTimeSetListener, pHour, pMinute, false);
+                        ofbedTimeSetListener, pHour, pMinute, true);
         }
         return null;
     }
@@ -643,7 +604,10 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
         if(seekBar == Snowake)
         {
             no_wake = progress;
-            waket.setText(no_wake + " time(s)");
+            if(no_wake>1)
+                waket.setText(no_wake + " times");
+            else
+                waket.setText(no_wake+" time");
 
         }
     }
