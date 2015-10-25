@@ -9,8 +9,8 @@
     android:icon="@drawable/ic_launcher">
 
         <ImageView
-              android:minHeight="200dp"
-              android:minWidth="500dp"
+              android:minHeight="260dp"
+              android:minWidth="560dp"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:id="@+id/brain_test"
@@ -19,9 +19,10 @@
               android:layout_centerHorizontal="true"
               android:layout_row="0"
               android:layout_column="0"
+
               android:onClick="bedtimeOnClick"
               android:layout_gravity="left"
-              android:layout_marginLeft="150dp"
+              android:layout_marginLeft="110dp"
               android:layout_marginTop="40dp" />
 
 
@@ -32,19 +33,20 @@
         android:src="@drawable/finish"
         android:layout_row="0"
         android:layout_column="0"
+        android:visibility="invisible"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
         android:clickable="false"
-        android:visibility="invisible"
+
         android:onClick="bedtimeOnClick"
-        android:layout_marginLeft="50dp"
-        android:layout_marginTop="90dp" />
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="120dp" />
 
 
 
     <ImageView
-            android:minHeight="200dp"
-            android:minWidth="500dp"
+            android:minHeight="260dp"
+            android:minWidth="560dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/bedtime"
@@ -55,7 +57,7 @@
             android:layout_centerHorizontal="true"
             android:clickable="true"
             android:onClick="bedtimeOnClick"
-            android:layout_marginLeft="150dp" />
+            android:layout_marginLeft="110dp" />
 
         <ImageView
             android:layout_width="100dp"
@@ -69,12 +71,12 @@
             android:clickable="false"
             android:visibility="invisible"
             android:onClick="bedtimeOnClick"
-            android:layout_marginLeft="50dp"
-            android:layout_marginTop="50dp" />
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="80dp" />
 
         <ImageView
-            android:minHeight="200dp"
-            android:minWidth="500dp"
+            android:minHeight="260dp"
+            android:minWidth="560dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/movesleep"
@@ -85,7 +87,7 @@
             android:layout_centerHorizontal="true"
             android:clickable="true"
             android:onClick="bedtimeOnClick"
-            android:layout_marginLeft="150dp" />
+            android:layout_marginLeft="110dp" />
 
     <ImageView
         android:layout_width="100dp"
@@ -99,39 +101,9 @@
         android:clickable="false"
         android:visibility="invisible"
         android:onClick="bedtimeOnClick"
-        android:layout_marginLeft="50dp"
-        android:layout_marginTop="50dp" />
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="80dp" />
 
-        <ImageView
-            android:minHeight="200dp"
-            android:minWidth="500dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/scopa"
-            android:src="@drawable/scopa"
-            android:layout_row="3"
-            android:layout_column="0"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true"
-            android:clickable="true"
-            android:onClick="bedtimeOnClick"
-            android:layout_marginLeft="150dp" />
-
-    <ImageView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:id="@+id/finish_sleepdiary"
-        android:src="@drawable/finish"
-        android:layout_row="3"
-        android:layout_column="0"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:clickable="false"
-        android:visibility="invisible"
-        android:onClick="bedtimeOnClick"
-        android:layout_marginLeft="50dp"
-        android:layout_marginTop="50dp" />
-
-    </GridLayout>
+</GridLayout>
 
 

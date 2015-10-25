@@ -1,14 +1,18 @@
 package app.sleepdiary.com.sleepdiary;
 
+import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.app.Activity;
 import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.view.View;
 import android.widget.SeekBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -22,6 +26,7 @@ import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
+import android.app.AlertDialog;
 
 /**
  * Created by Yuhan on 9/13/15.
@@ -37,7 +42,9 @@ public class SleepDiaryActivity extends ActionBarActivity implements SeekBar.OnS
     String pillname = "";
     String yesterdaystr ="";
    // Spinner coffee, wine, smoke, naptime;
-    SeekBar coffee,wine,smoke,nap;
+    SeekBar coffee,wine,nap;
+    private Spinner spinner_td ;
+    private Button  smoke;
     //private TextView displayTime;
     private Button timeperiod;
     private Button pickTime;
@@ -59,6 +66,7 @@ public class SleepDiaryActivity extends ActionBarActivity implements SeekBar.OnS
     static final int TIME_DIALOG_ID = 0;
     static final int TIME_PERIOD = 1;
 
+    final Context context = this;
     //SleepdiaryDBHepler sleephelper = new SleepdiaryDBHepler(this);
     ParseObject userActivity  = new ParseObject("UserActivity");
 
@@ -71,20 +79,75 @@ public class SleepDiaryActivity extends ActionBarActivity implements SeekBar.OnS
 
         coffee = (SeekBar)findViewById(R.id.s_coffee);
         wine = ( SeekBar)findViewById(R.id.s_wine);
-        smoke = (SeekBar)findViewById(R.id.s_smoke);
+
         nap = ( SeekBar)findViewById(R.id.s_nap);
+        smoke = (Button)findViewById(R.id.d_smoke);
 
         t_coffe = (TextView)findViewById(R.id.d_coffee);
         t_wine = (TextView)findViewById(R.id.d_wine);
-        t_smoke = (TextView)findViewById(R.id.d_smoke);
         t_nap = (TextView)findViewById(R.id.d_nap);
 
 
         coffee.setOnSeekBarChangeListener(this);
         wine.setOnSeekBarChangeListener(this);
-        smoke.setOnSeekBarChangeListener(this);
+
         nap.setOnSeekBarChangeListener(this);
 
+        smoke.setOnClickListener(new View.OnClickListener() {
+
+            //int numpipe = 0;
+            public void onClick(View v) {
+
+                final Dialog dialog_toba = new Dialog(SleepDiaryActivity.this);
+                dialog_toba.setTitle("");
+
+                dialog_toba.setContentView(R.layout.activity_tobacco);
+                dialog_toba.show();
+
+                spinner_td = (Spinner)dialog_toba.findViewById(R.id.tdspinner);
+
+                spinner_td.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        no_smoke = position;
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+
+                    }
+                });
+
+                Button cdt = (Button)dialog_toba.findViewById(R.id.cancel_dt);
+                Button sdt = (Button)dialog_toba.findViewById(R.id.ok_dt);
+
+                cdt.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        dialog_toba.cancel();
+                    }
+                });
+
+
+                sdt.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        //no_smoke = numpipe ;
+                        if (no_smoke > 0)
+                        {
+                            smoke.setText(no_smoke+" Pipes");
+                        }
+
+                        dialog_toba.cancel();
+                    }
+                });
+
+
+            }
+        });
+
+        //no_smoke = getIntent().getIntExtra("pipenum", 0);
 
         /** Listener for click event of the button */
         //displayTime = (TextView) findViewById(R.id.timeDisplay);
@@ -274,23 +337,52 @@ public class SleepDiaryActivity extends ActionBarActivity implements SeekBar.OnS
         if(seekBar == coffee)
         {
             no_coffee =progress;
-            t_coffe.setText(no_coffee + " glass(es)");
+            if(no_coffee>1)
+            {
+            t_coffe.setText(no_coffee + " glasses");
+            }
+            else
+            {
+                t_coffe.setText(no_coffee + " glass");
+            }
         }
 
         else if(seekBar == wine)
         {
             no_wine = progress;
-            t_wine.setText(no_wine + " glass(es)");
+            if(no_wine>1)
+            {
+                t_wine.setText(no_wine + " glasses");
+            }
+            else
+            {
+            t_wine.setText(no_wine + " glass");
+            }
         }
-        else if(seekBar == smoke)
-        {
-            no_smoke = progress;
-            t_smoke.setText(no_smoke + " pipe(s)");
-        }
+//        else if(seekBar == smoke)
+//        {
+//            no_smoke = progress;
+//            if(no_smoke>1)
+//            {
+//                t_smoke.setText(no_smoke + " pipes");
+//            }
+//            else
+//            {
+//            t_smoke.setText(no_smoke + " pipe");
+//            }
+//        }
         else if(seekBar == nap)
         {
             no_nap = progress;
-            t_nap.setText(no_nap + " time(s)");
+            if(no_nap>1)
+            {
+            t_nap.setText(no_nap + " times");
+            }
+            else if(no_nap == 0 || no_nap == 1)
+            {
+                t_nap.setText(no_nap + " time");
+            }
+            
             if(no_nap>0)
             {
             timeperiod.setTextColor(0xFF000000);
