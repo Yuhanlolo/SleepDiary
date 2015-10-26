@@ -52,7 +52,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="86dp"
         android:textSize="30dp"
-        android:background="#959595"
+        android:background="#BDBDBD"
         android:onClick="button_createIDOnClick"
         />
 
@@ -69,7 +69,7 @@
         android:layout_below="@+id/CreateId"
         android:layout_alignStart="@+id/CreateId"
         android:textSize="30dp"
-        android:background="#959595"
+        android:background="#BDBDBD"
         android:onClick="button_LoginOnClick"
         />
 

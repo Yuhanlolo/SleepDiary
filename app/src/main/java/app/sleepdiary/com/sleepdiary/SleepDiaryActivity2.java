@@ -86,9 +86,9 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
     int sq = 0;
     int awq = 0;
 
-    String bedtime = "";
+    String bedtime = "22:00";
     String asleeptime = "";
-    String woketime = "";
+    String woketime = "06:00";
     String outtime = "";
     int no_wake = 0;
 
@@ -114,7 +114,7 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
 //        pass.show();
 
         Bbedtime = (Button) findViewById(R.id.bedt);
-        Bbedtime.setText("Pick Time");
+        Bbedtime.setText("22:00");
         Bbedtime.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 showDialog(TIME_DIALOG_0);
@@ -132,7 +132,7 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
         });
 
         Bwoketime = (Button) findViewById(R.id.woket);
-        Bwoketime.setText("Pick Time");
+        Bwoketime.setText("06:00");
         Bwoketime.setEnabled(false);
         Bwoketime.setTextColor(0xFF808080);
         Bwoketime.setOnClickListener(new View.OnClickListener() {

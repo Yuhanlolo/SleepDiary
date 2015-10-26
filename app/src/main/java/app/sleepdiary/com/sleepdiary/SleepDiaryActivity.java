@@ -391,19 +391,21 @@ public class SleepDiaryActivity extends ActionBarActivity implements SeekBar.OnS
 
             if(no_coffee ==10)
         {
-            t_coffe.setTextSize(20);
+            t_coffe.setTextSize(16);
             t_coffe.setText("10 or more glasses");
 
         }
             else if(no_coffee>1)
             {
                 t_coffe.setText(no_coffee + " glasses");
+                t_coffe.setTextSize(22);
 
             }
 
             else
             {
                 t_coffe.setText(no_coffee + " glass");
+                t_coffe.setTextSize(22);
 
             }
         }
@@ -411,13 +413,22 @@ public class SleepDiaryActivity extends ActionBarActivity implements SeekBar.OnS
         else if(seekBar == wine)
         {
             no_wine = progress;
+
+            if(no_wine ==10)
+            {
+                t_wine.setTextSize(16);
+                t_wine.setText("10 or more glasses");
+
+            }
             if(no_wine>1)
             {
                 t_wine.setText(no_wine + " glasses");
+                t_wine.setTextSize(22);
             }
             else
             {
-            t_wine.setText(no_wine + " glass");
+                t_wine.setText(no_wine + " glass");
+                t_wine.setTextSize(22);
             }
         }
 //        else if(seekBar == smoke)
@@ -435,13 +446,21 @@ public class SleepDiaryActivity extends ActionBarActivity implements SeekBar.OnS
         else if(seekBar == nap)
         {
             no_nap = progress;
+
+            if(no_nap ==10)
+            {
+                t_nap.setTextSize(16);
+                t_nap.setText("10 or more glasses");
+
+            }
             if(no_nap>1)
             {
-            t_nap.setText(no_nap + " times");
-            }
-            else if(no_nap == 0 || no_nap == 1)
+                t_nap.setText(no_nap + " times");
+                t_nap.setTextSize(22);
+            } else if(no_nap == 0 || no_nap == 1)
             {
                 t_nap.setText(no_nap + " time");
+                t_nap.setTextSize(22);
             }
             
             if(no_nap>0)

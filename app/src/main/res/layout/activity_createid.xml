@@ -139,7 +139,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp"
             android:textSize="30dp"
-            android:background="#959595"
+            android:background="#BDBDBD"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.12"
@@ -158,7 +158,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp"
             android:textSize="30dp"
-            android:background="#959595"
+            android:background="#BDBDBD"
             android:layout_weight="0.12"
             android:checked="false"
             android:onClick="button_CIdOnClick" />

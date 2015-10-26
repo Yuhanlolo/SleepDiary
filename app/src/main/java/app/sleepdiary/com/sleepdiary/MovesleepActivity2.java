@@ -15,7 +15,7 @@ public class MovesleepActivity2 extends ActionBarActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_movesleep);
+        setContentView(R.layout.activity_movesleep2);
 
         getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN
@@ -48,7 +48,7 @@ public class MovesleepActivity2 extends ActionBarActivity {
     }
 
 
-    public void BLoginOnClick(View view)
+    public void button_ms2dOnClick(View view)
     {
         if(view.getId() == R.id.save_ms2)
         {
