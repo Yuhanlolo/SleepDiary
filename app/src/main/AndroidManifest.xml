@@ -66,7 +66,17 @@
             android:name=".SleepDiaryActivity3">
         </activity>
 
+        <activity
+            android:name=".CoverActivity">
+        </activity>
 
+        <activity
+            android:name=".MovesleepActivity">
+        </activity>
+
+        <activity
+            android:name=".MovesleepActivity2">
+        </activity>
     </application>
 
 </manifest>

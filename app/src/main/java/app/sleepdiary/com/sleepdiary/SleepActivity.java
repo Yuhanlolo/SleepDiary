@@ -98,6 +98,11 @@ public class SleepActivity extends ActionBarActivity{
             SleepActivity.this.startActivity(i);
         }
 
+        if(view.getId() == R.id.movesleep)
+        {
+            Intent i = new Intent(SleepActivity.this,MovesleepActivity.class);
+            SleepActivity.this.startActivity(i);
+        }
         if(view.getId() == R.id.brain_test)
         {
 

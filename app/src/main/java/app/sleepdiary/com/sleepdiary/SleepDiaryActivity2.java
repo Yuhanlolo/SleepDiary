@@ -329,14 +329,40 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
 
         else if(view.getId() == R.id.save_s2)
         {
-            if(bedtime.isEmpty()||asleeptime.isEmpty()||woketime.isEmpty()||outtime.isEmpty()||sq==0||awq==0)
+            if(bedtime.isEmpty())
             {
                 //popup msg
-                Toast errormsg = Toast.makeText(SleepDiaryActivity2.this,"Please finish all the questions!", Toast.LENGTH_SHORT);
+                Toast errormsg = Toast.makeText(SleepDiaryActivity2.this,"Please finish Question 8!", Toast.LENGTH_SHORT);
                 errormsg.show();
 
             }
+            else if (asleeptime.isEmpty())
+            {
+                Toast errormsg = Toast.makeText(SleepDiaryActivity2.this,"Please finish Question 9!", Toast.LENGTH_SHORT);
+                errormsg.show();
+            }
+            else if (woketime.isEmpty())
+            {
+                Toast errormsg = Toast.makeText(SleepDiaryActivity2.this,"Please finish Question 10!", Toast.LENGTH_SHORT);
+                errormsg.show();
+            }
 
+            else if (outtime.isEmpty())
+            {
+                Toast errormsg = Toast.makeText(SleepDiaryActivity2.this,"Please finish Question 11!", Toast.LENGTH_SHORT);
+                errormsg.show();
+            }
+            else if (sq==0)
+            {
+                Toast errormsg = Toast.makeText(SleepDiaryActivity2.this,"Please finish Question 13!", Toast.LENGTH_SHORT);
+                errormsg.show();
+            }
+
+            else if (awq==0)
+            {
+                Toast errormsg = Toast.makeText(SleepDiaryActivity2.this,"Please finish Question 14!", Toast.LENGTH_SHORT);
+                errormsg.show();
+            }
             else
             {
                 //query.whereEqualTo("User_ID",objectID);
@@ -471,34 +497,43 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
         //temp_asleep = 100*pHour + pMinute;
 
             String ast = "";
-            if(pHour >1 && pMinute>1)
-            {
-                ast= pad(pHour)+ "hrs"+pad(pMinute)+"mins";
-            }
-            if (pHour==0 && (pMinute ==0)||(pMinute==1))
-            {
-               ast= pad(pMinute)+"min";
-            }
-            else if (pHour ==0 && pMinute>1)
-            {
-                ast= pad(pMinute)+"mins";
-            }
+        if(pHour >1 && pMinute>1)
+        {
+            ast= pad(pHour)+ " hrs"+" "+pad(pMinute)+" mins";
+        }
+        if (pHour==0 && (pMinute ==0)||(pMinute==1))
+        {
+            ast= pad(pMinute)+" min";
+        }
+        else if (pHour ==0 && pMinute>1)
+        {
+            ast= pad(pMinute)+" mins";
+        }
 
-            else if (pHour==1 &&(pMinute ==0)||(pMinute==1))
-            {
-                ast= pad(pHour)+ "hr"+pad(pMinute)+"min";
-            }
+        else if (pHour==1 &&(pMinute ==0))
+        {
+            ast= pad(pHour)+ " hr";
+        }
 
-            else if (pHour==1 &&pMinute>1)
-            {
-                ast= pad(pHour)+ "hr"+pad(pMinute)+"mins";
-            }
-            else if (pHour>1 &&(pMinute ==0)||(pMinute==1))
-            {
-                ast= pad(pHour)+ "hrs"+pad(pMinute)+"min";
-            }
+        else if (pHour==1 &&(pMinute ==1))
+        {
+            ast= pad(pHour)+ " hr"+" "+pad(pMinute)+" min";
+        }
+        else if (pHour==1 &&pMinute>1)
+        {
+            ast= pad(pHour)+ " hr"+" "+pad(pMinute)+" mins";
+        }
+        else if (pHour>1 &&(pMinute ==0))
+        {
+            ast= pad(pHour)+ " hrs";
+        }
+        else if (pHour>1 &&(pMinute ==1))
+        {
+            ast= pad(pHour)+ " hrs"+" "+pad(pMinute)+" min";
+        }
 
         Basleeptime.setText(ast);
+        Basleeptime.setTextSize(18);
 
         Bwoketime.setEnabled(true);
         Bwoketime.setTextColor(0xFF000000);
@@ -606,8 +641,10 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
             no_wake = progress;
             if(no_wake>1)
                 waket.setText(no_wake + " times");
+            else if (no_wake==10)
+                waket.setText(no_wake+"or more times");
             else
-                waket.setText(no_wake+" time");
+                waket.setText(no_wake + " time");
 
         }
     }

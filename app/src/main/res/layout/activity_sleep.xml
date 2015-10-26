@@ -9,7 +9,7 @@
     android:icon="@drawable/ic_launcher">
 
         <ImageView
-              android:minHeight="260dp"
+              android:minHeight="200dp"
               android:minWidth="560dp"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
@@ -22,8 +22,8 @@
 
               android:onClick="bedtimeOnClick"
               android:layout_gravity="left"
-              android:layout_marginLeft="110dp"
-              android:layout_marginTop="40dp" />
+              android:layout_marginLeft="100dp"
+              android:layout_marginTop="130dp" />
 
 
     <ImageView
@@ -39,13 +39,13 @@
         android:clickable="false"
 
         android:onClick="bedtimeOnClick"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="120dp" />
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="180dp" />
 
 
 
     <ImageView
-            android:minHeight="260dp"
+            android:minHeight="200dp"
             android:minWidth="560dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -72,10 +72,10 @@
             android:visibility="invisible"
             android:onClick="bedtimeOnClick"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="80dp" />
+            android:layout_marginTop="50dp" />
 
         <ImageView
-            android:minHeight="260dp"
+            android:minHeight="200dp"
             android:minWidth="560dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -102,7 +102,7 @@
         android:visibility="invisible"
         android:onClick="bedtimeOnClick"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="80dp" />
+        android:layout_marginTop="50dp" />
 
 </GridLayout>
 

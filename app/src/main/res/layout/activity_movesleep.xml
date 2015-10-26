@@ -1,0 +1,677 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+    <GridLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#fafafa"
+        android:icon="@drawable/ic_launcher"
+        >
+
+        <TextView
+            android:id="@+id/lastnight"
+            android:text=""
+            android:textSize="28dp"
+            android:textColor="#000000"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="0"
+            android:layout_column="0"
+            android:layout_marginStart="150dp"
+
+            android:layout_marginTop="25dp" />
+
+        <TextView
+            android:id="@+id/visual"
+            android:text="Please place a cross in the box which best reflects your situation right now."
+            android:textSize="24dp"
+            android:textColor="#000000"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="1"
+            android:layout_column="0"
+            android:layout_marginStart="40dp"
+            android:paddingTop="25dp" />
+
+        <TextView
+            android:id="@+id/visual"
+            android:text="1. Walking"
+            android:textSize="24dp"
+            android:textColor="#000000"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="2"
+            android:layout_column="0"
+            android:layout_marginStart="40dp"
+            android:paddingTop="25dp" />
+
+        <!--<SeekBar-->
+            <!--android:layout_width="665dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:id="@+id/s_walking"-->
+            <!--android:layout_marginTop="35dp"-->
+            <!--android:max="10"-->
+            <!--android:progress="0"-->
+            <!--android:layout_row="3"-->
+            <!--android:layout_column="0"-->
+            <!--android:layout_marginLeft="50dp"-->
+            <!--/>-->
+
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:id="@+id/wscopa1"
+            android:src="@drawable/scopa1"
+            android:layout_marginStart="450dp"
+            android:paddingTop="25dp"
+            android:layout_row="2"
+            android:layout_column="0"
+            />
+
+
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:id="@+id/wscopa2"
+            android:src="@drawable/scopa2"
+            android:layout_marginStart="500dp"
+            android:paddingTop="25dp"
+            android:layout_row="2"
+            android:layout_column="0"
+            />
+
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:id="@+id/wscopa3"
+            android:src="@drawable/scopa3"
+            android:layout_marginStart="550dp"
+            android:paddingTop="25dp"
+            android:layout_row="2"
+            android:layout_column="0"
+            />
+
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:id="@+id/wscopa4"
+            android:src="@drawable/scopa4"
+            android:layout_marginStart="600dp"
+            android:paddingTop="25dp"
+            android:layout_row="2"
+            android:layout_column="0"
+            />
+
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:id="@+id/wsscopa1"
+            android:src="@drawable/s_scopa_1"
+            android:layout_marginStart="450dp"
+            android:paddingTop="25dp"
+            android:layout_row="2"
+            android:layout_column="0"
+            android:visibility="invisible"
+            />
+
+
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:id="@+id/wsscopa2"
+            android:src="@drawable/s_scopa_2"
+            android:layout_marginStart="500dp"
+            android:paddingTop="25dp"
+            android:layout_row="2"
+            android:layout_column="0"
+            android:visibility="invisible"
+            />
+
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:id="@+id/wsscopa3"
+            android:src="@drawable/s_scopa_3"
+            android:layout_marginStart="550dp"
+            android:paddingTop="25dp"
+            android:layout_row="2"
+            android:layout_column="0"
+            android:visibility="invisible"
+            />
+
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:id="@+id/wsscopa4"
+            android:src="@drawable/s_scopa_4"
+            android:layout_marginStart="600dp"
+            android:paddingTop="25dp"
+            android:layout_row="2"
+            android:layout_column="0"
+            android:visibility="invisible"
+            />
+
+        <TextView
+            android:id="@+id/visual"
+            android:text="2. Changing position"
+            android:textSize="24dp"
+            android:textColor="#000000"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="4"
+            android:layout_column="0"
+            android:layout_marginStart="40dp"
+            android:paddingTop="25dp" />
+
+        <!--<SeekBar-->
+            <!--android:layout_width="665dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:id="@+id/s_changing"-->
+            <!--android:layout_marginTop="35dp"-->
+            <!--android:max="10"-->
+            <!--android:progress="0"-->
+            <!--android:layout_row="5"-->
+            <!--android:layout_column="0"-->
+            <!--android:layout_marginLeft="50dp"-->
+            <!--/>-->
+
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:id="@+id/cscopa1"
+            android:src="@drawable/scopa1"
+            android:layout_marginStart="450dp"
+            android:paddingTop="25dp"
+            android:layout_row="4"
+            android:layout_column="0"
+            />
+
+
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:id="@+id/cscopa2"
+            android:src="@drawable/scopa2"
+            android:layout_marginStart="500dp"
+            android:paddingTop="25dp"
+            android:layout_row="4"
+            android:layout_column="0"
+            />
+
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:id="@+id/cscopa3"
+            android:src="@drawable/scopa3"
+            android:layout_marginStart="550dp"
+            android:paddingTop="25dp"
+            android:layout_row="4"
+            android:layout_column="0"
+            />
+
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:id="@+id/cscopa4"
+            android:src="@drawable/scopa4"
+            android:layout_marginStart="600dp"
+            android:paddingTop="25dp"
+            android:layout_row="4"
+            android:layout_column="0"
+            />
+
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:id="@+id/csscopa1"
+            android:src="@drawable/s_scopa_1"
+            android:layout_marginStart="450dp"
+            android:paddingTop="25dp"
+            android:layout_row="4"
+            android:layout_column="0"
+            android:visibility="invisible"
+            />
+
+
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:id="@+id/csscopa2"
+            android:src="@drawable/s_scopa_2"
+            android:layout_marginStart="500dp"
+            android:paddingTop="25dp"
+            android:layout_row="4"
+            android:layout_column="0"
+            android:visibility="invisible"
+            />
+
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:id="@+id/csscopa3"
+            android:src="@drawable/s_scopa_3"
+            android:layout_marginStart="550dp"
+            android:paddingTop="25dp"
+            android:layout_row="4"
+            android:layout_column="0"
+            android:visibility="invisible"
+            />
+
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:id="@+id/csscopa4"
+            android:src="@drawable/s_scopa_4"
+            android:layout_marginStart="600dp"
+            android:paddingTop="25dp"
+            android:layout_row="4"
+            android:layout_column="0"
+            android:visibility="invisible"
+            />
+
+
+        <TextView
+            android:id="@+id/visual"
+            android:text="3. Using your hands"
+            android:textSize="24dp"
+            android:textColor="#000000"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="6"
+            android:layout_column="0"
+            android:layout_marginStart="40dp"
+            android:paddingTop="25dp" />
+
+        <!--<SeekBar-->
+            <!--android:layout_width="665dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:id="@+id/s_hands"-->
+            <!--android:layout_marginTop="35dp"-->
+            <!--android:max="10"-->
+            <!--android:progress="0"-->
+            <!--android:layout_row="7"-->
+            <!--android:layout_column="0"-->
+            <!--android:layout_marginLeft="50dp"-->
+            <!--/>-->
+
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:id="@+id/uscopa1"
+            android:src="@drawable/scopa1"
+            android:layout_marginStart="450dp"
+            android:paddingTop="25dp"
+            android:layout_row="6"
+            android:layout_column="0"
+            />
+
+
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:id="@+id/uscopa2"
+            android:src="@drawable/scopa2"
+            android:layout_marginStart="500dp"
+            android:paddingTop="25dp"
+            android:layout_row="6"
+            android:layout_column="0"
+            />
+
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:id="@+id/uscopa3"
+            android:src="@drawable/scopa3"
+            android:layout_marginStart="550dp"
+            android:paddingTop="25dp"
+            android:layout_row="6"
+            android:layout_column="0"
+            />
+
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:id="@+id/uscopa4"
+            android:src="@drawable/scopa4"
+            android:layout_marginStart="600dp"
+            android:paddingTop="25dp"
+            android:layout_row="6"
+            android:layout_column="0"
+            />
+
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:id="@+id/usscopa1"
+            android:src="@drawable/s_scopa_1"
+            android:layout_marginStart="450dp"
+            android:paddingTop="25dp"
+            android:layout_row="6"
+            android:layout_column="0"
+            android:visibility="invisible"
+            />
+
+
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:id="@+id/usscopa2"
+            android:src="@drawable/s_scopa_2"
+            android:layout_marginStart="500dp"
+            android:paddingTop="25dp"
+            android:layout_row="6"
+            android:layout_column="0"
+            android:visibility="invisible"
+            />
+
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:id="@+id/usscopa3"
+            android:src="@drawable/s_scopa_3"
+            android:layout_marginStart="550dp"
+            android:paddingTop="25dp"
+            android:layout_row="6"
+            android:layout_column="0"
+            android:visibility="invisible"
+            />
+
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:id="@+id/usscopa4"
+            android:src="@drawable/s_scopa_4"
+            android:layout_marginStart="600dp"
+            android:paddingTop="25dp"
+            android:layout_row="6"
+            android:layout_column="0"
+            android:visibility="invisible"
+            />
+
+
+
+
+        <TextView
+
+            android:text="For Walking, changing position and using your hands:"
+            android:textSize="24dp"
+            android:textColor="#000000"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="10"
+            android:layout_column="0"
+            android:layout_marginStart="40dp"
+            android:paddingTop="25dp" />
+
+
+        <TextView
+
+            android:text="0 = no difficulty"
+            android:textSize="24dp"
+            android:textColor="#000000"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="11"
+            android:layout_column="0"
+            android:layout_marginStart="40dp"
+            android:paddingTop="25dp" />
+
+        <TextView
+
+            android:text="1 = slightly diffulty (somehow slow, no help required)"
+            android:textSize="24dp"
+            android:textColor="#000000"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="12"
+            android:layout_column="0"
+            android:layout_marginStart="40dp"
+            android:paddingTop="15dp" />
+
+        <TextView
+
+            android:text="2 = moderate diffculty (rather slow, some help required)"
+            android:textSize="24dp"
+            android:textColor="#000000"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="13"
+            android:layout_column="0"
+            android:layout_marginStart="40dp"
+            android:paddingTop="15dp" />
+
+        <TextView
+
+            android:text="3 = severe difficulty (impossible or only with a lot of help)"
+            android:textSize="24dp"
+            android:textColor="#000000"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="14"
+            android:layout_column="0"
+            android:layout_marginStart="40dp"
+            android:paddingTop="15dp" />
+
+        <TextView
+            android:id="@+id/visual"
+            android:text="4. Uncontrollable movements"
+            android:textSize="24dp"
+            android:textColor="#000000"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="15"
+            android:layout_column="0"
+            android:layout_marginStart="40dp"
+            android:paddingTop="35dp" />
+
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:id="@+id/umscopa1"
+            android:src="@drawable/scopa1"
+            android:layout_marginStart="450dp"
+            android:paddingTop="25dp"
+            android:layout_row="15"
+            android:layout_column="0"
+            />
+
+
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:id="@+id/umscopa2"
+            android:src="@drawable/scopa2"
+            android:layout_marginStart="500dp"
+            android:paddingTop="25dp"
+            android:layout_row="15"
+            android:layout_column="0"
+            />
+
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:id="@+id/umscopa3"
+            android:src="@drawable/scopa3"
+            android:layout_marginStart="550dp"
+            android:paddingTop="25dp"
+            android:layout_row="15"
+            android:layout_column="0"
+            />
+
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:id="@+id/umscopa4"
+            android:src="@drawable/scopa4"
+            android:layout_marginStart="600dp"
+            android:paddingTop="25dp"
+            android:layout_row="15"
+            android:layout_column="0"
+            />
+
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:id="@+id/umsscopa1"
+            android:src="@drawable/s_scopa_1"
+            android:layout_marginStart="450dp"
+            android:paddingTop="25dp"
+            android:layout_row="15"
+            android:layout_column="0"
+            android:visibility="invisible"
+            />
+
+
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:id="@+id/umsscopa2"
+            android:src="@drawable/s_scopa_2"
+            android:layout_marginStart="500dp"
+            android:paddingTop="25dp"
+            android:layout_row="15"
+            android:layout_column="0"
+            android:visibility="invisible"
+            />
+
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:id="@+id/umsscopa3"
+            android:src="@drawable/s_scopa_3"
+            android:layout_marginStart="550dp"
+            android:paddingTop="25dp"
+            android:layout_row="15"
+            android:layout_column="0"
+            android:visibility="invisible"
+            />
+
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:id="@+id/umsscopa4"
+            android:src="@drawable/s_scopa_4"
+            android:layout_marginStart="600dp"
+            android:paddingTop="25dp"
+            android:layout_row="15"
+            android:layout_column="0"
+            android:visibility="invisible"
+            />
+
+
+        <TextView
+
+            android:text="For uncontrollable movements:"
+            android:textSize="24dp"
+            android:textColor="#000000"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="16"
+            android:layout_column="0"
+            android:layout_marginStart="40dp"
+            android:paddingTop="25dp" />
+
+
+        <TextView
+
+            android:text="0 = absent or do not bother me"
+            android:textSize="24dp"
+            android:textColor="#000000"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="17"
+            android:layout_column="0"
+            android:layout_marginStart="40dp"
+            android:paddingTop="15dp" />
+
+        <TextView
+
+            android:text="1 = bother me slightly"
+            android:textSize="24dp"
+            android:textColor="#000000"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="18"
+            android:layout_column="0"
+            android:layout_marginStart="40dp"
+            android:paddingTop="15dp" />
+
+        <TextView
+
+            android:text="2 = bother me moderately"
+            android:textSize="24dp"
+            android:textColor="#000000"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="19"
+            android:layout_column="0"
+            android:layout_marginStart="40dp"
+            android:paddingTop="15dp" />
+
+        <TextView
+
+            android:text="3 = bother me a lot"
+            android:textSize="24dp"
+            android:textColor="#000000"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="20"
+            android:layout_column="0"
+            android:layout_marginStart="40dp"
+            android:paddingTop="15dp" />
+
+
+        <RadioGroup
+            android:id="@+id/buttongroup"
+            android:layout_width="472dp"
+            android:layout_height="180dp"
+            android:layout_marginStart="160dp"
+            android:orientation="horizontal"
+            android:minHeight="100dp"
+            android:minWidth="200dp"
+            android:paddingTop="55dp"
+            android:layout_row="21"
+            android:layout_column="0">
+
+
+            <Button
+                android:id="@+id/cancel_ms"
+                android:width="200dp"
+                android:height="45dp"
+                android:text="Cancel"
+                android:textAllCaps="false"
+                android:layout_centerHorizontal="true"
+
+                android:textSize="25dp"
+                android:background="#BDBDBD"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="button_msdOnClick" />
+
+            <Button
+                android:id="@+id/save_ms"
+                android:width="200dp"
+                android:height="45dp"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="Save &amp; Continue"
+                android:textAllCaps="false"
+                android:layout_marginStart="50dp"
+                android:layout_centerHorizontal="true"
+
+                android:textSize="25dp"
+                android:background="#BDBDBD"
+                android:layout_weight="4.69"
+                android:checked="false"
+                android:onClick="button_msdOnClick" />
+
+        </RadioGroup>
+
+
+
+    </GridLayout>
+</ScrollView>

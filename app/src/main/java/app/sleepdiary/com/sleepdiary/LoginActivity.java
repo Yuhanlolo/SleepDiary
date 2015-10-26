@@ -87,7 +87,7 @@ public class LoginActivity extends ActionBarActivity{
                     }
                     else
                     {
-                        Intent i = new Intent(LoginActivity.this,SleepActivity.class);
+                        Intent i = new Intent(LoginActivity.this,CoverActivity.class);
                         i.putExtra("userid",stracc);
                         i.addFlags(i.FLAG_ACTIVITY_CLEAR_TASK|i.FLAG_ACTIVITY_NEW_TASK);
                         LoginActivity.this.startActivity(i);

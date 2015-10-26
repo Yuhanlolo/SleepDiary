@@ -388,17 +388,19 @@ public class SleepDiaryActivity extends ActionBarActivity implements SeekBar.OnS
             }
 
             bever.get(no_coffee).setVisibility(View.VISIBLE);
-            
-            if(no_coffee>1)
+
+            if(no_coffee ==10)
+        {
+            t_coffe.setTextSize(20);
+            t_coffe.setText("10 or more glasses");
+
+        }
+            else if(no_coffee>1)
             {
                 t_coffe.setText(no_coffee + " glasses");
 
             }
-            else if(no_coffee ==10)
-            {
-                t_coffe.setText("10 or more glasses");
 
-            }
             else
             {
                 t_coffe.setText(no_coffee + " glass");
@@ -524,31 +526,39 @@ public class SleepDiaryActivity extends ActionBarActivity implements SeekBar.OnS
                 String ast = "";
                 if(pHour >1 && pMinute>1)
                 {
-                    ast= pad(pHour)+ "hrs"+pad(pMinute)+"mins";
+                    ast= pad(pHour)+ " hrs"+" "+pad(pMinute)+" mins";
                 }
                 if (pHour==0 && (pMinute ==0)||(pMinute==1))
                 {
-                    ast= pad(pMinute)+"min";
+                    ast= pad(pMinute)+" min";
                 }
                 else if (pHour ==0 && pMinute>1)
                 {
-                    ast= pad(pMinute)+"mins";
+                    ast= pad(pMinute)+" mins";
                 }
 
-                else if (pHour==1 &&(pMinute ==0)||(pMinute==1))
+                else if (pHour==1 &&(pMinute ==0))
                 {
-                    ast= pad(pHour)+ "hr"+pad(pMinute)+"min";
+                    ast= pad(pHour)+ " hr";
                 }
 
+                else if (pHour==1 &&(pMinute ==1))
+                {
+                    ast= pad(pHour)+ " hr"+" "+pad(pMinute)+" min";
+                }
                 else if (pHour==1 &&pMinute>1)
                 {
-                    ast= pad(pHour)+ "hr"+pad(pMinute)+"mins";
+                    ast= pad(pHour)+ " hr"+" "+pad(pMinute)+" mins";
                 }
-                else if (pHour>1 &&(pMinute ==0)||(pMinute==1))
+                else if (pHour>1 &&(pMinute ==0))
                 {
-                    ast= pad(pHour)+ "hrs"+pad(pMinute)+"min";
+                    ast= pad(pHour)+ " hrs";
                 }
-                timeperiod.setTextSize(20);
+                else if (pHour>1 &&(pMinute ==1))
+                {
+                    ast= pad(pHour)+ " hrs"+" "+pad(pMinute)+" min";
+                }
+                timeperiod.setTextSize(18);
                 timeperiod.setText(ast);
             }
     }
