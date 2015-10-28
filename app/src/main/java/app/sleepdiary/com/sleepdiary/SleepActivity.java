@@ -45,9 +45,11 @@ public class SleepActivity extends ActionBarActivity{
 
         f1 = (ImageView)findViewById(R.id.finish_braintest);
         f2 = (ImageView)findViewById(R.id.finish_sleepdiary);
+        f3 = (ImageView)findViewById(R.id.finish_movesleep);
 
         finish_sleepdiary = getIntent().getBooleanExtra("f2",false);
         finish_braintest =  getIntent().getBooleanExtra("f1",false);
+        finish_movesleep = getIntent().getBooleanExtra("f3", false);
 
         if(finish_braintest)
         {
@@ -57,6 +59,11 @@ public class SleepActivity extends ActionBarActivity{
         if(finish_sleepdiary)
         {
             f2.setVisibility(View.VISIBLE);
+        }
+
+        if(finish_movesleep)
+        {
+            f3.setVisibility(View.VISIBLE);
         }
         //Parse.initialize(this, getString(R.string.parse_app_id), getString(R.string.parse_client_key));
        userid = getIntent().getStringExtra("userid");

@@ -6,14 +6,47 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 
 /**
  * Created by ypl5142 on 10/25/15.
  */
 public class CoverActivity  extends ActionBarActivity {
+
+    boolean M30 = false;
+    boolean A_DOPA1= false;
+    boolean A_DOPA = false;
+    boolean E = false;
+
+    ImageView finish_M30,finish_adi,finish_bdi,finish_E;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cover);
+
+        finish_M30 = (ImageView)findViewById(R.id.fmt);
+        finish_adi = (ImageView)findViewById(R.id.fadi);
+        finish_bdi = (ImageView)findViewById(R.id.fbdi);
+        finish_E = (ImageView)findViewById(R.id.fbt);
+
+        M30 = getIntent().getBooleanExtra("f3",false);
+        if(M30)
+        {
+          finish_M30.setVisibility(View.VISIBLE);
+        }
+        if(A_DOPA1)
+        {
+            finish_adi.setVisibility(View.VISIBLE);
+        }
+        if(A_DOPA)
+        {
+            finish_bdi.setVisibility(View.VISIBLE);
+        }
+        if(E)
+        {
+            finish_E.setVisibility(View.VISIBLE);
+        }
+
     }
 
     @Override
@@ -33,7 +66,7 @@ public class CoverActivity  extends ActionBarActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
 //            return true;
-            Intent i = new Intent(CoverActivity.this,SettingsActivity.class);
+            Intent i = new Intent(CoverActivity.this,MainActivity.class);
             CoverActivity.this.startActivity(i);
         }
 

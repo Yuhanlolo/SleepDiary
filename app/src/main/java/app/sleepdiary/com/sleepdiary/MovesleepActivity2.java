@@ -7,11 +7,26 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.ImageView;
+import android.widget.SeekBar;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by ypl5142 on 10/25/15.
  */
-public class MovesleepActivity2 extends ActionBarActivity {
+public class MovesleepActivity2 extends ActionBarActivity implements SeekBar.OnSeekBarChangeListener {
+
+    List<ImageView> sleepscale = new ArrayList<ImageView>(10);
+    SeekBar sleeppoint, movescale;
+    int sleepp = -1;
+    int movep = -1;
+    TextView sleepptext;
+
+    boolean f = false;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,6 +35,23 @@ public class MovesleepActivity2 extends ActionBarActivity {
         getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN
         );
+
+        movescale = (SeekBar)findViewById(R.id.s_move);
+        movescale.setOnSeekBarChangeListener(this);
+
+        sleepptext = (TextView)findViewById(R.id.sleepscaletext);
+        sleeppoint = (SeekBar)findViewById(R.id.scale_sleep);
+        sleepscale.add((ImageView) findViewById(R.id.po0));
+        sleepscale.add((ImageView)findViewById(R.id.po1));
+        sleepscale.add((ImageView)findViewById(R.id.po2));
+        sleepscale.add((ImageView)findViewById(R.id.po3));
+        sleepscale.add((ImageView)findViewById(R.id.po4));
+        sleepscale.add((ImageView)findViewById(R.id.po5));
+        sleepscale.add((ImageView)findViewById(R.id.po6));
+        sleepscale.add((ImageView) findViewById(R.id.po7));
+
+
+        sleeppoint.setOnSeekBarChangeListener(this);
     }
 
     @Override
@@ -52,8 +84,74 @@ public class MovesleepActivity2 extends ActionBarActivity {
     {
         if(view.getId() == R.id.save_ms2)
         {
-            Intent i = new Intent(MovesleepActivity2.this,SettingsActivity.class);
+            if(movep == -1){
+                Toast errormsg = Toast.makeText(MovesleepActivity2.this,"Please finish Question 5!", Toast.LENGTH_SHORT);
+                errormsg.show();
+            }
+            else if(sleepp == -1){
+                Toast errormsg = Toast.makeText(MovesleepActivity2.this,"Please finish Question 6!", Toast.LENGTH_SHORT);
+                errormsg.show();
+            }
+            else
+            {
+                f = true;
+                Intent i = new Intent(MovesleepActivity2.this,CoverActivity.class);
+                i.putExtra("f3",f);
+                MovesleepActivity2.this.startActivity(i);
+            }
+        }
+
+        if(view.getId() == R.id.cancel_ms2)
+        {
+            Intent i = new Intent(MovesleepActivity2.this,SleepActivity.class);
             MovesleepActivity2.this.startActivity(i);
         }
+    }
+
+    @Override
+    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+
+        if (seekBar == movescale)
+        {
+            movep = progress;
+
+        }
+
+        if (seekBar == sleeppoint)
+        {
+            sleepp = progress + 1;
+            for (int bc = 0; bc<8;bc++)
+            {
+                if(bc == progress)
+                    continue;
+                sleepscale.get(bc).setVisibility(View.INVISIBLE);
+            }
+
+            sleepscale.get(progress).setVisibility(View.VISIBLE);
+
+            if(sleepp>1)
+            {
+                sleepptext.setText(sleepp + " points");
+
+
+            }
+
+            else
+            {
+                sleepptext.setText(sleepp + " point");
+
+
+            }
+        }
+    }
+
+    @Override
+    public void onStartTrackingTouch(SeekBar seekBar) {
+
+    }
+
+    @Override
+    public void onStopTrackingTouch(SeekBar seekBar) {
+
     }
 }

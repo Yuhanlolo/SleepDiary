@@ -28,7 +28,7 @@
 
         <TextView
             android:id="@+id/visual"
-            android:text="How would you rate your capability to move?"
+            android:text="5. How would you rate your capability to move?"
             android:textSize="24dp"
             android:textColor="#000000"
             android:layout_width="wrap_content"
@@ -68,7 +68,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/s_move"
             android:layout_marginTop="35dp"
-            android:max="10"
+            android:max="7"
             android:progress="0"
             android:layout_row="3"
             android:layout_column="0"
@@ -76,30 +76,30 @@
             />
 
 
-        <TextView
-            android:id="@+id/stanford"
-            android:text="Standford Sleepiness Scale"
-            android:textSize="24dp"
-            android:textColor="#000000"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_row="4"
-            android:layout_column="0"
-            android:layout_marginStart="40dp"
-            android:paddingTop="15dp"
-            />
+        <!--<TextView-->
+            <!--android:id="@+id/stanford"-->
+            <!--android:text="Standford Sleepiness Scale"-->
+            <!--android:textSize="24dp"-->
+            <!--android:textColor="#000000"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_row="4"-->
+            <!--android:layout_column="0"-->
+            <!--android:layout_marginStart="40dp"-->
+            <!--android:paddingTop="15dp"-->
+            <!--/>-->
 
         <TextView
             android:id="@+id/stanford"
-            android:text="Using the 7-points scale below pick what best represents how you are feeling and note the corresponding number on the chart below."
-            android:textSize="21dp"
+            android:text="6. Using the 7-points scale below pick what best represents how you are feeling and note the corresponding number on the chart below."
+            android:textSize="24dp"
             android:textColor="#000000"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_row="5"
             android:layout_column="0"
             android:layout_marginStart="40dp"
-            android:paddingTop="10dp"
+            android:layout_marginTop="20dp"
             />
 
         <GridLayout
@@ -372,9 +372,9 @@
         </GridLayout>
 
         <TextView
-            android:id="@+id/sleepscale"
+            android:id="@+id/sleepscaletext"
             android:text="0 point"
-            android:textSize="21dp"
+            android:textSize="22dp"
             android:textColor="#000000"
 
             android:layout_width="wrap_content"
@@ -387,7 +387,7 @@
         <SeekBar
             android:layout_width="665dp"
             android:layout_height="wrap_content"
-            android:id="@+id/s_sleep"
+            android:id="@+id/scale_sleep"
             android:layout_marginTop="8dp"
             android:max="7"
             android:progress="0"
@@ -419,7 +419,7 @@
             />
 
         <TextView
-            android:text="0"
+            android:text="1"
             android:textSize="18dp"
             android:textColor="#000000"
             android:layout_width="wrap_content"
@@ -454,7 +454,7 @@
             />
 
         <TextView
-            android:text="1"
+            android:text="2"
             android:textSize="18dp"
             android:textColor="#000000"
             android:layout_width="wrap_content"
@@ -487,7 +487,7 @@
             />
 
         <TextView
-            android:text="2"
+            android:text="3"
             android:textSize="18dp"
             android:textColor="#000000"
             android:layout_width="wrap_content"
@@ -520,7 +520,7 @@
             />
 
         <TextView
-            android:text="3"
+            android:text="4"
             android:textSize="18dp"
             android:textColor="#000000"
             android:layout_width="wrap_content"
@@ -554,7 +554,7 @@
             />
 
         <TextView
-            android:text="4"
+            android:text="5"
             android:textSize="18dp"
             android:textColor="#000000"
             android:layout_width="wrap_content"
@@ -587,7 +587,7 @@
             />
 
         <TextView
-            android:text="5"
+            android:text="6"
             android:textSize="18dp"
             android:textColor="#000000"
             android:layout_width="wrap_content"
@@ -620,7 +620,7 @@
             />
 
         <TextView
-            android:text="6"
+            android:text="7"
             android:textSize="18dp"
             android:textColor="#000000"
             android:layout_width="wrap_content"
@@ -653,7 +653,7 @@
             />
 
         <TextView
-            android:text="7"
+            android:text="X"
             android:textSize="18dp"
             android:textColor="#000000"
             android:layout_width="wrap_content"

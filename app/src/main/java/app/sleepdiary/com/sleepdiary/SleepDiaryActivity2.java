@@ -22,7 +22,11 @@ import android.widget.Toast;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
+
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
+
 import android.view.Menu;
 
 import com.parse.GetCallback;
@@ -99,6 +103,7 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
     static final int TIME_DIALOG_2 = 2;
     static final int TIME_DIALOG_3 = 3;
 
+    List<ImageView> awim = new ArrayList<ImageView>(10);
     //SleepdiaryDBHepler sleephelper = new SleepdiaryDBHepler(this);
     ParseObject userActivity = new ParseObject("UserActivity");
     ParseQuery <ParseObject>  query = ParseQuery.getQuery("UserActivity"); ;
@@ -123,8 +128,8 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
 
         Basleeptime = (Button) findViewById(R.id.asleept);
         Basleeptime.setText("Time Period");
-        Basleeptime.setEnabled(false);
-        Basleeptime.setTextColor(0xFF808080);
+        //Basleeptime.setEnabled(false);
+        //Basleeptime.setTextColor(0xFF808080);
         Basleeptime.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 showDialog(TIME_DIALOG_1);
@@ -133,8 +138,8 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
 
         Bwoketime = (Button) findViewById(R.id.woket);
         Bwoketime.setText("06:00");
-        Bwoketime.setEnabled(false);
-        Bwoketime.setTextColor(0xFF808080);
+        //Bwoketime.setEnabled(false);
+        //Bwoketime.setTextColor(0xFF808080);
         Bwoketime.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 showDialog(TIME_DIALOG_2);
@@ -143,8 +148,8 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
 
         Bouttime = (Button) findViewById(R.id.ofbed);
         Bouttime.setText("Pick Time");
-        Bouttime.setEnabled(false);
-        Bouttime.setTextColor(0xFF808080);
+        //Bouttime.setEnabled(false);
+        //Bouttime.setTextColor(0xFF808080);
         Bouttime.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 showDialog(TIME_DIALOG_3);
@@ -152,6 +157,17 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
         });
 
         Snowake = (SeekBar)findViewById(R.id.wakeno);
+        awim.add((ImageView) findViewById(R.id.aw0));
+        awim.add((ImageView)findViewById(R.id.aw1));
+        awim.add((ImageView)findViewById(R.id.aw2));
+        awim.add((ImageView)findViewById(R.id.aw3));
+        awim.add((ImageView)findViewById(R.id.aw4));
+        awim.add((ImageView)findViewById(R.id.aw5));
+        awim.add((ImageView)findViewById(R.id.aw6));
+        awim.add((ImageView)findViewById(R.id.aw7));
+        awim.add((ImageView)findViewById(R.id.aw8));
+        awim.add((ImageView)findViewById(R.id.aw9));
+        awim.add((ImageView)findViewById(R.id.aw10));
         Snowake.setOnSeekBarChangeListener(this);
 
         waket = (TextView)findViewById(R.id.d_wake);
@@ -638,13 +654,30 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
         if(seekBar == Snowake)
         {
+
             no_wake = progress;
+            for (int bc = 0; bc<11;bc++)
+            {
+                if(bc == no_wake)
+                    continue;
+                awim.get(bc).setVisibility(View.INVISIBLE);
+            }
+
+               awim.get(progress).setVisibility(View.VISIBLE);
+
             if(no_wake>1)
+            {
                 waket.setText(no_wake + " times");
-            else if (no_wake==10)
+                waket.setTextSize(22);}
+            else if (no_wake==10){
                 waket.setText(no_wake+"or more times");
+                waket.setTextSize(16);
+            }
             else
+            {
+                waket.setTextSize(22);
                 waket.setText(no_wake + " time");
+            }
 
         }
     }

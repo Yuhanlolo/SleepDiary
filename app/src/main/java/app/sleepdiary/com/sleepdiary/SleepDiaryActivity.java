@@ -76,6 +76,8 @@ public class SleepDiaryActivity extends ActionBarActivity implements SeekBar.OnS
     final Context context = this;
 
     List <ImageView>  bever = new ArrayList<ImageView>(10);
+    List <ImageView>  ad = new ArrayList<ImageView>(10);
+    List <ImageView>  napim = new ArrayList<ImageView>(10);
     //ImageView bever0, bever1,bever2, bever3,bever4, bever5,bever6, bever7,bever8, bever9,bever10;
 
     //SleepdiaryDBHepler sleephelper = new SleepdiaryDBHepler(this);
@@ -103,21 +105,34 @@ public class SleepDiaryActivity extends ActionBarActivity implements SeekBar.OnS
         bever.add((ImageView)findViewById(R.id.beverg9));
         bever.add((ImageView)findViewById(R.id.beverg10));
 
-//        bever1 = (ImageView)findViewById(R.id.beverg1);
-//        bever2 = (ImageView)findViewById(R.id.beverg2);
-//        bever3 = (ImageView)findViewById(R.id.beverg3);
-//        bever4 = (ImageView)findViewById(R.id.beverg4);
-//        bever5 = (ImageView)findViewById(R.id.beverg5);
-//        bever6 = (ImageView)findViewById(R.id.beverg6);
-//        bever7 = (ImageView)findViewById(R.id.beverg7);
-//        bever8 = (ImageView)findViewById(R.id.beverg8);
-//        bever9 = (ImageView)findViewById(R.id.beverg9);
-//        bever10 = (ImageView)findViewById(R.id.beverg10);
 
 
         wine = ( SeekBar)findViewById(R.id.s_wine);
+        ad.add((ImageView) findViewById(R.id.ad0));
+        ad.add((ImageView)findViewById(R.id.ad1));
+        ad.add((ImageView)findViewById(R.id.ad2));
+        ad.add((ImageView)findViewById(R.id.ad3));
+        ad.add((ImageView)findViewById(R.id.ad4));
+        ad.add((ImageView)findViewById(R.id.ad5));
+        ad.add((ImageView)findViewById(R.id.ad6));
+        ad.add((ImageView)findViewById(R.id.ad7));
+        ad.add((ImageView)findViewById(R.id.ad8));
+        ad.add((ImageView)findViewById(R.id.ad9));
+        ad.add((ImageView)findViewById(R.id.ad10));
 
         nap = ( SeekBar)findViewById(R.id.s_nap);
+        napim.add((ImageView) findViewById(R.id.nap0));
+        napim.add((ImageView)findViewById(R.id.nap1));
+        napim.add((ImageView)findViewById(R.id.nap2));
+        napim.add((ImageView)findViewById(R.id.nap3));
+        napim.add((ImageView)findViewById(R.id.nap4));
+        napim.add((ImageView)findViewById(R.id.nap5));
+        napim.add((ImageView)findViewById(R.id.nap6));
+        napim.add((ImageView) findViewById(R.id.nap7));
+        napim.add((ImageView)findViewById(R.id.nap8));
+        napim.add((ImageView)findViewById(R.id.nap9));
+        napim.add((ImageView)findViewById(R.id.nap10));
+
         smoke = (Button)findViewById(R.id.d_smoke);
 
         t_coffe = (TextView)findViewById(R.id.d_coffee);
@@ -278,7 +293,6 @@ public class SleepDiaryActivity extends ActionBarActivity implements SeekBar.OnS
 
             if((!pilltime.isEmpty()&&pillname.isEmpty()))
             {
-
                 //popup msg
                 Toast errormsg = Toast.makeText(SleepDiaryActivity.this,"Please finish Question 5!", Toast.LENGTH_SHORT);
                 errormsg.show();
@@ -413,6 +427,13 @@ public class SleepDiaryActivity extends ActionBarActivity implements SeekBar.OnS
         else if(seekBar == wine)
         {
             no_wine = progress;
+            for (int bc = 0; bc<11;bc++)
+            {
+                if(bc == no_wine)
+                    continue;
+                ad.get(bc).setVisibility(View.INVISIBLE);
+            }
+            ad.get(progress).setVisibility(View.VISIBLE);
 
             if(no_wine ==10)
             {
@@ -446,6 +467,13 @@ public class SleepDiaryActivity extends ActionBarActivity implements SeekBar.OnS
         else if(seekBar == nap)
         {
             no_nap = progress;
+            for (int bc = 0; bc<11;bc++)
+            {
+                if(bc == no_nap)
+                    continue;
+                napim.get(bc).setVisibility(View.INVISIBLE);
+            }
+            napim.get(progress).setVisibility(View.VISIBLE);
 
             if(no_nap ==10)
             {
