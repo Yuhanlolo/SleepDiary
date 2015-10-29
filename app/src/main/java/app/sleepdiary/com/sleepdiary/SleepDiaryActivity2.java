@@ -105,8 +105,8 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
 
     List<ImageView> awim = new ArrayList<ImageView>(10);
     //SleepdiaryDBHepler sleephelper = new SleepdiaryDBHepler(this);
-    ParseObject userActivity = new ParseObject("UserActivity");
-    ParseQuery <ParseObject>  query = ParseQuery.getQuery("UserActivity"); ;
+    //ParseObject userActivity = new ParseObject("UserActivity");
+    ParseQuery <ParseObject>  query = ParseQuery.getQuery("UserActivity");
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

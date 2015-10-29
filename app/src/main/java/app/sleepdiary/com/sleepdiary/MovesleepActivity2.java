@@ -12,6 +12,11 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.parse.GetCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,10 +28,14 @@ public class MovesleepActivity2 extends ActionBarActivity implements SeekBar.OnS
     List<ImageView> sleepscale = new ArrayList<ImageView>(10);
     SeekBar sleeppoint, movescale;
     int sleepp = -1;
-    int movep = -1;
+    int movep = 0;
     TextView sleepptext;
 
     boolean f = false;
+
+    String objectID = "";
+
+    ParseQuery<ParseObject> query = ParseQuery.getQuery("MoveSleepActivity");
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +47,11 @@ public class MovesleepActivity2 extends ActionBarActivity implements SeekBar.OnS
 
         movescale = (SeekBar)findViewById(R.id.s_move);
         movescale.setOnSeekBarChangeListener(this);
+
+        objectID = getIntent().getStringExtra("objectID");
+
+//        Toast pass = Toast.makeText(MovesleepActivity2.this,"id 2: "+objectID, Toast.LENGTH_SHORT);
+//        pass.show();
 
         sleepptext = (TextView)findViewById(R.id.sleepscaletext);
         sleeppoint = (SeekBar)findViewById(R.id.scale_sleep);
@@ -84,18 +98,35 @@ public class MovesleepActivity2 extends ActionBarActivity implements SeekBar.OnS
     {
         if(view.getId() == R.id.save_ms2)
         {
-            if(movep == -1){
-                Toast errormsg = Toast.makeText(MovesleepActivity2.this,"Please finish Question 5!", Toast.LENGTH_SHORT);
-                errormsg.show();
-            }
-            else if(sleepp == -1){
+//            if(movep == -1){
+//                Toast errormsg = Toast.makeText(MovesleepActivity2.this,"Please finish Question 5!", Toast.LENGTH_SHORT);
+//                errormsg.show();
+//            }
+             if(sleepp == -1){
                 Toast errormsg = Toast.makeText(MovesleepActivity2.this,"Please finish Question 6!", Toast.LENGTH_SHORT);
                 errormsg.show();
             }
             else
             {
+
+                query.getInBackground(objectID, new GetCallback<ParseObject>() {
+                    @Override
+                    public void done(ParseObject object, ParseException e) {
+                        if (e != null) {
+                            Toast pass = Toast.makeText(MovesleepActivity2.this, "Error: "+e.getMessage(), Toast.LENGTH_SHORT);
+                            pass.show();
+                        } else {
+                            object.put("Move_Capability", movep);
+                            object.put("Sleepiness_Scale",sleepp);
+
+                            //userActivity.pinInBackground();
+                            object.saveInBackground();
+                        }
+                    }
+                });
+
                 f = true;
-                Intent i = new Intent(MovesleepActivity2.this,CoverActivity.class);
+                Intent i = new Intent(MovesleepActivity2.this,MainActivity.class);
                 i.putExtra("f3",f);
                 MovesleepActivity2.this.startActivity(i);
             }

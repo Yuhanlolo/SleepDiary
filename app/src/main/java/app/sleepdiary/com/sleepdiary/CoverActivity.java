@@ -66,7 +66,7 @@ public class CoverActivity  extends ActionBarActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
 //            return true;
-            Intent i = new Intent(CoverActivity.this,MainActivity.class);
+            Intent i = new Intent(CoverActivity.this,SettingsActivity.class);
             CoverActivity.this.startActivity(i);
         }
 

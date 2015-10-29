@@ -10,6 +10,11 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseUser;
+import com.parse.SaveCallback;
+
 /**
  * Created by ypl5142 on 10/25/15.
  */
@@ -28,7 +33,9 @@ public class MovesleepActivity extends ActionBarActivity {
     int uhss = -1;
     int umss = -1;
 
+    String objectID = "";
 
+    ParseObject movesleep  = new ParseObject("MoveSleepActivity");
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -253,8 +260,37 @@ public class MovesleepActivity extends ActionBarActivity {
             }
             else
             {
-            Intent i = new Intent(MovesleepActivity.this,MovesleepActivity2.class);
-            MovesleepActivity.this.startActivity(i);
+                movesleep.put("User_ID", ParseUser.getCurrentUser().getUsername());
+
+                movesleep.put("SCOPA_walking",wss);
+                movesleep.put("SCOPA_change_position",css);
+                movesleep.put("SCOPA_use_hands",uhss);
+                movesleep.put("SCOPA_uncontrollable_movement",umss);
+
+                movesleep.put("Move_Capability",0);
+                movesleep.put("Sleepiness_Scale",0);
+
+                movesleep.saveInBackground(new SaveCallback() {
+                    @Override
+                    public void done(ParseException e) {
+                        if (e != null) {
+                            Toast pass = Toast.makeText(MovesleepActivity.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT);
+                            pass.show();
+                        } else {
+                            objectID = movesleep.getObjectId();
+//                             Toast pass = Toast.makeText(MovesleepActivity.this,"id 1: "+objectID, Toast.LENGTH_SHORT);
+//                             pass.show();
+                            Intent i = new Intent(MovesleepActivity.this, MovesleepActivity2.class);
+                            i.putExtra("objectID", objectID);
+                            MovesleepActivity.this.startActivity(i);
+
+
+                        }
+                    }
+                });
+
+//            Intent i = new Intent(MovesleepActivity.this,MovesleepActivity2.class);
+//            MovesleepActivity.this.startActivity(i);
             }
         }
 

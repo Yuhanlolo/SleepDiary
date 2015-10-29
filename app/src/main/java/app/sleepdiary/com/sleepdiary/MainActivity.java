@@ -1,32 +1,58 @@
 package app.sleepdiary.com.sleepdiary;
 
-import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.content.Intent;
 import android.view.View;
-import android.widget.Button;
-import android.support.v7.app.ActionBarActivity;
+import android.widget.ImageView;
+import android.widget.Toast;
 
-import com.parse.Parse;
-import com.parse.ParseObject;
-import com.parse.ParseAnalytics;
+/**
+ * Created by ypl5142 on 10/25/15.
+ */
+public class MainActivity  extends ActionBarActivity {
 
-public class MainActivity extends ActionBarActivity {
+    boolean M30 = false;
+    boolean A_DOPA1= false;
+    boolean A_DOPA = false;
+    boolean E = false;
 
-    @Override
+    boolean login_status = false;
+
+    ImageView finish_M30,finish_adi,finish_bdi,finish_E;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        ParseObject testObject = new ParseObject("TestObject");
-//        testObject.put("foo", "bar");
-//        testObject.saveInBackground();
+        finish_M30 = (ImageView)findViewById(R.id.fmt);
+        finish_adi = (ImageView)findViewById(R.id.fadi);
+        finish_bdi = (ImageView)findViewById(R.id.fbdi);
+        finish_E = (ImageView)findViewById(R.id.fbt);
+
+        login_status = getIntent().getBooleanExtra("loginstatus",false);
+
+        M30 = getIntent().getBooleanExtra("f3",false);
+        if(M30)
+        {
+            finish_M30.setVisibility(View.VISIBLE);
+        }
+        if(A_DOPA1)
+        {
+            finish_adi.setVisibility(View.VISIBLE);
+        }
+        if(A_DOPA)
+        {
+            finish_bdi.setVisibility(View.VISIBLE);
+        }
+        if(E)
+        {
+            finish_E.setVisibility(View.VISIBLE);
+        }
 
     }
-
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -53,22 +79,20 @@ public class MainActivity extends ActionBarActivity {
     }
 
 
-    public void button_createIDOnClick(View view)
-    {
-        if(view.getId() == R.id.CreateId)
+    public void CoverOnClick(View view) {
+        if (view.getId() == R.id.mt)
         {
-            Intent i = new Intent(MainActivity.this,CreateIdActivity.class);
+            if(!login_status)
+            {
+                Toast pass = Toast.makeText(MainActivity.this,"Please Login in first!", Toast.LENGTH_SHORT);
+                pass.show();
+            }
+            else
+            {
+            Intent i = new Intent(MainActivity.this, SleepActivity.class);
             MainActivity.this.startActivity(i);
+            }
         }
     }
 
-    public void button_LoginOnClick(View view)
-    {
-        if(view.getId() == R.id.Login)
-        {
-            Intent i = new Intent(MainActivity.this,LoginActivity.class);
-            //startActivity(i);
-            MainActivity.this.startActivity(i);
-        }
-    }
 }
