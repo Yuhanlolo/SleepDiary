@@ -156,7 +156,7 @@ public class CreateIdActivity extends ActionBarActivity {
 
         if(view.getId() == R.id.cancel_c)
         {
-            Intent i = new Intent(CreateIdActivity.this,MainActivity.class);
+            Intent i = new Intent(CreateIdActivity.this,SettingsActivity.class);
             CreateIdActivity.this.startActivity(i);
         }
 

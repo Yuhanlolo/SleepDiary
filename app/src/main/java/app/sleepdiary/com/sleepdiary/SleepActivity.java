@@ -18,6 +18,8 @@ import android.net.Uri;
 import android.widget.Toast;
 
 import com.parse.Parse;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 
 public class SleepActivity extends ActionBarActivity{
 
@@ -38,6 +40,8 @@ public class SleepActivity extends ActionBarActivity{
     ImageView f3;
     ImageView f4;
     String userid= "";
+
+    ParseQuery<ParseObject> query1 = ParseQuery.getQuery("TaskCheckList");
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -107,8 +111,13 @@ public class SleepActivity extends ActionBarActivity{
 
         if(view.getId() == R.id.movesleep)
         {
+            if(!getIntent().getBooleanExtra("f2",false)){
+                Toast pass = Toast.makeText(SleepActivity.this, " Please finish Sleep Diary first! " , Toast.LENGTH_SHORT);
+                pass.show();
+            }
+            else {
             Intent i = new Intent(SleepActivity.this,MovesleepActivity.class);
-            SleepActivity.this.startActivity(i);
+            SleepActivity.this.startActivity(i);}
         }
         if(view.getId() == R.id.brain_test)
         {

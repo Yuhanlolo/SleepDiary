@@ -16,6 +16,10 @@ public class SampleApplication extends Application {
         // Enable Local Datastore.
         Parse.enableLocalDatastore(this);
         Parse.initialize(this, getString(R.string.parse_app_id), getString(R.string.parse_client_key));
+
+        //
+
+
     }
 
 }

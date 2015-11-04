@@ -16,10 +16,12 @@ import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
-
+import com.parse.ParseUser;
+import com.parse.FindCallback;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
-
+import android.util.Log;
 /**
  * Created by ypl5142 on 10/25/15.
  */
@@ -36,6 +38,12 @@ public class MovesleepActivity2 extends ActionBarActivity implements SeekBar.OnS
     String objectID = "";
 
     ParseQuery<ParseObject> query = ParseQuery.getQuery("MoveSleepActivity");
+    ParseQuery<ParseObject> query1 = ParseQuery.getQuery("TaskCheckList");
+
+    int month = 0;
+    int date = 0;
+    int year = 0;
+    String today = "";
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,6 +74,12 @@ public class MovesleepActivity2 extends ActionBarActivity implements SeekBar.OnS
 
 
         sleeppoint.setOnSeekBarChangeListener(this);
+
+        final Calendar cal = Calendar.getInstance();
+        month = cal.get(Calendar.MONTH) + 1;
+        date = cal.get(Calendar.DATE);
+        year = cal.get(Calendar.YEAR);
+        today = String.valueOf(month)+"/"+String.valueOf(date)+"/"+String.valueOf(year);
     }
 
     @Override
@@ -125,9 +139,29 @@ public class MovesleepActivity2 extends ActionBarActivity implements SeekBar.OnS
                     }
                 });
 
+                query1.whereEqualTo("User_ID", ParseUser.getCurrentUser().getUsername());
+                query1.whereEqualTo("Date",today);
+                query1.setLimit(1);
+                query1.findInBackground(new FindCallback<ParseObject>() {
+                    public void done(List<ParseObject> scoreList, ParseException e) {
+                        if (e == null) {
+                            //Log.d("score", "Retrieved " + scoreList.size() + " scores");
+//                            Toast pass = Toast.makeText(MovesleepActivity2.this, "size: " + scoreList.size(), Toast.LENGTH_SHORT);
+//                            pass.show();
+                            scoreList.get(0).put("MMovesleep", 1);
+                            scoreList.get(0).saveInBackground();
+                        } else {
+//                            Toast pass = Toast.makeText(MovesleepActivity2.this, "Error: " + "not found!", Toast.LENGTH_SHORT);
+//                            pass.show();
+                            Log.d("score", "Error: " + e.getMessage());
+                        }
+                    }
+                });
+
+
                 f = true;
                 Intent i = new Intent(MovesleepActivity2.this,MainActivity.class);
-                i.putExtra("f3",f);
+                i.putExtra("loginstatus",f);
                 MovesleepActivity2.this.startActivity(i);
             }
         }

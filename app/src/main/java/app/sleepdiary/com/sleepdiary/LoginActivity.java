@@ -114,7 +114,7 @@ public class LoginActivity extends ActionBarActivity{
 
         if(view.getId() == R.id.cancel_l)
         {
-            Intent i = new Intent(LoginActivity.this,MainActivity.class);
+            Intent i = new Intent(LoginActivity.this,SettingsActivity.class);
             LoginActivity.this.startActivity(i);
         }
     }

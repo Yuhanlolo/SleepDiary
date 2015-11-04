@@ -14,9 +14,11 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.view.View;
+import android.widget.NumberPicker;
 import android.widget.TimePicker;
 import android.widget.Toast;
 import android.widget.SeekBar;
@@ -44,15 +46,14 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
     private Button Bouttime;
     SeekBar Snowake;
     private TextView waket;
-    private int pHour;
-    private int pMinute;
+
     TextView lastnight;
     int month;
     int date;
     int year;
 
-    int temp_bed_h = -1;
-    int temp_bed_m = -1;
+    int temp_bed_h = 22;
+    int temp_bed_m = 0;
     int temp_wake_h = -1;
     int temp_wake_m = -1;
     int temp_asleep_h = -1;
@@ -60,9 +61,10 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
 
       //int temp_bed = -1;
       //int temp_asleep = -1;
-      int temp_wake = -1;
-      int temp_out = -1;
+      int temp_wake= -1;
+      int temp_out = 2400;
 
+    int dHour = 0, dMinute = 0;
 
 
     private ImageView SQ1_g;
@@ -92,7 +94,7 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
 
     String bedtime = "22:00";
     String asleeptime = "";
-    String woketime = "06:00";
+    String woketime = "";
     String outtime = "";
     int no_wake = 0;
 
@@ -102,6 +104,20 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
     static final int TIME_DIALOG_1 = 1;
     static final int TIME_DIALOG_2 = 2;
     static final int TIME_DIALOG_3 = 3;
+    String[] minuteValues = {"0","5","10","15","20","25","30","35","40","45","50","55"};
+    final Calendar cal = Calendar.getInstance();
+
+    int pHour = cal.get(Calendar.HOUR_OF_DAY);
+    int pMinute = cal.get(Calendar.MINUTE);
+
+    int bedhour = 22;
+    int bedmin = 0;
+
+    int wokehour= 6;
+    int wokemin = 0;
+
+    int outhour = 6;
+    int outmin = 0;
 
     List<ImageView> awim = new ArrayList<ImageView>(10);
     //SleepdiaryDBHepler sleephelper = new SleepdiaryDBHepler(this);
@@ -120,41 +136,41 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
 
         Bbedtime = (Button) findViewById(R.id.bedt);
         Bbedtime.setText("22:00");
-        Bbedtime.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                showDialog(TIME_DIALOG_0);
-            }
-        });
+//        Bbedtime.setOnClickListener(new View.OnClickListener() {
+//            public void onClick(View v) {
+//                showDialog(TIME_DIALOG_0);
+//            }
+//        });
 
         Basleeptime = (Button) findViewById(R.id.asleept);
         Basleeptime.setText("Time Period");
         //Basleeptime.setEnabled(false);
         //Basleeptime.setTextColor(0xFF808080);
-        Basleeptime.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                showDialog(TIME_DIALOG_1);
-            }
-        });
+//        Basleeptime.setOnClickListener(new View.OnClickListener() {
+//            public void onClick(View v) {
+//                showDialog(TIME_DIALOG_1);
+//            }
+//        });
 
         Bwoketime = (Button) findViewById(R.id.woket);
-        Bwoketime.setText("06:00");
+        Bwoketime.setText("Pick Time");
         //Bwoketime.setEnabled(false);
         //Bwoketime.setTextColor(0xFF808080);
-        Bwoketime.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                showDialog(TIME_DIALOG_2);
-            }
-        });
+//        Bwoketime.setOnClickListener(new View.OnClickListener() {
+//            public void onClick(View v) {
+//                showDialog(TIME_DIALOG_2);
+//            }
+//        });
 
         Bouttime = (Button) findViewById(R.id.ofbed);
         Bouttime.setText("Pick Time");
         //Bouttime.setEnabled(false);
         //Bouttime.setTextColor(0xFF808080);
-        Bouttime.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                showDialog(TIME_DIALOG_3);
-            }
-        });
+//        Bouttime.setOnClickListener(new View.OnClickListener() {
+//            public void onClick(View v) {
+//                showDialog(TIME_DIALOG_3);
+//            }
+//        });
 
         Snowake = (SeekBar)findViewById(R.id.wakeno);
         awim.add((ImageView) findViewById(R.id.aw0));
@@ -196,7 +212,7 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
         AWQ5_g = (ImageView)findViewById(R.id.AWQquality5_gray);
         AWQ5 = (ImageView)findViewById(R.id.AWQquality5);
 
-        final Calendar cal = Calendar.getInstance();
+
         month = cal.get(Calendar.MONTH) + 1;
         date = cal.get(Calendar.DATE);
         year = cal.get(Calendar.YEAR);
@@ -443,61 +459,61 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
 
 
 
-    private TimePickerDialog.OnTimeSetListener bedTimeSetListener =
-            new TimePickerDialog.OnTimeSetListener() {
-                public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                    pHour = hourOfDay;
-                    pMinute = minute;
-                    updateDisplay0();
-                }
-
-            };
-
-    private TimePickerDialog.OnTimeSetListener asleepTimeSetListener=
-            new TimePickerDialog.OnTimeSetListener() {
-                public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                    pHour = hourOfDay;
-                    pMinute = minute;
-                   // if (pHour == 0){pHour = 12;}
-                    updateDisplay1();
-                }
-
-            };
-
-    private TimePickerDialog.OnTimeSetListener wokeTimeSetListener =
-            new TimePickerDialog.OnTimeSetListener() {
-                public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                    pHour = hourOfDay;
-                    pMinute = minute;
-                    updateDisplay2();
-
-                }
-
-            };
-
-    private TimePickerDialog.OnTimeSetListener ofbedTimeSetListener=
-            new TimePickerDialog.OnTimeSetListener() {
-                public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                    pHour = hourOfDay;
-                    pMinute = minute;
-                    updateDisplay3();
-                }
-
-            };
+//    private TimePickerDialog.OnTimeSetListener bedTimeSetListener =
+//            new TimePickerDialog.OnTimeSetListener() {
+//                public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+//                    pHour = hourOfDay;
+//                    pMinute = minute;
+//                    updateDisplay0();
+//                }
+//
+//            };
+//
+//    private TimePickerDialog.OnTimeSetListener asleepTimeSetListener=
+//            new TimePickerDialog.OnTimeSetListener() {
+//                public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+//                    pHour = hourOfDay;
+//                    pMinute = minute;
+//                   // if (pHour == 0){pHour = 12;}
+//                    updateDisplay1();
+//                }
+//
+//            };
+//
+//    private TimePickerDialog.OnTimeSetListener wokeTimeSetListener =
+//            new TimePickerDialog.OnTimeSetListener() {
+//                public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+//                    pHour = hourOfDay;
+//                    pMinute = minute;
+//                    updateDisplay2();
+//
+//                }
+//
+//            };
+//
+//    private TimePickerDialog.OnTimeSetListener ofbedTimeSetListener=
+//            new TimePickerDialog.OnTimeSetListener() {
+//                public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+//                    pHour = hourOfDay;
+//                    pMinute = minute;
+//                    updateDisplay3();
+//                }
+//
+//            };
 
     /** Updates the time in the TextView */
     private void updateDisplay0() {
-        temp_bed_h = pHour;
-        temp_bed_m = pMinute;
+        temp_bed_h = bedhour;
+        temp_bed_m = bedmin;
 
 
         //temp_bed = 100*pHour + pMinute;
-        bedtime = pad(pHour) + ":" + pad(pMinute);
+        bedtime = pad(bedhour) + ":" + pad(bedmin);
 
             Bbedtime.setText(
                     new StringBuilder()
-                            .append(pad(pHour)).append(":")
-                            .append(pad(pMinute)));
+                            .append(pad(bedhour)).append(":")
+                            .append(pad(bedmin)));
 
 
         Basleeptime.setEnabled(true);
@@ -506,46 +522,46 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
 
     }
     private void updateDisplay1() {
-        asleeptime = String.valueOf(pHour) + ":" + pad(pMinute);
+        asleeptime = String.valueOf(dHour) + ":" + Integer.toString(dMinute);
         Basleeptime.setTextSize(20);
-        temp_asleep_h = pHour;
-        temp_asleep_m = pMinute;
+        temp_asleep_h = dHour;
+        temp_asleep_m = dMinute;
         //temp_asleep = 100*pHour + pMinute;
 
             String ast = "";
-        if(pHour >1 && pMinute>1)
+        if(dHour >1 && dMinute>1)
         {
-            ast= pad(pHour)+ " hrs"+" "+pad(pMinute)+" mins";
+            ast= Integer.toString(dHour)+ " hrs"+" "+Integer.toString(dMinute)+" mins";
         }
-        if (pHour==0 && (pMinute ==0)||(pMinute==1))
+        else if (dHour==0 && (dMinute ==0)||(dMinute==1))
         {
-            ast= pad(pMinute)+" min";
+            ast= Integer.toString(dMinute)+" min";
         }
-        else if (pHour ==0 && pMinute>1)
+        else if (dHour ==0 && dMinute>1)
         {
-            ast= pad(pMinute)+" mins";
-        }
-
-        else if (pHour==1 &&(pMinute ==0))
-        {
-            ast= pad(pHour)+ " hr";
+            ast= Integer.toString(dMinute)+" mins";
         }
 
-        else if (pHour==1 &&(pMinute ==1))
+        else if (dHour==1 &&(dMinute ==0))
         {
-            ast= pad(pHour)+ " hr"+" "+pad(pMinute)+" min";
+            ast= Integer.toString(dHour)+ " hr";
         }
-        else if (pHour==1 &&pMinute>1)
+
+        else if (dHour==1 &&(dMinute ==1))
         {
-            ast= pad(pHour)+ " hr"+" "+pad(pMinute)+" mins";
+            ast= Integer.toString(dHour)+ " hr"+" "+Integer.toString(dMinute)+" min";
         }
-        else if (pHour>1 &&(pMinute ==0))
+        else if (dHour==1 &&dMinute>1)
         {
-            ast= pad(pHour)+ " hrs";
+            ast= Integer.toString(dHour)+ " hr"+" "+Integer.toString(dMinute)+" mins";
         }
-        else if (pHour>1 &&(pMinute ==1))
+        else if (dHour>1 &&(dMinute ==0))
         {
-            ast= pad(pHour)+ " hrs"+" "+pad(pMinute)+" min";
+            ast= Integer.toString(dHour)+ " hrs";
+        }
+        else if (dHour>1 &&(dMinute ==1))
+        {
+            ast= Integer.toString(dHour)+ " hrs"+" "+Integer.toString(dMinute)+" min";
         }
 
         Basleeptime.setText(ast);
@@ -558,19 +574,26 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
 
     private void updateDisplay2() {
 
-        woketime = pad(pHour) + ":" + pad(pMinute);
+        woketime = pad(wokehour) + ":" + pad(wokemin);
 
-        temp_wake_h = pHour;
-        temp_wake_m = pMinute;
+        temp_wake_h = wokehour;
+        temp_wake_m = wokemin;
+        temp_wake = 100*wokehour+wokemin;
 
         if(temp_bed_h == 0)
         {
             temp_bed_h = 24;
         }
 
-        temp_wake = 100*pHour + pMinute;
+        if (temp_wake>temp_out)
+        {
+            Toast pass = Toast.makeText(SleepDiaryActivity2.this,"Question 10 should be earlier than the time you get out of bed!", Toast.LENGTH_LONG);
+            Bwoketime.setText("Pick Time");
+            //for(int x = 0; x<2000;x++)//delay the notification
+            pass.show();
+        }
 
-        if((temp_bed_h < 12)&&((temp_wake_h-temp_bed_h >12)||(temp_wake_h-temp_bed_h ==12)&&(temp_wake_m>temp_bed_m)))
+        else if((temp_bed_h < 12)&&((temp_wake_h-temp_bed_h >12)||(temp_wake_h-temp_bed_h ==12)&&(temp_wake_m>temp_bed_m)))
         {
             Toast pass = Toast.makeText(SleepDiaryActivity2.this,"You slept over 12 hours!", Toast.LENGTH_SHORT);
             Bwoketime.setText("Pick Time");
@@ -591,8 +614,8 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
         else {
                     Bwoketime.setText(
                             new StringBuilder()
-                                    .append(pad(pHour)).append(":")
-                                    .append(pad(pMinute)));
+                                    .append(pad(wokehour)).append(":")
+                                    .append(pad(wokemin)));
 
 
                 Bouttime.setEnabled(true);
@@ -602,24 +625,25 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
 
     private void updateDisplay3() {
 
-        outtime = pad(pHour) + ":" + pad(pMinute);
-        temp_out = 100*pHour + pMinute;
+        outtime = pad(outhour) + ":" + pad(outmin);
+        temp_out = 100*outhour + outmin;
+
         if(temp_out<temp_wake)
         {
-            Toast pass = Toast.makeText(SleepDiaryActivity2.this,"Question 11 should be later than the wake up time!", Toast.LENGTH_SHORT);
+            Toast pass = Toast.makeText(SleepDiaryActivity2.this,"Question 11 should be later than the wake up time!", Toast.LENGTH_LONG);
             Bouttime.setText("Pick Time");
-            for(int x = 0; x<2000;x++)//delay the notification
+            //for(int x = 0; x<2000;x++)//delay the notification
             pass.show();
         }
 
         else {
 
-            outtime = pad(pHour) + ":" + pad(pMinute);
+            outtime = pad(outhour) + ":" + pad(outmin);
 
                 Bouttime.setText(
                         new StringBuilder()
-                                .append(pad(pHour)).append(":")
-                                .append(pad(pMinute)));
+                                .append(pad(outhour)).append(":")
+                                .append(pad(outmin)));
 
         }
     }
@@ -632,23 +656,23 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
             return "0" + String.valueOf(c);
     }
 
-    protected Dialog onCreateDialog(int id) {
-        switch (id) {
-            case TIME_DIALOG_0:
-                return new TimePickerDialog(this,
-                        bedTimeSetListener, pHour, pMinute, true);
-            case TIME_DIALOG_1:
-                return new TimePickerDialog(this,
-                        asleepTimeSetListener, pHour, pMinute, true);
-            case TIME_DIALOG_2:
-                return new TimePickerDialog(this,
-                        wokeTimeSetListener, pHour, pMinute, true);
-            case TIME_DIALOG_3:
-                return new TimePickerDialog(this,
-                        ofbedTimeSetListener, pHour, pMinute, true);
-        }
-        return null;
-    }
+//    protected Dialog onCreateDialog(int id) {
+//        switch (id) {
+//            case TIME_DIALOG_0:
+//                return new TimePickerDialog(this,
+//                        bedTimeSetListener, pHour, pMinute, true);
+//            case TIME_DIALOG_1:
+//                return new TimePickerDialog(this,
+//                        asleepTimeSetListener, pHour, pMinute, true);
+//            case TIME_DIALOG_2:
+//                return new TimePickerDialog(this,
+//                        wokeTimeSetListener, pHour, pMinute, true);
+//            case TIME_DIALOG_3:
+//                return new TimePickerDialog(this,
+//                        ofbedTimeSetListener, pHour, pMinute, true);
+//        }
+//        return null;
+//    }
 
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -689,6 +713,225 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
 
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {
+
+    }
+
+    public void button_sl2OnClick(View view)
+    {
+        if (view.getId() == R.id.bedt)
+        {
+            final Dialog Timepicker1 = new Dialog(SleepDiaryActivity2.this);
+            Timepicker1.setTitle("");
+
+            Timepicker1.setContentView(R.layout.scrolltimepicker);
+            Timepicker1.show();
+
+            TimePicker tp = (TimePicker)Timepicker1.findViewById(R.id.tp);
+            tp.setIs24HourView(true);
+            Button ctp = (Button)Timepicker1.findViewById(R.id.cancel_tp);
+            Button otp = (Button)Timepicker1.findViewById(R.id.ok_tp);
+
+
+
+            tp.setCurrentHour(bedhour);
+            tp.setCurrentMinute(bedmin);
+            //Set a TimeChangedListener for TimePicker widget
+            tp.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
+                @Override
+                public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
+                    bedhour = hourOfDay;
+                    bedmin = minute;
+                }
+            });
+
+            ctp.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    Timepicker1.cancel();
+                }
+            });
+
+
+            otp.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+
+                    updateDisplay0();
+
+                    Timepicker1.cancel();
+                }
+            });
+
+        }
+
+        if (view.getId() == R.id.asleept)
+        {
+            final Dialog Numberpicker1 = new Dialog(SleepDiaryActivity2.this);
+            Numberpicker1.setTitle("");
+
+            Numberpicker1.setContentView(R.layout.numberpicker);
+            Numberpicker1.show();
+
+//            Numberpicker1.getWindow().setSoftInputMode(
+//                    WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN
+//            );
+
+            NumberPicker td1 = (NumberPicker)Numberpicker1.findViewById(R.id.td1);
+            NumberPicker td2 = (NumberPicker)Numberpicker1.findViewById(R.id.td2);
+
+            td1.setDescendantFocusability(TimePicker.FOCUS_BLOCK_DESCENDANTS);
+            td2.setDescendantFocusability(TimePicker.FOCUS_BLOCK_DESCENDANTS);
+
+            td1.setMaxValue(24);
+            td1.setMinValue(0);
+            td1.setValue(dHour);
+
+            td2.setMaxValue(11);
+            td2.setMinValue(0);
+            td2.setValue(dMinute / 5);
+
+            td2.setDisplayedValues(minuteValues);
+
+            Button ctd = (Button)Numberpicker1.findViewById(R.id.cancel_td);
+            Button otd = (Button)Numberpicker1.findViewById(R.id.ok_td);
+
+            td1.setOnScrollListener(new NumberPicker.OnScrollListener() {
+                @Override
+                public void onScrollStateChange(NumberPicker view, int scrollState) {
+                    dHour = view.getValue();
+
+                }
+            });
+
+            td2.setOnScrollListener(new NumberPicker.OnScrollListener() {
+                @Override
+                public void onScrollStateChange(NumberPicker view, int scrollState) {
+                    //dMinute = Integer.parseInt(minuteValues[view.getMinValue()]);
+                    dMinute = view.getValue()*5;
+                }
+            });
+
+            ctd.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    Numberpicker1.cancel();
+                }
+            });
+
+
+            otd.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+
+                    updateDisplay1();
+
+                    Numberpicker1.cancel();
+                }
+            });
+        }
+
+        if (view.getId() == R.id.woket)
+        {
+            final Dialog Timepicker1 = new Dialog(SleepDiaryActivity2.this);
+            Timepicker1.setTitle("");
+
+            Timepicker1.setContentView(R.layout.scrolltimepicker);
+            Timepicker1.show();
+
+            TimePicker tp = (TimePicker)Timepicker1.findViewById(R.id.tp);
+            tp.setIs24HourView(true);
+            Button ctp = (Button)Timepicker1.findViewById(R.id.cancel_tp);
+            Button otp = (Button)Timepicker1.findViewById(R.id.ok_tp);
+
+
+            tp.setCurrentHour(wokehour);
+            tp.setCurrentMinute(wokemin);
+            //Set a TimeChangedListener for TimePicker widget
+            tp.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
+                @Override
+                public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
+                    wokehour = hourOfDay;
+                    wokemin = minute;
+                }
+            });
+
+
+
+            ctp.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    Timepicker1.cancel();
+                }
+            });
+
+
+            otp.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+
+                    updateDisplay2();
+                    outhour = wokehour;
+                    outmin = wokemin;
+
+                    Timepicker1.cancel();
+                }
+            });
+
+        }
+
+        if (view.getId() == R.id.ofbed)
+        {
+            final Dialog Timepicker1 = new Dialog(SleepDiaryActivity2.this);
+            Timepicker1.setTitle("");
+
+            Timepicker1.setContentView(R.layout.scrolltimepicker);
+            Timepicker1.show();
+
+            TimePicker tp = (TimePicker)Timepicker1.findViewById(R.id.tp);
+            tp.setIs24HourView(true);
+            Button ctp = (Button)Timepicker1.findViewById(R.id.cancel_tp);
+            Button otp = (Button)Timepicker1.findViewById(R.id.ok_tp);
+
+            tp.setCurrentHour(outhour);
+            tp.setCurrentMinute(outmin);
+
+
+            //Set a TimeChangedListener for TimePicker widget
+            tp.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
+                @Override
+                public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
+                    outhour = hourOfDay;
+                    outmin = minute;
+                }
+            });
+
+            ctp.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    Timepicker1.cancel();
+                }
+            });
+
+
+            otp.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    updateDisplay3();
+
+                    Timepicker1.cancel();
+                }
+            });
+
+        }
+
 
     }
 

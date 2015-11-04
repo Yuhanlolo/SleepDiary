@@ -16,6 +16,7 @@ import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
 
 import java.util.Calendar;
 
@@ -31,6 +32,7 @@ public class SleepDiaryActivity3 extends ActionBarActivity implements RadioGroup
     int month;
     int date;
     int year;
+    String today = "";
     TextView lastnight;
 
     RadioButton rg0_1, rg0_0;
@@ -83,6 +85,8 @@ public class SleepDiaryActivity3 extends ActionBarActivity implements RadioGroup
     String objectID = "";
 
     ParseQuery<ParseObject> query = ParseQuery.getQuery("UserActivity");
+    ParseObject TaskCheckList  = new ParseObject("TaskCheckList");
+    //ParseQuery<ParseObject> query1 = ParseQuery.getQuery("TaskCheckList");
     //ParseObject userActivity = new ParseObject("UserActivity");
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -162,6 +166,8 @@ public class SleepDiaryActivity3 extends ActionBarActivity implements RadioGroup
         month = cal.get(Calendar.MONTH) + 1;
         date = cal.get(Calendar.DATE);
         year = cal.get(Calendar.YEAR);
+
+        today = String.valueOf(month) + "/" + String.valueOf(date) + "/" + String.valueOf(year);
 
         if (date == 1){
             month = month -1;
@@ -277,14 +283,29 @@ public class SleepDiaryActivity3 extends ActionBarActivity implements RadioGroup
 //                userActivity.put("Enviro_Disturbance", a_distur);
 //                //userActivity.pinInBackground();
 //                userActivity.saveInBackground();
+                TaskCheckList.put("User_ID", ParseUser.getCurrentUser().getUsername());
+                TaskCheckList.put("Date", today);
 
+                TaskCheckList.put("MBriantest", 0);
+                TaskCheckList.put("MSleepdiary", 1);
+                TaskCheckList.put("MMovesleep", 0);
 
+                TaskCheckList.put("AdiBriantest", 0);
+                TaskCheckList.put("AdiMovesleep", 0);
+
+                TaskCheckList.put("BdiBriantest", 0);
+                TaskCheckList.put("BdiMovesleep", 0);
+
+                TaskCheckList.put("EBriantest", 0);
+                TaskCheckList.put("EMovesleep", 0);
+
+                TaskCheckList.saveInBackground();
                 f = true;
                 Intent i = new Intent(SleepDiaryActivity3.this,SleepActivity.class);
+                i.putExtra("loginstatus",f);
                 i.putExtra("f2",f);
                 SleepDiaryActivity3.this.startActivity(i);
-//              Toast msg = Toast.makeText(SleepDiaryActivity.this,"Finished this page!", Toast.LENGTH_SHORT);
-//              msg.show();
+
             }
         }
 

@@ -9,6 +9,16 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.parse.GetCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+import com.parse.ParseUser;
+import com.parse.FindCallback;
+import java.util.Calendar;
+import java.util.List;
+import android.util.Log;
+
 /**
  * Created by ypl5142 on 10/25/15.
  */
@@ -20,37 +30,100 @@ public class MainActivity  extends ActionBarActivity {
     boolean E = false;
 
     boolean login_status = false;
-
+    int month = 0;
+    int date = 0;
+    int year = 0;
+    String yesterdaystr = "";
     ImageView finish_M30,finish_adi,finish_bdi,finish_E;
+    String userid = "";
+
+    ParseUser currentUser;
+
+
+   // ParseObject TaskCheckList  = new ParseObject("TaskCheckList");
+   ParseQuery<ParseObject> query1 = ParseQuery.getQuery("TaskCheckList");
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        final Calendar cal = Calendar.getInstance();
+        month = cal.get(Calendar.MONTH) + 1;
+        date = cal.get(Calendar.DATE);
+        year = cal.get(Calendar.YEAR);
+        yesterdaystr = String.valueOf(month)+"/"+String.valueOf(date)+"/"+String.valueOf(year);
+
+
+       currentUser = ParseUser.getCurrentUser();
+
+        if(currentUser != null) {
+            userid = ParseUser.getCurrentUser().getUsername();
+            query1.whereEqualTo("User_ID", userid);
+            query1.whereEqualTo("Date", yesterdaystr);
+
+            query1.getFirstInBackground(new GetCallback<ParseObject>() {
+                public void done(ParseObject object, ParseException e) {
+                    if (object == null) {
+                        Log.d("User_ID", "The getFirst request failed.");
+
+                    } else {
+                        //Log.d("score", "Retrieved the object.");
+                        //if(object.getInt("MBraintest")== 0 || object.getInt("MBraintest") ==1)
+
+                        if (object.getInt("MSleepdiary") == 1 && object.getInt("MMovesleep") == 1) {
+                            M30 = true;
+                            finish_M30.setVisibility(View.VISIBLE);
+                        }
+
+                        if (object.getInt("AdiBraintest") == 1 && object.getInt("AdiMovesleep") == 1) {
+                            A_DOPA1 = true;
+                            finish_adi.setVisibility(View.VISIBLE);
+                        }
+
+                        if (object.getInt("BdiBraintest") == 1 && object.getInt("BdiMovesleep") == 1) {
+                            A_DOPA = true;
+                            finish_bdi.setVisibility(View.VISIBLE);
+                        }
+
+                        if (object.getInt("BdiBraintest") == 1 && object.getInt("BdiMovesleep") == 1) {
+                            E = true;
+                            finish_E.setVisibility(View.VISIBLE);
+                        }
+                    }
+                }
+            });
+        }
 
         finish_M30 = (ImageView)findViewById(R.id.fmt);
         finish_adi = (ImageView)findViewById(R.id.fadi);
         finish_bdi = (ImageView)findViewById(R.id.fbdi);
         finish_E = (ImageView)findViewById(R.id.fbt);
 
-        login_status = getIntent().getBooleanExtra("loginstatus",false);
+        //login_status = getIntent().getBooleanExtra("loginstatus",false);
 
-        M30 = getIntent().getBooleanExtra("f3",false);
-        if(M30)
-        {
-            finish_M30.setVisibility(View.VISIBLE);
-        }
-        if(A_DOPA1)
-        {
-            finish_adi.setVisibility(View.VISIBLE);
-        }
-        if(A_DOPA)
-        {
-            finish_bdi.setVisibility(View.VISIBLE);
-        }
-        if(E)
-        {
-            finish_E.setVisibility(View.VISIBLE);
-        }
+
+
+        //M30 = getIntent().getBooleanExtra("f3",false);
+
+
+//        if(M30)
+//        {
+//            finish_M30.setVisibility(View.VISIBLE);
+//        }
+//        if(A_DOPA1)
+//        {
+//            finish_adi.setVisibility(View.VISIBLE);
+//        }
+//        if(A_DOPA)
+//        {
+//            finish_bdi.setVisibility(View.VISIBLE);
+//        }
+//        if(E)
+//        {
+//            finish_E.setVisibility(View.VISIBLE);
+//        }
+
+
 
     }
 
@@ -70,7 +143,7 @@ public class MainActivity  extends ActionBarActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-//            return true;
+//          return true;
             Intent i = new Intent(MainActivity.this,SettingsActivity.class);
             MainActivity.this.startActivity(i);
         }
@@ -80,11 +153,19 @@ public class MainActivity  extends ActionBarActivity {
 
 
     public void CoverOnClick(View view) {
-        if (view.getId() == R.id.mt)
+
+
+        if (view.getId() == R.id.mt||view.getId() == R.id.fmt)
         {
-            if(!login_status)
+            if(currentUser == null)
             {
                 Toast pass = Toast.makeText(MainActivity.this,"Please Login in first!", Toast.LENGTH_SHORT);
+                pass.show();
+            }
+
+            else if (M30)
+            {
+                Toast pass = Toast.makeText(MainActivity.this,"You have finished this part!", Toast.LENGTH_SHORT);
                 pass.show();
             }
             else

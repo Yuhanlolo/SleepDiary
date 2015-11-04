@@ -1,4 +1,4 @@
-<RelativeLayout
+<GridLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -24,14 +24,16 @@
         android:text="Sleep Diary"
         android:textSize="60dp"
         android:textColor="#000000"
-
+        android:layout_row="0"
+        android:layout_column="0"
         android:textStyle="italic"
-        android:paddingTop="90dp"
+        android:paddingTop="0dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:focusableInTouchMode="false"
         android:typeface="serif"
-        android:layout_marginTop="83dp"
+        android:layout_marginTop="150dp"
+        android:layout_marginLeft="260dp"
         android:layout_alignParentTop="true"
         android:layout_alignEnd="@+id/CreateId" />
 
@@ -45,14 +47,37 @@
         android:text="Create New ID"
         android:textAllCaps="false"
         android:alpha="0.9"
+        android:layout_row="1"
+        android:layout_column="0"
         android:enabled="true"
         android:focusable="false"
         android:focusableInTouchMode="false"
         android:layout_below="@+id/textView"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="86dp"
+        android:layout_marginLeft="200dp"
         android:textSize="30dp"
         android:background="#BDBDBD"
+        android:onClick="button_createIDOnClick"
+        />
+    <ImageView
+
+        android:id="@+id/Logout"
+        android:src = "@drawable/logout"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:text="Log Out"
+        android:textAllCaps="false"
+        android:layout_marginLeft="650dp"
+        android:layout_row="3"
+        android:layout_column="0"
+        android:enabled="true"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:visibility="invisible"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="200dp"
+        android:textSize="30dp"
         android:onClick="button_createIDOnClick"
         />
 
@@ -65,10 +90,13 @@
         android:text="Login with existing ID"
         android:textAllCaps="false"
         android:alpha="0.9"
-        android:layout_marginTop="76dp"
+        android:layout_row="2"
+        android:layout_column="0"
+        android:layout_marginTop="60dp"
         android:layout_below="@+id/CreateId"
         android:layout_alignStart="@+id/CreateId"
         android:textSize="30dp"
+        android:layout_marginLeft="200dp"
         android:background="#BDBDBD"
         android:onClick="button_LoginOnClick"
         />
@@ -79,11 +107,13 @@
         android:layout_width="110dp"
         android:layout_height="110dp"
         android:id="@+id/imageView"
+        android:layout_row="0"
+        android:layout_column="0"
         android:src="@drawable/ic_launcher"
-        android:layout_marginStart="107dp"
-        android:layout_marginTop="78dp"
+        android:layout_marginStart="140dp"
+        android:layout_marginTop="120dp"
         android:layout_alignTop="@+id/textView"
         android:layout_alignParentStart="true" />
 
 
-</RelativeLayout>
+</GridLayout>
