@@ -724,6 +724,7 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
             Timepicker1.setTitle("");
 
             Timepicker1.setContentView(R.layout.scrolltimepicker);
+            Timepicker1.setCanceledOnTouchOutside(false);
             Timepicker1.show();
 
             TimePicker tp = (TimePicker)Timepicker1.findViewById(R.id.tp);
@@ -772,6 +773,7 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
             Numberpicker1.setTitle("");
 
             Numberpicker1.setContentView(R.layout.numberpicker);
+            Numberpicker1.setCanceledOnTouchOutside(false);
             Numberpicker1.show();
 
 //            Numberpicker1.getWindow().setSoftInputMode(
@@ -840,6 +842,7 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
             Timepicker1.setTitle("");
 
             Timepicker1.setContentView(R.layout.scrolltimepicker);
+            Timepicker1.setCanceledOnTouchOutside(false);
             Timepicker1.show();
 
             TimePicker tp = (TimePicker)Timepicker1.findViewById(R.id.tp);
@@ -891,6 +894,7 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
             Timepicker1.setTitle("");
 
             Timepicker1.setContentView(R.layout.scrolltimepicker);
+            Timepicker1.setCanceledOnTouchOutside(false);
             Timepicker1.show();
 
             TimePicker tp = (TimePicker)Timepicker1.findViewById(R.id.tp);
@@ -934,6 +938,10 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
 
 
     }
+
+//    @Override
+//    public void onBackPressed() {
+//    }
 
 }
 

@@ -30,15 +30,20 @@ public class MainActivity  extends ActionBarActivity {
     boolean E = false;
 
     boolean login_status = false;
-    int month = 0;
-    int date = 0;
-    int year = 0;
-    String yesterdaystr = "";
+//    int month = 0;
+//    int date = 0;
+//    int year = 0;
+    //String yesterdaystr = "";
     ImageView finish_M30,finish_adi,finish_bdi,finish_E;
     String userid = "";
 
     ParseUser currentUser;
 
+    final Calendar cal = Calendar.getInstance();
+    int month = cal.get(Calendar.MONTH) + 1;
+    int date = cal.get(Calendar.DATE);
+    int year = cal.get(Calendar.YEAR);
+    String today = String.valueOf(month)+"/"+String.valueOf(date)+"/"+String.valueOf(year);
 
    // ParseObject TaskCheckList  = new ParseObject("TaskCheckList");
    ParseQuery<ParseObject> query1 = ParseQuery.getQuery("TaskCheckList");
@@ -47,19 +52,12 @@ public class MainActivity  extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        final Calendar cal = Calendar.getInstance();
-        month = cal.get(Calendar.MONTH) + 1;
-        date = cal.get(Calendar.DATE);
-        year = cal.get(Calendar.YEAR);
-        yesterdaystr = String.valueOf(month)+"/"+String.valueOf(date)+"/"+String.valueOf(year);
-
-
        currentUser = ParseUser.getCurrentUser();
 
         if(currentUser != null) {
             userid = ParseUser.getCurrentUser().getUsername();
             query1.whereEqualTo("User_ID", userid);
-            query1.whereEqualTo("Date", yesterdaystr);
+            query1.whereEqualTo("Date", today);
 
             query1.getFirstInBackground(new GetCallback<ParseObject>() {
                 public void done(ParseObject object, ParseException e) {
@@ -157,6 +155,7 @@ public class MainActivity  extends ActionBarActivity {
 
         if (view.getId() == R.id.mt||view.getId() == R.id.fmt)
         {
+            currentUser = ParseUser.getCurrentUser();
             if(currentUser == null)
             {
                 Toast pass = Toast.makeText(MainActivity.this,"Please Login in first!", Toast.LENGTH_SHORT);
@@ -172,6 +171,27 @@ public class MainActivity  extends ActionBarActivity {
             {
             Intent i = new Intent(MainActivity.this, SleepActivity.class);
             MainActivity.this.startActivity(i);
+            }
+        }
+
+        if (view.getId() == R.id.adi||view.getId() == R.id.fadi)
+        {
+            currentUser = ParseUser.getCurrentUser();
+            if(currentUser == null)
+            {
+                Toast pass = Toast.makeText(MainActivity.this,"Please Login in first!", Toast.LENGTH_SHORT);
+                pass.show();
+            }
+
+            else if (A_DOPA1)
+            {
+                Toast pass = Toast.makeText(MainActivity.this,"You have finished this part!", Toast.LENGTH_SHORT);
+                pass.show();
+            }
+            else
+            {
+                Intent i = new Intent(MainActivity.this, Dopa1Activity.class);
+                MainActivity.this.startActivity(i);
             }
         }
     }

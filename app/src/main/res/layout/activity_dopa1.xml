@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<GridLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#fafafa"
+    android:icon="@drawable/ic_launcher">
+
+    <ImageView
+        android:minHeight="200dp"
+        android:minWidth="560dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/brain_test"
+        android:src="@drawable/brain_test"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:layout_row="0"
+        android:layout_column="0"
+
+        android:onClick="bedtimeOnClick"
+        android:layout_gravity="left"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="210dp" />
+
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:id="@+id/finish_braintest"
+        android:src="@drawable/finish"
+        android:layout_row="0"
+        android:layout_column="0"
+        android:visibility="invisible"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:clickable="false"
+
+        android:onClick="bedtimeOnClick"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="260dp" />
+
+
+
+
+
+    <ImageView
+        android:minHeight="200dp"
+        android:minWidth="560dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/movesleep"
+        android:src="@drawable/movesleep"
+        android:layout_row="1"
+        android:layout_column="0"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:clickable="true"
+        android:onClick="bedtimeOnClick"
+        android:layout_marginLeft="110dp" />
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:id="@+id/finish_movesleep"
+        android:src="@drawable/finish"
+        android:layout_row="1"
+        android:layout_column="0"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:clickable="false"
+        android:visibility="invisible"
+        android:onClick="bedtimeOnClick"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="50dp" />
+
+</GridLayout>
+
+

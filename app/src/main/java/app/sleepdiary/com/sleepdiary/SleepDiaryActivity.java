@@ -218,10 +218,12 @@ public class SleepDiaryActivity extends ActionBarActivity implements SeekBar.OnS
                         else if (no_smoke > 1)
                         {
                             smoke.setText(no_smoke+" pipes");
+                            smoke.setTextSize(22);
                         }
                         else if (no_smoke == 1 || no_smoke ==0)
                         {
                             smoke.setText(no_smoke+" pipe");
+                            smoke.setTextSize(22);
                         }
 
                         dialog_toba.cancel();
@@ -585,7 +587,7 @@ public class SleepDiaryActivity extends ActionBarActivity implements SeekBar.OnS
                 String ast = "";
                 if(dHour >1 && dMinute>1)
                 {
-                    ast= Integer.toString(pHour)+ " hrs"+" "+Integer.toString(dMinute)+" mins";
+                    ast= Integer.toString(dHour)+ " hrs"+" "+Integer.toString(dMinute)+" mins";
                 }
                 else if (dHour==0 && (dMinute ==0)||(dMinute==1))
                 {
@@ -669,6 +671,7 @@ public class SleepDiaryActivity extends ActionBarActivity implements SeekBar.OnS
             Timepicker1.setTitle("I took pills at: ");
 
             Timepicker1.setContentView(R.layout.scrolltimepicker);
+            Timepicker1.setCanceledOnTouchOutside(false);
             Timepicker1.show();
 
             TimePicker tp = (TimePicker)Timepicker1.findViewById(R.id.tp);
@@ -719,6 +722,7 @@ public class SleepDiaryActivity extends ActionBarActivity implements SeekBar.OnS
             Numberpicker1.setTitle("Nap Duration");
 
             Numberpicker1.setContentView(R.layout.numberpicker);
+            Numberpicker1.setCanceledOnTouchOutside(false);
             Numberpicker1.show();
 
 //            Numberpicker1.getWindow().setSoftInputMode(
@@ -785,6 +789,8 @@ public class SleepDiaryActivity extends ActionBarActivity implements SeekBar.OnS
         }
 
     }
+
+
 
 
 }

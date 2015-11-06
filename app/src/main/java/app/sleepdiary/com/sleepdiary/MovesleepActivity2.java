@@ -8,6 +8,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,7 +27,7 @@ import android.util.Log;
 /**
  * Created by ypl5142 on 10/25/15.
  */
-public class MovesleepActivity2 extends ActionBarActivity implements SeekBar.OnSeekBarChangeListener {
+public class MovesleepActivity2 extends ActionBarActivity implements SeekBar.OnSeekBarChangeListener, RadioGroup.OnCheckedChangeListener {
 
     List<ImageView> sleepscale = new ArrayList<ImageView>(10);
     SeekBar sleeppoint, movescale;
@@ -45,6 +47,9 @@ public class MovesleepActivity2 extends ActionBarActivity implements SeekBar.OnS
     int year = 0;
     String today = "";
 
+    int rbsd1, rbsd2,rbsd3, rbsd4,rbsd5, rbsd6,rbsd7, rbsd8;
+    RadioGroup rgSD;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movesleep2);
@@ -58,22 +63,35 @@ public class MovesleepActivity2 extends ActionBarActivity implements SeekBar.OnS
 
         objectID = getIntent().getStringExtra("objectID");
 
+        rgSD = (RadioGroup)findViewById(R.id.rgsd);
+        rgSD.setOnCheckedChangeListener(this);
+        rbsd1 = findViewById(R.id.ds1).getId();
+        rbsd2 = findViewById(R.id.ds2).getId();
+        rbsd3 = findViewById(R.id.ds3).getId();
+        rbsd4 = findViewById(R.id.ds4).getId();
+        rbsd5 = findViewById(R.id.ds5).getId();
+        rbsd6 = findViewById(R.id.ds6).getId();
+        rbsd7 = findViewById(R.id.ds7).getId();
+        rbsd8 = findViewById(R.id.dsx).getId();
+
+
+
 //        Toast pass = Toast.makeText(MovesleepActivity2.this,"id 2: "+objectID, Toast.LENGTH_SHORT);
 //        pass.show();
 
-        sleepptext = (TextView)findViewById(R.id.sleepscaletext);
-        sleeppoint = (SeekBar)findViewById(R.id.scale_sleep);
-        sleepscale.add((ImageView) findViewById(R.id.po0));
-        sleepscale.add((ImageView)findViewById(R.id.po1));
-        sleepscale.add((ImageView)findViewById(R.id.po2));
-        sleepscale.add((ImageView)findViewById(R.id.po3));
-        sleepscale.add((ImageView)findViewById(R.id.po4));
-        sleepscale.add((ImageView)findViewById(R.id.po5));
-        sleepscale.add((ImageView)findViewById(R.id.po6));
-        sleepscale.add((ImageView) findViewById(R.id.po7));
-
-
-        sleeppoint.setOnSeekBarChangeListener(this);
+//        sleepptext = (TextView)findViewById(R.id.sleepscaletext);
+//        sleeppoint = (SeekBar)findViewById(R.id.scale_sleep);
+//        sleepscale.add((ImageView) findViewById(R.id.po0));
+//        sleepscale.add((ImageView)findViewById(R.id.po1));
+//        sleepscale.add((ImageView)findViewById(R.id.po2));
+//        sleepscale.add((ImageView)findViewById(R.id.po3));
+//        sleepscale.add((ImageView)findViewById(R.id.po4));
+//        sleepscale.add((ImageView)findViewById(R.id.po5));
+//        sleepscale.add((ImageView)findViewById(R.id.po6));
+//        sleepscale.add((ImageView) findViewById(R.id.po7));
+//
+//
+//        sleeppoint.setOnSeekBarChangeListener(this);
 
         final Calendar cal = Calendar.getInstance();
         month = cal.get(Calendar.MONTH) + 1;
@@ -182,32 +200,32 @@ public class MovesleepActivity2 extends ActionBarActivity implements SeekBar.OnS
 
         }
 
-        if (seekBar == sleeppoint)
-        {
-            sleepp = progress + 1;
-            for (int bc = 0; bc<8;bc++)
-            {
-                if(bc == progress)
-                    continue;
-                sleepscale.get(bc).setVisibility(View.INVISIBLE);
-            }
-
-            sleepscale.get(progress).setVisibility(View.VISIBLE);
-
-            if(sleepp>1)
-            {
-                sleepptext.setText(sleepp + " points");
-
-
-            }
-
-            else
-            {
-                sleepptext.setText(sleepp + " point");
-
-
-            }
-        }
+//        if (seekBar == sleeppoint)
+//        {
+//            sleepp = progress + 1;
+//            for (int bc = 0; bc<8;bc++)
+//            {
+//                if(bc == progress)
+//                    continue;
+//                sleepscale.get(bc).setVisibility(View.INVISIBLE);
+//            }
+//
+//            sleepscale.get(progress).setVisibility(View.VISIBLE);
+//
+//            if(sleepp>1)
+//            {
+//                sleepptext.setText(sleepp + " points");
+//
+//
+//            }
+//
+//            else
+//            {
+//                sleepptext.setText(sleepp + " point");
+//
+//
+//            }
+//        }
     }
 
     @Override
@@ -218,5 +236,45 @@ public class MovesleepActivity2 extends ActionBarActivity implements SeekBar.OnS
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {
 
+    }
+
+    @Override
+    public void onCheckedChanged(RadioGroup group, int checkedId) {
+        if (group == rgSD)
+        {
+            if (checkedId == rbsd1)
+            {
+                sleepp = 1;
+            }
+
+            if (checkedId == rbsd2)
+            {
+                sleepp = 2;
+            }
+            if (checkedId == rbsd3)
+            {
+                sleepp = 3;
+            }
+            if (checkedId == rbsd4)
+            {
+                sleepp = 4;
+            }
+            if (checkedId == rbsd5)
+            {
+                sleepp = 5;
+            }
+            if (checkedId == rbsd6)
+            {
+                sleepp = 6;
+            }
+            if (checkedId == rbsd7)
+            {
+                sleepp = 7;
+            }
+            if (checkedId == rbsd8)
+            {
+                sleepp = 8;
+            }
+        }
     }
 }

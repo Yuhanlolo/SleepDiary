@@ -122,7 +122,7 @@ public class SettingsActivity extends ActionBarActivity {
                     ParseUser.logOut();
                     //ParseUser user = ParseUser.getCurrentUser();
                     dialoglogout.cancel();
-                    Intent i = new Intent(SettingsActivity.this, MainActivity.class);
+                    Intent i = new Intent(SettingsActivity.this, SettingsActivity.class);
                     SettingsActivity.this.startActivity(i);
                 }
             });
