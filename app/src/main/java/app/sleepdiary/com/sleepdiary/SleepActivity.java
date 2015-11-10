@@ -63,6 +63,17 @@ public class SleepActivity extends ActionBarActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sleep);
 
+//        Intent i_getvalue = getIntent();
+//        String action = i_getvalue.getAction();
+//
+//        if(Intent.ACTION_VIEW.equals(action)){
+//            Uri uri = i_getvalue.getData();
+//            if(uri != null){
+//                String value = uri.getQueryParameter("key");
+//                String value= uri.getQueryParameter("value");
+//            }
+//        }
+
         f1 = (ImageView)findViewById(R.id.finish_braintest);
         f2 = (ImageView)findViewById(R.id.finish_sleepdiary);
         f3 = (ImageView)findViewById(R.id.finish_movesleep);
@@ -108,20 +119,7 @@ public class SleepActivity extends ActionBarActivity{
             });
         }
 
-//        if(finish_braintest)
-//        {
-//            f1.setVisibility(View.VISIBLE);
-//        }
-//
-//        if(finish_sleepdiary)
-//        {
-//            f2.setVisibility(View.VISIBLE);
-//        }
-//
-//        if(finish_movesleep)
-//        {
-//            f3.setVisibility(View.VISIBLE);
-//        }
+
 
         //Parse.initialize(this, getString(R.string.parse_app_id), getString(R.string.parse_client_key));
        userid = getIntent().getStringExtra("userid");
@@ -156,7 +154,15 @@ public class SleepActivity extends ActionBarActivity{
 
     public void bedtimeOnClick(View view)
     {
-       if(view.getId() == R.id.bedtime)
+
+        ParseUser currentUser1 = ParseUser.getCurrentUser();
+
+        if(currentUser1 == null)
+        {
+            Toast pass = Toast.makeText(SleepActivity.this,"Please Login in first!", Toast.LENGTH_SHORT);
+            pass.show();
+        }
+       else if(view.getId() == R.id.bedtime)
         {
             if(!finish_sleepdiary){
             Intent i = new Intent(SleepActivity.this,SleepDiaryActivity.class);
@@ -169,7 +175,7 @@ public class SleepActivity extends ActionBarActivity{
             }
         }
 
-        if(view.getId() == R.id.movesleep)
+        else if(view.getId() == R.id.movesleep)
         {
             if(!finish_sleepdiary){
                 Toast pass = Toast.makeText(SleepActivity.this, " Please finish Sleep Diary first! " , Toast.LENGTH_SHORT);
@@ -179,7 +185,7 @@ public class SleepActivity extends ActionBarActivity{
             Intent i = new Intent(SleepActivity.this,MovesleepActivity.class);
             SleepActivity.this.startActivity(i);}
         }
-        if(view.getId() == R.id.brain_test)
+        else if(view.getId() == R.id.brain_test)
         {
 
             currentUser = ParseUser.getCurrentUser();

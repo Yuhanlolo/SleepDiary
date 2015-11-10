@@ -313,10 +313,16 @@ public class SleepDiaryActivity extends ActionBarActivity implements SeekBar.OnS
         if(view.getId() == R.id.save_s)
         {
 
+            ParseUser currentUser1 = ParseUser.getCurrentUser();
+            pillname = edtView.getText().toString();
+            if(currentUser1 == null)
+            {
+                Toast pass = Toast.makeText(SleepDiaryActivity.this,"Please Login in first!", Toast.LENGTH_SHORT);
+                pass.show();
+            }
 //            EditText pill = (EditText)findViewById(R.id.pillname);
-             pillname = edtView.getText().toString();
 
-            if((!pilltime.isEmpty()&&pillname.isEmpty()))
+            else if((!pilltime.isEmpty()&&pillname.isEmpty()))
             {
                 //popup msg
                 Toast errormsg = Toast.makeText(SleepDiaryActivity.this,"Please finish Question 7!", Toast.LENGTH_SHORT);

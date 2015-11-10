@@ -361,7 +361,15 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
 
         else if(view.getId() == R.id.save_s2)
         {
-            if(bedtime.isEmpty())
+
+            ParseUser currentUser1 = ParseUser.getCurrentUser();
+            if(currentUser1 == null)
+            {
+                Toast pass = Toast.makeText(SleepDiaryActivity2.this,"Please Login in first!", Toast.LENGTH_SHORT);
+                pass.show();
+            }
+
+            else if(bedtime.isEmpty())
             {
                 //popup msg
                 Toast errormsg = Toast.makeText(SleepDiaryActivity2.this,"Please finish Question 8!", Toast.LENGTH_SHORT);

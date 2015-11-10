@@ -130,11 +130,15 @@ public class MovesleepActivity2 extends ActionBarActivity implements SeekBar.OnS
     {
         if(view.getId() == R.id.save_ms2)
         {
-//            if(movep == -1){
-//                Toast errormsg = Toast.makeText(MovesleepActivity2.this,"Please finish Question 5!", Toast.LENGTH_SHORT);
-//                errormsg.show();
-//            }
-             if(sleepp == -1){
+            ParseUser currentUser1 = ParseUser.getCurrentUser();
+
+            if(currentUser1 == null)
+            {
+                Toast pass = Toast.makeText(MovesleepActivity2.this,"Please Login in first!", Toast.LENGTH_SHORT);
+                pass.show();
+            }
+
+             else if(sleepp == -1){
                 Toast errormsg = Toast.makeText(MovesleepActivity2.this,"Please finish Question 6!", Toast.LENGTH_SHORT);
                 errormsg.show();
             }

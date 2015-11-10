@@ -241,7 +241,15 @@ public class MovesleepActivity extends ActionBarActivity {
 
         if(view.getId() == R.id.save_ms)
         {
-            if (wss == -1){
+            ParseUser currentUser1 = ParseUser.getCurrentUser();
+
+            if(currentUser1 == null)
+            {
+                Toast pass = Toast.makeText(MovesleepActivity.this,"Please Login in first!", Toast.LENGTH_SHORT);
+                pass.show();
+            }
+
+            else if (wss == -1){
 
                 Toast errormsg = Toast.makeText(MovesleepActivity.this,"Please finish Question 1!", Toast.LENGTH_SHORT);
                 errormsg.show();

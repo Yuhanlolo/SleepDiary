@@ -220,10 +220,16 @@ public class SleepDiaryActivity3 extends ActionBarActivity implements RadioGroup
         if(view.getId() == R.id.save_s3)
         {
 
+            ParseUser currentUser1 = ParseUser.getCurrentUser();
+
+            if(currentUser1 == null)
+            {
+                Toast pass = Toast.makeText(SleepDiaryActivity3.this,"Please Login in first!", Toast.LENGTH_SHORT);
+                pass.show();
+            }
 
 
-
-            if(a_urge.isEmpty()||a_muscle.isEmpty()||a_tobed.isEmpty()||a_pain.isEmpty()||a_dream.isEmpty()||a_hall.isEmpty()||a_breath.isEmpty()||a_urine.isEmpty()||a_distur.isEmpty())
+            else if(a_urge.isEmpty()||a_muscle.isEmpty()||a_tobed.isEmpty()||a_pain.isEmpty()||a_dream.isEmpty()||a_hall.isEmpty()||a_breath.isEmpty()||a_urine.isEmpty()||a_distur.isEmpty())
             {
                 //popup msg
                 Toast errormsg = Toast.makeText(SleepDiaryActivity3.this,"Please finish all the questions!", Toast.LENGTH_SHORT);

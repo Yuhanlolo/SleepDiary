@@ -1,6 +1,7 @@
 package app.sleepdiary.com.sleepdiary;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -18,7 +19,7 @@ import com.parse.FindCallback;
 import java.util.Calendar;
 import java.util.List;
 import android.util.Log;
-
+import android.webkit.WebView;
 /**
  * Created by ypl5142 on 10/25/15.
  */
@@ -51,6 +52,17 @@ public class MainActivity  extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Intent i_getvalue = getIntent();
+        String action = i_getvalue.getAction();
+
+//        if(Intent.ACTION_VIEW.equals(action)){
+//            Uri uri = i_getvalue.getData();
+//            if(uri != null){
+//                String name = uri.getQueryParameter("name");
+//                String age= uri.getQueryParameter("age");
+//            }
+//        }
 
        currentUser = ParseUser.getCurrentUser();
 
@@ -123,6 +135,15 @@ public class MainActivity  extends ActionBarActivity {
 
 
 
+    }
+
+    public boolean shouldOverrideUrlLoading(WebView view, String url) {
+        if(url.startsWith("app.yuhan.com")) {
+            Intent MnRegister = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(MnRegister);
+        }
+        view.loadUrl(url);
+        return true;
     }
 
     @Override
