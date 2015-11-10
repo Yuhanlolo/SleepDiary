@@ -729,7 +729,7 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
         if (view.getId() == R.id.bedt)
         {
             final Dialog Timepicker1 = new Dialog(SleepDiaryActivity2.this);
-            Timepicker1.setTitle("");
+            Timepicker1.setTitle("I went to bed at:");
 
             Timepicker1.setContentView(R.layout.scrolltimepicker);
             Timepicker1.setCanceledOnTouchOutside(false);
@@ -778,7 +778,7 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
         if (view.getId() == R.id.asleept)
         {
             final Dialog Numberpicker1 = new Dialog(SleepDiaryActivity2.this);
-            Numberpicker1.setTitle("");
+            Numberpicker1.setTitle("Time to fall asleep:");
 
             Numberpicker1.setContentView(R.layout.numberpicker);
             Numberpicker1.setCanceledOnTouchOutside(false);
@@ -847,7 +847,7 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
         if (view.getId() == R.id.woket)
         {
             final Dialog Timepicker1 = new Dialog(SleepDiaryActivity2.this);
-            Timepicker1.setTitle("");
+            Timepicker1.setTitle("I woke up at: ");
 
             Timepicker1.setContentView(R.layout.scrolltimepicker);
             Timepicker1.setCanceledOnTouchOutside(false);
@@ -899,7 +899,7 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
         if (view.getId() == R.id.ofbed)
         {
             final Dialog Timepicker1 = new Dialog(SleepDiaryActivity2.this);
-            Timepicker1.setTitle("");
+            Timepicker1.setTitle("I got out of bed at: ");
 
             Timepicker1.setContentView(R.layout.scrolltimepicker);
             Timepicker1.setCanceledOnTouchOutside(false);

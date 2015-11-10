@@ -5,6 +5,9 @@ package app.sleepdiary.com.sleepdiary;
  */
 
 import android.app.Application;
+import android.content.Intent;
+import android.webkit.WebView;
+
 import com.parse.Parse;
 import com.parse.ParseObject;
 
@@ -22,6 +25,13 @@ public class SampleApplication extends Application {
 
     }
 
-
+//    public boolean shouldOverrideUrlLoading(WebView view, String url) {
+//        if(url.startsWith("www.yuhanexample.com")) {
+//            Intent MnRegister = new Intent(getApplicationContext(), MainActivity.class);
+//            startActivity(MnRegister);
+//        }
+//        view.loadUrl(url);
+//        return true;
+//    }
 
 }

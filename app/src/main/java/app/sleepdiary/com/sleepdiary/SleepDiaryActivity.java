@@ -156,7 +156,7 @@ public class SleepDiaryActivity extends ActionBarActivity implements SeekBar.OnS
             public void onClick(View v) {
 
                 final Dialog dialog_toba = new Dialog(SleepDiaryActivity.this);
-                dialog_toba.setTitle("");
+                dialog_toba.setTitle("I used tobacco: ");
 
                 dialog_toba.setContentView(R.layout.activity_tobacco);
                 dialog_toba.show();

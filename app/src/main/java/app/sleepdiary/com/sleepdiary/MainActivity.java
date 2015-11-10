@@ -137,14 +137,14 @@ public class MainActivity  extends ActionBarActivity {
 
     }
 
-    public boolean shouldOverrideUrlLoading(WebView view, String url) {
-        if(url.startsWith("app.yuhan.com")) {
-            Intent MnRegister = new Intent(getApplicationContext(), MainActivity.class);
-            startActivity(MnRegister);
-        }
-        view.loadUrl(url);
-        return true;
-    }
+//    public boolean shouldOverrideUrlLoading(WebView view, String url) {
+//        if(url.startsWith("www.yuhanexample.com")) {
+//            Intent MnRegister = new Intent(getApplicationContext(), MainActivity.class);
+//            startActivity(MnRegister);
+//        }
+//        view.loadUrl(url);
+//        return true;
+//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
