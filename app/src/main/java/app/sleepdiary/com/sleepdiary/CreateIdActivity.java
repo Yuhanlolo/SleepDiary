@@ -37,9 +37,9 @@ public class CreateIdActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_createid);
 
-        getWindow().setSoftInputMode(
-                WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN
-        );
+//        getWindow().setSoftInputMode(
+//                WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN
+//        );
 
 
     }

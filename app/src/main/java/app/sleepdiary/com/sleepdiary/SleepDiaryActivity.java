@@ -244,7 +244,7 @@ public class SleepDiaryActivity extends ActionBarActivity implements SeekBar.OnS
 
 
         timeperiod = (Button) findViewById(R.id.sleepdu);
-        timeperiod.setText("Time Period");
+        timeperiod.setText("Time Duration");
         timeperiod.setTextColor(0xFF808080);
         timeperiod.setEnabled(false);
 
@@ -519,7 +519,7 @@ public class SleepDiaryActivity extends ActionBarActivity implements SeekBar.OnS
             else
             {
                 timeperiod.setTextColor(0xFF808080);
-                timeperiod.setText("Time Period");
+                timeperiod.setText("Time Duration");
                 sleepduration  = "";
                 timeperiod.setEnabled(false);
             }

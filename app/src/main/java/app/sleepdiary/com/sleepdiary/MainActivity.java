@@ -215,6 +215,69 @@ public class MainActivity  extends ActionBarActivity {
                 MainActivity.this.startActivity(i);
             }
         }
+
+        if (view.getId() == R.id.bdi||view.getId() == R.id.fbdi)
+        {
+            currentUser = ParseUser.getCurrentUser();
+            if(currentUser == null)
+            {
+                Toast pass = Toast.makeText(MainActivity.this,"Please Login in first!", Toast.LENGTH_SHORT);
+                pass.show();
+            }
+
+            else if (A_DOPA)
+            {
+                Toast pass = Toast.makeText(MainActivity.this,"You have finished this part!", Toast.LENGTH_SHORT);
+                pass.show();
+            }
+            else
+            {
+                Intent i = new Intent(MainActivity.this, Dopa1Activity.class);
+                MainActivity.this.startActivity(i);
+            }
+        }
+
+        if (view.getId() == R.id.btt||view.getId() == R.id.fbt)
+        {
+            currentUser = ParseUser.getCurrentUser();
+            if(currentUser == null)
+            {
+                Toast pass = Toast.makeText(MainActivity.this,"Please Login in first!", Toast.LENGTH_SHORT);
+                pass.show();
+            }
+
+            else if (A_DOPA1)
+            {
+                Toast pass = Toast.makeText(MainActivity.this,"You have finished this part!", Toast.LENGTH_SHORT);
+                pass.show();
+            }
+            else
+            {
+                Intent i = new Intent(MainActivity.this, Dopa1Activity.class);
+                MainActivity.this.startActivity(i);
+            }
+        }
+
+        if (view.getId() == R.id.naptitle)
+        {
+            currentUser = ParseUser.getCurrentUser();
+            if(currentUser == null)
+            {
+                Toast pass = Toast.makeText(MainActivity.this,"Please Login in first!", Toast.LENGTH_SHORT);
+                pass.show();
+            }
+
+            else if (A_DOPA1)
+            {
+                Toast pass = Toast.makeText(MainActivity.this,"You have finished this part!", Toast.LENGTH_SHORT);
+                pass.show();
+            }
+            else
+            {
+                Intent i = new Intent(MainActivity.this, Dopa1Activity.class);
+                MainActivity.this.startActivity(i);
+            }
+        }
     }
 
 }

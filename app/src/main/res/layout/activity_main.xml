@@ -9,8 +9,8 @@
     android:icon="@drawable/ic_launcher">
 
     <ImageView
-        android:minHeight="260dp"
-        android:minWidth="300dp"
+        android:minHeight="220dp"
+        android:minWidth="260dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/mt"
@@ -22,13 +22,13 @@
 
         android:onClick="CoverOnClick"
         android:layout_gravity="left"
-        android:layout_marginLeft="70dp"
-        android:layout_marginTop="140dp" />
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="100dp" />
 
     <ImageView
 
-        android:layout_width="300dp"
-        android:layout_height="300dp"
+        android:layout_width="260dp"
+        android:layout_height="260dp"
         android:id="@+id/fmt"
         android:src="@drawable/frame1"
         android:layout_centerVertical="true"
@@ -38,63 +38,47 @@
         android:visibility="invisible"
         android:onClick="CoverOnClick"
         android:layout_gravity="left"
-        android:layout_marginLeft="70dp"
-        android:layout_marginTop="120dp" />
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="80dp" />
 
-
-    <ImageView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:id="@+id/finish_braintest"
-        android:src="@drawable/finish"
-        android:layout_row="0"
-        android:layout_column="0"
-        android:visibility="invisible"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:clickable="false"
-
-        android:onClick="CoverOnClick"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="120dp" />
 
 
 
     <ImageView
-        android:minHeight="260dp"
-        android:minWidth="300dp"
+        android:minHeight="220dp"
+        android:minWidth="260dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/adi"
         android:src="@drawable/afterdi"
         android:layout_row="0"
-        android:layout_column="1"
+        android:layout_column="0"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
         android:clickable="true"
         android:onClick="CoverOnClick"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="140dp"/>
+        android:layout_marginLeft="410dp"
+        android:layout_marginTop="100dp"/>
 
     <ImageView
 
-        android:layout_width="300dp"
-        android:layout_height="300dp"
+        android:layout_width="260dp"
+        android:layout_height="260dp"
         android:id="@+id/fadi"
         android:src="@drawable/frame1"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
         android:layout_row="0"
-        android:layout_column="1"
+        android:layout_column="0"
         android:visibility="invisible"
         android:onClick="CoverOnClick"
         android:layout_gravity="left"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="120dp" />
+        android:layout_marginLeft="410dp"
+        android:layout_marginTop="80dp" />
 
     <ImageView
-        android:minHeight="260dp"
-        android:minWidth="300dp"
+        android:minHeight="220dp"
+        android:minWidth="260dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/bdi"
@@ -105,7 +89,7 @@
         android:layout_centerHorizontal="true"
         android:clickable="true"
         android:onClick="CoverOnClick"
-        android:layout_marginLeft="70dp"
+        android:layout_marginLeft="100dp"
         android:layout_marginTop="40dp"/>
 
     <!--<ImageView-->
@@ -125,8 +109,8 @@
     <!--android:layout_marginTop="220dp" />-->
 
     <ImageView
-        android:layout_width="300dp"
-        android:layout_height="300dp"
+        android:layout_width="260dp"
+        android:layout_height="260dp"
         android:id="@+id/fbdi"
         android:src="@drawable/frame1"
         android:layout_row="1"
@@ -136,40 +120,54 @@
         android:clickable="false"
         android:visibility="invisible"
         android:onClick="bedtimeOnClick"
-        android:layout_marginLeft="70dp"
+        android:layout_marginLeft="100dp"
         android:layout_marginTop="20dp" />
 
 
     <ImageView
-        android:minHeight="260dp"
-        android:minWidth="300dp"
+        android:minHeight="220dp"
+        android:minWidth="260dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/btt"
         android:src="@drawable/bedtest"
         android:layout_row="1"
-        android:layout_column="1"
+        android:layout_column="0"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
         android:clickable="true"
         android:onClick="CoverOnClick"
-        android:layout_marginLeft="20dp"
+        android:layout_marginLeft="410dp"
         android:layout_marginTop="40dp"/>
 
     <ImageView
-        android:layout_width="300dp"
-        android:layout_height="300dp"
+        android:layout_width="260dp"
+        android:layout_height="260dp"
         android:id="@+id/fbt"
         android:src="@drawable/frame1"
         android:layout_row="1"
-        android:layout_column="1"
+        android:layout_column="0"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
         android:clickable="false"
         android:visibility="invisible"
         android:onClick="bedtimeOnClick"
-        android:layout_marginLeft="20dp"
+        android:layout_marginLeft="410dp"
         android:layout_marginTop="20dp" />
+
+    <ImageView
+        android:layout_width="540dp"
+        android:layout_height="220dp"
+        android:id="@+id/naptitle"
+        android:src="@drawable/naptitle"
+        android:layout_row="2"
+        android:layout_column="0"
+
+
+        android:clickable="true"
+        android:onClick="CoverOnClick"
+        android:layout_marginLeft="120dp"
+        android:layout_marginTop="0dp"/>
 
 </GridLayout>
 
