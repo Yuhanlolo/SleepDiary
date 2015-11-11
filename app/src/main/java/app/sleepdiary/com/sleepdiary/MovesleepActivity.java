@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.SeekBar;
 import android.widget.Toast;
 
 import com.parse.ParseException;
@@ -18,13 +19,14 @@ import com.parse.SaveCallback;
 /**
  * Created by ypl5142 on 10/25/15.
  */
-public class MovesleepActivity extends ActionBarActivity {
+public class MovesleepActivity extends ActionBarActivity implements SeekBar.OnSeekBarChangeListener {
 
 //    int walk =0;
 //    int change = 0;
 //    int usehand = 0;
 //    int uncontrol = 0;
 
+    int movep = 0;
 
     ImageView wsscopa0, wsscopa1, wsscopa2, wsscopa3, csscopa0,csscopa1, csscopa2, csscopa3,uhsscopa0, uhsscopa1, uhsscopa2, uhsscopa3;
     ImageView umsscopa0,umsscopa1, umsscopa2, umsscopa3;
@@ -32,7 +34,7 @@ public class MovesleepActivity extends ActionBarActivity {
     int css = -1;
     int uhss = -1;
     int umss = -1;
-
+    SeekBar movescale;
     String objectID = "";
 
     ParseObject movesleep  = new ParseObject("MoveSleepActivity");
@@ -64,6 +66,9 @@ public class MovesleepActivity extends ActionBarActivity {
         umsscopa1 = (ImageView)findViewById(R.id.umsscopa2);
         umsscopa2 = (ImageView)findViewById(R.id.umsscopa3);
         umsscopa3 = (ImageView)findViewById(R.id.umsscopa4);
+
+        movescale = (SeekBar)findViewById(R.id.s_move);
+        movescale.setOnSeekBarChangeListener(this);
     }
 
     @Override
@@ -275,7 +280,8 @@ public class MovesleepActivity extends ActionBarActivity {
                 movesleep.put("SCOPA_use_hands",uhss);
                 movesleep.put("SCOPA_uncontrollable_movement",umss);
 
-                movesleep.put("Move_Capability",0);
+                movesleep.put("Move_Capability", movep);
+                //movesleep.put("Move_Capability",0);
                 movesleep.put("Sleepiness_Scale",0);
 
                 movesleep.saveInBackground(new SaveCallback() {
@@ -307,5 +313,25 @@ public class MovesleepActivity extends ActionBarActivity {
             Intent i = new Intent(MovesleepActivity.this,SleepActivity.class);
             MovesleepActivity.this.startActivity(i);
         }
+    }
+
+    @Override
+    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+        if (seekBar == movescale)
+        {
+            movep = progress;
+
+        }
+
+    }
+
+    @Override
+    public void onStartTrackingTouch(SeekBar seekBar) {
+
+    }
+
+    @Override
+    public void onStopTrackingTouch(SeekBar seekBar) {
+
     }
 }

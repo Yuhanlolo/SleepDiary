@@ -30,7 +30,7 @@ import android.util.Log;
 public class MovesleepActivity2 extends ActionBarActivity implements SeekBar.OnSeekBarChangeListener, RadioGroup.OnCheckedChangeListener {
 
     List<ImageView> sleepscale = new ArrayList<ImageView>(10);
-    SeekBar sleeppoint, movescale;
+//    SeekBar movescale;
     int sleepp = -1;
     int movep = 0;
     TextView sleepptext;
@@ -47,7 +47,7 @@ public class MovesleepActivity2 extends ActionBarActivity implements SeekBar.OnS
     int year = 0;
     String today = "";
 
-    int rbsd1, rbsd2,rbsd3, rbsd4,rbsd5, rbsd6,rbsd7, rbsd8;
+    int rbsd1, rbsd2,rbsd3, rbsd4,rbsd5, rbsd6,rbsd7;
     RadioGroup rgSD;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,8 +58,8 @@ public class MovesleepActivity2 extends ActionBarActivity implements SeekBar.OnS
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN
         );
 
-        movescale = (SeekBar)findViewById(R.id.s_move);
-        movescale.setOnSeekBarChangeListener(this);
+//        movescale = (SeekBar)findViewById(R.id.s_move);
+//        movescale.setOnSeekBarChangeListener(this);
 
         objectID = getIntent().getStringExtra("objectID");
 
@@ -72,7 +72,7 @@ public class MovesleepActivity2 extends ActionBarActivity implements SeekBar.OnS
         rbsd5 = findViewById(R.id.ds5).getId();
         rbsd6 = findViewById(R.id.ds6).getId();
         rbsd7 = findViewById(R.id.ds7).getId();
-        rbsd8 = findViewById(R.id.dsx).getId();
+
 
 
 
@@ -152,7 +152,7 @@ public class MovesleepActivity2 extends ActionBarActivity implements SeekBar.OnS
                             Toast pass = Toast.makeText(MovesleepActivity2.this, "Error: "+e.getMessage(), Toast.LENGTH_SHORT);
                             pass.show();
                         } else {
-                            object.put("Move_Capability", movep);
+//                            object.put("Move_Capability", movep);
                             object.put("Sleepiness_Scale",sleepp);
 
                             //userActivity.pinInBackground();
@@ -198,11 +198,11 @@ public class MovesleepActivity2 extends ActionBarActivity implements SeekBar.OnS
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
 
-        if (seekBar == movescale)
-        {
-            movep = progress;
-
-        }
+//        if (seekBar == movescale)
+//        {
+//            movep = progress;
+//
+//        }
 
 //        if (seekBar == sleeppoint)
 //        {
@@ -275,10 +275,7 @@ public class MovesleepActivity2 extends ActionBarActivity implements SeekBar.OnS
             {
                 sleepp = 7;
             }
-            if (checkedId == rbsd8)
-            {
-                sleepp = 8;
-            }
+
         }
     }
 }
