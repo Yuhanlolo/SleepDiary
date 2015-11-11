@@ -174,22 +174,23 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
         Snowake = (SeekBar)findViewById(R.id.wakeno);
         Snowake.setOnSeekBarChangeListener(this);
 
+        awim.add((ImageView) findViewById(R.id.aw0));
+        awim.add((ImageView)findViewById(R.id.aw1));
+        awim.add((ImageView)findViewById(R.id.aw2));
+        awim.add((ImageView)findViewById(R.id.aw3));
+        awim.add((ImageView)findViewById(R.id.aw4));
+        awim.add((ImageView)findViewById(R.id.aw5));
+        awim.add((ImageView)findViewById(R.id.aw6));
+        awim.add((ImageView)findViewById(R.id.aw7));
+        awim.add((ImageView)findViewById(R.id.aw8));
+        awim.add((ImageView)findViewById(R.id.aw9));
+        awim.add((ImageView)findViewById(R.id.aw10));
+
         SleepQ = (SeekBar)findViewById(R.id.sleepquality);
         SleepQ.setOnSeekBarChangeListener(this);
 
         AwakeQ = (SeekBar)findViewById(R.id.awakequality);
         AwakeQ.setOnSeekBarChangeListener(this);
-//        awim.add((ImageView) findViewById(R.id.aw0));
-//        awim.add((ImageView)findViewById(R.id.aw1));
-//        awim.add((ImageView)findViewById(R.id.aw2));
-//        awim.add((ImageView)findViewById(R.id.aw3));
-//        awim.add((ImageView)findViewById(R.id.aw4));
-//        awim.add((ImageView)findViewById(R.id.aw5));
-//        awim.add((ImageView)findViewById(R.id.aw6));
-//        awim.add((ImageView)findViewById(R.id.aw7));
-//        awim.add((ImageView)findViewById(R.id.aw8));
-//        awim.add((ImageView)findViewById(R.id.aw9));
-//        awim.add((ImageView)findViewById(R.id.aw10));
 
         waket = (TextView)findViewById(R.id.d_wake);
 
@@ -702,14 +703,14 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
 
                awim.get(progress).setVisibility(View.VISIBLE);
 
-            if(no_wake>1)
-            {
-                waket.setText(no_wake + " times");
-                waket.setTextSize(22);}
-            else if (no_wake==10){
+            if (no_wake==10){
                 waket.setText(no_wake+"or more times");
                 waket.setTextSize(16);
             }
+            else if(no_wake>1)
+            {
+                waket.setText(no_wake + " times");
+                waket.setTextSize(22);}
             else
             {
                 waket.setTextSize(22);

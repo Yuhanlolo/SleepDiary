@@ -9,7 +9,7 @@
     android:icon="@drawable/ic_launcher">
 
     <ImageView
-        android:minHeight="220dp"
+        android:minHeight="230dp"
         android:minWidth="260dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -23,12 +23,12 @@
         android:onClick="CoverOnClick"
         android:layout_gravity="left"
         android:layout_marginLeft="100dp"
-        android:layout_marginTop="100dp" />
+        android:layout_marginTop="120dp" />
 
     <ImageView
 
-        android:layout_width="260dp"
-        android:layout_height="260dp"
+        android:layout_width="246dp"
+        android:layout_height="250dp"
         android:id="@+id/fmt"
         android:src="@drawable/frame1"
         android:layout_centerVertical="true"
@@ -38,14 +38,14 @@
         android:visibility="invisible"
         android:onClick="CoverOnClick"
         android:layout_gravity="left"
-        android:layout_marginLeft="100dp"
-        android:layout_marginTop="80dp" />
+        android:layout_marginLeft="107.5dp"
+        android:layout_marginTop="106dp" />
 
 
 
 
     <ImageView
-        android:minHeight="220dp"
+        android:minHeight="230dp"
         android:minWidth="260dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -58,12 +58,12 @@
         android:clickable="true"
         android:onClick="CoverOnClick"
         android:layout_marginLeft="410dp"
-        android:layout_marginTop="100dp"/>
+        android:layout_marginTop="120dp"/>
 
     <ImageView
 
-        android:layout_width="260dp"
-        android:layout_height="260dp"
+        android:layout_width="246dp"
+        android:layout_height="255dp"
         android:id="@+id/fadi"
         android:src="@drawable/frame1"
         android:layout_centerVertical="true"
@@ -73,11 +73,11 @@
         android:visibility="invisible"
         android:onClick="CoverOnClick"
         android:layout_gravity="left"
-        android:layout_marginLeft="410dp"
-        android:layout_marginTop="80dp" />
+        android:layout_marginLeft="417dp"
+        android:layout_marginTop="106dp" />
 
     <ImageView
-        android:minHeight="220dp"
+        android:minHeight="230dp"
         android:minWidth="260dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -109,8 +109,8 @@
     <!--android:layout_marginTop="220dp" />-->
 
     <ImageView
-        android:layout_width="260dp"
-        android:layout_height="260dp"
+        android:layout_width="246dp"
+        android:layout_height="255dp"
         android:id="@+id/fbdi"
         android:src="@drawable/frame1"
         android:layout_row="1"
@@ -120,12 +120,12 @@
         android:clickable="false"
         android:visibility="invisible"
         android:onClick="bedtimeOnClick"
-        android:layout_marginLeft="100dp"
-        android:layout_marginTop="20dp" />
+        android:layout_marginLeft="108dp"
+        android:layout_marginTop="24dp" />
 
 
     <ImageView
-        android:minHeight="220dp"
+        android:minHeight="230dp"
         android:minWidth="260dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -141,8 +141,8 @@
         android:layout_marginTop="40dp"/>
 
     <ImageView
-        android:layout_width="260dp"
-        android:layout_height="260dp"
+        android:layout_width="246dp"
+        android:layout_height="255dp"
         android:id="@+id/fbt"
         android:src="@drawable/frame1"
         android:layout_row="1"
@@ -152,22 +152,22 @@
         android:clickable="false"
         android:visibility="invisible"
         android:onClick="bedtimeOnClick"
-        android:layout_marginLeft="410dp"
-        android:layout_marginTop="20dp" />
+        android:layout_marginLeft="417dp"
+        android:layout_marginTop="24dp" />
 
     <ImageView
-        android:layout_width="540dp"
-        android:layout_height="220dp"
+        android:layout_width="790dp"
+        android:layout_height="230dp"
         android:id="@+id/naptitle"
-        android:src="@drawable/naptitle"
+        android:src="@drawable/naptitle1"
         android:layout_row="2"
         android:layout_column="0"
 
 
         android:clickable="true"
         android:onClick="CoverOnClick"
-        android:layout_marginLeft="120dp"
-        android:layout_marginTop="0dp"/>
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="45dp"/>
 
 </GridLayout>
 

@@ -20,7 +20,7 @@
         android:layout_row="0"
         android:layout_column="0"
 
-        android:onClick="bedtimeOnClick"
+        android:onClick="Dopa1OnClick"
         android:layout_gravity="left"
         android:layout_marginLeft="100dp"
         android:layout_marginTop="210dp" />
@@ -38,7 +38,7 @@
         android:layout_centerHorizontal="true"
         android:clickable="false"
 
-        android:onClick="bedtimeOnClick"
+        android:onClick="Dopa1OnClick"
         android:layout_marginLeft="0dp"
         android:layout_marginTop="260dp" />
 
@@ -58,8 +58,8 @@
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
         android:clickable="true"
-        android:onClick="bedtimeOnClick"
-        android:layout_marginLeft="110dp" />
+        android:onClick="Dopa1OnClick"
+        android:layout_marginLeft="100dp" />
 
     <ImageView
         android:layout_width="100dp"
@@ -72,7 +72,7 @@
         android:layout_centerHorizontal="true"
         android:clickable="false"
         android:visibility="invisible"
-        android:onClick="bedtimeOnClick"
+        android:onClick="Dopa1OnClick"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="50dp" />
 
