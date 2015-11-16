@@ -91,9 +91,7 @@
         <activity
             android:name=".ADIActivity">
         </activity>
-        <activity
-            android:name=".Dopa1Activity">
-        </activity>
+
 
     </application>
 
