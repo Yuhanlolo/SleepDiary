@@ -69,7 +69,20 @@
 
                 <data android:scheme="luo"
                     android:host="yuhan.com"
-                    android:pathPrefix="/second"/>
+                    android:pathPrefix="/m30"/>
+                <data android:scheme="luo"
+                    android:host="yuhan.com"
+                    android:pathPrefix="/adopa1"/>
+                <data android:scheme="luo"
+                    android:host="yuhan.com"
+                    android:pathPrefix="/adopa"/>
+                <data android:scheme="luo"
+                    android:host="yuhan.com"
+                    android:pathPrefix="/e"/>
+                <data android:scheme="luo"
+                    android:host="yuhan.com"
+                    android:pathPrefix="/nap"/>
+
             </intent-filter>
 
         </activity>
