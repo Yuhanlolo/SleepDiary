@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.SeekBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.parse.ParseException;
@@ -36,8 +37,11 @@ public class MovesleepActivity extends ActionBarActivity implements SeekBar.OnSe
     int umss = -1;
     SeekBar movescale;
     String objectID = "";
+    String lastpage  = "";
+    String currenttask = "";
+    TextView currentpage;
 
-    ParseObject movesleep  = new ParseObject("MoveSleepActivity");
+    ParseObject movesleep;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +50,38 @@ public class MovesleepActivity extends ActionBarActivity implements SeekBar.OnSe
         getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN
         );
+
+        Intent i_getvalue = getIntent();
+        lastpage = i_getvalue.getStringExtra("lastpage");
+
+        if(lastpage.equals("M30"))
+        {
+            movesleep  = new ParseObject("M30_MoveSleep");
+            currenttask = "30 minutes after morning awakening";
+        }
+        else if (lastpage.equals("A_DOPA1"))
+        {
+
+            movesleep  = new ParseObject("A_DOPA1_MoveSleep");
+            currenttask = "After last dopaminergic drug intake";
+        }
+        else if (lastpage.equals("A_DOPA"))
+        {
+            movesleep  = new ParseObject("A_DOPA_MoveSleep");
+            currenttask = "Before dinner";
+        }
+        else if(lastpage.equals("E"))
+        {
+            movesleep  = new ParseObject("E_MoveSleep");
+            currenttask = "Bed Time in the evening";
+        }
+//        else if(lastpage.equals("Nap"))
+//        {
+//            movesleep  = new ParseObject("NAP_MoveSleep");
+//        }
+
+        currentpage = (TextView)findViewById(R.id.lastpagem);
+        currentpage.setText(currenttask);
 
         wsscopa0 = (ImageView)findViewById(R.id.wsscopa1);
         wsscopa1 = (ImageView)findViewById(R.id.wsscopa2);
@@ -296,6 +332,7 @@ public class MovesleepActivity extends ActionBarActivity implements SeekBar.OnSe
 //                             pass.show();
                             Intent i = new Intent(MovesleepActivity.this, MovesleepActivity2.class);
                             i.putExtra("objectID", objectID);
+                            i.putExtra("lastpage",lastpage);
                             MovesleepActivity.this.startActivity(i);
 
 
@@ -308,9 +345,10 @@ public class MovesleepActivity extends ActionBarActivity implements SeekBar.OnSe
             }
         }
 
-        if(view.getId() == R.id.cancel_ms2)
+        if(view.getId() == R.id.cancel_ms)
         {
             Intent i = new Intent(MovesleepActivity.this,SleepActivity.class);
+            i.putExtra("lastpage",lastpage);
             MovesleepActivity.this.startActivity(i);
         }
     }

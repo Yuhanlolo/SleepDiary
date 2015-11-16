@@ -12,18 +12,17 @@
         android:icon="@drawable/ic_launcher"
         >
 
-        <!--<TextView-->
-            <!--android:id="@+id/lastnight"-->
-            <!--android:text=""-->
-            <!--android:textSize="28dp"-->
-            <!--android:textColor="#000000"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_row="0"-->
-            <!--android:layout_column="0"-->
-            <!--android:layout_marginStart="150dp"-->
-
-            <!--android:layout_marginTop="25dp" />-->
+        <TextView
+            android:id="@+id/lastpagem"
+            android:text=""
+            android:textSize="28dp"
+            android:textColor="#000000"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="0"
+            android:layout_column="0"
+            android:layout_marginTop="25dp"
+            android:layout_gravity="center" />
 
         <TextView
             android:id="@+id/visual"
@@ -35,7 +34,7 @@
             android:layout_row="1"
             android:layout_column="0"
             android:layout_marginStart="40dp"
-            android:layout_marginTop="45dp" />
+            android:layout_marginTop="40dp" />
 
 
     <GridLayout
@@ -963,7 +962,7 @@
             android:orientation="horizontal"
             android:minHeight="100dp"
             android:minWidth="200dp"
-            android:layout_marginTop="70dp"
+            android:layout_marginTop="50dp"
             android:layout_row="21"
             android:layout_column="0">
 

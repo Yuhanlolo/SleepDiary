@@ -36,16 +36,18 @@ public class MovesleepActivity2 extends ActionBarActivity implements SeekBar.OnS
     TextView sleepptext;
 
     boolean f = false;
-
+    String lastpage = "";
     String objectID = "";
 
-    ParseQuery<ParseObject> query = ParseQuery.getQuery("MoveSleepActivity");
+    ParseQuery<ParseObject> query;
     ParseQuery<ParseObject> query1 = ParseQuery.getQuery("TaskCheckList");
 
     int month = 0;
     int date = 0;
     int year = 0;
     String today = "";
+    String currenttask = "";
+    TextView currentpage;
 
     int rbsd1, rbsd2,rbsd3, rbsd4,rbsd5, rbsd6,rbsd7;
     RadioGroup rgSD;
@@ -58,8 +60,34 @@ public class MovesleepActivity2 extends ActionBarActivity implements SeekBar.OnS
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN
         );
 
-//        movescale = (SeekBar)findViewById(R.id.s_move);
-//        movescale.setOnSeekBarChangeListener(this);
+
+        Intent i_getvalue = getIntent();
+        lastpage = i_getvalue.getStringExtra("lastpage");
+
+        if(lastpage.equals("M30"))
+        {
+            query = ParseQuery.getQuery("M30_MoveSleep");
+            currenttask = "30 minutes after morning awakening";
+        }
+        else if (lastpage.equals("A_DOPA1"))
+        {
+            query = ParseQuery.getQuery("A_DOPA1_MoveSleep");
+            currenttask = "After last dopaminergic drug intake";
+        }
+        else if (lastpage.equals("A_DOPA"))
+        {
+            query = ParseQuery.getQuery("A_DOPA_MoveSleep");
+            currenttask = "Before dinner";
+        }
+        else if(lastpage.equals("E"))
+        {
+            query = ParseQuery.getQuery("E_MoveSleep");
+            currenttask = "Bed Time in the evening";
+        }
+
+        currentpage = (TextView)findViewById(R.id.lastpagem2);
+        currentpage.setText(currenttask);
+
 
         objectID = getIntent().getStringExtra("objectID");
 
@@ -170,7 +198,24 @@ public class MovesleepActivity2 extends ActionBarActivity implements SeekBar.OnS
                             //Log.d("score", "Retrieved " + scoreList.size() + " scores");
 //                            Toast pass = Toast.makeText(MovesleepActivity2.this, "size: " + scoreList.size(), Toast.LENGTH_SHORT);
 //                            pass.show();
-                            scoreList.get(0).put("MMovesleep", 1);
+                            if(lastpage.equals("M30"))
+                            {
+                            scoreList.get(0).put("M30_Movesleep", 1);
+                            }
+
+                            if(lastpage.equals("A_DOPA1"))
+                            {
+                                scoreList.get(0).put("A_DOPA1_Movesleep", 1);
+                            }
+                            if(lastpage.equals("A_DOPA"))
+                            {
+                                scoreList.get(0).put("A_DOPA_Movesleep", 1);
+                            }
+                            if(lastpage.equals("E"))
+                            {
+                                scoreList.get(0).put("E_Movesleep", 1);
+                            }
+
                             scoreList.get(0).saveInBackground();
                         } else {
 //                            Toast pass = Toast.makeText(MovesleepActivity2.this, "Error: " + "not found!", Toast.LENGTH_SHORT);
@@ -183,6 +228,7 @@ public class MovesleepActivity2 extends ActionBarActivity implements SeekBar.OnS
 
                 f = true;
                 Intent i = new Intent(MovesleepActivity2.this,MainActivity.class);
+                i.putExtra("lastpage",lastpage);
                 i.putExtra("loginstatus",f);
                 MovesleepActivity2.this.startActivity(i);
             }
@@ -191,6 +237,7 @@ public class MovesleepActivity2 extends ActionBarActivity implements SeekBar.OnS
         if(view.getId() == R.id.cancel_ms2)
         {
             Intent i = new Intent(MovesleepActivity2.this,SleepActivity.class);
+            i.putExtra("lastpage",lastpage);
             MovesleepActivity2.this.startActivity(i);
         }
     }

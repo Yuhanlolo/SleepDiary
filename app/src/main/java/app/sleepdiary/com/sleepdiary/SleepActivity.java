@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -24,8 +25,11 @@ import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
-
+import android.view.ViewGroup.LayoutParams;
 import java.util.Calendar;
+import android.widget.LinearLayout;
+import android.widget.GridLayout;
+
 
 public class SleepActivity extends ActionBarActivity{
 
@@ -40,6 +44,7 @@ public class SleepActivity extends ActionBarActivity{
 //    String finish_sleepdiary = "";
 //    String finish_movesleep = "";
 //    String finish_scopa = "";
+    ImageView bt, sd, ms;
 
     ImageView f1;
     ImageView f2;
@@ -49,7 +54,7 @@ public class SleepActivity extends ActionBarActivity{
     String token = "";
     ParseUser currentUser;
     String link = "";
-
+    String lastpage="";
     final Calendar cal = Calendar.getInstance();
     int month = cal.get(Calendar.MONTH) + 1;
     int date = cal.get(Calendar.DATE);
@@ -63,8 +68,164 @@ public class SleepActivity extends ActionBarActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sleep);
 
-//        Intent i_getvalue = getIntent();
-//        String action = i_getvalue.getAction();
+        bt = (ImageView)findViewById(R.id.brain_test);
+        sd = (ImageView)findViewById(R.id.bedtime);
+        ms = (ImageView)findViewById(R.id.movesleep);
+
+        f1 = (ImageView)findViewById(R.id.finish_braintest);
+        f2 = (ImageView)findViewById(R.id.finish_sleepdiary);
+        f3 = (ImageView)findViewById(R.id.finish_movesleep);
+
+        Intent i_getvalue = getIntent();
+        lastpage = i_getvalue.getStringExtra("lastpage");
+
+
+        currentUser = ParseUser.getCurrentUser();
+
+        if(lastpage.equals("M30"))
+        {
+//            GridLayout.LayoutParams llp = new GridLayout.LayoutParams();
+//            f3.setLayoutParams(llp);
+//            f3.setVisibility(View.VISIBLE);
+
+            sd.setVisibility(View.VISIBLE);
+
+            if(currentUser != null) {
+                userid = ParseUser.getCurrentUser().getUsername();
+                query1.whereEqualTo("User_ID", userid);
+                query1.whereEqualTo("Date", today);
+
+                query1.getFirstInBackground(new GetCallback<ParseObject>() {
+                    public void done(ParseObject object, ParseException e) {
+                        if (object == null) {
+                            Log.d("User_ID", "The getFirst request failed.");
+
+                        } else {
+                            //Log.d("score", "Retrieved the object.");
+                            //if(object.getInt("MBraintest")== 0 || object.getInt("MBraintest") ==1)
+
+                            if (object.getInt("M30_Sleepdiary") == 1 ) {
+                                finish_sleepdiary = true;
+                                f2.setVisibility(View.VISIBLE);
+                            }
+
+                            if ( object.getInt("M30_Movesleep") == 1) {
+                                finish_movesleep = true;
+                                f3.setVisibility(View.VISIBLE);
+                            }
+
+                            if (object.getInt("M30_Braintest") == 1 ) {
+                                finish_braintest = true;
+                                f1.setVisibility(View.VISIBLE);
+                            }
+
+
+                        }
+                    }
+                });
+            }
+
+        }
+        else if (lastpage.equals("A_DOPA1"))
+        {
+            sd.setVisibility(View.INVISIBLE);
+
+            if(currentUser != null) {
+                userid = ParseUser.getCurrentUser().getUsername();
+                query1.whereEqualTo("User_ID", userid);
+                query1.whereEqualTo("Date", today);
+
+                query1.getFirstInBackground(new GetCallback<ParseObject>() {
+                    public void done(ParseObject object, ParseException e) {
+                        if (object == null) {
+                            Log.d("User_ID", "The getFirst request failed.");
+
+                        } else {
+
+                            if ( object.getInt("A_DOPA1_Movesleep") == 1) {
+                                finish_movesleep = true;
+                                f3.setVisibility(View.VISIBLE);
+                            }
+
+                            if (object.getInt("A_DOPA1_Braintest") == 1 ) {
+                                finish_braintest = true;
+                                f1.setVisibility(View.VISIBLE);
+                            }
+
+
+                        }
+                    }
+                });
+            }
+        }
+
+        else if (lastpage.equals("A_DOPA"))
+        {
+            sd.setVisibility(View.INVISIBLE);
+
+            if(currentUser != null) {
+                userid = ParseUser.getCurrentUser().getUsername();
+                query1.whereEqualTo("User_ID", userid);
+                query1.whereEqualTo("Date", today);
+
+                query1.getFirstInBackground(new GetCallback<ParseObject>() {
+                    public void done(ParseObject object, ParseException e) {
+                        if (object == null) {
+                            Log.d("User_ID", "The getFirst request failed.");
+
+                        } else {
+
+                            if ( object.getInt("A_DOPA_Movesleep") == 1) {
+                                finish_movesleep = true;
+                                f3.setVisibility(View.VISIBLE);
+                            }
+
+                            if (object.getInt("A_DOPA_Braintest") == 1 ) {
+                                finish_braintest = true;
+                                f1.setVisibility(View.VISIBLE);
+                            }
+
+
+                        }
+                    }
+                });
+            }
+        }
+
+        else if (lastpage.equals("E"))
+        {
+            sd.setVisibility(View.INVISIBLE);
+
+            if(currentUser != null) {
+                userid = ParseUser.getCurrentUser().getUsername();
+                query1.whereEqualTo("User_ID", userid);
+                query1.whereEqualTo("Date", today);
+
+                query1.getFirstInBackground(new GetCallback<ParseObject>() {
+                    public void done(ParseObject object, ParseException e) {
+                        if (object == null) {
+                            Log.d("User_ID", "The getFirst request failed.");
+
+                        } else {
+
+                            if ( object.getInt("E_Movesleep") == 1) {
+                                finish_movesleep = true;
+                                f3.setVisibility(View.VISIBLE);
+                            }
+
+                            if (object.getInt("E_Braintest") == 1 ) {
+                                finish_braintest = true;
+                                f1.setVisibility(View.VISIBLE);
+                            }
+
+
+                        }
+                    }
+                });
+            }
+        }
+
+        //String action = i_getvalue.getAction();
 //
 //        if(Intent.ACTION_VIEW.equals(action)){
 //            Uri uri = i_getvalue.getData();
@@ -74,50 +235,7 @@ public class SleepActivity extends ActionBarActivity{
 //            }
 //        }
 
-        f1 = (ImageView)findViewById(R.id.finish_braintest);
-        f2 = (ImageView)findViewById(R.id.finish_sleepdiary);
-        f3 = (ImageView)findViewById(R.id.finish_movesleep);
 
-        finish_sleepdiary = getIntent().getBooleanExtra("f2",false);
-        finish_braintest =  getIntent().getBooleanExtra("f1",false);
-        finish_movesleep = getIntent().getBooleanExtra("f3", false);
-
-        currentUser = ParseUser.getCurrentUser();
-
-        if(currentUser != null) {
-            userid = ParseUser.getCurrentUser().getUsername();
-            query1.whereEqualTo("User_ID", userid);
-            query1.whereEqualTo("Date", today);
-
-            query1.getFirstInBackground(new GetCallback<ParseObject>() {
-                public void done(ParseObject object, ParseException e) {
-                    if (object == null) {
-                        Log.d("User_ID", "The getFirst request failed.");
-
-                    } else {
-                        //Log.d("score", "Retrieved the object.");
-                        //if(object.getInt("MBraintest")== 0 || object.getInt("MBraintest") ==1)
-
-                        if (object.getInt("MSleepdiary") == 1 ) {
-                            finish_sleepdiary = true;
-                            f2.setVisibility(View.VISIBLE);
-                        }
-
-                        if ( object.getInt("AdiMovesleep") == 1) {
-                            finish_movesleep = true;
-                            f3.setVisibility(View.VISIBLE);
-                        }
-
-                        if (object.getInt("BdiBraintest") == 1 ) {
-                            finish_braintest = true;
-                            f1.setVisibility(View.VISIBLE);
-                        }
-
-
-                    }
-                }
-            });
-        }
 
 
 
@@ -165,9 +283,10 @@ public class SleepActivity extends ActionBarActivity{
        else if(view.getId() == R.id.bedtime)
         {
             if(!finish_sleepdiary){
-            Intent i = new Intent(SleepActivity.this,SleepDiaryActivity.class);
-            i.putExtra("userid",userid);
-            SleepActivity.this.startActivity(i);}
+                Intent i = new Intent(SleepActivity.this,SleepDiaryActivity.class);
+                i.putExtra("userid",userid);
+                i.putExtra("lastpage",lastpage);
+                SleepActivity.this.startActivity(i);}
             else
             {
                 Toast pass = Toast.makeText(SleepActivity.this, " You have already finished this part! " , Toast.LENGTH_SHORT);
@@ -177,14 +296,19 @@ public class SleepActivity extends ActionBarActivity{
 
         else if(view.getId() == R.id.movesleep)
         {
-            if(!finish_sleepdiary){
+            if(lastpage.equals("M30")){
+                if(!finish_sleepdiary)
+                {
                 Toast pass = Toast.makeText(SleepActivity.this, " Please finish Sleep Diary first! " , Toast.LENGTH_SHORT);
                 pass.show();
+                }
             }
-            else {
-            Intent i = new Intent(SleepActivity.this,MovesleepActivity.class);
-            SleepActivity.this.startActivity(i);}
-        }
+            else
+            {
+                Intent i = new Intent(SleepActivity.this,MovesleepActivity.class);
+                i.putExtra("lastpage",lastpage);
+                SleepActivity.this.startActivity(i);}
+            }
         else if(view.getId() == R.id.brain_test)
         {
 
@@ -218,6 +342,7 @@ public class SleepActivity extends ActionBarActivity{
             Uri uri = Uri.parse("http://www.braintaptest.com/"); // missing 'http://' will cause crashed
             Intent i = new Intent(Intent.ACTION_VIEW, uri);
             Intent j = new Intent(SleepActivity.this,SleepActivity.class);
+            i.putExtra("lastpage",lastpage);
             startService(j);
             startActivity(i);
 

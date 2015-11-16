@@ -46,6 +46,8 @@ public class MainActivity  extends ActionBarActivity {
     int year = cal.get(Calendar.YEAR);
     String today = String.valueOf(month)+"/"+String.valueOf(date)+"/"+String.valueOf(year);
 
+    String lastpage = "";
+
    // ParseObject TaskCheckList  = new ParseObject("TaskCheckList");
    ParseQuery<ParseObject> query1 = ParseQuery.getQuery("TaskCheckList");
 
@@ -80,22 +82,22 @@ public class MainActivity  extends ActionBarActivity {
                         //Log.d("score", "Retrieved the object.");
                         //if(object.getInt("MBraintest")== 0 || object.getInt("MBraintest") ==1)
 
-                        if (object.getInt("MSleepdiary") == 1 && object.getInt("MMovesleep") == 1) {
+                        if (object.getInt("M30_Sleepdiary") == 1 && object.getInt("M30_Movesleep") == 1) {
                             M30 = true;
                             finish_M30.setVisibility(View.VISIBLE);
                         }
 
-                        if (object.getInt("AdiBraintest") == 1 && object.getInt("AdiMovesleep") == 1) {
+                        if (object.getInt("A_DOPA1_Braintest") == 1 && object.getInt("A_DOPA1_Movesleep") == 1) {
                             A_DOPA1 = true;
                             finish_adi.setVisibility(View.VISIBLE);
                         }
 
-                        if (object.getInt("BdiBraintest") == 1 && object.getInt("BdiMovesleep") == 1) {
+                        if (object.getInt("A_DOPA_Braintest") == 1 && object.getInt("A_DOPA_Movesleep") == 1) {
                             A_DOPA = true;
                             finish_bdi.setVisibility(View.VISIBLE);
                         }
 
-                        if (object.getInt("BdiBraintest") == 1 && object.getInt("BdiMovesleep") == 1) {
+                        if (object.getInt("E_Braintest") == 1 && object.getInt("E_Movesleep") == 1) {
                             E = true;
                             finish_E.setVisibility(View.VISIBLE);
                         }
@@ -191,6 +193,8 @@ public class MainActivity  extends ActionBarActivity {
             else
             {
             Intent i = new Intent(MainActivity.this, SleepActivity.class);
+                lastpage = "M30";
+                i.putExtra("lastpage",lastpage);
             MainActivity.this.startActivity(i);
             }
         }
@@ -211,7 +215,9 @@ public class MainActivity  extends ActionBarActivity {
             }
             else
             {
-                Intent i = new Intent(MainActivity.this, Dopa1Activity.class);
+                Intent i = new Intent(MainActivity.this, SleepActivity.class);
+                lastpage = "A_DOPA1";
+                i.putExtra("lastpage",lastpage);
                 MainActivity.this.startActivity(i);
             }
         }
@@ -232,7 +238,9 @@ public class MainActivity  extends ActionBarActivity {
             }
             else
             {
-                Intent i = new Intent(MainActivity.this, Dopa1Activity.class);
+                Intent i = new Intent(MainActivity.this, SleepActivity.class);
+                lastpage = "A_DOPA";
+                i.putExtra("lastpage",lastpage);
                 MainActivity.this.startActivity(i);
             }
         }
@@ -246,14 +254,16 @@ public class MainActivity  extends ActionBarActivity {
                 pass.show();
             }
 
-            else if (A_DOPA1)
+            else if (E)
             {
                 Toast pass = Toast.makeText(MainActivity.this,"You have finished this part!", Toast.LENGTH_SHORT);
                 pass.show();
             }
             else
             {
-                Intent i = new Intent(MainActivity.this, Dopa1Activity.class);
+                Intent i = new Intent(MainActivity.this, SleepActivity.class);
+                lastpage = "E";
+                i.putExtra("lastpage",lastpage);
                 MainActivity.this.startActivity(i);
             }
         }
@@ -267,14 +277,12 @@ public class MainActivity  extends ActionBarActivity {
                 pass.show();
             }
 
-            else if (A_DOPA1)
-            {
-                Toast pass = Toast.makeText(MainActivity.this,"You have finished this part!", Toast.LENGTH_SHORT);
-                pass.show();
-            }
+
             else
             {
-                Intent i = new Intent(MainActivity.this, Dopa1Activity.class);
+                Intent i = new Intent(MainActivity.this, SleepActivity.class);
+                lastpage = "Nap";
+                i.putExtra("lastpage",lastpage);
                 MainActivity.this.startActivity(i);
             }
         }

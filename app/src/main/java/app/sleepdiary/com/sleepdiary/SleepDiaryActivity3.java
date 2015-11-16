@@ -84,7 +84,7 @@ public class SleepDiaryActivity3 extends ActionBarActivity implements RadioGroup
 
     String objectID = "";
 
-    ParseQuery<ParseObject> query = ParseQuery.getQuery("UserActivity");
+    ParseQuery<ParseObject> query;
     ParseObject TaskCheckList  = new ParseObject("TaskCheckList");
     //ParseQuery<ParseObject> query1 = ParseQuery.getQuery("TaskCheckList");
     //ParseObject userActivity = new ParseObject("UserActivity");
@@ -93,6 +93,7 @@ public class SleepDiaryActivity3 extends ActionBarActivity implements RadioGroup
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_3sleepdiary);
 
+        query = ParseQuery.getQuery("Sleep_Diary");
         objectID = getIntent().getStringExtra("objectID");
 //        Toast pass = Toast.makeText(SleepDiaryActivity3.this,"3 "+objectID, Toast.LENGTH_SHORT);
 //        pass.show();
@@ -292,23 +293,25 @@ public class SleepDiaryActivity3 extends ActionBarActivity implements RadioGroup
                 TaskCheckList.put("User_ID", ParseUser.getCurrentUser().getUsername());
                 TaskCheckList.put("Date", today);
 
-                TaskCheckList.put("MBriantest", 0);
-                TaskCheckList.put("MSleepdiary", 1);
-                TaskCheckList.put("MMovesleep", 0);
+                TaskCheckList.put("M30_Briantest", 0);
+                TaskCheckList.put("M30_Sleepdiary", 1);
+                TaskCheckList.put("M30_Movesleep", 0);
 
-                TaskCheckList.put("AdiBriantest", 0);
-                TaskCheckList.put("AdiMovesleep", 0);
+                TaskCheckList.put("A_DOPA1_Briantest", 0);
+                TaskCheckList.put("A_DOPA1_Movesleep", 0);
 
-                TaskCheckList.put("BdiBriantest", 0);
-                TaskCheckList.put("BdiMovesleep", 0);
+                TaskCheckList.put("A_DOPA_Briantest", 0);
+                TaskCheckList.put("A_DOPA_Movesleep", 0);
 
-                TaskCheckList.put("EBriantest", 0);
-                TaskCheckList.put("EMovesleep", 0);
+                TaskCheckList.put("E_Briantest", 0);
+                TaskCheckList.put("E_Movesleep", 0);
 
                 TaskCheckList.saveInBackground();
-                f = true;
+
+                //f = true;
                 Intent i = new Intent(SleepDiaryActivity3.this,SleepActivity.class);
-                i.putExtra("loginstatus",f);
+                i.putExtra("lastpage","M30");
+                //i.putExtra("loginstatus",f);
                 i.putExtra("f2",f);
                 SleepDiaryActivity3.this.startActivity(i);
 

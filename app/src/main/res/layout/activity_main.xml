@@ -28,7 +28,7 @@
     <ImageView
 
         android:layout_width="246dp"
-        android:layout_height="250dp"
+        android:layout_height="240dp"
         android:id="@+id/fmt"
         android:src="@drawable/frame1"
         android:layout_centerVertical="true"
@@ -39,7 +39,7 @@
         android:onClick="CoverOnClick"
         android:layout_gravity="left"
         android:layout_marginLeft="107.5dp"
-        android:layout_marginTop="106dp" />
+        android:layout_marginTop="112dp" />
 
 
 
@@ -63,7 +63,7 @@
     <ImageView
 
         android:layout_width="246dp"
-        android:layout_height="255dp"
+        android:layout_height="240dp"
         android:id="@+id/fadi"
         android:src="@drawable/frame1"
         android:layout_centerVertical="true"
@@ -74,7 +74,7 @@
         android:onClick="CoverOnClick"
         android:layout_gravity="left"
         android:layout_marginLeft="417dp"
-        android:layout_marginTop="106dp" />
+        android:layout_marginTop="112dp" />
 
     <ImageView
         android:minHeight="230dp"
@@ -110,7 +110,7 @@
 
     <ImageView
         android:layout_width="246dp"
-        android:layout_height="255dp"
+        android:layout_height="240dp"
         android:id="@+id/fbdi"
         android:src="@drawable/frame1"
         android:layout_row="1"
@@ -121,7 +121,7 @@
         android:visibility="invisible"
         android:onClick="bedtimeOnClick"
         android:layout_marginLeft="108dp"
-        android:layout_marginTop="24dp" />
+        android:layout_marginTop="32dp" />
 
 
     <ImageView
@@ -142,7 +142,7 @@
 
     <ImageView
         android:layout_width="246dp"
-        android:layout_height="255dp"
+        android:layout_height="240dp"
         android:id="@+id/fbt"
         android:src="@drawable/frame1"
         android:layout_row="1"
@@ -153,7 +153,7 @@
         android:visibility="invisible"
         android:onClick="bedtimeOnClick"
         android:layout_marginLeft="417dp"
-        android:layout_marginTop="24dp" />
+        android:layout_marginTop="32dp" />
 
     <ImageView
         android:layout_width="790dp"

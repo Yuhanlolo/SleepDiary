@@ -8,22 +8,23 @@
     android:background="#fafafa"
     android:icon="@drawable/ic_launcher">
 
-        <ImageView
-              android:minHeight="200dp"
-              android:minWidth="560dp"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:id="@+id/brain_test"
-              android:src="@drawable/brain_test"
-              android:layout_centerVertical="true"
-              android:layout_centerHorizontal="true"
-              android:layout_row="0"
-              android:layout_column="0"
+    <ImageView
+        android:minHeight="200dp"
+        android:minWidth="560dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/brain_test"
+        android:src="@drawable/brain_test"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:layout_row="0"
+        android:layout_column="1"
 
-              android:onClick="bedtimeOnClick"
-              android:layout_gravity="left"
-              android:layout_marginLeft="110dp"
-              android:layout_marginTop="130dp" />
+        android:onClick="bedtimeOnClick"
+        android:layout_gravity="left"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="150dp"
+        android:layout_marginRight="100dp" />
 
 
     <ImageView
@@ -39,62 +40,35 @@
         android:clickable="false"
 
         android:onClick="bedtimeOnClick"
-        android:layout_marginLeft="0dp"
-        android:layout_marginTop="180dp" />
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="200dp" />
 
 
 
     <ImageView
-            android:minHeight="200dp"
-            android:minWidth="560dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/bedtime"
-            android:src="@drawable/bedtime"
-            android:layout_row="1"
-            android:layout_column="0"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true"
-            android:clickable="true"
-            android:onClick="bedtimeOnClick"
-            android:layout_marginLeft="110dp" />
-
-        <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:id="@+id/finish_sleepdiary"
-            android:src="@drawable/finish"
-            android:layout_row="1"
-            android:layout_column="0"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true"
-            android:clickable="false"
-            android:visibility="invisible"
-            android:onClick="bedtimeOnClick"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="50dp" />
-
-        <ImageView
-            android:minHeight="200dp"
-            android:minWidth="560dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/movesleep"
-            android:src="@drawable/movesleep"
-            android:layout_row="2"
-            android:layout_column="0"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true"
-            android:clickable="true"
-            android:onClick="bedtimeOnClick"
-            android:layout_marginLeft="110dp" />
+        android:minHeight="200dp"
+        android:minWidth="560dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/bedtime"
+        android:src="@drawable/bedtime"
+        android:layout_row="0"
+        android:layout_column="1"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:clickable="true"
+        android:visibility="invisible"
+        android:onClick="bedtimeOnClick"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="325dp"
+        android:layout_marginRight="100dp" />
 
     <ImageView
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:id="@+id/finish_movesleep"
+        android:id="@+id/finish_sleepdiary"
         android:src="@drawable/finish"
-        android:layout_row="2"
+        android:layout_row="0"
         android:layout_column="0"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
@@ -102,7 +76,39 @@
         android:visibility="invisible"
         android:onClick="bedtimeOnClick"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="50dp" />
+        android:layout_marginTop="375dp" />
+
+    <ImageView
+        android:minHeight="200dp"
+        android:minWidth="560dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/movesleep"
+        android:src="@drawable/movesleep"
+        android:layout_row="0"
+        android:layout_column="1"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:clickable="true"
+        android:onClick="bedtimeOnClick"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="500dp"
+        android:layout_marginRight="100dp" />
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:id="@+id/finish_movesleep"
+        android:src="@drawable/finish"
+        android:layout_row="0"
+        android:layout_column="0"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:clickable="false"
+        android:visibility="invisible"
+        android:onClick="bedtimeOnClick"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="550dp" />
 
 </GridLayout>
 

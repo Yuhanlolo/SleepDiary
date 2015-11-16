@@ -119,13 +119,13 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
     List<ImageView> awim = new ArrayList<ImageView>(10);
     //SleepdiaryDBHepler sleephelper = new SleepdiaryDBHepler(this);
     //ParseObject userActivity = new ParseObject("UserActivity");
-    ParseQuery <ParseObject>  query = ParseQuery.getQuery("UserActivity");
+    ParseQuery <ParseObject>  query;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_2sleepdiary);
 
-
+        query = ParseQuery.getQuery("Sleep_Diary");
         objectID = getIntent().getStringExtra("objectID");
 
 //        Toast pass = Toast.makeText(SleepDiaryActivity2.this, "id 2: "+objectID, Toast.LENGTH_SHORT);
@@ -384,29 +384,29 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
             }
             else if (asleeptime.isEmpty())
             {
-                Toast errormsg = Toast.makeText(SleepDiaryActivity2.this,"Please finish Question 9!", Toast.LENGTH_SHORT);
+                Toast errormsg = Toast.makeText(SleepDiaryActivity2.this,"Please finish Question 8!", Toast.LENGTH_SHORT);
                 errormsg.show();
             }
             else if (woketime.isEmpty())
             {
-                Toast errormsg = Toast.makeText(SleepDiaryActivity2.this,"Please finish Question 10!", Toast.LENGTH_SHORT);
+                Toast errormsg = Toast.makeText(SleepDiaryActivity2.this,"Please finish Question 9!", Toast.LENGTH_SHORT);
                 errormsg.show();
             }
 
             else if (outtime.isEmpty())
             {
-                Toast errormsg = Toast.makeText(SleepDiaryActivity2.this,"Please finish Question 11!", Toast.LENGTH_SHORT);
+                Toast errormsg = Toast.makeText(SleepDiaryActivity2.this,"Please finish Question 10!", Toast.LENGTH_SHORT);
                 errormsg.show();
             }
             else if (sq==-1)
             {
-                Toast errormsg = Toast.makeText(SleepDiaryActivity2.this,"Please finish Question 13!", Toast.LENGTH_SHORT);
+                Toast errormsg = Toast.makeText(SleepDiaryActivity2.this,"Please finish Question 12!", Toast.LENGTH_SHORT);
                 errormsg.show();
             }
 
             else if (awq==-1)
             {
-                Toast errormsg = Toast.makeText(SleepDiaryActivity2.this,"Please finish Question 14!", Toast.LENGTH_SHORT);
+                Toast errormsg = Toast.makeText(SleepDiaryActivity2.this,"Please finish Question 13!", Toast.LENGTH_SHORT);
                 errormsg.show();
             }
             else
