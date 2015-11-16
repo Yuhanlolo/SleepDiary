@@ -44,7 +44,7 @@
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data android:scheme="luo"
-                    android:host="yuhanexample.com"
+                    android:host="yuhan.com"
                     android:pathPrefix="/giz"/>
             </intent-filter>
         </activity>
@@ -58,7 +58,20 @@
         </activity>
 
         <activity
-            android:name=".SleepActivity">
+            android:name=".SleepActivity"
+            android:label="second"
+            android:exported="true">
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="luo"
+                    android:host="yuhan.com"
+                    android:pathPrefix="/second"/>
+            </intent-filter>
+
         </activity>
 
         <activity
@@ -66,7 +79,20 @@
         </activity>
 
         <activity
-            android:name=".SleepDiaryActivity">
+            android:name=".SleepDiaryActivity"
+            android:label="sleepDiary"
+            android:exported="true">
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="luo"
+                    android:host="yuhan.com"
+                    android:pathPrefix="/sleep"/>
+            </intent-filter>
+
         </activity>
 
         <activity
@@ -78,18 +104,15 @@
         </activity>
 
         <activity
-            android:name=".CoverActivity">
-        </activity>
-
-        <activity
             android:name=".MovesleepActivity">
         </activity>
 
         <activity
             android:name=".MovesleepActivity2">
         </activity>
+
         <activity
-            android:name=".ADIActivity">
+            android:name=".NapMoveSleepActivity">
         </activity>
 
 

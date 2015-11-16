@@ -36,14 +36,10 @@ public class SleepActivity extends ActionBarActivity{
     boolean finish_braintest = false;
     boolean finish_sleepdiary = false;
     boolean finish_movesleep = false;
-    boolean finish_scopa = false;
 
     boolean tempbraintest = false;
 
-//    String finish_braintest ="";
-//    String finish_sleepdiary = "";
-//    String finish_movesleep = "";
-//    String finish_scopa = "";
+
     ImageView bt, sd, ms;
 
     ImageView f1;
@@ -68,6 +64,17 @@ public class SleepActivity extends ActionBarActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sleep);
 
+        Intent i_getvalue = getIntent();
+        //String action = i_getvalue.getAction();
+        lastpage = i_getvalue.getStringExtra("lastpage");
+
+//        if(Intent.ACTION_VIEW.equals(action)){
+//            Uri uri = i_getvalue.getData();
+//            if(uri == "luo://yuhan.com/menu"){
+//                finish_braintest = true;
+//            }
+//        }
+
         bt = (ImageView)findViewById(R.id.brain_test);
         sd = (ImageView)findViewById(R.id.bedtime);
         ms = (ImageView)findViewById(R.id.movesleep);
@@ -76,8 +83,7 @@ public class SleepActivity extends ActionBarActivity{
         f2 = (ImageView)findViewById(R.id.finish_sleepdiary);
         f3 = (ImageView)findViewById(R.id.finish_movesleep);
 
-        Intent i_getvalue = getIntent();
-        lastpage = i_getvalue.getStringExtra("lastpage");
+
 
 
         currentUser = ParseUser.getCurrentUser();
@@ -225,6 +231,13 @@ public class SleepActivity extends ActionBarActivity{
             }
         }
 
+        else if (lastpage.equals("Nap"))
+        {
+            sd.setVisibility(View.INVISIBLE);
+            f1.setVisibility(View.INVISIBLE);
+            f2.setVisibility(View.INVISIBLE);
+            f3.setVisibility(View.INVISIBLE);
+        }
         //String action = i_getvalue.getAction();
 //
 //        if(Intent.ACTION_VIEW.equals(action)){
@@ -296,19 +309,27 @@ public class SleepActivity extends ActionBarActivity{
 
         else if(view.getId() == R.id.movesleep)
         {
-            if(lastpage.equals("M30")){
-                if(!finish_sleepdiary)
-                {
+            if(lastpage.equals("M30")&&(!finish_sleepdiary)){
+
                 Toast pass = Toast.makeText(SleepActivity.this, " Please finish Sleep Diary first! " , Toast.LENGTH_SHORT);
                 pass.show();
-                }
             }
+            else if(lastpage.equals("Nap"))
+            {
+                    Intent i = new Intent(SleepActivity.this,NapMoveSleepActivity.class);
+                    i.putExtra("lastpage",lastpage);
+                    SleepActivity.this.startActivity(i);
+            }
+
             else
             {
                 Intent i = new Intent(SleepActivity.this,MovesleepActivity.class);
                 i.putExtra("lastpage",lastpage);
-                SleepActivity.this.startActivity(i);}
+                SleepActivity.this.startActivity(i);
             }
+
+            }
+
         else if(view.getId() == R.id.brain_test)
         {
 
@@ -341,9 +362,9 @@ public class SleepActivity extends ActionBarActivity{
 
             Uri uri = Uri.parse("http://www.braintaptest.com/"); // missing 'http://' will cause crashed
             Intent i = new Intent(Intent.ACTION_VIEW, uri);
-            Intent j = new Intent(SleepActivity.this,SleepActivity.class);
+            //Intent j = new Intent(SleepActivity.this,SleepActivity.class);
             i.putExtra("lastpage",lastpage);
-            startService(j);
+            //startService(j);
             startActivity(i);
 
         }

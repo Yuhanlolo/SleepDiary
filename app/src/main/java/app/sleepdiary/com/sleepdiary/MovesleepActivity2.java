@@ -88,6 +88,11 @@ public class MovesleepActivity2 extends ActionBarActivity implements SeekBar.OnS
             query = ParseQuery.getQuery("E_MoveSleep");
             currenttask = "Bed Time in the evening";
         }
+        else if(lastpage.equals("Nap"))
+        {
+            query = ParseQuery.getQuery("NAP_MoveSleep");
+            currenttask = "After nap";
+        }
 
         currentpage = (TextView)findViewById(R.id.lastpagem2);
         currentpage.setText(currenttask);

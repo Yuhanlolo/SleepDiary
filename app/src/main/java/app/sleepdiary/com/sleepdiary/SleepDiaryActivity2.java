@@ -99,11 +99,7 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
     int no_wake = 0;
 
     String objectID = "";
-    /** This integer will uniquely define the dialog to be used for displaying time picker.*/
-    static final int TIME_DIALOG_0 = 0;
-    static final int TIME_DIALOG_1 = 1;
-    static final int TIME_DIALOG_2 = 2;
-    static final int TIME_DIALOG_3 = 3;
+
     String[] minuteValues = {"0","5","10","15","20","25","30","35","40","45","50","55"};
     final Calendar cal = Calendar.getInstance();
 
