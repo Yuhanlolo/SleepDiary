@@ -47,6 +47,8 @@ public class MainActivity  extends ActionBarActivity {
     String today = String.valueOf(month)+"/"+String.valueOf(date)+"/"+String.valueOf(year);
 
     String lastpage = "";
+    String endstr = "";
+
 
    // ParseObject TaskCheckList  = new ParseObject("TaskCheckList");
    ParseQuery<ParseObject> query1 = ParseQuery.getQuery("TaskCheckList");
@@ -57,6 +59,14 @@ public class MainActivity  extends ActionBarActivity {
 
         Intent i_getvalue = getIntent();
         String action = i_getvalue.getAction();
+        endstr = i_getvalue.getStringExtra("endstr");
+
+        if(endstr!=null)
+        {
+
+            Toast pass = Toast.makeText(MainActivity.this,endstr, Toast.LENGTH_LONG);
+            pass.show();
+        }
 
 //        if(Intent.ACTION_VIEW.equals(action)){
 //            Uri uri = i_getvalue.getData();
@@ -65,6 +75,8 @@ public class MainActivity  extends ActionBarActivity {
 //                String age= uri.getQueryParameter("age");
 //            }
 //        }
+
+
 
        currentUser = ParseUser.getCurrentUser();
 

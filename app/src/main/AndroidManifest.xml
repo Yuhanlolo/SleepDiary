@@ -96,6 +96,10 @@
             android:label="sleepDiary"
             android:exported="true">
 
+            <!--<meta-data-->
+                <!--android:name="android.support.PARENT_ACTIVITY"-->
+               <!--/>-->
+
             <intent-filter>
                 <action android:name="android.intent.action.VIEW"/>
                 <category android:name="android.intent.category.DEFAULT" />

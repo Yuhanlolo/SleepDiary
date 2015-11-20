@@ -84,6 +84,7 @@ public class SleepDiaryActivity3 extends ActionBarActivity implements RadioGroup
 
     String objectID = "";
 
+    String lastpage = "";
     ParseQuery<ParseObject> query;
     ParseObject TaskCheckList  = new ParseObject("TaskCheckList");
     //ParseQuery<ParseObject> query1 = ParseQuery.getQuery("TaskCheckList");
@@ -93,8 +94,12 @@ public class SleepDiaryActivity3 extends ActionBarActivity implements RadioGroup
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_3sleepdiary);
 
+        View myView = getWindow().getDecorView();
+        myView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
+
         query = ParseQuery.getQuery("Sleep_Diary");
         objectID = getIntent().getStringExtra("objectID");
+        lastpage = getIntent().getStringExtra("lastpage");
 //        Toast pass = Toast.makeText(SleepDiaryActivity3.this,"3 "+objectID, Toast.LENGTH_SHORT);
 //        pass.show();
 
@@ -318,11 +323,12 @@ public class SleepDiaryActivity3 extends ActionBarActivity implements RadioGroup
             }
         }
 
-        if(view.getId() == R.id.cancel_s3)
-        {
-            Intent i = new Intent(SleepDiaryActivity3.this,SleepActivity.class);
-            SleepDiaryActivity3.this.startActivity(i);
-        }
+//        if(view.getId() == R.id.cancel_s3)
+//        {
+//            Intent i = new Intent(SleepDiaryActivity3.this,SleepActivity.class);
+//            i.putExtra("lastpage",lastpage);
+//            SleepDiaryActivity3.this.startActivity(i);
+//        }
 
 
     }

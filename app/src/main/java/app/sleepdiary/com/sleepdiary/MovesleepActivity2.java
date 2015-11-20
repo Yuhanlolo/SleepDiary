@@ -52,6 +52,13 @@ public class MovesleepActivity2 extends ActionBarActivity implements SeekBar.OnS
     String currenttask = "";
     TextView currentpage;
 
+    String end = "";
+    String end0 = "Thank you for completing Morning test! Please come back for Morning, After Drug-intake test.";
+    String end1 = "Thank you for completing Morning, After Drug-intake test! Please come back for Afternoon, Before Drug-intake test.";
+    String end2 = "Thank you for completing Afternoon, Before Drug-intake test! Please come back for Bed Time test.";
+    String end3 = "Thank you for completing all the tests for today!.";
+    String end4 = "Thank you for completing the Nap test!";
+
     RadioButton rb1,rb2,rb3,rb4,rb5,rb6,rb7;
     int rbsd1, rbsd2,rbsd3, rbsd4,rbsd5, rbsd6,rbsd7;
     RadioGroup rgSD;
@@ -59,6 +66,9 @@ public class MovesleepActivity2 extends ActionBarActivity implements SeekBar.OnS
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movesleep2);
+
+        View myView = getWindow().getDecorView();
+        myView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
 
         getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN
@@ -72,26 +82,31 @@ public class MovesleepActivity2 extends ActionBarActivity implements SeekBar.OnS
         {
             query = ParseQuery.getQuery("M30_MoveSleep");
             currenttask = "30 minutes after morning awakening";
+            end = end0;
         }
         else if (lastpage.equals("A_DOPA1"))
         {
             query = ParseQuery.getQuery("A_DOPA1_MoveSleep");
             currenttask = "After last dopaminergic drug intake";
+            end = end1;
         }
         else if (lastpage.equals("A_DOPA"))
         {
             query = ParseQuery.getQuery("A_DOPA_MoveSleep");
             currenttask = "Before dinner";
+            end = end2;
         }
         else if(lastpage.equals("E"))
         {
             query = ParseQuery.getQuery("E_MoveSleep");
             currenttask = "Bed Time in the evening";
+            end = end3;
         }
         else if(lastpage.equals("Nap"))
         {
             query = ParseQuery.getQuery("NAP_MoveSleep");
             currenttask = "After nap";
+            end = end4;
         }
 
         currentpage = (TextView)findViewById(R.id.lastpagem2);
@@ -403,11 +418,11 @@ public class MovesleepActivity2 extends ActionBarActivity implements SeekBar.OnS
                     @Override
                     public void done(ParseObject object, ParseException e) {
                         if (e != null) {
-                            Toast pass = Toast.makeText(MovesleepActivity2.this, "Error: "+e.getMessage(), Toast.LENGTH_SHORT);
+                            Toast pass = Toast.makeText(MovesleepActivity2.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT);
                             pass.show();
                         } else {
 //                            object.put("Move_Capability", movep);
-                            object.put("Sleepiness_Scale",sleepp);
+                            object.put("Sleepiness_Scale", sleepp);
 
                             //userActivity.pinInBackground();
                             object.saveInBackground();
@@ -416,7 +431,7 @@ public class MovesleepActivity2 extends ActionBarActivity implements SeekBar.OnS
                 });
 
                 query1.whereEqualTo("User_ID", ParseUser.getCurrentUser().getUsername());
-                query1.whereEqualTo("Date",today);
+                query1.whereEqualTo("Date", today);
                 query1.setLimit(1);
                 query1.findInBackground(new FindCallback<ParseObject>() {
                     public void done(List<ParseObject> scoreList, ParseException e) {
@@ -454,18 +469,19 @@ public class MovesleepActivity2 extends ActionBarActivity implements SeekBar.OnS
 
                 f = true;
                 Intent i = new Intent(MovesleepActivity2.this,MainActivity.class);
+                i.putExtra("endstr",end);
                 i.putExtra("lastpage",lastpage);
                 i.putExtra("loginstatus",f);
                 MovesleepActivity2.this.startActivity(i);
             }
         }
 
-        if(view.getId() == R.id.cancel_ms2)
-        {
-            Intent i = new Intent(MovesleepActivity2.this,SleepActivity.class);
-            i.putExtra("lastpage",lastpage);
-            MovesleepActivity2.this.startActivity(i);
-        }
+//        if(view.getId() == R.id.cancel_ms2)
+//        {
+//            Intent i = new Intent(MovesleepActivity2.this,SleepActivity.class);
+//            i.putExtra("lastpage",lastpage);
+//            MovesleepActivity2.this.startActivity(i);
+//        }
     }
 
     @Override

@@ -113,7 +113,7 @@
 
             <TextView
                 android:id="@+id/n1"
-                android:text="1"
+                android:text=" "
                 android:textSize="22dp"
                 android:textColor="#000000"
                 android:clickable="true"
@@ -242,7 +242,7 @@
 
             <TextView
                 android:id="@+id/n2"
-                android:text="2"
+                android:text=" "
                 android:textSize="22dp"
                 android:textColor="#000000"
                 android:clickable="true"
@@ -275,7 +275,7 @@
 
             <TextView
                 android:id="@+id/n3"
-                android:text="3"
+                android:text=" "
                 android:textSize="22dp"
                 android:textColor="#000000"
                 android:clickable="true"
@@ -309,7 +309,7 @@
 
             <TextView
                 android:id="@+id/n4"
-                android:text="4"
+                android:text=" "
                 android:textSize="22dp"
                 android:textColor="#000000"
                 android:clickable="true"
@@ -342,7 +342,7 @@
 
             <TextView
                 android:id="@+id/n5"
-                android:text="5"
+                android:text=" "
                 android:textSize="22dp"
                 android:textColor="#000000"
                 android:clickable="true"
@@ -377,7 +377,7 @@
 
             <TextView
                 android:id="@+id/n6"
-                android:text="6"
+                android:text=" "
                 android:textSize="22dp"
                 android:textColor="#000000"
                 android:clickable="true"
@@ -410,7 +410,7 @@
 
             <TextView
                 android:id="@+id/n7"
-                android:text="7"
+                android:text=" "
                 android:textSize="22dp"
                 android:textColor="#000000"
                 android:clickable="true"
@@ -735,34 +735,33 @@
             android:layout_column="0">
 
 
-            <Button
-                android:id="@+id/cancel_ms2"
-                android:width="200dp"
-                android:height="45dp"
-                android:text="Cancel"
-                android:textAllCaps="false"
-                android:layout_centerHorizontal="true"
+            <!--<Button-->
+                <!--android:id="@+id/cancel_ms2"-->
+                <!--android:width="200dp"-->
+                <!--android:height="45dp"-->
+                <!--android:text="Cancel"-->
+                <!--android:textAllCaps="false"-->
+                <!--android:layout_centerHorizontal="true"-->
 
-                android:textSize="25dp"
-                android:background="#BDBDBD"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="button_ms2dOnClick" />
+                <!--android:textSize="25dp"-->
+                <!--android:background="#BDBDBD"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:onClick="button_ms2dOnClick" />-->
 
             <Button
                 android:id="@+id/save_ms2"
-                android:width="200dp"
+                android:width="300dp"
                 android:height="45dp"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:text="Save"
                 android:textAllCaps="false"
-                android:layout_marginStart="50dp"
+                android:layout_marginStart="80dp"
                 android:layout_centerHorizontal="true"
 
                 android:textSize="25dp"
                 android:background="#BDBDBD"
-                android:layout_weight="4.69"
                 android:checked="false"
                 android:onClick="button_ms2dOnClick" />
 

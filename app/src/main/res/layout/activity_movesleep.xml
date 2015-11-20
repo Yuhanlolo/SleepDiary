@@ -61,54 +61,54 @@
             android:layout_marginTop="20dp" />
 
 
-        <TextView
-            android:id="@+id/walkingtext0"
-            android:text="\t\tNo \ndifficulty"
-            android:textSize="16dp"
-            android:textColor="#000000"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_row="2"
-            android:layout_column="0"
+        <!--<TextView-->
+            <!--android:id="@+id/walkingtext0"-->
+            <!--android:text="\t\tNo \ndifficulty"-->
+            <!--android:textSize="16dp"-->
+            <!--android:textColor="#000000"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_row="2"-->
+            <!--android:layout_column="0"-->
 
-            android:layout_marginStart="400dp"
-            android:layout_marginTop="10dp" />
-        <TextView
-            android:id="@+id/walkingtext1"
-            android:text="\tSlight \ndifficulty"
-            android:textSize="16dp"
-            android:textColor="#000000"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_row="2"
-            android:layout_column="0"
+            <!--android:layout_marginStart="400dp"-->
+            <!--android:layout_marginTop="10dp" />-->
+        <!--<TextView-->
+            <!--android:id="@+id/walkingtext1"-->
+            <!--android:text="\tSlight \ndifficulty"-->
+            <!--android:textSize="16dp"-->
+            <!--android:textColor="#000000"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_row="2"-->
+            <!--android:layout_column="0"-->
 
-            android:layout_marginStart="490dp"
-            android:layout_marginTop="10dp" />
-        <TextView
-            android:id="@+id/walkingtext2"
-            android:text="Moderate \ndifficulty"
-            android:textSize="16dp"
-            android:textColor="#000000"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_row="2"
-            android:layout_column="0"
+            <!--android:layout_marginStart="490dp"-->
+            <!--android:layout_marginTop="10dp" />-->
+        <!--<TextView-->
+            <!--android:id="@+id/walkingtext2"-->
+            <!--android:text="Moderate \ndifficulty"-->
+            <!--android:textSize="16dp"-->
+            <!--android:textColor="#000000"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_row="2"-->
+            <!--android:layout_column="0"-->
 
-            android:layout_marginStart="580dp"
-            android:layout_marginTop="10dp" />
-        <TextView
-            android:id="@+id/walkingtext3"
-            android:text="\tSevere \n difficulty"
-            android:textSize="16dp"
-            android:textColor="#000000"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_row="2"
-            android:layout_column="0"
+            <!--android:layout_marginStart="580dp"-->
+            <!--android:layout_marginTop="10dp" />-->
+        <!--<TextView-->
+            <!--android:id="@+id/walkingtext3"-->
+            <!--android:text="\tSevere \n difficulty"-->
+            <!--android:textSize="16dp"-->
+            <!--android:textColor="#000000"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_row="2"-->
+            <!--android:layout_column="0"-->
 
-            android:layout_marginStart="670dp"
-            android:layout_marginTop="10dp" />
+            <!--android:layout_marginStart="670dp"-->
+            <!--android:layout_marginTop="10dp" />-->
 
         </GridLayout>
 
@@ -116,10 +116,11 @@
 
             android:id="@+id/wscopa1"
             android:src="@drawable/scopa1"
-            android:layout_marginStart="415dp"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_marginTop="70dp"
+            android:layout_marginStart="385dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="20dp"
+
             android:layout_row="2"
             android:layout_column="0"
             android:onClick="button_msdOnClick"
@@ -127,48 +128,48 @@
 
 
         <ImageView
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_marginTop="70dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="20dp"
             android:id="@+id/wscopa2"
             android:src="@drawable/scopa2"
-            android:layout_marginStart="505dp"
+            android:layout_marginStart="480dp"
             android:layout_row="2"
             android:layout_column="0"
             android:onClick="button_msdOnClick"
             />
 
         <ImageView
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_marginTop="70dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="20dp"
             android:id="@+id/wscopa3"
             android:src="@drawable/scopa3"
-            android:layout_marginStart="595dp"
+            android:layout_marginStart="575dp"
             android:layout_row="2"
             android:layout_column="0"
             android:onClick="button_msdOnClick"
             />
 
         <ImageView
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_marginTop="70dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="20dp"
             android:id="@+id/wscopa4"
             android:src="@drawable/scopa4"
-            android:layout_marginStart="690dp"
+            android:layout_marginStart="670dp"
             android:layout_row="2"
             android:layout_column="0"
             android:onClick="button_msdOnClick"
             />
 
         <ImageView
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_marginTop="70dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="20dp"
             android:id="@+id/wsscopa1"
             android:src="@drawable/s_scopa_1"
-            android:layout_marginStart="415dp"
+            android:layout_marginStart="385dp"
             android:layout_row="2"
             android:layout_column="0"
             android:visibility="invisible"
@@ -177,12 +178,12 @@
 
 
         <ImageView
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_marginTop="70dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="20dp"
             android:id="@+id/wsscopa2"
             android:src="@drawable/s_scopa_2"
-            android:layout_marginStart="505dp"
+            android:layout_marginStart="480dp"
             android:layout_row="2"
             android:layout_column="0"
             android:visibility="invisible"
@@ -192,10 +193,10 @@
         <ImageView
             android:id="@+id/wsscopa3"
             android:src="@drawable/s_scopa_3"
-            android:layout_marginStart="595dp"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_marginTop="70dp"
+            android:layout_marginStart="575dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="20dp"
             android:layout_row="2"
             android:layout_column="0"
             android:visibility="invisible"
@@ -203,12 +204,12 @@
             />
 
         <ImageView
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_marginTop="70dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="20dp"
             android:id="@+id/wsscopa4"
             android:src="@drawable/s_scopa_4"
-            android:layout_marginStart="690dp"
+            android:layout_marginStart="670dp"
             android:layout_row="2"
             android:layout_column="0"
             android:visibility="invisible"
@@ -224,7 +225,7 @@
             android:background="#fafafa"
             android:layout_row="4"
             android:layout_column="0"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:icon="@drawable/ic_launcher">
 
             <TextView
@@ -240,54 +241,54 @@
                 android:layout_marginTop="20dp" />
 
 
-            <TextView
-                android:id="@+id/walkingtext0"
-                android:text="\t\tNo \ndifficulty"
-                android:textSize="16dp"
-                android:textColor="#000000"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_row="2"
-                android:layout_column="0"
+            <!--<TextView-->
+                <!--android:id="@+id/walkingtext0"-->
+                <!--android:text="\t\tNo \ndifficulty"-->
+                <!--android:textSize="16dp"-->
+                <!--android:textColor="#000000"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_row="2"-->
+                <!--android:layout_column="0"-->
 
-                android:layout_marginStart="400dp"
-                android:layout_marginTop="10dp" />
-            <TextView
-                android:id="@+id/walkingtext1"
-                android:text="\tSlight \ndifficulty"
-                android:textSize="16dp"
-                android:textColor="#000000"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_row="2"
-                android:layout_column="0"
+                <!--android:layout_marginStart="400dp"-->
+                <!--android:layout_marginTop="10dp" />-->
+            <!--<TextView-->
+                <!--android:id="@+id/walkingtext1"-->
+                <!--android:text="\tSlight \ndifficulty"-->
+                <!--android:textSize="16dp"-->
+                <!--android:textColor="#000000"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_row="2"-->
+                <!--android:layout_column="0"-->
 
-                android:layout_marginStart="490dp"
-                android:layout_marginTop="10dp" />
-            <TextView
-                android:id="@+id/walkingtext2"
-                android:text="Moderate \ndifficulty"
-                android:textSize="16dp"
-                android:textColor="#000000"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_row="2"
-                android:layout_column="0"
+                <!--android:layout_marginStart="490dp"-->
+                <!--android:layout_marginTop="10dp" />-->
+            <!--<TextView-->
+                <!--android:id="@+id/walkingtext2"-->
+                <!--android:text="Moderate \ndifficulty"-->
+                <!--android:textSize="16dp"-->
+                <!--android:textColor="#000000"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_row="2"-->
+                <!--android:layout_column="0"-->
 
-                android:layout_marginStart="580dp"
-                android:layout_marginTop="10dp" />
-            <TextView
-                android:id="@+id/walkingtext3"
-                android:text="\tSevere \n difficulty"
-                android:textSize="16dp"
-                android:textColor="#000000"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_row="2"
-                android:layout_column="0"
+                <!--android:layout_marginStart="580dp"-->
+                <!--android:layout_marginTop="10dp" />-->
+            <!--<TextView-->
+                <!--android:id="@+id/walkingtext3"-->
+                <!--android:text="\tSevere \n difficulty"-->
+                <!--android:textSize="16dp"-->
+                <!--android:textColor="#000000"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_row="2"-->
+                <!--android:layout_column="0"-->
 
-                android:layout_marginStart="670dp"
-                android:layout_marginTop="10dp" />
+                <!--android:layout_marginStart="670dp"-->
+                <!--android:layout_marginTop="10dp" />-->
 
         </GridLayout>
 
@@ -304,12 +305,12 @@
             <!--/>-->
 
         <ImageView
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_marginTop="80dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="30dp"
             android:id="@+id/cscopa1"
             android:src="@drawable/scopa1"
-            android:layout_marginStart="415dp"
+            android:layout_marginStart="385dp"
             android:layout_row="4"
             android:layout_column="0"
             android:onClick="button_msdOnClick"
@@ -317,36 +318,36 @@
 
 
         <ImageView
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_marginTop="80dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="30dp"
             android:id="@+id/cscopa2"
             android:src="@drawable/scopa2"
-            android:layout_marginStart="505dp"
+            android:layout_marginStart="480dp"
             android:layout_row="4"
             android:layout_column="0"
             android:onClick="button_msdOnClick"
             />
 
         <ImageView
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_marginTop="80dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="30dp"
             android:id="@+id/cscopa3"
             android:src="@drawable/scopa3"
-            android:layout_marginStart="595dp"
+            android:layout_marginStart="575dp"
             android:layout_row="4"
             android:layout_column="0"
             android:onClick="button_msdOnClick"
             />
 
         <ImageView
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_marginTop="80dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="30dp"
             android:id="@+id/cscopa4"
             android:src="@drawable/scopa4"
-            android:layout_marginStart="690dp"
+            android:layout_marginStart="670dp"
             android:layout_row="4"
             android:layout_column="0"
             android:onClick="button_msdOnClick"
@@ -355,10 +356,10 @@
         <ImageView
             android:id="@+id/csscopa1"
             android:src="@drawable/s_scopa_1"
-            android:layout_marginStart="415dp"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_marginTop="80dp"
+            android:layout_marginStart="385dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="30dp"
             android:layout_row="4"
             android:layout_column="0"
             android:visibility="invisible"
@@ -368,10 +369,10 @@
         <ImageView
             android:id="@+id/csscopa2"
             android:src="@drawable/s_scopa_2"
-            android:layout_marginStart="505dp"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_marginTop="80dp"
+            android:layout_marginStart="480dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="30dp"
             android:layout_row="4"
             android:layout_column="0"
             android:visibility="invisible"
@@ -381,10 +382,10 @@
 
             android:id="@+id/csscopa3"
             android:src="@drawable/s_scopa_3"
-            android:layout_marginStart="595dp"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_marginTop="80dp"
+            android:layout_marginStart="575dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="30dp"
             android:layout_row="4"
             android:layout_column="0"
             android:visibility="invisible"
@@ -394,10 +395,10 @@
 
             android:id="@+id/csscopa4"
             android:src="@drawable/s_scopa_4"
-            android:layout_marginStart="690dp"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_marginTop="80dp"
+            android:layout_marginStart="670dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="30dp"
             android:layout_row="4"
             android:layout_column="0"
             android:visibility="invisible"
@@ -429,54 +430,54 @@
                 android:layout_marginTop="20dp" />
 
 
-            <TextView
-                android:id="@+id/walkingtext0"
-                android:text="\t\tNo \ndifficulty"
-                android:textSize="16dp"
-                android:textColor="#000000"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_row="2"
-                android:layout_column="0"
+            <!--<TextView-->
+                <!--android:id="@+id/walkingtext0"-->
+                <!--android:text="\t\tNo \ndifficulty"-->
+                <!--android:textSize="16dp"-->
+                <!--android:textColor="#000000"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_row="2"-->
+                <!--android:layout_column="0"-->
 
-                android:layout_marginStart="400dp"
-                android:layout_marginTop="10dp" />
-            <TextView
-                android:id="@+id/walkingtext1"
-                android:text="\tSlight \ndifficulty"
-                android:textSize="16dp"
-                android:textColor="#000000"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_row="2"
-                android:layout_column="0"
+                <!--android:layout_marginStart="400dp"-->
+                <!--android:layout_marginTop="10dp" />-->
+            <!--<TextView-->
+                <!--android:id="@+id/walkingtext1"-->
+                <!--android:text="\tSlight \ndifficulty"-->
+                <!--android:textSize="16dp"-->
+                <!--android:textColor="#000000"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_row="2"-->
+                <!--android:layout_column="0"-->
 
-                android:layout_marginStart="490dp"
-                android:layout_marginTop="10dp" />
-            <TextView
-                android:id="@+id/walkingtext2"
-                android:text="Moderate \ndifficulty"
-                android:textSize="16dp"
-                android:textColor="#000000"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_row="2"
-                android:layout_column="0"
+                <!--android:layout_marginStart="490dp"-->
+                <!--android:layout_marginTop="10dp" />-->
+            <!--<TextView-->
+                <!--android:id="@+id/walkingtext2"-->
+                <!--android:text="Moderate \ndifficulty"-->
+                <!--android:textSize="16dp"-->
+                <!--android:textColor="#000000"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_row="2"-->
+                <!--android:layout_column="0"-->
 
-                android:layout_marginStart="580dp"
-                android:layout_marginTop="10dp" />
-            <TextView
-                android:id="@+id/walkingtext3"
-                android:text="\tSevere \n difficulty"
-                android:textSize="16dp"
-                android:textColor="#000000"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_row="2"
-                android:layout_column="0"
+                <!--android:layout_marginStart="580dp"-->
+                <!--android:layout_marginTop="10dp" />-->
+            <!--<TextView-->
+                <!--android:id="@+id/walkingtext3"-->
+                <!--android:text="\tSevere \n difficulty"-->
+                <!--android:textSize="16dp"-->
+                <!--android:textColor="#000000"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_row="2"-->
+                <!--android:layout_column="0"-->
 
-                android:layout_marginStart="670dp"
-                android:layout_marginTop="10dp" />
+                <!--android:layout_marginStart="670dp"-->
+                <!--android:layout_marginTop="10dp" />-->
 
         </GridLayout>
 
@@ -493,12 +494,12 @@
             <!--/>-->
 
         <ImageView
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_marginTop="70dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="30dp"
             android:id="@+id/uscopa1"
             android:src="@drawable/scopa1"
-            android:layout_marginStart="415dp"
+            android:layout_marginStart="385dp"
 
             android:layout_row="6"
             android:layout_column="0"
@@ -510,22 +511,22 @@
 
             android:id="@+id/uscopa2"
             android:src="@drawable/scopa2"
-            android:layout_marginStart="505dp"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_marginTop="70dp"
+            android:layout_marginStart="480dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="30dp"
             android:layout_row="6"
             android:layout_column="0"
             android:onClick="button_msdOnClick"
             />
 
         <ImageView
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_marginTop="70dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="30dp"
             android:id="@+id/uscopa3"
             android:src="@drawable/scopa3"
-            android:layout_marginStart="595dp"
+            android:layout_marginStart="575dp"
 
             android:layout_row="6"
             android:layout_column="0"
@@ -533,12 +534,12 @@
             />
 
         <ImageView
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_marginTop="70dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="30dp"
             android:id="@+id/uscopa4"
             android:src="@drawable/scopa4"
-            android:layout_marginStart="690dp"
+            android:layout_marginStart="670dp"
 
             android:layout_row="6"
             android:layout_column="0"
@@ -546,12 +547,12 @@
             />
 
         <ImageView
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_marginTop="70dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="30dp"
             android:id="@+id/usscopa1"
             android:src="@drawable/s_scopa_1"
-            android:layout_marginStart="415dp"
+            android:layout_marginStart="385dp"
             android:layout_row="6"
             android:layout_column="0"
             android:visibility="invisible"
@@ -559,36 +560,36 @@
 
 
         <ImageView
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_marginTop="70dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="30dp"
             android:id="@+id/usscopa2"
             android:src="@drawable/s_scopa_2"
-            android:layout_marginStart="505dp"
+            android:layout_marginStart="480dp"
             android:layout_row="6"
             android:layout_column="0"
             android:visibility="invisible"
             />
 
         <ImageView
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_marginTop="70dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="30dp"
             android:id="@+id/usscopa3"
             android:src="@drawable/s_scopa_3"
-            android:layout_marginStart="595dp"
+            android:layout_marginStart="575dp"
             android:layout_row="6"
             android:layout_column="0"
             android:visibility="invisible"
             />
 
         <ImageView
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_marginTop="70dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="30dp"
             android:id="@+id/usscopa4"
             android:src="@drawable/s_scopa_4"
-            android:layout_marginStart="690dp"
+            android:layout_marginStart="670dp"
             android:layout_row="6"
             android:layout_column="0"
             android:visibility="invisible"
@@ -683,65 +684,65 @@
                 android:layout_marginTop="20dp" />
 
 
-            <TextView
-                android:id="@+id/walkingtext0"
-                android:text="\tDo not \nbother me"
-                android:textSize="16dp"
-                android:textColor="#000000"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_row="2"
-                android:layout_column="0"
+            <!--<TextView-->
+                <!--android:id="@+id/walkingtext0"-->
+                <!--android:text="\tDo not \nbother me"-->
+                <!--android:textSize="16dp"-->
+                <!--android:textColor="#000000"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_row="2"-->
+                <!--android:layout_column="0"-->
 
-                android:layout_marginStart="400dp"
-                android:layout_marginTop="10dp" />
-            <TextView
-                android:id="@+id/walkingtext1"
-                android:text="Bother me\n\tslightly"
-                android:textSize="16dp"
-                android:textColor="#000000"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_row="2"
-                android:layout_column="0"
+                <!--android:layout_marginStart="400dp"-->
+                <!--android:layout_marginTop="10dp" />-->
+            <!--<TextView-->
+                <!--android:id="@+id/walkingtext1"-->
+                <!--android:text="Bother me\n\tslightly"-->
+                <!--android:textSize="16dp"-->
+                <!--android:textColor="#000000"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_row="2"-->
+                <!--android:layout_column="0"-->
 
-                android:layout_marginStart="490dp"
-                android:layout_marginTop="10dp" />
-            <TextView
-                android:id="@+id/walkingtext2"
-                android:text="Bother me \nmoderately"
-                android:textSize="16dp"
-                android:textColor="#000000"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_row="2"
-                android:layout_column="0"
+                <!--android:layout_marginStart="490dp"-->
+                <!--android:layout_marginTop="10dp" />-->
+            <!--<TextView-->
+                <!--android:id="@+id/walkingtext2"-->
+                <!--android:text="Bother me \nmoderately"-->
+                <!--android:textSize="16dp"-->
+                <!--android:textColor="#000000"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_row="2"-->
+                <!--android:layout_column="0"-->
 
-                android:layout_marginStart="580dp"
-                android:layout_marginTop="10dp" />
-            <TextView
-                android:id="@+id/walkingtext3"
-                android:text="Bother me \n\t\ta lot"
-                android:textSize="16dp"
-                android:textColor="#000000"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_row="2"
-                android:layout_column="0"
+                <!--android:layout_marginStart="580dp"-->
+                <!--android:layout_marginTop="10dp" />-->
+            <!--<TextView-->
+                <!--android:id="@+id/walkingtext3"-->
+                <!--android:text="Bother me \n\t\ta lot"-->
+                <!--android:textSize="16dp"-->
+                <!--android:textColor="#000000"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_row="2"-->
+                <!--android:layout_column="0"-->
 
-                android:layout_marginStart="670dp"
-                android:layout_marginTop="10dp" />
+                <!--android:layout_marginStart="670dp"-->
+                <!--android:layout_marginTop="10dp" />-->
 
         </GridLayout>
 
 
         <ImageView
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_marginTop="70dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="30dp"
             android:id="@+id/umscopa1"
-            android:src="@drawable/scopa1"
-            android:layout_marginStart="415dp"
+            android:src="@drawable/uncontrol0"
+            android:layout_marginStart="385dp"
 
             android:layout_row="15"
             android:layout_column="0"
@@ -750,12 +751,12 @@
 
 
         <ImageView
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_marginTop="70dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="30dp"
             android:id="@+id/umscopa2"
-            android:src="@drawable/scopa2"
-            android:layout_marginStart="505dp"
+            android:src="@drawable/uncontrol1"
+            android:layout_marginStart="480dp"
 
             android:layout_row="15"
             android:layout_column="0"
@@ -763,12 +764,12 @@
             />
 
         <ImageView
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_marginTop="70dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="30dp"
             android:id="@+id/umscopa3"
-            android:src="@drawable/scopa3"
-            android:layout_marginStart="595dp"
+            android:src="@drawable/uncontrol2"
+            android:layout_marginStart="575dp"
 
             android:layout_row="15"
             android:layout_column="0"
@@ -776,12 +777,12 @@
             />
 
         <ImageView
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_marginTop="70dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="30dp"
             android:id="@+id/umscopa4"
-            android:src="@drawable/scopa4"
-            android:layout_marginStart="690dp"
+            android:src="@drawable/uncontrol3"
+            android:layout_marginStart="670dp"
 
             android:layout_row="15"
             android:layout_column="0"
@@ -789,12 +790,12 @@
             />
 
         <ImageView
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_marginTop="70dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="30dp"
             android:id="@+id/umsscopa1"
-            android:src="@drawable/s_scopa_1"
-            android:layout_marginStart="415dp"
+            android:src="@drawable/uncontrol0_0"
+            android:layout_marginStart="385dp"
 
             android:layout_row="15"
             android:layout_column="0"
@@ -803,12 +804,12 @@
 
 
         <ImageView
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_marginTop="70dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="30dp"
             android:id="@+id/umsscopa2"
-            android:src="@drawable/s_scopa_2"
-            android:layout_marginStart="505dp"
+            android:src="@drawable/uncontrol1_1"
+            android:layout_marginStart="480dp"
 
             android:layout_row="15"
             android:layout_column="0"
@@ -816,12 +817,12 @@
             />
 
         <ImageView
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_marginTop="70dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="30dp"
             android:id="@+id/umsscopa3"
-            android:src="@drawable/s_scopa_3"
-            android:layout_marginStart="595dp"
+            android:src="@drawable/uncontrol2_2"
+            android:layout_marginStart="575dp"
 
             android:layout_row="15"
             android:layout_column="0"
@@ -829,12 +830,12 @@
             />
 
         <ImageView
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_marginTop="70dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="30dp"
             android:id="@+id/umsscopa4"
-            android:src="@drawable/s_scopa_4"
-            android:layout_marginStart="690dp"
+            android:src="@drawable/uncontrol3_3"
+            android:layout_marginStart="670dp"
 
             android:layout_row="15"
             android:layout_column="0"
@@ -917,7 +918,7 @@
 
         <TextView
             android:id="@+id/nodiff"
-            android:text="No motor \ndifficulty"
+            android:text="Very severe \nmotor difficulty"
             android:textSize="21dp"
             android:textColor="#000000"
             android:layout_width="wrap_content"
@@ -925,19 +926,19 @@
             android:layout_row="17"
             android:layout_column="0"
             android:layout_marginStart="40dp"
-            android:layout_marginTop="20dp" />
+            android:layout_marginTop="15dp" />
 
         <TextView
             android:id="@+id/severe"
-            android:text="Very severe \nmotor difficulty"
+            android:text="No motor \ndifficulty"
             android:textSize="21dp"
             android:textColor="#000000"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="15dp"
             android:layout_row="17"
             android:layout_column="0"
-            android:layout_marginLeft="590dp" />
+            android:layout_marginLeft="650dp" />
 
 
         <SeekBar
@@ -967,34 +968,34 @@
             android:layout_column="0">
 
 
-            <Button
-                android:id="@+id/cancel_ms"
-                android:width="200dp"
-                android:height="45dp"
-                android:text="Cancel"
-                android:textAllCaps="false"
-                android:layout_centerHorizontal="true"
+            <!--<Button-->
+                <!--android:id="@+id/cancel_ms"-->
+                <!--android:width="200dp"-->
+                <!--android:height="45dp"-->
+                <!--android:text="Cancel"-->
+                <!--android:textAllCaps="false"-->
+                <!--android:layout_centerHorizontal="true"-->
 
-                android:textSize="25dp"
-                android:background="#BDBDBD"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="button_msdOnClick" />
+                <!--android:textSize="25dp"-->
+                <!--android:background="#BDBDBD"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:onClick="button_msdOnClick" />-->
 
             <Button
                 android:id="@+id/save_ms"
-                android:width="200dp"
+                android:width="300dp"
                 android:height="45dp"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:text="Save &amp; Continue"
                 android:textAllCaps="false"
-                android:layout_marginStart="50dp"
+                android:layout_marginStart="80dp"
                 android:layout_centerHorizontal="true"
 
                 android:textSize="25dp"
                 android:background="#BDBDBD"
-                android:layout_weight="4.69"
+
                 android:checked="false"
                 android:onClick="button_msdOnClick" />
 

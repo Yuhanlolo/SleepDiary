@@ -47,6 +47,9 @@ public class MovesleepActivity extends ActionBarActivity implements SeekBar.OnSe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movesleep);
 
+        View myView = getWindow().getDecorView();
+        myView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
+
         getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN
         );
@@ -345,12 +348,12 @@ public class MovesleepActivity extends ActionBarActivity implements SeekBar.OnSe
             }
         }
 
-        if(view.getId() == R.id.cancel_ms)
-        {
-            Intent i = new Intent(MovesleepActivity.this,SleepActivity.class);
-            i.putExtra("lastpage",lastpage);
-            MovesleepActivity.this.startActivity(i);
-        }
+//        if(view.getId() == R.id.cancel_ms)
+//        {
+//            Intent i = new Intent(MovesleepActivity.this,SleepActivity.class);
+//            i.putExtra("lastpage",lastpage);
+//            MovesleepActivity.this.startActivity(i);
+//        }
     }
 
     @Override
