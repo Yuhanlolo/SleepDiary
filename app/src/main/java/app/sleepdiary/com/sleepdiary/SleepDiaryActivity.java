@@ -301,30 +301,37 @@ public class SleepDiaryActivity extends ActionBarActivity implements SeekBar.OnS
         }
 
         yesterdaystr = String.valueOf(month)+"/"+String.valueOf(date)+"/"+String.valueOf(year);
-        yesterday.setText("Sleep Diary for Yesterday (" + String.valueOf(month)+"/"+String.valueOf(date)+"/"+String.valueOf(year)+")");
+        yesterday.setText("Sleep Diary for Yesterday (" + String.valueOf(month) + "/" + String.valueOf(date) + "/" + String.valueOf(year) + ")");
 
         /** Display the saved data */
-//        ParseUser currentUser = ParseUser.getCurrentUser();
-//
-//        if(currentUser != null) {
-//            String userid = currentUser.getUsername();
-//            query.whereEqualTo("User_ID", userid);
-//            query.whereEqualTo("Date", yesterday);
-//
-//            query.getFirstInBackground(new GetCallback<ParseObject>() {
-//                public void done(ParseObject object, ParseException e) {
-//                    if (object == null) {
-//                        //Log.d("User_ID", "The getFirst request failed.");
-//
-//                    } else {
-//                        //Log.d("score", "Retrieved the object.");
-//                        //if(object.getInt("MBraintest")== 0 || object.getInt("MBraintest") ==1)
-//
-//
-//                            no_coffee = object.getInt("No_Coffee");
-//                            t_coffe.setText(no_coffee);
-//                            coffee.setProgress(no_coffee);
-//
+        ParseUser currentUser = ParseUser.getCurrentUser();
+        userActivity.put("Date",yesterdaystr);
+        userActivity.put("User_ID",currentUser.getUsername());
+        userActivity.saveInBackground();
+
+        query = ParseQuery.getQuery("Sleep_Diary");
+        if(currentUser != null) {
+            String userid = currentUser.getUsername();
+            query.whereEqualTo("User_ID", userid);
+            query.whereEqualTo("Date", yesterdaystr);
+
+            query.getFirstInBackground(new GetCallback<ParseObject>() {
+                public void done(ParseObject object, ParseException e) {
+                    if (object == null) {
+                        Log.d("User_ID", "The getFirst request failed.");
+
+                    } else {
+
+                        if(object.get("No_Coffee")!= null)
+                        {
+                            no_coffee = object.getInt("No_Coffee");
+                            if(no_coffee ==1)
+                                t_coffe.setText(no_coffee + "glass");
+                            else
+                                t_coffe.setText(no_coffee + "glasses");
+                            coffee.setProgress(no_coffee);
+                        }
+
 //                            no_wine = object.getInt("No_Alcohol");
 //                            t_wine.setText(no_wine);
 //                            t_wine.setText(no_wine);
@@ -336,12 +343,12 @@ public class SleepDiaryActivity extends ActionBarActivity implements SeekBar.OnS
 //                            no_nap = object.getInt("Nap_Time");
 //                            t_nap.setText(no_nap);
 //                            nap.setProgress(no_nap);
-//
-//
-//                    }
-//                }
-//            });
-//        }
+
+
+                    }
+                }
+            });
+        }
 
 
 
@@ -498,6 +505,8 @@ public class SleepDiaryActivity extends ActionBarActivity implements SeekBar.OnS
         if(seekBar == coffee)
         {
             no_coffee =progress;
+            userActivity.put("No_Coffee",no_coffee);
+            userActivity.saveInBackground();
             for (int bc = 0; bc<11;bc++)
             {
                 if(bc == no_coffee)
