@@ -12,10 +12,13 @@ import android.support.v7.app.ActionBarActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.app.Activity;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.view.View;
 import android.widget.NumberPicker;
@@ -38,12 +41,23 @@ import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
-public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarChangeListener{
+public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarChangeListener, TextView.OnEditorActionListener {
 
-    private Button Bbedtime;
-    private Button Basleeptime;
-    private Button Bwoketime;
-    private Button Bouttime;
+//    private Button Bbedtime;
+//    private Button Basleeptime;
+//    private Button Bwoketime;
+//    private Button Bouttime;
+
+
+    EditText bedh_edt, bedm_edt,fallh_edt, fallm_edt, wakeh_edt, wakem_edt,outh_edt, outm_edt, awake_edt;
+    TextView fallh, fallm, t_awake;
+
+    int tempbedh = -1, tempbedm = -1,  tempwakeh = -1, tempwakem = -1, tempouth = -1, tempoutm = -1;
+    int dHour = 0, dMinute = 0;
+    String lastpage = "";
+
+    String temp_h = "", temp_m = "";
+
     SeekBar Snowake, SleepQ, AwakeQ;
     private TextView waket;
 
@@ -52,20 +66,15 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
     int date;
     int year;
 
-    int temp_bed_h = 22;
-    int temp_bed_m = 0;
-    int temp_wake_h = -1;
-    int temp_wake_m = -1;
-    int temp_asleep_h = -1;
-    int temp_asleep_m = -1;
+//    int temp_bed_h = 22;
+//    int temp_bed_m = 0;
+//    int temp_wake_h = -1;
+//    int temp_wake_m = -1;
+//    int temp_asleep_h = -1;
+//    int temp_asleep_m = -1;
 
-      //int temp_bed = -1;
-      //int temp_asleep = -1;
-      int temp_wake= -1;
-      int temp_out = 2400;
-
-    int dHour = 0, dMinute = 0;
-    String lastpage = "";
+    int temp_wake = 0;
+    int temp_out = 2400;
 
 //    private ImageView SQ1_g;
 //    private ImageView SQ1;
@@ -92,7 +101,7 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
     int sq = -1;
     int awq = -1;
 
-    String bedtime = "22:00";
+    String bedtime = "";
     String asleeptime = "";
     String woketime = "";
     String outtime = "";
@@ -122,8 +131,12 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_2sleepdiary);
 
-        View myView = getWindow().getDecorView();
-        myView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
+//        View myView = getWindow().getDecorView();
+//        myView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
+
+        getWindow().setSoftInputMode(
+                WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN
+        );
 
         query = ParseQuery.getQuery("Sleep_Diary");
         objectID = getIntent().getStringExtra("objectID");
@@ -132,61 +145,59 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
 
 //        Toast pass = Toast.makeText(SleepDiaryActivity2.this, "id 2: "+objectID, Toast.LENGTH_SHORT);
 //        pass.show();
+        awake_edt = (EditText)findViewById(R.id.no_awake);
+        //nap_edt.setText("0");
+        awake_edt.setOnEditorActionListener(this);
+        t_awake = (TextView)findViewById(R.id.d_awake);
 
-        Bbedtime = (Button) findViewById(R.id.bedt);
-        Bbedtime.setText("22:00");
-//        Bbedtime.setOnClickListener(new View.OnClickListener() {
-//            public void onClick(View v) {
-//                showDialog(TIME_DIALOG_0);
-//            }
-//        });
+        bedh_edt = (EditText)findViewById(R.id.bedh);
+        //napduh_edt.setInputType(InputType.TYPE_NULL);
+        //bedh_edt.setEnabled(false);
+        bedh_edt.setOnEditorActionListener(this);
 
-        Basleeptime = (Button) findViewById(R.id.asleept);
-        Basleeptime.setText("Time Duration");
+        bedm_edt = (EditText)findViewById(R.id.bedm);
+        //napduh_edt.setInputType(InputType.TYPE_NULL);
+        //bedm_edt.setEnabled(false);
+        bedm_edt.setOnEditorActionListener(this);
 
+        fallh_edt = (EditText)findViewById(R.id.fall_h);
+        //napdum_edt.setInputType(InputType.TYPE_NULL);
+        fallh_edt.setOnEditorActionListener(this);
 
-        //Basleeptime.setEnabled(false);
-        //Basleeptime.setTextColor(0xFF808080);
-//        Basleeptime.setOnClickListener(new View.OnClickListener() {
-//            public void onClick(View v) {
-//                showDialog(TIME_DIALOG_1);
-//            }
-//        });
+        fallm_edt = (EditText)findViewById(R.id.fall_m);
+        //napdum_edt.setInputType(InputType.TYPE_NULL);
+        fallm_edt.setOnEditorActionListener(this);
 
-        Bwoketime = (Button) findViewById(R.id.woket);
-        Bwoketime.setText("Pick Time");
-        //Bwoketime.setEnabled(false);
-        //Bwoketime.setTextColor(0xFF808080);
-//        Bwoketime.setOnClickListener(new View.OnClickListener() {
-//            public void onClick(View v) {
-//                showDialog(TIME_DIALOG_2);
-//            }
-//        });
+        wakeh_edt = (EditText)findViewById(R.id.wakeh);
+        wakeh_edt.setOnEditorActionListener(this);
 
-        Bouttime = (Button) findViewById(R.id.ofbed);
-        Bouttime.setText("Pick Time");
-        //Bouttime.setEnabled(false);
-        //Bouttime.setTextColor(0xFF808080);
-//        Bouttime.setOnClickListener(new View.OnClickListener() {
-//            public void onClick(View v) {
-//                showDialog(TIME_DIALOG_3);
-//            }
-//        });
+        wakem_edt = (EditText)findViewById(R.id.wakem);
+        wakem_edt.setOnEditorActionListener(this);
 
-        Snowake = (SeekBar)findViewById(R.id.wakeno);
-        Snowake.setOnSeekBarChangeListener(this);
+        outh_edt = (EditText)findViewById(R.id.outh);
+        outh_edt.setOnEditorActionListener(this);
 
-        awim.add((ImageView) findViewById(R.id.aw0));
-        awim.add((ImageView)findViewById(R.id.aw1));
-        awim.add((ImageView)findViewById(R.id.aw2));
-        awim.add((ImageView)findViewById(R.id.aw3));
-        awim.add((ImageView)findViewById(R.id.aw4));
-        awim.add((ImageView)findViewById(R.id.aw5));
-        awim.add((ImageView)findViewById(R.id.aw6));
-        awim.add((ImageView)findViewById(R.id.aw7));
-        awim.add((ImageView)findViewById(R.id.aw8));
-        awim.add((ImageView)findViewById(R.id.aw9));
-        awim.add((ImageView)findViewById(R.id.aw10));
+        outm_edt = (EditText)findViewById(R.id.outm);
+        outm_edt.setOnEditorActionListener(this);
+
+        fallh = (TextView)findViewById(R.id.falluh);
+        fallm = (TextView)findViewById(R.id.fallum);
+        t_awake =(TextView)findViewById(R.id.d_awake);
+
+//        Snowake = (SeekBar)findViewById(R.id.wakeno);
+//        Snowake.setOnSeekBarChangeListener(this);
+//
+//        awim.add((ImageView) findViewById(R.id.aw0));
+//        awim.add((ImageView)findViewById(R.id.aw1));
+//        awim.add((ImageView)findViewById(R.id.aw2));
+//        awim.add((ImageView)findViewById(R.id.aw3));
+//        awim.add((ImageView)findViewById(R.id.aw4));
+//        awim.add((ImageView)findViewById(R.id.aw5));
+//        awim.add((ImageView)findViewById(R.id.aw6));
+//        awim.add((ImageView)findViewById(R.id.aw7));
+//        awim.add((ImageView)findViewById(R.id.aw8));
+//        awim.add((ImageView)findViewById(R.id.aw9));
+//        awim.add((ImageView)findViewById(R.id.aw10));
 
         SleepQ = (SeekBar)findViewById(R.id.sleepquality);
         SleepQ.setOnSeekBarChangeListener(this);
@@ -194,7 +205,7 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
         AwakeQ = (SeekBar)findViewById(R.id.awakequality);
         AwakeQ.setOnSeekBarChangeListener(this);
 
-        waket = (TextView)findViewById(R.id.d_wake);
+        //waket = (TextView)findViewById(R.id.d_wake);
 
 
 //        SQ1_g = (ImageView)findViewById(R.id.SQquality1_gray);
@@ -367,72 +378,110 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
 //                AWQ1.setVisibility(View.INVISIBLE);
 //            }
 
-        if(view.getId() == R.id.save_s2)
-        {
+        if(view.getId() == R.id.save_s2) {
 
             ParseUser currentUser1 = ParseUser.getCurrentUser();
-            if(currentUser1 == null)
-            {
-                Toast pass = Toast.makeText(SleepDiaryActivity2.this,"Please Login in first!", Toast.LENGTH_SHORT);
-                pass.show();
+            if (!(bedh_edt.getText().toString()).isEmpty() && !(bedm_edt.getText().toString()).isEmpty()) {
+                tempbedh = Integer.parseInt(bedh_edt.getText().toString());
+                tempbedm = Integer.parseInt(bedm_edt.getText().toString());
+                if (tempbedh < 0 || tempbedm > 23) {
+                    Toast errormsg = Toast.makeText(SleepDiaryActivity2.this, "For Question 9, Please input hour of time between 0-23!", Toast.LENGTH_LONG);
+                    errormsg.show();
+                } else if (tempbedh < 0 || tempbedm > 60) {
+                    Toast errormsg = Toast.makeText(SleepDiaryActivity2.this, "For Question 9, Please input minute of time between 0-59!", Toast.LENGTH_LONG);
+                    errormsg.show();
+                } else {
+                    bedtime = pad(tempbedh) + ":" + pad(tempbedm);
+                }
             }
 
-            else if(bedtime.isEmpty())
-            {
-                //popup msg
-                Toast errormsg = Toast.makeText(SleepDiaryActivity2.this,"Please finish Question 8!", Toast.LENGTH_SHORT);
-                errormsg.show();
-
-            }
-            else if (asleeptime.isEmpty())
-            {
-                Toast errormsg = Toast.makeText(SleepDiaryActivity2.this,"Please finish Question 9!", Toast.LENGTH_SHORT);
-                errormsg.show();
-            }
-            else if (woketime.isEmpty())
-            {
-                Toast errormsg = Toast.makeText(SleepDiaryActivity2.this,"Please finish Question 10!", Toast.LENGTH_SHORT);
-                errormsg.show();
+            if (!(fallh_edt.getText().toString()).isEmpty() && !(fallm_edt.getText().toString()).isEmpty()) {
+                dHour = Integer.parseInt(fallh_edt.getText().toString());
+                dMinute = Integer.parseInt(fallm_edt.getText().toString());
+                if (dHour < 0 || dHour > 23) {
+                    Toast errormsg = Toast.makeText(SleepDiaryActivity2.this, "For Question 10, Please input hour of time between 0-23!", Toast.LENGTH_LONG);
+                    errormsg.show();
+                } else if (dMinute < 0 || dMinute > 60) {
+                    Toast errormsg = Toast.makeText(SleepDiaryActivity2.this, "For Question 10, Please input minute of time between 0-59", Toast.LENGTH_LONG);
+                    errormsg.show();
+                } else {
+                    asleeptime = pad(dHour) + ":" + pad(dMinute);
+                }
             }
 
-            else if (outtime.isEmpty())
-            {
-                Toast errormsg = Toast.makeText(SleepDiaryActivity2.this,"Please finish Question 11!", Toast.LENGTH_SHORT);
-                errormsg.show();
-            }
-            else if (sq==-1)
-            {
-                Toast errormsg = Toast.makeText(SleepDiaryActivity2.this,"Please finish Question 12!", Toast.LENGTH_SHORT);
-                errormsg.show();
+            if (!(wakeh_edt.getText().toString()).isEmpty() && !(wakem_edt.getText().toString()).isEmpty()) {
+                tempwakeh = Integer.parseInt(wakeh_edt.getText().toString());
+                tempwakem = Integer.parseInt(wakem_edt.getText().toString());
+                if (tempwakeh < 0 || tempwakeh > 23) {
+                    Toast errormsg = Toast.makeText(SleepDiaryActivity2.this, "For Question 11, Please input hour of time between 0-23!", Toast.LENGTH_LONG);
+                    errormsg.show();
+                } else if (tempwakem < 0 || tempwakem > 60) {
+                    Toast errormsg = Toast.makeText(SleepDiaryActivity2.this, "For Question 11, Please input minute of time between 0-59!", Toast.LENGTH_LONG);
+                    errormsg.show();
+                } else {
+                    woketime = pad(tempwakeh) + ":" + pad(tempwakem);
+                }
             }
 
-            else if (awq==-1)
-            {
-                Toast errormsg = Toast.makeText(SleepDiaryActivity2.this,"Please finish Question 13!", Toast.LENGTH_SHORT);
-                errormsg.show();
+            if (!(outh_edt.getText().toString()).isEmpty() && !(outm_edt.getText().toString()).isEmpty()) {
+                tempouth = Integer.parseInt(outh_edt.getText().toString());
+                tempoutm = Integer.parseInt(outm_edt.getText().toString());
+                if (tempouth < 0 || tempouth > 23) {
+                    Toast errormsg = Toast.makeText(SleepDiaryActivity2.this, "For Question 11, Please input hour of time between 0-23!", Toast.LENGTH_LONG);
+                    errormsg.show();
+                } else if (tempoutm < 0 || tempoutm > 60) {
+                    Toast errormsg = Toast.makeText(SleepDiaryActivity2.this, "For Question 11, Please input minute of time between 0-59!", Toast.LENGTH_LONG);
+                    errormsg.show();
+                } else {
+                    outtime = pad(tempouth) + ":" + pad(tempoutm);
+                }
             }
-            else
-            {
-                //query.whereEqualTo("User_ID",objectID);
-                query.getInBackground(objectID, new GetCallback<ParseObject>() {
-                    @Override
-                    public void done(ParseObject object, ParseException e) {
-                        if (e != null) {
-                            Toast pass = Toast.makeText(SleepDiaryActivity2.this, "Error: "+e.getMessage(), Toast.LENGTH_SHORT);
-                            pass.show();
-                        } else {
-                            object.put("Bed_Time", bedtime);
-                            object.put("Sleep_Duration",asleeptime);
-                            object.put("Wake_Time",woketime);
-                            object.put("OutofBed_Time",outtime);
-                            object.put("No_Awakenings",no_wake);
-                            object.put("Sleep_Quality",sq);
-                            object.put("Awake_Quality", awq);
-                            //userActivity.pinInBackground();
-                            object.saveInBackground();
+
+
+                if (currentUser1 == null) {
+                    Toast pass = Toast.makeText(SleepDiaryActivity2.this, "Please Login in first!", Toast.LENGTH_SHORT);
+                    pass.show();
+                } else if (bedtime.isEmpty()) {
+                    //popup msg
+                    Toast errormsg = Toast.makeText(SleepDiaryActivity2.this, "Please finish Question 8!", Toast.LENGTH_SHORT);
+                    errormsg.show();
+
+                } else if (asleeptime.isEmpty()) {
+                    Toast errormsg = Toast.makeText(SleepDiaryActivity2.this, "Please finish Question 9!", Toast.LENGTH_SHORT);
+                    errormsg.show();
+                } else if (woketime.isEmpty()) {
+                    Toast errormsg = Toast.makeText(SleepDiaryActivity2.this, "Please finish Question 10!", Toast.LENGTH_SHORT);
+                    errormsg.show();
+                } else if (outtime.isEmpty()) {
+                    Toast errormsg = Toast.makeText(SleepDiaryActivity2.this, "Please finish Question 11!", Toast.LENGTH_SHORT);
+                    errormsg.show();
+                } else if (sq == -1) {
+                    Toast errormsg = Toast.makeText(SleepDiaryActivity2.this, "Please finish Question 12!", Toast.LENGTH_SHORT);
+                    errormsg.show();
+                } else if (awq == -1) {
+                    Toast errormsg = Toast.makeText(SleepDiaryActivity2.this, "Please finish Question 13!", Toast.LENGTH_SHORT);
+                    errormsg.show();
+                } else {
+                    //query.whereEqualTo("User_ID",objectID);
+                    query.getInBackground(objectID, new GetCallback<ParseObject>() {
+                        @Override
+                        public void done(ParseObject object, ParseException e) {
+                            if (e != null) {
+                                Toast pass = Toast.makeText(SleepDiaryActivity2.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT);
+                                pass.show();
+                            } else {
+                                object.put("Bed_Time", bedtime);
+                                object.put("Sleep_Duration", asleeptime);
+                                object.put("Wake_Time", woketime);
+                                object.put("OutofBed_Time", outtime);
+                                object.put("No_Awakenings", no_wake);
+                                object.put("Sleep_Quality", sq);
+                                object.put("Awake_Quality", awq);
+                                //userActivity.pinInBackground();
+                                object.saveInBackground();
+                            }
                         }
-                    }
-                });
+                    });
 
 //                userActivity.put("Bed_Time", bedtime);
 //                userActivity.put("Sleep_Duration",asleeptime);
@@ -441,8 +490,8 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
 //                userActivity.put("No_Awakenings",no_wake);
 //                userActivity.put("Sleep_Quality",sq);
 //                userActivity.put("Awake_Quality", awq);
-                //userActivity.pinInBackground();
-                //userActivity.saveInBackground();
+                    //userActivity.pinInBackground();
+                    //userActivity.saveInBackground();
 //                userActivity.saveInBackground(new SaveCallback() {
 //                    @Override
 //                    public void done(ParseException e) {
@@ -457,13 +506,13 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
 //                    }
 //                });
 
-                Intent i = new Intent(SleepDiaryActivity2.this,SleepDiaryActivity3.class);
-                i.putExtra("objectID",objectID);
-                i.putExtra("lastpage",lastpage);
-                SleepDiaryActivity2.this.startActivity(i);
+                    Intent i = new Intent(SleepDiaryActivity2.this, SleepDiaryActivity3.class);
+                    i.putExtra("objectID", objectID);
+                    i.putExtra("lastpage", lastpage);
+                    SleepDiaryActivity2.this.startActivity(i);
 
+                }
             }
-        }
 
 //        else if(view.getId() == R.id.cancel_s2)
 //        {
@@ -473,201 +522,8 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
 //        }
 
 
-    }
-
-
-
-//    private TimePickerDialog.OnTimeSetListener bedTimeSetListener =
-//            new TimePickerDialog.OnTimeSetListener() {
-//                public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-//                    pHour = hourOfDay;
-//                    pMinute = minute;
-//                    updateDisplay0();
-//                }
-//
-//            };
-//
-//    private TimePickerDialog.OnTimeSetListener asleepTimeSetListener=
-//            new TimePickerDialog.OnTimeSetListener() {
-//                public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-//                    pHour = hourOfDay;
-//                    pMinute = minute;
-//                   // if (pHour == 0){pHour = 12;}
-//                    updateDisplay1();
-//                }
-//
-//            };
-//
-//    private TimePickerDialog.OnTimeSetListener wokeTimeSetListener =
-//            new TimePickerDialog.OnTimeSetListener() {
-//                public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-//                    pHour = hourOfDay;
-//                    pMinute = minute;
-//                    updateDisplay2();
-//
-//                }
-//
-//            };
-//
-//    private TimePickerDialog.OnTimeSetListener ofbedTimeSetListener=
-//            new TimePickerDialog.OnTimeSetListener() {
-//                public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-//                    pHour = hourOfDay;
-//                    pMinute = minute;
-//                    updateDisplay3();
-//                }
-//
-//            };
-
-    /** Updates the time in the TextView */
-    private void updateDisplay0() {
-        temp_bed_h = bedhour;
-        temp_bed_m = bedmin;
-
-
-        //temp_bed = 100*pHour + pMinute;
-        bedtime = pad(bedhour) + ":" + pad(bedmin);
-
-            Bbedtime.setText(
-                    new StringBuilder()
-                            .append(pad(bedhour)).append(":")
-                            .append(pad(bedmin)));
-
-
-        Basleeptime.setEnabled(true);
-        Basleeptime.setTextColor(0xFF000000);
-
-
-    }
-    private void updateDisplay1() {
-        asleeptime = String.valueOf(dHour) + ":" + Integer.toString(dMinute);
-        Basleeptime.setTextSize(20);
-        temp_asleep_h = dHour;
-        temp_asleep_m = dMinute;
-        //temp_asleep = 100*pHour + pMinute;
-
-            String ast = "";
-        if(dHour >1 && dMinute>1)
-        {
-            ast= Integer.toString(dHour)+ " hrs"+" "+Integer.toString(dMinute)+" mins";
-        }
-        else if (dHour==0 && (dMinute ==0)||(dMinute==1))
-        {
-            ast= Integer.toString(dMinute)+" min";
-        }
-        else if (dHour ==0 && dMinute>1)
-        {
-            ast= Integer.toString(dMinute)+" mins";
         }
 
-        else if (dHour==1 &&(dMinute ==0))
-        {
-            ast= Integer.toString(dHour)+ " hr";
-        }
-
-        else if (dHour==1 &&(dMinute ==1))
-        {
-            ast= Integer.toString(dHour)+ " hr"+" "+Integer.toString(dMinute)+" min";
-        }
-        else if (dHour==1 &&dMinute>1)
-        {
-            ast= Integer.toString(dHour)+ " hr"+" "+Integer.toString(dMinute)+" mins";
-        }
-        else if (dHour>1 &&(dMinute ==0))
-        {
-            ast= Integer.toString(dHour)+ " hrs";
-        }
-        else if (dHour>1 &&(dMinute ==1))
-        {
-            ast= Integer.toString(dHour)+ " hrs"+" "+Integer.toString(dMinute)+" min";
-        }
-
-        Basleeptime.setText(ast);
-        Basleeptime.setTextSize(18);
-
-        Bwoketime.setEnabled(true);
-        Bwoketime.setTextColor(0xFF000000);
-
-    }
-
-    private void updateDisplay2() {
-
-        woketime = pad(wokehour) + ":" + pad(wokemin);
-
-        temp_wake_h = wokehour;
-        temp_wake_m = wokemin;
-        outhour = wokehour;
-        outmin = wokemin;
-        temp_wake = 100*wokehour+wokemin;
-
-        if(temp_bed_h == 0)
-        {
-            temp_bed_h = 24;
-        }
-
-        if (temp_wake>temp_out)
-        {
-            Toast pass = Toast.makeText(SleepDiaryActivity2.this,"Question 10 should be earlier than the time you get out of bed!", Toast.LENGTH_LONG);
-            Bwoketime.setText("Pick Time");
-            //for(int x = 0; x<2000;x++)//delay the notification
-            pass.show();
-        }
-
-        else if((temp_bed_h < 12)&&((temp_wake_h-temp_bed_h >12)||(temp_wake_h-temp_bed_h ==12)&&(temp_wake_m>temp_bed_m)))
-        {
-            Toast pass = Toast.makeText(SleepDiaryActivity2.this,"You slept over 12 hours!", Toast.LENGTH_SHORT);
-            Bwoketime.setText("Pick Time");
-            pass.show();
-        }
-
-
-        else if(((temp_bed_h>12)||(temp_bed_h==12))&&((temp_wake_h+24-temp_bed_h>12)||(temp_wake_h+24-temp_bed_h ==12)&&(temp_wake_m>temp_bed_m)))
-        {
-
-            Toast pass = Toast.makeText(SleepDiaryActivity2.this,"You slept over 12 hours!", Toast.LENGTH_SHORT);
-            Bwoketime.setText("Pick Time");
-            pass.show();
-
-        }
-
-
-        else {
-                    Bwoketime.setText(
-                            new StringBuilder()
-                                    .append(pad(wokehour)).append(":")
-                                    .append(pad(wokemin)));
-
-
-                Bouttime.setEnabled(true);
-                Bouttime.setTextColor(0xFF000000);
-            }
-    }
-
-    private void updateDisplay3() {
-
-        outtime = pad(outhour) + ":" + pad(outmin);
-        temp_out = 100*outhour + outmin;
-
-        if(temp_out<temp_wake)
-        {
-            Toast pass = Toast.makeText(SleepDiaryActivity2.this,"Question 11 should be later than the wake up time!", Toast.LENGTH_LONG);
-            Bouttime.setText("Pick Time");
-            outhour  = 24;
-            //for(int x = 0; x<2000;x++)//delay the notification
-            pass.show();
-        }
-
-        else {
-
-            outtime = pad(outhour) + ":" + pad(outmin);
-
-                Bouttime.setText(
-                        new StringBuilder()
-                                .append(pad(outhour)).append(":")
-                                .append(pad(outmin)));
-
-        }
-    }
 
 
     private static String pad(int c) {
@@ -677,23 +533,6 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
             return "0" + String.valueOf(c);
     }
 
-//    protected Dialog onCreateDialog(int id) {
-//        switch (id) {
-//            case TIME_DIALOG_0:
-//                return new TimePickerDialog(this,
-//                        bedTimeSetListener, pHour, pMinute, true);
-//            case TIME_DIALOG_1:
-//                return new TimePickerDialog(this,
-//                        asleepTimeSetListener, pHour, pMinute, true);
-//            case TIME_DIALOG_2:
-//                return new TimePickerDialog(this,
-//                        wokeTimeSetListener, pHour, pMinute, true);
-//            case TIME_DIALOG_3:
-//                return new TimePickerDialog(this,
-//                        ofbedTimeSetListener, pHour, pMinute, true);
-//        }
-//        return null;
-//    }
 
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -749,424 +588,272 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
 
     }
 
-    public void button_sl2OnClick(View view)
-    {
-        if (view.getId() == R.id.bedt)
+    @Override
+    public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+
+        if (v.getId()== R.id.bedh)
         {
-//            final Dialog Timepicker1 = new Dialog(SleepDiaryActivity2.this);
-//            Timepicker1.setTitle("I went to bed at:");
-//
-//            Timepicker1.setContentView(R.layout.scrolltimepicker);
-//            Timepicker1.setCanceledOnTouchOutside(false);
-//            Timepicker1.show();
-//
-//            TimePicker tp = (TimePicker)Timepicker1.findViewById(R.id.tp);
-//            tp.setIs24HourView(true);
-//            Button ctp = (Button)Timepicker1.findViewById(R.id.cancel_tp);
-//            Button otp = (Button)Timepicker1.findViewById(R.id.ok_tp);
-//
-//
-//
-//            tp.setCurrentHour(bedhour);
-//            tp.setCurrentMinute(bedmin);
-//            //Set a TimeChangedListener for TimePicker widget
-//            tp.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
-//                @Override
-//                public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
-//                    bedhour = hourOfDay;
-//                    bedmin = minute;
-//                }
-//            });
-//
-//            ctp.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//
-//                    Timepicker1.cancel();
-//                }
-//            });
-//
-//
-//            otp.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//
-//
-//                    updateDisplay0();
-//
-//                    Timepicker1.cancel();
-//                }
-//            });
+            if (actionId == EditorInfo.IME_ACTION_DONE && !(bedh_edt.getText().toString().isEmpty())) {
+                if (Integer.parseInt(bedh_edt.getText().toString()) > 23 || Integer.parseInt(bedh_edt.getText().toString()) < 0) {
+                    bedh_edt.setText("");
+                    Toast pass = Toast.makeText(SleepDiaryActivity2.this, "Please input hour of time between 0-23!", Toast.LENGTH_LONG);
+                    pass.show();
+                    bedh_edt.requestFocus();
+                } else {
 
-            final Dialog Numberpicker1 = new Dialog(SleepDiaryActivity2.this);
-            Numberpicker1.setTitle("I went to bed at:");
+                    tempbedh = Integer.parseInt(bedh_edt.getText().toString());
+                    if (tempbedh<12)
+                    {
+                        bedh_edt.setText("0"+tempbedh);
+                    }
 
-            Numberpicker1.setContentView(R.layout.numberpicker);
-            Numberpicker1.setCanceledOnTouchOutside(false);
-            Numberpicker1.show();
-
-//            Numberpicker1.getWindow().setSoftInputMode(
-//                    WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN
-//            );
-
-            NumberPicker td1 = (NumberPicker)Numberpicker1.findViewById(R.id.td1);
-            NumberPicker td2 = (NumberPicker)Numberpicker1.findViewById(R.id.td2);
-
-            td1.setDescendantFocusability(TimePicker.FOCUS_BLOCK_DESCENDANTS);
-            td2.setDescendantFocusability(TimePicker.FOCUS_BLOCK_DESCENDANTS);
-
-            td1.setMaxValue(23);
-            td1.setMinValue(0);
-            td1.setValue(bedhour);
-            td1.setDisplayedValues(hrValues);
-
-            td2.setMaxValue(11);
-            td2.setMinValue(0);
-            td2.setValue(bedmin / 5);
-
-            td2.setDisplayedValues(minuteValues);
-
-            Button ctd = (Button)Numberpicker1.findViewById(R.id.cancel_td);
-            Button otd = (Button)Numberpicker1.findViewById(R.id.ok_td);
-
-            td1.setOnScrollListener(new NumberPicker.OnScrollListener() {
-                @Override
-                public void onScrollStateChange(NumberPicker view, int scrollState) {
-                    bedhour = view.getValue();
-
+                    if (tempbedh != -1 && tempbedm != -1) {
+                        bedtime = pad(tempbedh) + ":" + pad(tempbedm);
+                    }
                 }
-            });
+            }
 
-            td2.setOnScrollListener(new NumberPicker.OnScrollListener() {
-                @Override
-                public void onScrollStateChange(NumberPicker view, int scrollState) {
-                    //dMinute = Integer.parseInt(minuteValues[view.getMinValue()]);
-                    bedmin = view.getValue()*5;
-                }
-            });
-
-            ctd.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    Numberpicker1.cancel();
-                }
-            });
-
-
-            otd.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-
-                    updateDisplay0();
-
-                    Numberpicker1.cancel();
-                }
-            });
-
+            bedm_edt.requestFocus();
         }
 
-        if (view.getId() == R.id.asleept)
+        if (v.getId()== R.id.bedm)
         {
-            final Dialog Numberpicker1 = new Dialog(SleepDiaryActivity2.this);
-            Numberpicker1.setTitle("Time to fall asleep:");
-
-            Numberpicker1.setContentView(R.layout.numberpicker);
-            Numberpicker1.setCanceledOnTouchOutside(false);
-            Numberpicker1.show();
-
-//            Numberpicker1.getWindow().setSoftInputMode(
-//                    WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN
-//            );
-
-            NumberPicker td1 = (NumberPicker)Numberpicker1.findViewById(R.id.td1);
-            NumberPicker td2 = (NumberPicker)Numberpicker1.findViewById(R.id.td2);
-
-            td1.setDescendantFocusability(TimePicker.FOCUS_BLOCK_DESCENDANTS);
-            td2.setDescendantFocusability(TimePicker.FOCUS_BLOCK_DESCENDANTS);
-
-            td1.setMaxValue(23);
-            td1.setMinValue(0);
-            td1.setValue(dHour);
-
-            td2.setMaxValue(11);
-            td2.setMinValue(0);
-            td2.setValue(dMinute / 5);
-
-            td2.setDisplayedValues(minuteValues);
-
-            Button ctd = (Button)Numberpicker1.findViewById(R.id.cancel_td);
-            Button otd = (Button)Numberpicker1.findViewById(R.id.ok_td);
-
-            td1.setOnScrollListener(new NumberPicker.OnScrollListener() {
-                @Override
-                public void onScrollStateChange(NumberPicker view, int scrollState) {
-                    dHour = view.getValue();
-
+            if (actionId == EditorInfo.IME_ACTION_DONE && !(bedm_edt.getText().toString().isEmpty())) {
+                if (Integer.parseInt(bedm_edt.getText().toString()) > 59 || Integer.parseInt(bedm_edt.getText().toString()) < 0) {
+                    bedm_edt.setText("");
+                    Toast pass = Toast.makeText(SleepDiaryActivity2.this, "Please input minute of time between 0-59!", Toast.LENGTH_LONG);
+                    pass.show();
+                    bedm_edt.requestFocus();
+                } else {
+                    tempbedm = Integer.parseInt(bedm_edt.getText().toString());
+                    if (tempbedm<10)
+                    {
+                        bedm_edt.setText("0"+tempbedm);
+                    }
+                    if (tempbedh != -1 && tempbedm != -1) {
+                        bedtime = pad(tempbedh) + ":" + pad(tempbedm);
+                    }
                 }
-            });
-
-            td2.setOnScrollListener(new NumberPicker.OnScrollListener() {
-                @Override
-                public void onScrollStateChange(NumberPicker view, int scrollState) {
-                    //dMinute = Integer.parseInt(minuteValues[view.getMinValue()]);
-                    dMinute = view.getValue()*5;
-                }
-            });
-
-            ctd.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    Numberpicker1.cancel();
-                }
-            });
-
-
-            otd.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-
-                    updateDisplay1();
-
-                    Numberpicker1.cancel();
-                }
-            });
-        }
-
-        if (view.getId() == R.id.woket)
-        {
-//            final Dialog Timepicker1 = new Dialog(SleepDiaryActivity2.this);
-//            Timepicker1.setTitle("I woke up at: ");
-//
-//            Timepicker1.setContentView(R.layout.scrolltimepicker);
-//            Timepicker1.setCanceledOnTouchOutside(false);
-//            Timepicker1.show();
-//
-//            TimePicker tp = (TimePicker)Timepicker1.findViewById(R.id.tp);
-//            tp.setIs24HourView(true);
-//            Button ctp = (Button)Timepicker1.findViewById(R.id.cancel_tp);
-//            Button otp = (Button)Timepicker1.findViewById(R.id.ok_tp);
-//
-//
-//            tp.setCurrentHour(wokehour);
-//            tp.setCurrentMinute(wokemin);
-//            //Set a TimeChangedListener for TimePicker widget
-//            tp.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
-//                @Override
-//                public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
-//                    wokehour = hourOfDay;
-//                    wokemin = minute;
-//                }
-//            });
-//
-//
-//
-//            ctp.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//
-//                    Timepicker1.cancel();
-//                }
-//            });
-//
-//
-//            otp.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//
-//
-//                    updateDisplay2();
-//                    outhour = wokehour;
-//                    outmin = wokemin;
-//
-//                    Timepicker1.cancel();
-//                }
-//            });
-
-            final Dialog Numberpicker1 = new Dialog(SleepDiaryActivity2.this);
-            Numberpicker1.setTitle("I wake up at:");
-
-            Numberpicker1.setContentView(R.layout.numberpicker);
-            Numberpicker1.setCanceledOnTouchOutside(false);
-            Numberpicker1.show();
-
-
-            NumberPicker td1 = (NumberPicker)Numberpicker1.findViewById(R.id.td1);
-            NumberPicker td2 = (NumberPicker)Numberpicker1.findViewById(R.id.td2);
-
-            td1.setDescendantFocusability(TimePicker.FOCUS_BLOCK_DESCENDANTS);
-            td2.setDescendantFocusability(TimePicker.FOCUS_BLOCK_DESCENDANTS);
-
-            td1.setMaxValue(23);
-            td1.setMinValue(0);
-            td1.setValue(wokehour);
-            td1.setDisplayedValues(hrValues);
-
-            td2.setMaxValue(11);
-            td2.setMinValue(0);
-            td2.setValue(wokemin / 5);
-
-            td2.setDisplayedValues(minuteValues);
-
-            Button ctd = (Button)Numberpicker1.findViewById(R.id.cancel_td);
-            Button otd = (Button)Numberpicker1.findViewById(R.id.ok_td);
-
-            td1.setOnScrollListener(new NumberPicker.OnScrollListener() {
-                @Override
-                public void onScrollStateChange(NumberPicker view, int scrollState) {
-                    wokehour = view.getValue();
-
-                }
-            });
-
-            td2.setOnScrollListener(new NumberPicker.OnScrollListener() {
-                @Override
-                public void onScrollStateChange(NumberPicker view, int scrollState) {
-                    //dMinute = Integer.parseInt(minuteValues[view.getMinValue()]);
-                    wokemin = view.getValue()*5;
-                }
-            });
-
-            ctd.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    Numberpicker1.cancel();
-                }
-            });
-
-
-            otd.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-
-                    updateDisplay2();
-
-                    Numberpicker1.cancel();
-                }
-            });
-        }
-
-        if (view.getId() == R.id.ofbed)
-        {
-//            final Dialog Timepicker1 = new Dialog(SleepDiaryActivity2.this);
-//            Timepicker1.setTitle("I got out of bed at: ");
-//
-//            Timepicker1.setContentView(R.layout.scrolltimepicker);
-//            Timepicker1.setCanceledOnTouchOutside(false);
-//            Timepicker1.show();
-//
-//            TimePicker tp = (TimePicker)Timepicker1.findViewById(R.id.tp);
-//            tp.setIs24HourView(true);
-//            Button ctp = (Button)Timepicker1.findViewById(R.id.cancel_tp);
-//            Button otp = (Button)Timepicker1.findViewById(R.id.ok_tp);
-//
-//            tp.setCurrentHour(outhour);
-//            tp.setCurrentMinute(outmin);
-//
-//
-//            //Set a TimeChangedListener for TimePicker widget
-//            tp.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
-//                @Override
-//                public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
-//                    outhour = hourOfDay;
-//                    outmin = minute;
-//                }
-//            });
-//
-//            ctp.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//
-//                    Timepicker1.cancel();
-//                }
-//            });
-//
-//
-//            otp.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//
-//                    updateDisplay3();
-//
-//                    Timepicker1.cancel();
-//                }
-//            });
-
-            final Dialog Numberpicker1 = new Dialog(SleepDiaryActivity2.this);
-            Numberpicker1.setTitle("I fnially got out of bed at:");
-
-            Numberpicker1.setContentView(R.layout.numberpicker);
-            Numberpicker1.setCanceledOnTouchOutside(false);
-            Numberpicker1.show();
-
-
-            NumberPicker td1 = (NumberPicker)Numberpicker1.findViewById(R.id.td1);
-            NumberPicker td2 = (NumberPicker)Numberpicker1.findViewById(R.id.td2);
-
-            td1.setDescendantFocusability(TimePicker.FOCUS_BLOCK_DESCENDANTS);
-            td2.setDescendantFocusability(TimePicker.FOCUS_BLOCK_DESCENDANTS);
-
-            td1.setMaxValue(23);
-            td1.setMinValue(0);
-            td1.setValue(outhour);
-            td1.setDisplayedValues(hrValues);
-
-            td2.setMaxValue(11);
-            td2.setMinValue(0);
-            td2.setValue(outmin / 5);
-
-            td2.setDisplayedValues(minuteValues);
-
-            Button ctd = (Button)Numberpicker1.findViewById(R.id.cancel_td);
-            Button otd = (Button)Numberpicker1.findViewById(R.id.ok_td);
-
-            td1.setOnScrollListener(new NumberPicker.OnScrollListener() {
-                @Override
-                public void onScrollStateChange(NumberPicker view, int scrollState) {
-                    outhour = view.getValue();
-
-                }
-            });
-
-            td2.setOnScrollListener(new NumberPicker.OnScrollListener() {
-                @Override
-                public void onScrollStateChange(NumberPicker view, int scrollState) {
-                    //dMinute = Integer.parseInt(minuteValues[view.getMinValue()]);
-                    outmin = view.getValue()*5;
-                }
-            });
-
-            ctd.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    Numberpicker1.cancel();
-                }
-            });
-
-
-            otd.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-
-                    updateDisplay3();
-
-                    Numberpicker1.cancel();
-                }
-            });
-//
+            }
+            fallh_edt.requestFocus();
         }
 
 
+        if (v.getId()== R.id.fall_h )
+        {
+            if (actionId == EditorInfo.IME_ACTION_DONE && !(fallh_edt.getText().toString().isEmpty()))
+            {
+                dHour = Integer.parseInt(fallh_edt.getText().toString());
+                if(dHour>23 || dHour<0)
+                {
+                    fallh_edt.setText("");
+                    Toast pass = Toast.makeText(SleepDiaryActivity2.this, "Please input hour of time between 0-23!", Toast.LENGTH_LONG);
+                    pass.show();
+                    fallh_edt.requestFocus();
+                }
+                else
+                {
+
+                    if (dHour == 1)
+                    {
+                        fallh.setText("hr");
+                        temp_h = "hr";
+                    }
+                    else
+                    {
+                        fallh.setText("hrs");
+                        temp_h = "hrs";
+                    }
+
+                    if(dHour!= -1 && dMinute!= -1)
+                    {
+                        asleeptime = pad(dHour) + temp_h + pad(dMinute)+temp_m;
+                    }
+
+                }
+                fallm_edt.requestFocus();
+            }
 
 
+        }
+
+        if (v.getId()== R.id.fall_m)
+        {
+            if (actionId == EditorInfo.IME_ACTION_DONE && !( fallm_edt.getText().toString().isEmpty())) {
+                if (Integer.parseInt( fallm_edt.getText().toString()) > 59 || Integer.parseInt( fallm_edt.getText().toString()) < 0) {
+                    fallm_edt.setText("");
+                    Toast pass = Toast.makeText(SleepDiaryActivity2.this, "Please input nap minute of time between 0-59!", Toast.LENGTH_LONG);
+                    pass.show();
+                    fallm_edt.requestFocus();
+                } else {
+                    dMinute = Integer.parseInt(fallm_edt.getText().toString());
+
+
+                    if (dMinute == 1) {
+                        fallm.setText("min");
+                        temp_m = "min";
+                    } else {
+                        fallm.setText("mins");
+                        temp_m = "mins";
+                    }
+
+                    if (dHour != -1 && dMinute != -1) {
+                        asleeptime = pad(dHour) + temp_h + pad(dMinute) + temp_m;
+                    }
+                }
+                wakeh_edt.requestFocus();
+            }
+
+
+        }
+
+        if (v.getId()== R.id.wakeh)
+        {
+            if (actionId == EditorInfo.IME_ACTION_DONE && !(wakeh_edt.getText().toString().isEmpty())) {
+                if (Integer.parseInt(wakeh_edt.getText().toString()) > 23 || Integer.parseInt(wakeh_edt.getText().toString()) < 0) {
+                    wakeh_edt.setText("");
+                    Toast pass = Toast.makeText(SleepDiaryActivity2.this, "Please input hour of time between 0-23!", Toast.LENGTH_LONG);
+                    pass.show();
+                    wakeh_edt.requestFocus();
+                } else {
+
+                    tempwakeh = Integer.parseInt(wakeh_edt.getText().toString());
+                    if (tempwakeh<12)
+                    {
+                        wakeh_edt.setText("0"+tempwakeh);
+                    }
+
+                    if (tempwakeh != -1 && tempwakem != -1) {
+                        woketime = pad(tempwakeh) + ":" + pad(tempwakem);
+                        temp_wake = 100*tempwakeh+tempwakem;
+
+                        if(temp_out-temp_wake<0)
+                        {
+                            Toast pass = Toast.makeText(SleepDiaryActivity2.this, "Question 11 should be earlier than the time out of bed!", Toast.LENGTH_LONG);
+                            pass.show();
+                            wakeh_edt.setText("");
+                            wakem_edt.setText("");
+                            wakeh_edt.requestFocus();
+                        }
+                    }
+                }
+                wakem_edt.requestFocus();
+            }
+
+        }
+
+        if (v.getId()== R.id.wakem)
+        {
+            if (actionId == EditorInfo.IME_ACTION_DONE && !(wakem_edt.getText().toString().isEmpty())) {
+                if (Integer.parseInt(wakem_edt.getText().toString()) > 59 || Integer.parseInt(wakem_edt.getText().toString()) < 0) {
+                    wakem_edt.setText("");
+                    Toast pass = Toast.makeText(SleepDiaryActivity2.this, "Please input minute of time between 0-59!", Toast.LENGTH_LONG);
+                    pass.show();
+                    wakem_edt.requestFocus();
+                } else {
+                    tempwakem = Integer.parseInt(wakem_edt.getText().toString());
+                    if (tempwakem<10)
+                    {
+                        wakem_edt.setText("0"+tempwakem);
+                    }
+                    if (tempwakeh != -1 && tempwakem != -1) {
+                        woketime = pad(tempwakeh) + ":" + pad(tempwakem);
+                        temp_wake = 100*tempwakeh+tempwakem;
+
+                        if(temp_out-temp_wake<0)
+                        {
+                            Toast pass = Toast.makeText(SleepDiaryActivity2.this, "Question 11 should be earlier than the time out of bed!", Toast.LENGTH_LONG);
+                            pass.show();
+                            wakeh_edt.setText("");
+                            wakem_edt.setText("");
+                            wakeh_edt.requestFocus();
+                        }
+                    }
+                }
+                outh_edt.requestFocus();
+            }
+        }
+
+        if (v.getId()== R.id.outh)
+        {
+            if (actionId == EditorInfo.IME_ACTION_DONE && !(outh_edt.getText().toString().isEmpty())) {
+                if (Integer.parseInt(outh_edt.getText().toString()) > 23 || Integer.parseInt(outh_edt.getText().toString()) < 0) {
+                    outh_edt.setText("");
+                    Toast pass = Toast.makeText(SleepDiaryActivity2.this, "Please input hour of time between 0-23!", Toast.LENGTH_LONG);
+                    pass.show();
+                    outh_edt.requestFocus();
+                } else {
+
+                    tempouth = Integer.parseInt(outh_edt.getText().toString());
+                    if (tempouth<12)
+                    {
+                        outh_edt.setText("0"+tempouth);
+                    }
+
+                    if (tempouth != -1 && tempoutm != -1) {
+                        outtime = pad(tempouth) + ":" + pad(tempoutm);
+                        temp_out = 100*tempouth+tempoutm;
+
+                        if(temp_out-temp_wake<0)
+                        {
+                            Toast pass = Toast.makeText(SleepDiaryActivity2.this, "Question 12 should be later than woke up time!", Toast.LENGTH_LONG);
+                            pass.show();
+                            outh_edt.setText("");
+                            outm_edt.setText("");
+                            outh_edt.requestFocus();
+                        }
+                    }
+                }
+                outm_edt.requestFocus();
+            }
+        }
+
+        if (v.getId()== R.id.outm)
+        {
+            if (actionId == EditorInfo.IME_ACTION_DONE && !(wakem_edt.getText().toString().isEmpty())) {
+                if (Integer.parseInt(outm_edt.getText().toString()) > 59 || Integer.parseInt(outm_edt.getText().toString()) < 0) {
+                    outm_edt.setText("");
+                    Toast pass = Toast.makeText(SleepDiaryActivity2.this, "Please input minute of time between 0-59!", Toast.LENGTH_LONG);
+                    pass.show();
+                    outm_edt.requestFocus();
+                } else {
+                    tempoutm = Integer.parseInt(outm_edt.getText().toString());
+                    if (tempoutm<10)
+                    {
+                        outm_edt.setText("0"+tempoutm);
+                    }
+                    if (tempouth != -1 && tempoutm != -1) {
+                        outtime = pad(tempouth) + ":" + pad(tempoutm);
+                        temp_out = 100*tempouth+tempoutm;
+
+                        if(temp_out-temp_wake<0)
+                        {
+                            Toast pass = Toast.makeText(SleepDiaryActivity2.this, "Question 12 should be later than woke up time!", Toast.LENGTH_LONG);
+                            pass.show();
+                            outh_edt.setText("");
+                            outm_edt.setText("");
+                            outh_edt.requestFocus();
+                        }
+                    }
+                }
+                awake_edt.requestFocus();
+            }
+        }
+
+        if (v.getId()== R.id.no_awake) {
+            if (actionId == EditorInfo.IME_ACTION_DONE && !(awake_edt.getText().toString().isEmpty())) {
+                no_wake = Integer.parseInt(awake_edt.getText().toString());
+
+                if (no_wake == 1) {
+                    t_awake.setText("time");
+                } else {
+                    t_awake.setText("times");
+                }
+            }
+        }
+        return false;
     }
+
 
 //    @Override
 //    public void onBackPressed() {
