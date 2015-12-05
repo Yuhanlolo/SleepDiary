@@ -47,7 +47,8 @@ import android.text.format.DateFormat;
 import android.app.AlertDialog;
 import android.app.DialogFragment;
 import android.view.inputmethod.EditorInfo;
-
+import android.text.Selection;
+import android.view.View.OnKeyListener;
 /**
  * Created by Yuhan on 9/13/15.
  */
@@ -131,10 +132,7 @@ public class SleepDiaryActivity extends ActionBarActivity implements  View.OnCli
         rg.setOnCheckedChangeListener(this);
 
         coffee_edt = (EditText)findViewById(R.id.no_coffee);
-        //coffee_edt.setOnClickListener(this);
-        //coffee_edt.setOnKeyListener(this);
         coffee_edt.setOnEditorActionListener(this);
-        //coffee_edt.addTextChangedListener(this);
         t_coffe = (TextView)findViewById(R.id.d_coffee);
 
         alcohol_edt = (EditText)findViewById(R.id.no_alcohol);
@@ -145,9 +143,8 @@ public class SleepDiaryActivity extends ActionBarActivity implements  View.OnCli
         smoke_edt.setOnEditorActionListener(this);
         t_smoke = (TextView)findViewById(R.id.d_smoke);
 
-
         nap_edt = (EditText)findViewById(R.id.no_nap);
-        nap_edt.setText("0");
+        //nap_edt.setText("0");
         nap_edt.setOnEditorActionListener(this);
         t_nap = (TextView)findViewById(R.id.d_nap);
 
@@ -482,6 +479,8 @@ public class SleepDiaryActivity extends ActionBarActivity implements  View.OnCli
                 q7.setTextColor(0xFF000000);
                 colon.setTextColor(0xFF000000);
                 q8.setTextColor(0xFF000000);
+                pillh_edt.requestFocus();
+
             }
             else {
                 pill = false;
@@ -499,6 +498,9 @@ public class SleepDiaryActivity extends ActionBarActivity implements  View.OnCli
                 q7.setTextColor(0xFFBABABA);
                 colon.setTextColor(0xFFBABABA);
                 q8.setTextColor(0xFFBABABA);
+                pillh_edt.clearFocus();
+                pillm_edt.clearFocus();
+                edtView.clearFocus();
 
             }
         }
@@ -526,6 +528,8 @@ public class SleepDiaryActivity extends ActionBarActivity implements  View.OnCli
                 }
             }
 
+            alcohol_edt.requestFocus();
+
         }
 
         if (v.getId()== R.id.no_alcohol) {
@@ -540,6 +544,8 @@ public class SleepDiaryActivity extends ActionBarActivity implements  View.OnCli
                     t_wine.setText("glasses");
                 }
             }
+
+            smoke_edt.requestFocus();
         }
 
         if (v.getId()== R.id.no_pipe)
@@ -557,9 +563,9 @@ public class SleepDiaryActivity extends ActionBarActivity implements  View.OnCli
                 t_smoke.setText("units");
             }
             }
+
+            nap_edt.requestFocus();
         }
-
-
 
         if (v.getId()== R.id.no_nap)
         {
@@ -587,7 +593,10 @@ public class SleepDiaryActivity extends ActionBarActivity implements  View.OnCli
                 q5.setTextColor(0xFF000000);
                 naph.setTextColor(0xFF000000);
                 napm.setTextColor(0xFF000000);
-            } else
+
+                napduh_edt.requestFocus();
+            }
+            else
             {
                 //napduh_edt.setInputType(InputType.TYPE_NULL);
                 napduh_edt.setEnabled(false);
@@ -635,6 +644,8 @@ public class SleepDiaryActivity extends ActionBarActivity implements  View.OnCli
 
             }
             }
+
+            napdum_edt.requestFocus();
         }
 
         if (v.getId()== R.id.nap_du_m)
@@ -684,6 +695,8 @@ public class SleepDiaryActivity extends ActionBarActivity implements  View.OnCli
                     }
                 }
             }
+
+            pillm_edt.requestFocus();
         }
 
         if (v.getId()== R.id.pillm)
@@ -704,6 +717,7 @@ public class SleepDiaryActivity extends ActionBarActivity implements  View.OnCli
                     }
                 }
             }
+            edtView.requestFocus();
         }
 
 
