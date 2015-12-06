@@ -610,7 +610,7 @@
 
         <TextView
             android:id="@+id/nodiff"
-            android:text="Very severe \nmotor difficulty"
+            android:text="No motor \ndifficulty"
             android:textSize="21dp"
             android:textColor="#000000"
             android:layout_width="wrap_content"
@@ -622,7 +622,7 @@
 
         <TextView
             android:id="@+id/severe"
-            android:text="No motor \ndifficulty"
+            android:text="Very severe \nmotor difficulty"
             android:textSize="21dp"
             android:textColor="#000000"
             android:layout_width="wrap_content"
@@ -630,7 +630,7 @@
             android:layout_marginTop="15dp"
             android:layout_row="17"
             android:layout_column="0"
-            android:layout_marginLeft="650dp" />
+            android:layout_marginLeft="590dp" />
 
 
         <SeekBar

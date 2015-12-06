@@ -781,7 +781,7 @@
             android:orientation="horizontal"
             android:minHeight="100dp"
             android:minWidth="200dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="40dp"
             android:layout_row="21"
             android:layout_column="0">
 

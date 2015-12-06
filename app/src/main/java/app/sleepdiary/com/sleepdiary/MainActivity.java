@@ -70,6 +70,10 @@ public class MainActivity  extends ActionBarActivity {
 //        }
 
 
+        finish_M30 = (ImageView)findViewById(R.id.fmt);
+        finish_adi = (ImageView)findViewById(R.id.fadi);
+        finish_bdi = (ImageView)findViewById(R.id.fbdi);
+        finish_E = (ImageView)findViewById(R.id.fbt);
 
        currentUser = ParseUser.getCurrentUser();
 
@@ -78,6 +82,10 @@ public class MainActivity  extends ActionBarActivity {
             query1.whereEqualTo("User_ID", userid);
             query1.whereEqualTo("Date", today);
 
+            //object.getInt("A_DOPA1_Braintest") == 1 &&
+            //object.getInt("A_DOPA_Braintest") == 1 &&
+            //object.getInt("E_Braintest") == 1 &&
+            
             query1.getFirstInBackground(new GetCallback<ParseObject>() {
                 public void done(ParseObject object, ParseException e) {
                     if (object == null) {
@@ -92,17 +100,17 @@ public class MainActivity  extends ActionBarActivity {
                             finish_M30.setVisibility(View.VISIBLE);
                         }
 
-                        if (object.getInt("A_DOPA1_Braintest") == 1 && object.getInt("A_DOPA1_Movesleep") == 1) {
+                        if ( object.getInt("A_DOPA1_Movesleep") == 1) {
                             A_DOPA1 = true;
                             finish_adi.setVisibility(View.VISIBLE);
                         }
 
-                        if (object.getInt("A_DOPA_Braintest") == 1 && object.getInt("A_DOPA_Movesleep") == 1) {
+                        if ( object.getInt("A_DOPA_Movesleep") == 1) {
                             A_DOPA = true;
                             finish_bdi.setVisibility(View.VISIBLE);
                         }
 
-                        if (object.getInt("E_Braintest") == 1 && object.getInt("E_Movesleep") == 1) {
+                        if (object.getInt("E_Movesleep") == 1) {
                             E = true;
                             finish_E.setVisibility(View.VISIBLE);
                         }
@@ -111,10 +119,6 @@ public class MainActivity  extends ActionBarActivity {
             });
         }
 
-        finish_M30 = (ImageView)findViewById(R.id.fmt);
-        finish_adi = (ImageView)findViewById(R.id.fadi);
-        finish_bdi = (ImageView)findViewById(R.id.fbdi);
-        finish_E = (ImageView)findViewById(R.id.fbt);
 
         //login_status = getIntent().getBooleanExtra("loginstatus",false);
 
