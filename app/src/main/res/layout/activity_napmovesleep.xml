@@ -800,7 +800,7 @@
                 android:textSize="25dp"
                 android:background="#BDBDBD"
                 android:checked="false"
-                android:onClick="button_ms2dOnClick"/>
+                android:onClick="button_napmsdOnClick"/>
 
         </RadioGroup>
 

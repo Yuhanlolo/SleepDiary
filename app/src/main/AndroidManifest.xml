@@ -132,6 +132,9 @@
             android:name=".NapMoveSleepActivity">
         </activity>
 
+        <activity
+            android:name=".NapMoveSleepActivity2">
+        </activity>
 
     </application>
 

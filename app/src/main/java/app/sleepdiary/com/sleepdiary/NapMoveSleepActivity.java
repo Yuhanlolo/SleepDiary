@@ -306,6 +306,35 @@ public class NapMoveSleepActivity extends ActionBarActivity implements SeekBar.O
         if(view.getId() == R.id.napsave_ms)
         {
             ParseUser currentUser1 = ParseUser.getCurrentUser();
+            boolean bedhour1 = false, bedmin1 = false;
+            boolean fallhour1 = false, fallmin1 = false;
+
+            if (!(bedh_edt.getText().toString()).isEmpty() && !(bedm_edt.getText().toString()).isEmpty()) {
+                tempbedh = Integer.parseInt(bedh_edt.getText().toString());
+                tempbedm = Integer.parseInt(bedm_edt.getText().toString());
+                if (tempbedh < 0 || tempbedh > 23) {
+                    bedhour1 = true;
+                } else if (tempbedm < 0 || tempbedm > 59) {
+
+                    bedmin1 = true;
+                } else {
+                    bedtime = pad(tempbedh) + ":" + pad(tempbedm);
+                }
+            }
+
+            if (!(fallh_edt.getText().toString()).isEmpty() && !(fallm_edt.getText().toString()).isEmpty()) {
+                dHour = Integer.parseInt(fallh_edt.getText().toString());
+                dMinute = Integer.parseInt(fallm_edt.getText().toString());
+                if (dHour < 0 || dHour > 23) {
+
+                    fallhour1 = true;
+                } else if (dMinute < 0 || dMinute > 59) {
+
+                    fallmin1 = true;
+                } else {
+                    asleeptime = pad(dHour) + ":" + pad(dMinute);
+                }
+            }
 
             if(currentUser1 == null)
             {
@@ -313,21 +342,58 @@ public class NapMoveSleepActivity extends ActionBarActivity implements SeekBar.O
                 pass.show();
             }
 
+            else if (bedhour1)
+            {
+                Toast errormsg = Toast.makeText(NapMoveSleepActivity.this, "For Question 1, Please input hour of time between 0-23!"+tempbedh, Toast.LENGTH_LONG);
+                errormsg.show();
+            }
+
+            else if (bedmin1)
+            {
+                Toast errormsg = Toast.makeText(NapMoveSleepActivity.this, "For Question 1, Please input minute of time between 0-59!", Toast.LENGTH_LONG);
+                errormsg.show();
+            }
+
+
+            else if (bedtime.isEmpty()) {
+                //popup msg
+                Toast errormsg = Toast.makeText(NapMoveSleepActivity.this, "Please finish Question 1!", Toast.LENGTH_SHORT);
+                errormsg.show();
+
+            }
+
+            else if (fallhour1)
+            {
+                Toast errormsg = Toast.makeText(NapMoveSleepActivity.this, "For Question 2, Please input hour of time between 0-23!", Toast.LENGTH_LONG);
+                errormsg.show();
+            }
+
+            else if (fallmin1)
+            {
+                Toast errormsg = Toast.makeText(NapMoveSleepActivity.this, "For Question 2, Please input minute of time between 0-59", Toast.LENGTH_LONG);
+                errormsg.show();
+            }
+
+            else if (asleeptime.isEmpty()) {
+                Toast errormsg = Toast.makeText(NapMoveSleepActivity.this, "Please finish Question 2!", Toast.LENGTH_SHORT);
+                errormsg.show();
+            }
+
             else if (wss == -1){
 
-                Toast errormsg = Toast.makeText(NapMoveSleepActivity.this,"Please finish Question 1!", Toast.LENGTH_SHORT);
-                errormsg.show();
-            }
-            else if (css == -1){
-                Toast errormsg = Toast.makeText(NapMoveSleepActivity.this,"Please finish Question 2!", Toast.LENGTH_SHORT);
-                errormsg.show();
-            }
-            else if (uhss == -1){
                 Toast errormsg = Toast.makeText(NapMoveSleepActivity.this,"Please finish Question 3!", Toast.LENGTH_SHORT);
                 errormsg.show();
             }
-            else if (umss == -1){
+            else if (css == -1){
                 Toast errormsg = Toast.makeText(NapMoveSleepActivity.this,"Please finish Question 4!", Toast.LENGTH_SHORT);
+                errormsg.show();
+            }
+            else if (uhss == -1){
+                Toast errormsg = Toast.makeText(NapMoveSleepActivity.this,"Please finish Question 5!", Toast.LENGTH_SHORT);
+                errormsg.show();
+            }
+            else if (umss == -1){
+                Toast errormsg = Toast.makeText(NapMoveSleepActivity.this,"Please finish Question 6!", Toast.LENGTH_SHORT);
                 errormsg.show();
             }
             else
@@ -342,7 +408,7 @@ public class NapMoveSleepActivity extends ActionBarActivity implements SeekBar.O
                 movesleep.put("SCOPA_use_hands",uhss);
                 movesleep.put("SCOPA_uncontrollable_movement",umss);
 
-                movesleep.put("Move_Capability", movep);
+                //movesleep.put("Move_Capability", movep);
                 //movesleep.put("Move_Capability",0);
                 movesleep.put("Sleepiness_Scale",0);
 
@@ -354,9 +420,9 @@ public class NapMoveSleepActivity extends ActionBarActivity implements SeekBar.O
                             pass.show();
                         } else {
                             objectID = movesleep.getObjectId();
-//                             Toast pass = Toast.makeText(MovesleepActivity.this,"id 1: "+objectID, Toast.LENGTH_SHORT);
+//                             Toast pass = Toast.makeText(NapMoveSleepActivity.this,"id 1: "+objectID, Toast.LENGTH_SHORT);
 //                             pass.show();
-                            Intent i = new Intent(NapMoveSleepActivity.this, MovesleepActivity2.class);
+                            Intent i = new Intent(NapMoveSleepActivity.this, NapMoveSleepActivity2.class);
                             i.putExtra("objectID", objectID);
                             i.putExtra("lastpage",lastpage);
                             NapMoveSleepActivity.this.startActivity(i);
@@ -371,12 +437,7 @@ public class NapMoveSleepActivity extends ActionBarActivity implements SeekBar.O
             }
         }
 
-        if(view.getId() == R.id.napcancel_ms)
-        {
-            Intent i = new Intent(NapMoveSleepActivity.this,SleepActivity.class);
-            i.putExtra("lastpage",lastpage);
-            NapMoveSleepActivity.this.startActivity(i);
-        }
+
     }
 
     @Override

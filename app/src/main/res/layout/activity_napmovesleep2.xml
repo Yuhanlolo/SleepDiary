@@ -13,7 +13,7 @@
         >
 
         <TextView
-            android:id="@+id/lastpagem2"
+            android:id="@+id/lastnappagem2"
             android:text=""
             android:textSize="28dp"
             android:textColor="#000000"
@@ -153,7 +153,7 @@
 
             <GridLayout
                 xmlns:android="http://schemas.android.com/apk/res/android"
-                android:id="@+id/stan1"
+                android:id="@+id/napstan1"
                 android:layout_width="700dp"
                 android:layout_marginLeft="40dp"
                 android:layout_height="match_parent"
@@ -166,7 +166,7 @@
                 android:icon="@drawable/ic_launcher">
 
                 <TextView
-                    android:id="@+id/stanford1"
+                    android:id="@+id/napstanford1"
                     android:text="Feeling active, vital, alert, or wide awake [1]"
                     android:textSize="22dp"
                     android:textColor="#000000"
@@ -191,13 +191,13 @@
                     android:layout_height="wrap_content"
                     android:text=""
                     android:width="100dp"
-                    android:id="@+id/ds1"
+                    android:id="@+id/napds1"
                     android:checked="false"
                     android:onClick="Itemclick"/>
             </GridLayout>
             <GridLayout
                 xmlns:android="http://schemas.android.com/apk/res/android"
-                android:id="@+id/stan2"
+                android:id="@+id/napstan2"
                 android:layout_width="700dp"
                 android:layout_marginLeft="40dp"
                 android:layout_height="match_parent"
@@ -209,7 +209,7 @@
                 android:icon="@drawable/ic_launcher">
 
                 <TextView
-                    android:id="@+id/stanford2"
+                    android:id="@+id/napstanford2"
                     android:text="Functioning at high levels, but not fully alert [2]"
                     android:textSize="22dp"
                     android:textColor="#000000"
@@ -234,7 +234,7 @@
                     android:layout_marginTop="10dp"
                     android:paddingTop="30dp"
                     android:width="100dp"
-                    android:id="@+id/ds2"
+                    android:id="@+id/napds2"
                     android:checked="false"
                     android:onClick="Itemclick"/>
 
@@ -259,7 +259,7 @@
 
             <GridLayout
                 xmlns:android="http://schemas.android.com/apk/res/android"
-                android:id="@+id/stan3"
+                android:id="@+id/napstan3"
                 android:layout_width="700dp"
                 android:layout_marginLeft="40dp"
                 android:layout_height="match_parent"
@@ -270,7 +270,7 @@
                 android:layout_marginTop="10dp"
                 android:icon="@drawable/ic_launcher">
                 <TextView
-                    android:id="@+id/stanford3"
+                    android:id="@+id/napstanford3"
                     android:text="Awake, but relaxed; responsive but not fully alert [3]"
                     android:textSize="22dp"
                     android:textColor="#000000"
@@ -296,7 +296,8 @@
                     android:paddingTop="30dp"
                     android:paddingBottom="0.5dp"
                     android:width="100dp"
-                    android:id="@+id/ds3"
+                    android:id="@+id/napds3"
+                    android:onClick="Itemclick"
                     android:checked="false"/>
 
             </GridLayout>
@@ -304,7 +305,7 @@
 
             <GridLayout
                 xmlns:android="http://schemas.android.com/apk/res/android"
-                android:id="@+id/stan4"
+                android:id="@+id/napstan4"
                 android:layout_width="700dp"
                 android:layout_marginLeft="40dp"
                 android:layout_height="match_parent"
@@ -315,7 +316,7 @@
                 android:layout_marginTop="10dp"
                 android:icon="@drawable/ic_launcher">
                 <TextView
-                    android:id="@+id/stanford4"
+                    android:id="@+id/napstanford4"
                     android:text="Somewhat foggy, let down [4]"
                     android:textSize="22dp"
                     android:textColor="#000000"
@@ -340,7 +341,7 @@
                     android:layout_marginTop="10dp"
                     android:paddingTop="30dp"
                     android:width="100dp"
-                    android:id="@+id/ds4"
+                    android:id="@+id/napds4"
                     android:checked="false"
                     android:onClick="Itemclick"/>
 
@@ -348,7 +349,7 @@
 
             <GridLayout
                 xmlns:android="http://schemas.android.com/apk/res/android"
-                android:id="@+id/stan5"
+                android:id="@+id/napstan5"
                 android:layout_width="700dp"
                 android:layout_marginLeft="40dp"
                 android:layout_height="match_parent"
@@ -359,7 +360,7 @@
                 android:layout_marginTop="10dp"
                 android:icon="@drawable/ic_launcher">
                 <TextView
-                    android:id="@+id/stanford5"
+                    android:id="@+id/napstanford5"
                     android:text="Foggy, losing interest in remaining awake; slowed \ndown [5]"
                     android:textSize="22dp"
                     android:textColor="#000000"
@@ -386,7 +387,7 @@
                     android:paddingTop="29dp"
                     android:paddingBottom="26dp"
                     android:width="100dp"
-                    android:id="@+id/ds5"
+                    android:id="@+id/napds5"
                     android:checked="false"
                     android:onClick="Itemclick"/>
 
@@ -394,7 +395,7 @@
 
             <GridLayout
                 xmlns:android="http://schemas.android.com/apk/res/android"
-                android:id="@+id/stan6"
+                android:id="@+id/napstan6"
                 android:layout_width="700dp"
                 android:layout_marginLeft="40dp"
                 android:layout_height="match_parent"
@@ -405,7 +406,7 @@
                 android:layout_marginTop="10dp"
                 android:icon="@drawable/ic_launcher">
                 <TextView
-                    android:id="@+id/stanford6"
+                    android:id="@+id/napstanford6"
                     android:text="Sleepy, woozy, fighting sleep; prefer to lie down [6]"
                     android:textSize="22dp"
                     android:textColor="#000000"
@@ -432,7 +433,7 @@
                     android:paddingTop="30dp"
                     android:paddingBottom="0dp"
                     android:width="100dp"
-                    android:id="@+id/ds6"
+                    android:id="@+id/napds6"
                     android:checked="false"
                     android:onClick="Itemclick"/>
 
@@ -441,7 +442,7 @@
 
             <GridLayout
                 xmlns:android="http://schemas.android.com/apk/res/android"
-                android:id="@+id/stan7"
+                android:id="@+id/napstan7"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
@@ -451,7 +452,7 @@
                 android:layout_marginTop="10dp"
                 android:icon="@drawable/ic_launcher">
                 <TextView
-                    android:id="@+id/stanford7"
+                    android:id="@+id/napstanford7"
                     android:text="No longer fighting sleep, sleep onset soon; having \ndream-like thoughts [7]"
                     android:textSize="22dp"
                     android:textColor="#000000"
@@ -478,7 +479,7 @@
                     android:paddingTop="30dp"
                     android:paddingBottom="26dp"
                     android:width="100dp"
-                    android:id="@+id/ds7"
+                    android:id="@+id/napds7"
                     android:checked="false"
                     android:onClick="Itemclick"/>
 

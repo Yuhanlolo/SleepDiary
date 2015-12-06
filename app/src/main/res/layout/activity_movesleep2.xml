@@ -248,7 +248,8 @@
                     android:paddingBottom="0.5dp"
                     android:width="100dp"
                     android:id="@+id/ds3"
-                    android:checked="false"/>
+                    android:checked="false"
+                    android:onClick="Itemclick"/>
 
             </GridLayout>
 

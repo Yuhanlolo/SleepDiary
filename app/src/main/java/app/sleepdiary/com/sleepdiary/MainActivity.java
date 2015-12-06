@@ -59,16 +59,7 @@ public class MainActivity  extends ActionBarActivity {
 
         Intent i_getvalue = getIntent();
         String action = i_getvalue.getAction();
-        endstr = i_getvalue.getStringExtra("endstr");
 
-        if(endstr!=null)
-        {
-
-
-            Toast pass = Toast.makeText(MainActivity.this,endstr, Toast.LENGTH_LONG);
-            for (int i  = 0 ; i< 50000;i++)
-            pass.show();
-        }
 
 //        if(Intent.ACTION_VIEW.equals(action)){
 //            Uri uri = i_getvalue.getData();
@@ -148,7 +139,16 @@ public class MainActivity  extends ActionBarActivity {
 //        {
 //            finish_E.setVisibility(View.VISIBLE);
 //        }
+        endstr = i_getvalue.getStringExtra("endstr");
 
+        if(endstr!=null)
+        {
+
+
+            Toast pass = Toast.makeText(MainActivity.this,endstr, Toast.LENGTH_LONG);
+            for (int i  = 0 ; i< 2;i++)
+            pass.show();
+        }
 
 
     }

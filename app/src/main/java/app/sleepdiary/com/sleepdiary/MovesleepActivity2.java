@@ -65,7 +65,7 @@ public class MovesleepActivity2 extends ActionBarActivity implements SeekBar.OnS
 
     RadioButton rb1,rb2,rb3,rb4,rb5,rb6,rb7;
     int rbsd1, rbsd2,rbsd3, rbsd4,rbsd5, rbsd6,rbsd7;
-    RadioGroup rgSD;
+    //RadioGroup rgSD;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
