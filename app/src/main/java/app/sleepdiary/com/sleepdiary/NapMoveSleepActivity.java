@@ -27,18 +27,18 @@ import com.parse.SaveCallback;
 public class NapMoveSleepActivity extends ActionBarActivity implements SeekBar.OnSeekBarChangeListener {
 
 
-    int temp_bed_h = 0;
-    int temp_bed_m = 0;
+    int temp_nap_h = -1;
+    int temp_nap_m = -1;
 
-    int bedhour = 12, bedmin = 0;
+    int bedhour = -1, bedmin = -1;
 
-    int temp_asleep_h = 0;
-    int temp_asleep_m = 0;
+    int temp_asleep_h = -1;
+    int temp_asleep_m = -1;
 
-    int dHour =0;
-    int dMinute = 0;
+    int dHour =-1;
+    int dMinute = -1;
 
-    Button Bnaptime, Bnapdu;
+    //Button Bnaptime, Bnapdu;
 
     String[] minuteValues = {"0","5","10","15","20","25","30","35","40","45","50","55"};
     int movep = 0;
@@ -72,15 +72,7 @@ public class NapMoveSleepActivity extends ActionBarActivity implements SeekBar.O
 
             movesleep  = new ParseObject("NAP_MoveSleep");
             currenttask = "After nap";
-
-        Bnaptime = (Button)findViewById(R.id.napt);
-        Bnapdu = (Button)findViewById(R.id.napd);
-
-//        else if(lastpage.equals("Nap"))
-//        {
-//            movesleep  = new ParseObject("NAP_MoveSleep");
-//        }
-
+        
         currentpage = (TextView)findViewById(R.id.lastpagem);
         currentpage.setText(currenttask);
 
@@ -106,6 +98,8 @@ public class NapMoveSleepActivity extends ActionBarActivity implements SeekBar.O
 
         movescale = (SeekBar)findViewById(R.id.naps_move);
         movescale.setOnSeekBarChangeListener(this);
+
+
     }
 
     @Override
@@ -133,126 +127,6 @@ public class NapMoveSleepActivity extends ActionBarActivity implements SeekBar.O
         return super.onOptionsItemSelected(item);
     }
 
-    public void button_naptpOnClick(View view)
-    {
-        if(view.getId() == R.id.napt)
-        {
-            final Dialog Timepicker1 = new Dialog(NapMoveSleepActivity.this);
-            Timepicker1.setTitle("I had nap at:");
-
-            Timepicker1.setContentView(R.layout.scrolltimepicker);
-            Timepicker1.setCanceledOnTouchOutside(false);
-            Timepicker1.show();
-
-            TimePicker tp = (TimePicker)Timepicker1.findViewById(R.id.tp);
-            tp.setIs24HourView(true);
-            Button ctp = (Button)Timepicker1.findViewById(R.id.cancel_tp);
-            Button otp = (Button)Timepicker1.findViewById(R.id.ok_tp);
-
-
-
-            tp.setCurrentHour(bedhour);
-            tp.setCurrentMinute(bedmin);
-            //Set a TimeChangedListener for TimePicker widget
-            tp.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
-                @Override
-                public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
-                    bedhour = hourOfDay;
-                    bedmin = minute;
-                }
-            });
-
-            ctp.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    Timepicker1.cancel();
-                }
-            });
-
-
-            otp.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-
-                    updateDisplay0();
-
-                    Timepicker1.cancel();
-                }
-            });
-
-        }
-
-        if(view.getId() == R.id.napd)
-        {
-            final Dialog Numberpicker1 = new Dialog(NapMoveSleepActivity.this);
-            Numberpicker1.setTitle("I had nap for:");
-
-            Numberpicker1.setContentView(R.layout.numberpicker);
-            Numberpicker1.setCanceledOnTouchOutside(false);
-            Numberpicker1.show();
-
-//            Numberpicker1.getWindow().setSoftInputMode(
-//                    WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN
-//            );
-
-            NumberPicker td1 = (NumberPicker)Numberpicker1.findViewById(R.id.td1);
-            NumberPicker td2 = (NumberPicker)Numberpicker1.findViewById(R.id.td2);
-
-            td1.setDescendantFocusability(TimePicker.FOCUS_BLOCK_DESCENDANTS);
-            td2.setDescendantFocusability(TimePicker.FOCUS_BLOCK_DESCENDANTS);
-
-            td1.setMaxValue(24);
-            td1.setMinValue(0);
-            td1.setValue(dHour);
-
-            td2.setMaxValue(11);
-            td2.setMinValue(0);
-            td2.setValue(dMinute / 5);
-
-            td2.setDisplayedValues(minuteValues);
-
-            Button ctd = (Button)Numberpicker1.findViewById(R.id.cancel_td);
-            Button otd = (Button)Numberpicker1.findViewById(R.id.ok_td);
-
-            td1.setOnScrollListener(new NumberPicker.OnScrollListener() {
-                @Override
-                public void onScrollStateChange(NumberPicker view, int scrollState) {
-                    dHour = view.getValue();
-
-                }
-            });
-
-            td2.setOnScrollListener(new NumberPicker.OnScrollListener() {
-                @Override
-                public void onScrollStateChange(NumberPicker view, int scrollState) {
-                    //dMinute = Integer.parseInt(minuteValues[view.getMinValue()]);
-                    dMinute = view.getValue()*5;
-                }
-            });
-
-            ctd.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    Numberpicker1.cancel();
-                }
-            });
-
-
-            otd.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-
-                    updateDisplay1();
-
-                    Numberpicker1.cancel();
-                }
-            });
-        }
-    }
 
     public void button_napmsdOnClick(View view)
     {
@@ -401,6 +275,8 @@ public class NapMoveSleepActivity extends ActionBarActivity implements SeekBar.O
             umsscopa3.setVisibility(View.VISIBLE);
         }
 
+
+
         if(view.getId() == R.id.napsave_ms)
         {
             ParseUser currentUser1 = ParseUser.getCurrentUser();
@@ -495,73 +371,6 @@ public class NapMoveSleepActivity extends ActionBarActivity implements SeekBar.O
             return "0" + String.valueOf(c);
     }
 
-    /** Updates the time in the TextView */
-    private void updateDisplay0() {
-        temp_bed_h = bedhour;
-        temp_bed_m = bedmin;
-
-
-        //temp_bed = 100*pHour + pMinute;
-        naptime = pad(bedhour) + ":" + pad(bedmin);
-
-        Bnaptime.setText(
-                new StringBuilder()
-                        .append(pad(bedhour)).append(":")
-                        .append(pad(bedmin)));
-
-
-        Bnaptime.setEnabled(true);
-        Bnaptime.setTextColor(0xFF000000);
-
-
-    }
-    private void updateDisplay1() {
-        napdu = String.valueOf(dHour) + ":" + Integer.toString(dMinute);
-        Bnapdu.setTextSize(20);
-        temp_asleep_h = dHour;
-        temp_asleep_m = dMinute;
-        //temp_asleep = 100*pHour + pMinute;
-
-        String ast = "";
-        if(dHour >1 && dMinute>1)
-        {
-            ast= Integer.toString(dHour)+ " hrs"+" "+Integer.toString(dMinute)+" mins";
-        }
-        else if (dHour==0 && (dMinute ==0)||(dMinute==1))
-        {
-            ast= Integer.toString(dMinute)+" min";
-        }
-        else if (dHour ==0 && dMinute>1)
-        {
-            ast= Integer.toString(dMinute)+" mins";
-        }
-
-        else if (dHour==1 &&(dMinute ==0))
-        {
-            ast= Integer.toString(dHour)+ " hr";
-        }
-
-        else if (dHour==1 &&(dMinute ==1))
-        {
-            ast= Integer.toString(dHour)+ " hr"+" "+Integer.toString(dMinute)+" min";
-        }
-        else if (dHour==1 &&dMinute>1)
-        {
-            ast= Integer.toString(dHour)+ " hr"+" "+Integer.toString(dMinute)+" mins";
-        }
-        else if (dHour>1 &&(dMinute ==0))
-        {
-            ast= Integer.toString(dHour)+ " hrs";
-        }
-        else if (dHour>1 &&(dMinute ==1))
-        {
-            ast= Integer.toString(dHour)+ " hrs"+" "+Integer.toString(dMinute)+" min";
-        }
-
-        Bnapdu.setText(ast);
-        Bnapdu.setTextSize(18);
-
-    }
 
     @Override
     public void onStartTrackingTouch(SeekBar seekBar) {
