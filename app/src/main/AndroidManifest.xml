@@ -67,20 +67,20 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
-                <data android:scheme="luo"
-                    android:host="yuhan.com"
+                <data android:scheme="sleep"
+                    android:host="diary.com"
                     android:pathPrefix="/m30"/>
-                <data android:scheme="luo"
-                    android:host="yuhan.com"
+                <data android:scheme="sleep"
+                    android:host="diary.com"
                     android:pathPrefix="/adopa1"/>
-                <data android:scheme="luo"
-                    android:host="yuhan.com"
+                <data android:scheme="sleep"
+                    android:host="diary.com"
                     android:pathPrefix="/adopa"/>
-                <data android:scheme="luo"
-                    android:host="yuhan.com"
+                <data android:scheme="sleep"
+                    android:host="diary.com"
                     android:pathPrefix="/e"/>
-                <data android:scheme="luo"
-                    android:host="yuhan.com"
+                <data android:scheme="sleep"
+                    android:host="diary.com"
                     android:pathPrefix="/nap"/>
 
             </intent-filter>

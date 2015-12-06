@@ -100,15 +100,15 @@ public class SleepActivity extends ActionBarActivity{
 
                 String struri = uri.toString();
 
-                if (struri.equals("luo://yuhan.com/m30"))
+                if (struri.equals("sleep://diary.com/m30"))
                     lastpage = "M30";
-                else if (struri.equals("luo://yuhan.com/adopa1"))
+                else if (struri.equals("sleep://diary.com/adopa1"))
                     lastpage = "A_DOPA1";
-                else if (struri.equals("luo://yuhan.com/adopa"))
+                else if (struri.equals("sleep://diary.com/adopa"))
                     lastpage = "A_DOPA";
-                else if (struri.equals("luo://yuhan.com/e"))
+                else if (struri.equals("sleep://diary.com/e"))
                     lastpage = "E";
-                else if (struri.equals("luo://yuhan.com/nap"))
+                else if (struri.equals("sleep://diary.com/nap"))
                     lastpage = "Nap";
 
                 buttonlayout(lastpage);
