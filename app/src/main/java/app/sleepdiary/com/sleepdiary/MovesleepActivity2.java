@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -28,10 +29,11 @@ import android.graphics.Color;
 /**
  * Created by ypl5142 on 10/25/15.
  */
-public class MovesleepActivity2 extends ActionBarActivity implements SeekBar.OnSeekBarChangeListener, RadioGroup.OnCheckedChangeListener {
+public class MovesleepActivity2 extends ActionBarActivity implements SeekBar.OnSeekBarChangeListener {
 
     List<TextView> sleepscale = new ArrayList<TextView>(7);
     List<RadioButton> sleepscaleb = new ArrayList<RadioButton>(7);
+    List<GridLayout> gl = new ArrayList<GridLayout>(7);
 
 //    SeekBar movescale;
     int sleepp = -1;
@@ -41,6 +43,8 @@ public class MovesleepActivity2 extends ActionBarActivity implements SeekBar.OnS
     boolean f = false;
     String lastpage = "";
     String objectID = "";
+
+    GridLayout g1, g2, g3,g4,g5,g6,g7;
 
     ParseQuery<ParseObject> query;
     ParseQuery<ParseObject> query1 = ParseQuery.getQuery("TaskCheckList");
@@ -67,8 +71,8 @@ public class MovesleepActivity2 extends ActionBarActivity implements SeekBar.OnS
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movesleep2);
 
-        View myView = getWindow().getDecorView();
-        myView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
+//        View myView = getWindow().getDecorView();
+//        myView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
 
         getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN
@@ -115,8 +119,26 @@ public class MovesleepActivity2 extends ActionBarActivity implements SeekBar.OnS
 
         objectID = getIntent().getStringExtra("objectID");
 
-        rgSD = (RadioGroup)findViewById(R.id.rgsd);
-        rgSD.setOnCheckedChangeListener(this);
+        g1 = (GridLayout)findViewById(R.id.stan1);
+        //g1.setBackgroundColor(Color.parseColor("#FFFF9D"));
+        gl.add(g1);
+        g2 = (GridLayout)findViewById(R.id.stan2);
+        gl.add(g2);
+        g3 = (GridLayout)findViewById(R.id.stan3);
+        gl.add(g3);
+        g4 = (GridLayout)findViewById(R.id.stan4);
+        gl.add(g4);
+        g5 = (GridLayout)findViewById(R.id.stan5);
+        gl.add(g5);
+        g6 = (GridLayout)findViewById(R.id.stan6);
+        gl.add(g6);
+        g7 = (GridLayout)findViewById(R.id.stan7);
+        gl.add(g7);
+
+
+//        rgSD = (RadioGroup)findViewById(R.id.rgsd);
+//        rgSD.setOnCheckedChangeListener(this);
+
         rbsd1 = findViewById(R.id.ds1).getId();
         rbsd2 = findViewById(R.id.ds2).getId();
         rbsd3 = findViewById(R.id.ds3).getId();
@@ -141,20 +163,6 @@ public class MovesleepActivity2 extends ActionBarActivity implements SeekBar.OnS
         TextView st7 = (TextView)findViewById(R.id.stanford7);
         sleepscale.add(st7);
 
-        TextView n1 = (TextView)findViewById(R.id.n1);
-        sleepscale.add(n1);
-        TextView n2 = (TextView)findViewById(R.id.n2);
-        sleepscale.add(n2);
-        TextView n3 = (TextView)findViewById(R.id.n3);
-        sleepscale.add(n3);
-        TextView n4 = (TextView)findViewById(R.id.n4);
-        sleepscale.add(n4);
-        TextView n5 = (TextView)findViewById(R.id.n5);
-        sleepscale.add(n5);
-        TextView n6 = (TextView)findViewById(R.id.n6);
-        sleepscale.add(n6);
-        TextView n7 = (TextView)findViewById(R.id.n7);
-        sleepscale.add(n7);
 
         rb1 = (RadioButton)findViewById(R.id.ds1);
         sleepscaleb.add(rb1);
@@ -226,171 +234,115 @@ public class MovesleepActivity2 extends ActionBarActivity implements SeekBar.OnS
 
     public void Itemclick(View view)
     {
-        if(view.getId() == R.id.stanford1||view.getId() == R.id.n1)
+        if(view.getId() == R.id.stanford1||view.getId() == R.id.ds1)
         {
             rb1.setChecked(true);
-            for (int i = 0; i<sleepscale.size();i++)
+            g1.setBackgroundColor(Color.parseColor("#FFFF9D"));
+            sleepp = 1;
+            for (int i = 0; i<gl.size();i++)
             {
-                if(i == 0 || i == 7)
-                {
-                    sleepscale.get(i).setBackgroundColor(Color.parseColor("#FFFF9D"));
-                    if(i<7)
+
+                    if(i != 0)
                     {
-                    sleepscaleb.get(i).setBackgroundColor(Color.parseColor("#FFFF9D"));
+                        gl.get(i).setBackgroundColor(Color.parseColor("#FAFAFA"));
+                        sleepscaleb.get(i).setChecked(false);
                     }
-                }
-                else
-                {
-                sleepscale.get(i).setBackgroundColor(Color.parseColor("#FAFAFA"));
-                    if(i<7)
-                    {
-                        sleepscaleb.get(i).setBackgroundColor(Color.parseColor("#FAFAFA"));
-                    }
-                }
+
             }
         }
 
-        if(view.getId() == R.id.stanford2||view.getId() == R.id.n2)
+        if(view.getId() == R.id.stanford2||view.getId() == R.id.ds2)
         {
             rb2.setChecked(true);
-            for (int i = 0; i<sleepscale.size();i++)
+            g2.setBackgroundColor(Color.parseColor("#FFFF9D"));
+            sleepp = 2;
+            for (int i = 0; i<gl.size();i++)
             {
-                if(i == 1 || i == 8)
-                {
-                    sleepscale.get(i).setBackgroundColor(Color.parseColor("#FFFF9D"));
-                    if(i<7)
+                    if(i != 1)
                     {
-                        sleepscaleb.get(i).setBackgroundColor(Color.parseColor("#FFFF9D"));
+                        gl.get(i).setBackgroundColor(Color.parseColor("#FAFAFA"));
+                        sleepscaleb.get(i).setChecked(false);
                     }
-                }
-                else
-                {
-                    sleepscale.get(i).setBackgroundColor(Color.parseColor("#FAFAFA"));
-                    if(i<7)
-                    {
-                        sleepscaleb.get(i).setBackgroundColor(Color.parseColor("#FAFAFA"));
-                    }
-                }
+
             }
         }
 
-        if(view.getId() == R.id.stanford3||view.getId() == R.id.n3)
+        if(view.getId() == R.id.stanford3||view.getId() == R.id.ds3)
         {
             rb3.setChecked(true);
-            for (int i = 0; i<sleepscale.size();i++)
+            g3.setBackgroundColor(Color.parseColor("#FFFF9D"));
+            sleepp = 3;
+            for (int i = 0; i<gl.size();i++)
             {
-                if(i == 2 || i == 9)
+                if(i != 2)
                 {
-                    sleepscale.get(i).setBackgroundColor(Color.parseColor("#FFFF9D"));
-                    if(i<7)
-                    {
-                        sleepscaleb.get(i).setBackgroundColor(Color.parseColor("#FFFF9D"));
-                    }
+                    gl.get(i).setBackgroundColor(Color.parseColor("#FAFAFA"));
+                    sleepscaleb.get(i).setChecked(false);
                 }
-                else
-                {
-                    sleepscale.get(i).setBackgroundColor(Color.parseColor("#FAFAFA"));
-                    if(i<7)
-                    {
-                        sleepscaleb.get(i).setBackgroundColor(Color.parseColor("#FAFAFA"));
-                    }
-                }
+
             }
         }
 
-        if(view.getId() == R.id.stanford4||view.getId() == R.id.n4)
+        if(view.getId() == R.id.stanford4||view.getId() == R.id.ds4)
         {
             rb4.setChecked(true);
-            for (int i = 0; i<sleepscale.size();i++)
+            g4.setBackgroundColor(Color.parseColor("#FFFF9D"));
+            sleepp = 4;
+            for (int i = 0; i<gl.size();i++)
             {
-                if(i == 3 || i == 10)
+                if(i != 3)
                 {
-                    sleepscale.get(i).setBackgroundColor(Color.parseColor("#FFFF9D"));
-                    if(i<7)
-                    {
-                        sleepscaleb.get(i).setBackgroundColor(Color.parseColor("#FFFF9D"));
-                    }
+                    gl.get(i).setBackgroundColor(Color.parseColor("#FAFAFA"));
+                    sleepscaleb.get(i).setChecked(false);
                 }
-                else
-                {
-                    sleepscale.get(i).setBackgroundColor(Color.parseColor("#FAFAFA"));
-                    if(i<7)
-                    {
-                        sleepscaleb.get(i).setBackgroundColor(Color.parseColor("#FAFAFA"));
-                    }
-                }
+
             }
         }
 
-        if(view.getId() == R.id.stanford5||view.getId() == R.id.n5)
+        if(view.getId() == R.id.stanford5||view.getId() == R.id.ds5)
         {
             rb5.setChecked(true);
-            for (int i = 0; i<sleepscale.size();i++)
+            g5.setBackgroundColor(Color.parseColor("#FFFF9D"));
+            sleepp = 5;
+            for (int i = 0; i<gl.size();i++)
             {
-                if(i == 4 || i == 11)
+                if(i != 4)
                 {
-                    sleepscale.get(i).setBackgroundColor(Color.parseColor("#FFFF9D"));
-                    if(i<7)
-                    {
-                        sleepscaleb.get(i).setBackgroundColor(Color.parseColor("#FFFF9D"));
-                    }
+                    gl.get(i).setBackgroundColor(Color.parseColor("#FAFAFA"));
+                    sleepscaleb.get(i).setChecked(false);
                 }
-                else
-                {
-                    sleepscale.get(i).setBackgroundColor(Color.parseColor("#FAFAFA"));
-                    if(i<7)
-                    {
-                        sleepscaleb.get(i).setBackgroundColor(Color.parseColor("#FAFAFA"));
-                    }
-                }
+
             }
         }
 
-        if(view.getId() == R.id.stanford6||view.getId() == R.id.n6)
+        if(view.getId() == R.id.stanford6||view.getId() == R.id.ds6)
         {
             rb6.setChecked(true);
-            for (int i = 0; i<sleepscale.size();i++)
+            g6.setBackgroundColor(Color.parseColor("#FFFF9D"));
+            sleepp = 6;
+            for (int i = 0; i<gl.size();i++)
             {
-                if(i == 5 || i == 12)
+                if(i != 5)
                 {
-                    sleepscale.get(i).setBackgroundColor(Color.parseColor("#FFFF9D"));
-                    if(i<7)
-                    {
-                        sleepscaleb.get(i).setBackgroundColor(Color.parseColor("#FFFF9D"));
-                    }
+                    gl.get(i).setBackgroundColor(Color.parseColor("#FAFAFA"));
+                    sleepscaleb.get(i).setChecked(false);
                 }
-                else
-                {
-                    sleepscale.get(i).setBackgroundColor(Color.parseColor("#FAFAFA"));
-                    if(i<7)
-                    {
-                        sleepscaleb.get(i).setBackgroundColor(Color.parseColor("#FAFAFA"));
-                    }
-                }
+
             }
         }
-        if(view.getId() == R.id.stanford7||view.getId() == R.id.n7)
+        if(view.getId() == R.id.stanford7||view.getId() == R.id.ds7)
         {
             rb7.setChecked(true);
-
-            for (int i = 0; i<sleepscale.size();i++)
+            g7.setBackgroundColor(Color.parseColor("#FFFF9D"));
+            sleepp = 7;
+            for (int i = 0; i<gl.size();i++)
             {
-                if(i == 6 || i == 13)
+                if(i != 6)
                 {
-                    sleepscale.get(i).setBackgroundColor(Color.parseColor("#FFFF9D"));
-                    if(i<7)
-                    {
-                        sleepscaleb.get(i).setBackgroundColor(Color.parseColor("#FFFF9D"));
-                    }
+                    gl.get(i).setBackgroundColor(Color.parseColor("#FAFAFA"));
+                    sleepscaleb.get(i).setChecked(false);
                 }
-                else
-                {
-                    sleepscale.get(i).setBackgroundColor(Color.parseColor("#FAFAFA"));
-                    if(i<7)
-                    {
-                        sleepscaleb.get(i).setBackgroundColor(Color.parseColor("#FAFAFA"));
-                    }
-                }
+
             }
         }
     }
@@ -531,173 +483,173 @@ public class MovesleepActivity2 extends ActionBarActivity implements SeekBar.OnS
 
     }
 
-    @Override
-    public void onCheckedChanged(RadioGroup group, int checkedId) {
-        if (group == rgSD)
-        {
-            if (checkedId == rbsd1)
-            {
-                sleepp = 1;
-                for (int i = 0; i<sleepscale.size();i++)
-                {
-                    if(i == 0 || i == 7)
-                    {
-                        sleepscale.get(i).setBackgroundColor(Color.parseColor("#FFFF9D"));
-                        if(i<7)
-                        {
-                            sleepscaleb.get(i).setBackgroundColor(Color.parseColor("#FFFF9D"));
-                        }
-                    }
-                    else
-                    {
-                        sleepscale.get(i).setBackgroundColor(Color.parseColor("#FAFAFA"));
-                        if(i<7)
-                        {
-                            sleepscaleb.get(i).setBackgroundColor(Color.parseColor("#FAFAFA"));
-                        }
-                    }
-                }
-            }
-
-            if (checkedId == rbsd2)
-            {
-                sleepp = 2;
-                for (int i = 0; i<sleepscale.size();i++)
-                {
-                    if(i == 1 || i == 8)
-                    {
-                        sleepscale.get(i).setBackgroundColor(Color.parseColor("#FFFF9D"));
-                        if(i<7)
-                        {
-                            sleepscaleb.get(i).setBackgroundColor(Color.parseColor("#FFFF9D"));
-                        }
-                    }
-                    else
-                    {
-                        sleepscale.get(i).setBackgroundColor(Color.parseColor("#FAFAFA"));
-                        if(i<7)
-                        {
-                            sleepscaleb.get(i).setBackgroundColor(Color.parseColor("#FAFAFA"));
-                        }
-                    }
-                }
-            }
-            if (checkedId == rbsd3)
-            {
-                sleepp = 3;
-                for (int i = 0; i<sleepscale.size();i++)
-                {
-                    if(i == 2 || i == 9)
-                    {
-                        sleepscale.get(i).setBackgroundColor(Color.parseColor("#FFFF9D"));
-                        if(i<7)
-                        {
-                            sleepscaleb.get(i).setBackgroundColor(Color.parseColor("#FFFF9D"));
-                        }
-                    }
-                    else
-                    {
-                        sleepscale.get(i).setBackgroundColor(Color.parseColor("#FAFAFA"));
-                        if(i<7)
-                        {
-                            sleepscaleb.get(i).setBackgroundColor(Color.parseColor("#FAFAFA"));
-                        }
-                    }
-                }
-            }
-            if (checkedId == rbsd4)
-            {
-                sleepp = 4;
-                for (int i = 0; i<sleepscale.size();i++)
-                {
-                    if(i == 3 || i == 10)
-                    {
-                        sleepscale.get(i).setBackgroundColor(Color.parseColor("#FFFF9D"));
-                        if(i<7)
-                        {
-                            sleepscaleb.get(i).setBackgroundColor(Color.parseColor("#FFFF9D"));
-                        }
-                    }
-                    else
-                    {
-                        sleepscale.get(i).setBackgroundColor(Color.parseColor("#FAFAFA"));
-                        if(i<7)
-                        {
-                            sleepscaleb.get(i).setBackgroundColor(Color.parseColor("#FAFAFA"));
-                        }
-                    }
-                }
-            }
-            if (checkedId == rbsd5)
-            {
-                sleepp = 5;
-                for (int i = 0; i<sleepscale.size();i++)
-                {
-                    if(i == 4 || i == 11)
-                    {
-                        sleepscale.get(i).setBackgroundColor(Color.parseColor("#FFFF9D"));
-                        if(i<7)
-                        {
-                            sleepscaleb.get(i).setBackgroundColor(Color.parseColor("#FFFF9D"));
-                        }
-                    }
-                    else
-                    {
-                        sleepscale.get(i).setBackgroundColor(Color.parseColor("#FAFAFA"));
-                        if(i<7)
-                        {
-                            sleepscaleb.get(i).setBackgroundColor(Color.parseColor("#FAFAFA"));
-                        }
-                    }
-                }
-            }
-            if (checkedId == rbsd6)
-            {
-                sleepp = 6;
-                for (int i = 0; i<sleepscale.size();i++)
-                {
-                    if(i == 5 || i == 12)
-                    {
-                        sleepscale.get(i).setBackgroundColor(Color.parseColor("#FFFF9D"));
-                        if(i<7)
-                        {
-                            sleepscaleb.get(i).setBackgroundColor(Color.parseColor("#FFFF9D"));
-                        }
-                    }
-                    else
-                    {
-                        sleepscale.get(i).setBackgroundColor(Color.parseColor("#FAFAFA"));
-                        if(i<7)
-                        {
-                            sleepscaleb.get(i).setBackgroundColor(Color.parseColor("#FAFAFA"));
-                        }
-                    }
-                }
-            }
-            if (checkedId == rbsd7)
-            {
-                sleepp = 7;
-                for (int i = 0; i<sleepscale.size();i++)
-                {
-                    if(i == 6 || i == 13)
-                    {
-                        sleepscale.get(i).setBackgroundColor(Color.parseColor("#FFFF9D"));
-                        if(i<7)
-                        {
-                            sleepscaleb.get(i).setBackgroundColor(Color.parseColor("#FFFF9D"));
-                        }
-                    }
-                    else
-                    {
-                        sleepscale.get(i).setBackgroundColor(Color.parseColor("#FAFAFA"));
-                        if(i<7)
-                        {
-                            sleepscaleb.get(i).setBackgroundColor(Color.parseColor("#FAFAFA"));
-                        }
-                    }
-                }
-            }
-
-        }
-    }
+    //@Override
+//    public void onCheckedChanged(RadioGroup group, int checkedId) {
+//        if (group == rgSD)
+//        {
+//            if (checkedId == rbsd1)
+//            {
+//                sleepp = 1;
+//                for (int i = 0; i<sleepscale.size();i++)
+//                {
+//                    if(i == 0 || i == 7)
+//                    {
+//                        sleepscale.get(i).setBackgroundColor(Color.parseColor("#FFFF9D"));
+//                        if(i<7)
+//                        {
+//                            sleepscaleb.get(i).setBackgroundColor(Color.parseColor("#FFFF9D"));
+//                        }
+//                    }
+//                    else
+//                    {
+//                        sleepscale.get(i).setBackgroundColor(Color.parseColor("#FAFAFA"));
+//                        if(i<7)
+//                        {
+//                            sleepscaleb.get(i).setBackgroundColor(Color.parseColor("#FAFAFA"));
+//                        }
+//                    }
+//                }
+//            }
+//
+//            if (checkedId == rbsd2)
+//            {
+//                sleepp = 2;
+//                for (int i = 0; i<sleepscale.size();i++)
+//                {
+//                    if(i == 1 || i == 8)
+//                    {
+//                        sleepscale.get(i).setBackgroundColor(Color.parseColor("#FFFF9D"));
+//                        if(i<7)
+//                        {
+//                            sleepscaleb.get(i).setBackgroundColor(Color.parseColor("#FFFF9D"));
+//                        }
+//                    }
+//                    else
+//                    {
+//                        sleepscale.get(i).setBackgroundColor(Color.parseColor("#FAFAFA"));
+//                        if(i<7)
+//                        {
+//                            sleepscaleb.get(i).setBackgroundColor(Color.parseColor("#FAFAFA"));
+//                        }
+//                    }
+//                }
+//            }
+//            if (checkedId == rbsd3)
+//            {
+//                sleepp = 3;
+//                for (int i = 0; i<sleepscale.size();i++)
+//                {
+//                    if(i == 2 || i == 9)
+//                    {
+//                        sleepscale.get(i).setBackgroundColor(Color.parseColor("#FFFF9D"));
+//                        if(i<7)
+//                        {
+//                            sleepscaleb.get(i).setBackgroundColor(Color.parseColor("#FFFF9D"));
+//                        }
+//                    }
+//                    else
+//                    {
+//                        sleepscale.get(i).setBackgroundColor(Color.parseColor("#FAFAFA"));
+//                        if(i<7)
+//                        {
+//                            sleepscaleb.get(i).setBackgroundColor(Color.parseColor("#FAFAFA"));
+//                        }
+//                    }
+//                }
+//            }
+//            if (checkedId == rbsd4)
+//            {
+//                sleepp = 4;
+//                for (int i = 0; i<sleepscale.size();i++)
+//                {
+//                    if(i == 3 || i == 10)
+//                    {
+//                        sleepscale.get(i).setBackgroundColor(Color.parseColor("#FFFF9D"));
+//                        if(i<7)
+//                        {
+//                            sleepscaleb.get(i).setBackgroundColor(Color.parseColor("#FFFF9D"));
+//                        }
+//                    }
+//                    else
+//                    {
+//                        sleepscale.get(i).setBackgroundColor(Color.parseColor("#FAFAFA"));
+//                        if(i<7)
+//                        {
+//                            sleepscaleb.get(i).setBackgroundColor(Color.parseColor("#FAFAFA"));
+//                        }
+//                    }
+//                }
+//            }
+//            if (checkedId == rbsd5)
+//            {
+//                sleepp = 5;
+//                for (int i = 0; i<sleepscale.size();i++)
+//                {
+//                    if(i == 4 || i == 11)
+//                    {
+//                        sleepscale.get(i).setBackgroundColor(Color.parseColor("#FFFF9D"));
+//                        if(i<7)
+//                        {
+//                            sleepscaleb.get(i).setBackgroundColor(Color.parseColor("#FFFF9D"));
+//                        }
+//                    }
+//                    else
+//                    {
+//                        sleepscale.get(i).setBackgroundColor(Color.parseColor("#FAFAFA"));
+//                        if(i<7)
+//                        {
+//                            sleepscaleb.get(i).setBackgroundColor(Color.parseColor("#FAFAFA"));
+//                        }
+//                    }
+//                }
+//            }
+//            if (checkedId == rbsd6)
+//            {
+//                sleepp = 6;
+//                for (int i = 0; i<sleepscale.size();i++)
+//                {
+//                    if(i == 5 || i == 12)
+//                    {
+//                        sleepscale.get(i).setBackgroundColor(Color.parseColor("#FFFF9D"));
+//                        if(i<7)
+//                        {
+//                            sleepscaleb.get(i).setBackgroundColor(Color.parseColor("#FFFF9D"));
+//                        }
+//                    }
+//                    else
+//                    {
+//                        sleepscale.get(i).setBackgroundColor(Color.parseColor("#FAFAFA"));
+//                        if(i<7)
+//                        {
+//                            sleepscaleb.get(i).setBackgroundColor(Color.parseColor("#FAFAFA"));
+//                        }
+//                    }
+//                }
+//            }
+//            if (checkedId == rbsd7)
+//            {
+//                sleepp = 7;
+//                for (int i = 0; i<sleepscale.size();i++)
+//                {
+//                    if(i == 6 || i == 13)
+//                    {
+//                        sleepscale.get(i).setBackgroundColor(Color.parseColor("#FFFF9D"));
+//                        if(i<7)
+//                        {
+//                            sleepscaleb.get(i).setBackgroundColor(Color.parseColor("#FFFF9D"));
+//                        }
+//                    }
+//                    else
+//                    {
+//                        sleepscale.get(i).setBackgroundColor(Color.parseColor("#FAFAFA"));
+//                        if(i<7)
+//                        {
+//                            sleepscaleb.get(i).setBackgroundColor(Color.parseColor("#FAFAFA"));
+//                        }
+//                    }
+//                }
+//            }
+//
+//        }
+//    }
 }
