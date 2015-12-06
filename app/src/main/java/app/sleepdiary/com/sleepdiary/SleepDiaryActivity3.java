@@ -94,8 +94,8 @@ public class SleepDiaryActivity3 extends ActionBarActivity implements RadioGroup
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_3sleepdiary);
 
-        View myView = getWindow().getDecorView();
-        myView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
+//        View myView = getWindow().getDecorView();
+//        myView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
 
         query = ParseQuery.getQuery("Sleep_Diary");
         objectID = getIntent().getStringExtra("objectID");

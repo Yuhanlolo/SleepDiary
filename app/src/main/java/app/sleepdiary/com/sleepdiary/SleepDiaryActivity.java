@@ -348,7 +348,7 @@ public class SleepDiaryActivity extends ActionBarActivity implements  View.OnCli
 //                    errormsg.show();
                     dhour1 = true;
                 }
-                else if (dMinute<0 || dMinute>60)
+                else if (dMinute<0 || dMinute>59)
                 {
 //                    Toast errormsg = Toast.makeText(SleepDiaryActivity.this,"For Question 5, Please input minute of time between 0-59!", Toast.LENGTH_LONG);
 //                    errormsg.show();
@@ -370,7 +370,7 @@ public class SleepDiaryActivity extends ActionBarActivity implements  View.OnCli
 //                    errormsg.show();
                     phour1 = true;
                 }
-                else if (pMinute<0 || pMinute>60)
+                else if (pMinute<0 || pMinute>59)
                 {
 //                    Toast errormsg = Toast.makeText(SleepDiaryActivity.this,"For Question 7, Please input minute of time between 0-59!", Toast.LENGTH_LONG);
 //                    errormsg.show();
@@ -810,7 +810,7 @@ public class SleepDiaryActivity extends ActionBarActivity implements  View.OnCli
                 } else {
 
                     pHour = Integer.parseInt(pillh_edt.getText().toString());
-                    if (pHour<12)
+                    if (pHour<10)
                     {
                         pillh_edt.setText("0"+pHour);
                     }
