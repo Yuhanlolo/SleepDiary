@@ -4,11 +4,14 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.NumberPicker;
 import android.widget.SeekBar;
@@ -24,19 +27,21 @@ import com.parse.SaveCallback;
 /**
  * Created by ypl5142 on 10/25/15.
  */
-public class NapMoveSleepActivity extends ActionBarActivity implements SeekBar.OnSeekBarChangeListener {
+public class NapMoveSleepActivity extends ActionBarActivity implements SeekBar.OnSeekBarChangeListener,TextView.OnEditorActionListener {
 
 
-    int temp_nap_h = -1;
-    int temp_nap_m = -1;
+    int tempbedh = -1, tempbedm = -1;
+    String bedtime = "";
+    String asleeptime = "";
 
-    int bedhour = -1, bedmin = -1;
-
-    int temp_asleep_h = -1;
-    int temp_asleep_m = -1;
+    String temp_h = "";
+    String temp_m= "";
 
     int dHour =-1;
     int dMinute = -1;
+
+    EditText bedh_edt, bedm_edt,fallh_edt, fallm_edt;
+    TextView fallh, fallm, t_awake;
 
     //Button Bnaptime, Bnapdu;
 
@@ -49,7 +54,7 @@ public class NapMoveSleepActivity extends ActionBarActivity implements SeekBar.O
     int css = -1;
     int uhss = -1;
     int umss = -1;
-    SeekBar movescale;
+    //SeekBar movescale;
     String objectID = "";
     String lastpage  = "";
     String currenttask = "";
@@ -72,9 +77,30 @@ public class NapMoveSleepActivity extends ActionBarActivity implements SeekBar.O
 
             movesleep  = new ParseObject("NAP_MoveSleep");
             currenttask = "After nap";
-        
+
         currentpage = (TextView)findViewById(R.id.lastpagem);
         currentpage.setText(currenttask);
+
+        bedh_edt = (EditText)findViewById(R.id.naph);
+        //napduh_edt.setInputType(InputType.TYPE_NULL);
+        //bedh_edt.setEnabled(false);
+        bedh_edt.setOnEditorActionListener(this);
+
+        bedm_edt = (EditText)findViewById(R.id.napm);
+        //napduh_edt.setInputType(InputType.TYPE_NULL);
+        //bedm_edt.setEnabled(false);
+        bedm_edt.setOnEditorActionListener(this);
+
+        fallh_edt = (EditText)findViewById(R.id.nap_h);
+        //napdum_edt.setInputType(InputType.TYPE_NULL);
+        fallh_edt.setOnEditorActionListener(this);
+
+        fallm_edt = (EditText)findViewById(R.id.nap_m);
+        //napdum_edt.setInputType(InputType.TYPE_NULL);
+        fallm_edt.setOnEditorActionListener(this);
+
+        fallh = (TextView)findViewById(R.id.napuh);
+        fallm = (TextView)findViewById(R.id.napum);
 
         wsscopa0 = (ImageView)findViewById(R.id.napwsscopa1);
         wsscopa1 = (ImageView)findViewById(R.id.napwsscopa2);
@@ -96,8 +122,8 @@ public class NapMoveSleepActivity extends ActionBarActivity implements SeekBar.O
         umsscopa2 = (ImageView)findViewById(R.id.napumsscopa3);
         umsscopa3 = (ImageView)findViewById(R.id.napumsscopa4);
 
-        movescale = (SeekBar)findViewById(R.id.naps_move);
-        movescale.setOnSeekBarChangeListener(this);
+//        movescale = (SeekBar)findViewById(R.id.naps_move);
+//        movescale.setOnSeekBarChangeListener(this);
 
 
     }
@@ -309,8 +335,8 @@ public class NapMoveSleepActivity extends ActionBarActivity implements SeekBar.O
                 movesleep.put("User_ID", ParseUser.getCurrentUser().getUsername());
 
 
-                movesleep.put("NAP_time",naptime);
-                movesleep.put("NAP_duration",napdu);
+                movesleep.put("NAP_time",bedtime);
+                movesleep.put("NAP_duration",asleeptime);
                 movesleep.put("SCOPA_walking",wss);
                 movesleep.put("SCOPA_change_position",css);
                 movesleep.put("SCOPA_use_hands",uhss);
@@ -355,11 +381,11 @@ public class NapMoveSleepActivity extends ActionBarActivity implements SeekBar.O
 
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-        if (seekBar == movescale)
-        {
-            movep = progress;
-
-        }
+//        if (seekBar == movescale)
+//        {
+//            movep = progress;
+//
+//        }
 
     }
 
@@ -380,6 +406,118 @@ public class NapMoveSleepActivity extends ActionBarActivity implements SeekBar.O
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {
 
+    }
+
+    public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+
+        if (v.getId() == R.id.naph) {
+            if (actionId == EditorInfo.IME_ACTION_DONE && !(bedh_edt.getText().toString().isEmpty())) {
+                if (Integer.parseInt(bedh_edt.getText().toString()) > 23 || Integer.parseInt(bedh_edt.getText().toString()) < 0) {
+                    bedh_edt.setText("");
+                    Toast pass = Toast.makeText(NapMoveSleepActivity.this, "Please input hour of time between 0-23!", Toast.LENGTH_LONG);
+                    pass.show();
+                    bedh_edt.requestFocus();
+                } else {
+
+                    tempbedh = Integer.parseInt(bedh_edt.getText().toString());
+                    if (tempbedh < 10) {
+                        bedh_edt.setText("0" + tempbedh);
+                    }
+
+                    if (tempbedh != -1 && tempbedm != -1) {
+                        bedtime = pad(tempbedh) + ":" + pad(tempbedm);
+                    }
+                    bedm_edt.requestFocus();
+                }
+
+            }
+
+
+        }
+
+        if (v.getId() == R.id.napm) {
+            if (actionId == EditorInfo.IME_ACTION_DONE && !(bedm_edt.getText().toString().isEmpty())) {
+                if (Integer.parseInt(bedm_edt.getText().toString()) > 59 || Integer.parseInt(bedm_edt.getText().toString()) < 0) {
+                    bedm_edt.setText("");
+                    Toast pass = Toast.makeText(NapMoveSleepActivity.this, "Please input minute of time between 0-59!", Toast.LENGTH_LONG);
+                    pass.show();
+                    bedm_edt.requestFocus();
+                } else {
+                    tempbedm = Integer.parseInt(bedm_edt.getText().toString());
+                    if (tempbedm < 10) {
+                        bedm_edt.setText("0" + tempbedm);
+                    }
+                    if (tempbedh != -1 && tempbedm != -1) {
+                        bedtime = pad(tempbedh) + ":" + pad(tempbedm);
+                    }
+                    fallh_edt.requestFocus();
+                }
+
+            }
+
+        }
+
+
+        if (v.getId() == R.id.nap_h) {
+            if (actionId == EditorInfo.IME_ACTION_DONE && !(fallh_edt.getText().toString().isEmpty())) {
+                dHour = Integer.parseInt(fallh_edt.getText().toString());
+                if (dHour > 23 || dHour < 0) {
+                    fallh_edt.setText("");
+                    Toast pass = Toast.makeText(NapMoveSleepActivity.this, "Please input hour of time between 0-23!", Toast.LENGTH_LONG);
+                    pass.show();
+                    fallh_edt.requestFocus();
+                } else {
+
+                    if (dHour == 1) {
+                        fallh.setText("hr");
+                        temp_h = "hr";
+                    } else {
+                        fallh.setText("hrs");
+                        temp_h = "hrs";
+                    }
+
+                    if (dHour != -1 && dMinute != -1) {
+                        asleeptime = pad(dHour) + temp_h + pad(dMinute) + temp_m;
+                    }
+
+                    fallm_edt.requestFocus();
+                }
+
+            }
+
+
+        }
+
+        if (v.getId() == R.id.nap_m) {
+            if (actionId == EditorInfo.IME_ACTION_DONE && !(fallm_edt.getText().toString().isEmpty())) {
+                if (Integer.parseInt(fallm_edt.getText().toString()) > 59 || Integer.parseInt(fallm_edt.getText().toString()) < 0) {
+                    fallm_edt.setText("");
+                    Toast pass = Toast.makeText(NapMoveSleepActivity.this, "Please input nap minute of time between 0-59!", Toast.LENGTH_LONG);
+                    pass.show();
+                    fallm_edt.requestFocus();
+                } else {
+                    dMinute = Integer.parseInt(fallm_edt.getText().toString());
+
+
+                    if (dMinute == 1) {
+                        fallm.setText("min");
+                        temp_m = "min";
+                    } else {
+                        fallm.setText("mins");
+                        temp_m = "mins";
+                    }
+
+                    if (dHour != -1 && dMinute != -1) {
+                        asleeptime = pad(dHour) + temp_h + pad(dMinute) + temp_m;
+                    }
+                    //wakeh_edt.requestFocus();
+                }
+
+            }
+
+
+        }
+        return false;
     }
 }
 

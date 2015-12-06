@@ -53,7 +53,7 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
     TextView fallh, fallm, t_awake;
 
     int tempbedh = -1, tempbedm = -1,  tempwakeh = -1, tempwakem = -1, tempouth = -1, tempoutm = -1;
-    int dHour = 0, dMinute = 0;
+    int dHour = -1, dMinute = -1;
     String lastpage = "";
 
     String temp_h = "", temp_m = "";
