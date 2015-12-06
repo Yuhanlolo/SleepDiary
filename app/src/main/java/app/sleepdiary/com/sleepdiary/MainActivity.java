@@ -300,4 +300,12 @@ public class MainActivity  extends ActionBarActivity {
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent i = new Intent(MainActivity.this,MainActivity.class);
+        //i.putExtra("lastpage",lastpage);
+        //startService(j);
+        startActivity(i);
+
+    }
 }
