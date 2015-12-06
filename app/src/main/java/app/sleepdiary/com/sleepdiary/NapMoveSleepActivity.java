@@ -24,6 +24,8 @@ import com.parse.ParseObject;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
+import java.util.Calendar;
+
 /**
  * Created by ypl5142 on 10/25/15.
  */
@@ -44,6 +46,12 @@ public class NapMoveSleepActivity extends ActionBarActivity implements SeekBar.O
     TextView fallh, fallm, t_awake;
 
     //Button Bnaptime, Bnapdu;
+    final Calendar cal = Calendar.getInstance();
+    String yesterdaystr ="";
+
+    int month;
+    int date;
+    int year;
 
     String[] minuteValues = {"0","5","10","15","20","25","30","35","40","45","50","55"};
     int movep = 0;
@@ -124,6 +132,31 @@ public class NapMoveSleepActivity extends ActionBarActivity implements SeekBar.O
 
 //        movescale = (SeekBar)findViewById(R.id.naps_move);
 //        movescale.setOnSeekBarChangeListener(this);
+
+        /** Get the current time */
+
+        month = cal.get(Calendar.MONTH) + 1;
+        date = cal.get(Calendar.DATE);
+        year = cal.get(Calendar.YEAR);
+
+        if (date == 1){
+            month = month -1;
+            if(month == 1||month == 3||month == 5||month == 7||month == 8||month == 10||month == 12)
+            {
+                date = 31;
+            }
+            else
+            {
+                date = 30;
+            }
+        }
+        else
+        {
+            date = date -1;
+        }
+
+        yesterdaystr = String.valueOf(month)+"/"+String.valueOf(date)+"/"+String.valueOf(year);
+        //yesterday.setText("Sleep Diary for Yesterday (" + String.valueOf(month) + "/" + String.valueOf(date) + "/" + String.valueOf(year) + ")");
 
 
     }
@@ -399,8 +432,7 @@ public class NapMoveSleepActivity extends ActionBarActivity implements SeekBar.O
             else
             {
                 movesleep.put("User_ID", ParseUser.getCurrentUser().getUsername());
-
-
+                movesleep.put("Date",yesterdaystr);
                 movesleep.put("NAP_time",bedtime);
                 movesleep.put("NAP_duration",asleeptime);
                 movesleep.put("SCOPA_walking",wss);
