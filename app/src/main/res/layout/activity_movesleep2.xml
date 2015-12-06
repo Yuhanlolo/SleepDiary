@@ -94,7 +94,7 @@
 
             <TextView
                 android:id="@+id/stanford1"
-                android:text="Feeling active, vital, alert, or wide awake"
+                android:text="Feeling active, vital, alert, or wide awake [1]"
                 android:textSize="22dp"
                 android:textColor="#000000"
 
@@ -225,7 +225,7 @@
 
             <TextView
                 android:id="@+id/stanford2"
-                android:text="Functioning at high levels, but not fully alert"
+                android:text="Functioning at high levels, but not fully alert [2]"
                 android:textSize="22dp"
                 android:textColor="#000000"
                 android:clickable="true"
@@ -258,7 +258,7 @@
 
             <TextView
                 android:id="@+id/stanford3"
-                android:text="Awake, but relaxed; responsive but not fully alert"
+                android:text="Awake, but relaxed; responsive but not fully alert [3]"
                 android:textSize="22dp"
                 android:textColor="#000000"
                 android:clickable="true"
@@ -292,7 +292,7 @@
 
             <TextView
                 android:id="@+id/stanford4"
-                android:text="Somewhat foggy, let down"
+                android:text="Somewhat foggy, let down [4]"
                 android:textSize="22dp"
                 android:textColor="#000000"
 
@@ -325,7 +325,7 @@
 
             <TextView
                 android:id="@+id/stanford5"
-                android:text="Foggy, losing interest in remaining awake; slowed \ndown"
+                android:text="Foggy, losing interest in remaining awake; slowed \ndown [5]"
                 android:textSize="22dp"
                 android:textColor="#000000"
                 android:clickable="true"
@@ -360,7 +360,7 @@
 
             <TextView
                 android:id="@+id/stanford6"
-                android:text="Sleepy, woozy, fighting sleep; prefer to lie down"
+                android:text="Sleepy, woozy, fighting sleep; prefer to lie down [6]"
                 android:textSize="22dp"
                 android:textColor="#000000"
                 android:clickable="true"
@@ -393,7 +393,7 @@
 
             <TextView
                 android:id="@+id/stanford7"
-                android:text="No longer fighting sleep, sleep onset soon; having \ndream-like thoughts"
+                android:text="No longer fighting sleep, sleep onset soon; having \ndream-like thoughts [7]"
                 android:textSize="22dp"
                 android:textColor="#000000"
 
