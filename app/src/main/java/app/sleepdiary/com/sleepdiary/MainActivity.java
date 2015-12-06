@@ -64,7 +64,9 @@ public class MainActivity  extends ActionBarActivity {
         if(endstr!=null)
         {
 
+
             Toast pass = Toast.makeText(MainActivity.this,endstr, Toast.LENGTH_LONG);
+            for (int i  = 0 ; i< 50000;i++)
             pass.show();
         }
 
