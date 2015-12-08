@@ -10,9 +10,12 @@ import android.webkit.WebView;
 
 import com.parse.Parse;
 import com.parse.ParseObject;
+import com.parse.ParseUser;
 
 public class SampleApplication extends Application {
 
+    ParseObject TaskCheckList  = new ParseObject("TaskCheckList");
+    ParseUser currentUser;
     public void onCreate() {
         super.onCreate();
 
@@ -20,7 +23,11 @@ public class SampleApplication extends Application {
         Parse.enableLocalDatastore(this);
         Parse.initialize(this, getString(R.string.parse_app_id), getString(R.string.parse_client_key));
 
-        //
+//        currentUser = ParseUser.getCurrentUser();
+//
+//        if(currentUser != null) {
+//
+//        }
 
 
     }

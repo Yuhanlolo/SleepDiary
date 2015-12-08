@@ -17,7 +17,9 @@ import com.parse.ParseObject;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 /**
  * Created by ypl5142 on 10/25/15.
@@ -51,6 +53,31 @@ public class MovesleepActivity extends ActionBarActivity implements SeekBar.OnSe
     int month;
     int date;
     int year;
+
+    List<ImageView> q14_s = new ArrayList<ImageView>(22);
+    private ImageView green140;
+    private ImageView green141;
+    private ImageView green142;
+    private ImageView green143;
+    private ImageView green144;
+    private ImageView green145;
+    private ImageView green146;
+    private ImageView green147;
+    private ImageView green148;
+    private ImageView green149;
+    private ImageView green1410;
+    //
+    private ImageView empty140;
+    private ImageView empty141;
+    private ImageView empty142;
+    private ImageView empty143;
+    private ImageView empty144;
+    private ImageView empty145;
+    private ImageView empty146;
+    private ImageView empty147;
+    private ImageView empty148;
+    private ImageView empty149;
+    private ImageView empty1410;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -117,7 +144,53 @@ public class MovesleepActivity extends ActionBarActivity implements SeekBar.OnSe
 
         movescale = (SeekBar)findViewById(R.id.s_move);
         movescale.setOnSeekBarChangeListener(this);
-        green5 = (ImageView)findViewById(R.id.green5);
+
+        green140 = (ImageView)findViewById(R.id.green50);
+        q14_s.add(green140);
+        green141 = (ImageView)findViewById(R.id.green51);
+        q14_s.add(green141);
+        green142 = (ImageView)findViewById(R.id.green52);
+        q14_s.add(green142);
+        green143 = (ImageView)findViewById(R.id.green53);
+        q14_s.add(green143);
+        green144 = (ImageView)findViewById(R.id.green54);
+        q14_s.add(green144);
+        green145 = (ImageView)findViewById(R.id.green55);
+        q14_s.add(green145);
+        green146 = (ImageView)findViewById(R.id.green56);
+        q14_s.add(green146);
+        green147 = (ImageView)findViewById(R.id.green57);
+        q14_s.add(green147);
+        green148 = (ImageView)findViewById(R.id.green58);
+        q14_s.add(green148);
+        green149 = (ImageView)findViewById(R.id.green59);
+        q14_s.add(green149);
+        green1410 = (ImageView)findViewById(R.id.green510);
+        q14_s.add(green1410);
+
+        empty140 = (ImageView)findViewById(R.id.empty50);
+        q14_s.add(empty140);
+        empty141 = (ImageView)findViewById(R.id.empty51);
+        q14_s.add(empty141);
+        empty142 = (ImageView)findViewById(R.id.empty52);
+        q14_s.add(empty142);
+        empty143 = (ImageView)findViewById(R.id.empty53);
+        q14_s.add(empty143);
+        empty144 = (ImageView)findViewById(R.id.empty54);
+        q14_s.add(empty144);
+        empty145 = (ImageView)findViewById(R.id.empty55);
+        q14_s.add(empty145);
+        empty146 = (ImageView)findViewById(R.id.empty56);
+        q14_s.add(empty146);
+        empty147 = (ImageView)findViewById(R.id.empty57);
+        q14_s.add(empty147);
+        empty148 = (ImageView)findViewById(R.id.empty58);
+        q14_s.add(empty148);
+        empty149 = (ImageView)findViewById(R.id.empty59);
+        q14_s.add(empty149);
+        empty1410 = (ImageView)findViewById(R.id.empty510);
+        q14_s.add(empty1410);
+
         /** Get the current time */
 
         month = cal.get(Calendar.MONTH) + 1;
@@ -399,13 +472,22 @@ public class MovesleepActivity extends ActionBarActivity implements SeekBar.OnSe
         if (seekBar == movescale)
         {
             movep = progress;
-            if(movep == 4)
+            for (int i = 0; i<22;i++)
             {
-                green5.setVisibility(View.VISIBLE);
-            }
-            else
-            {
-                green5.setVisibility(View.INVISIBLE);
+//
+                if (i== movep )
+                {
+
+                    q14_s.get(i).setVisibility(View.VISIBLE);
+                    q14_s.get(i+11).setVisibility(View.VISIBLE);
+                }
+                else
+                {
+                    if(i != movep+11)
+                        q14_s.get(i).setVisibility(View.INVISIBLE);
+
+                }
+
             }
 
         }

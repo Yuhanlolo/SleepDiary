@@ -19,9 +19,11 @@ import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.view.View;
 import android.widget.NumberPicker;
+import android.widget.RadioButton;
 import android.widget.TimePicker;
 import android.widget.Toast;
 import android.widget.SeekBar;
@@ -51,7 +53,7 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
 
     EditText bedh_edt, bedm_edt,fallh_edt, fallm_edt, wakeh_edt, wakem_edt,outh_edt, outm_edt, awake_edt;
     TextView fallh, fallm, t_awake;
-    ImageView green14, green15;
+    //ImageView green14, green15;
     int tempbedh = -1, tempbedm = -1,  tempwakeh = -1, tempwakem = -1, tempouth = -1, tempoutm = -1;
     int dHour = -1, dMinute = -1;
     String lastpage = "";
@@ -75,28 +77,56 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
 
     int temp_wake = 0;
     int temp_out = 2400;
+    List<ImageView> q14_s = new ArrayList<ImageView>(22);
+    List<ImageView> q15_a = new ArrayList<ImageView>(22);
 
-//    private ImageView SQ1_g;
-//    private ImageView SQ1;
-//    private ImageView SQ2_g;
-//    private ImageView SQ2;
-//    private ImageView SQ3_g;
-//    private ImageView SQ3;
-//    private ImageView SQ4_g;
-//    private ImageView SQ4;
-//    private ImageView SQ5_g;
-//    private ImageView SQ5;
+    private ImageView green140;
+    private ImageView green141;
+    private ImageView green142;
+    private ImageView green143;
+    private ImageView green144;
+    private ImageView green145;
+    private ImageView green146;
+    private ImageView green147;
+    private ImageView green148;
+    private ImageView green149;
+    private ImageView green1410;
 //
-//    private ImageView AWQ1_g;
-//    private ImageView AWQ1;
-//    private ImageView AWQ2_g;
-//    private ImageView AWQ2;
-//    private ImageView AWQ3_g;
-//    private ImageView AWQ3;
-//    private ImageView AWQ4_g;
-//    private ImageView AWQ4;
-//    private ImageView AWQ5_g;
-//    private ImageView AWQ5;
+    private ImageView empty140;
+    private ImageView empty141;
+    private ImageView empty142;
+    private ImageView empty143;
+    private ImageView empty144;
+    private ImageView empty145;
+    private ImageView empty146;
+    private ImageView empty147;
+    private ImageView empty148;
+    private ImageView empty149;
+    private ImageView empty1410;
+
+    private ImageView green150;
+    private ImageView green151;
+    private ImageView green152;
+    private ImageView green153;
+    private ImageView green154;
+    private ImageView green155;
+    private ImageView green156;
+    private ImageView green157;
+    private ImageView green158;
+    private ImageView green159;
+    private ImageView green1510;
+
+    private ImageView empty150;
+    private ImageView empty151;
+    private ImageView empty152;
+    private ImageView empty153;
+    private ImageView empty154;
+    private ImageView empty155;
+    private ImageView empty156;
+    private ImageView empty157;
+    private ImageView empty158;
+    private ImageView empty159;
+    private ImageView empty1510;
 
     int sq = -1;
     int awq = -1;
@@ -206,8 +236,101 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
         AwakeQ.setOnSeekBarChangeListener(this);
 
         //waket = (TextView)findViewById(R.id.d_wake);
-        green14 = (ImageView)findViewById(R.id.green14);
-        green15 = (ImageView)findViewById(R.id.green15);
+        green140 = (ImageView)findViewById(R.id.green140);
+        q14_s.add(green140);
+        green141 = (ImageView)findViewById(R.id.green141);
+        q14_s.add(green141);
+        green142 = (ImageView)findViewById(R.id.green142);
+        q14_s.add(green142);
+        green143 = (ImageView)findViewById(R.id.green143);
+        q14_s.add(green143);
+        green144 = (ImageView)findViewById(R.id.green144);
+        q14_s.add(green144);
+        green145 = (ImageView)findViewById(R.id.green145);
+        q14_s.add(green145);
+        green146 = (ImageView)findViewById(R.id.green146);
+        q14_s.add(green146);
+        green147 = (ImageView)findViewById(R.id.green147);
+        q14_s.add(green147);
+        green148 = (ImageView)findViewById(R.id.green148);
+        q14_s.add(green148);
+        green149 = (ImageView)findViewById(R.id.green149);
+        q14_s.add(green149);
+        green1410 = (ImageView)findViewById(R.id.green1410);
+        q14_s.add(green1410);
+
+        empty140 = (ImageView)findViewById(R.id.empty140);
+        q14_s.add(empty140);
+        empty141 = (ImageView)findViewById(R.id.empty141);
+        q14_s.add(empty141);
+        empty142 = (ImageView)findViewById(R.id.empty142);
+        q14_s.add(empty142);
+        empty143 = (ImageView)findViewById(R.id.empty143);
+        q14_s.add(empty143);
+        empty144 = (ImageView)findViewById(R.id.empty144);
+        q14_s.add(empty144);
+        empty145 = (ImageView)findViewById(R.id.empty145);
+        q14_s.add(empty145);
+        empty146 = (ImageView)findViewById(R.id.empty146);
+        q14_s.add(empty146);
+        empty147 = (ImageView)findViewById(R.id.empty147);
+        q14_s.add(empty147);
+        empty148 = (ImageView)findViewById(R.id.empty148);
+        q14_s.add(empty148);
+        empty149 = (ImageView)findViewById(R.id.empty149);
+        q14_s.add(empty149);
+        empty1410 = (ImageView)findViewById(R.id.empty1410);
+        q14_s.add(empty1410);
+
+
+        green150 = (ImageView)findViewById(R.id.green150);
+        q15_a.add(green150);
+        green151 = (ImageView)findViewById(R.id.green151);
+        q15_a.add(green151);
+        green152 = (ImageView)findViewById(R.id.green152);
+        q15_a.add(green152);
+        green153 = (ImageView)findViewById(R.id.green153);
+        q15_a.add(green153);
+        green154 = (ImageView)findViewById(R.id.green154);
+        q15_a.add(green154);
+        green155 = (ImageView)findViewById(R.id.green155);
+        q15_a.add(green155);
+        green156 = (ImageView)findViewById(R.id.green156);
+        q15_a.add(green156);
+        green157 = (ImageView)findViewById(R.id.green157);
+        q15_a.add(green157);
+        green158 = (ImageView)findViewById(R.id.green158);
+        q15_a.add(green158);
+        green159 = (ImageView)findViewById(R.id.green159);
+        q15_a.add(green159);
+        green1510 = (ImageView)findViewById(R.id.green1510);
+        q15_a.add(green1510);
+
+        empty150 = (ImageView)findViewById(R.id.empty150);
+        q15_a.add(empty150);
+        empty151 = (ImageView)findViewById(R.id.empty151);
+        q15_a.add(empty151);
+        empty152 = (ImageView)findViewById(R.id.empty152);
+        q15_a.add(empty152);
+        empty153 = (ImageView)findViewById(R.id.empty153);
+        q15_a.add(empty153);
+        empty154 = (ImageView)findViewById(R.id.empty154);
+        q15_a.add(empty154);
+        empty155 = (ImageView)findViewById(R.id.empty155);
+        q15_a.add(empty155);
+        empty156 = (ImageView)findViewById(R.id.empty156);
+        q15_a.add(empty156);
+        empty157 = (ImageView)findViewById(R.id.empty157);
+        q15_a.add(empty157);
+        empty158 = (ImageView)findViewById(R.id.empty158);
+        q15_a.add(empty158);
+        empty159 = (ImageView)findViewById(R.id.empty159);
+        q15_a.add(empty159);
+        empty1510 = (ImageView)findViewById(R.id.empty1510);
+        q15_a.add(empty1510);
+
+//        Toast errormsg = Toast.makeText(SleepDiaryActivity2.this, "q14 size:"+q14_s.size()+"q15 size:"+q15_a.size(), Toast.LENGTH_SHORT);
+//        errormsg.show();
 
 //        SQ1_g = (ImageView)findViewById(R.id.SQquality1_gray);
 //        SQ1 = (ImageView)findViewById(R.id.SQquality1);
@@ -681,60 +804,78 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
 
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-        if(seekBar == Snowake)
-        {
-
-            no_wake = progress;
-            for (int bc = 0; bc<11;bc++)
-            {
-                if(bc == no_wake)
-                    continue;
-                awim.get(bc).setVisibility(View.INVISIBLE);
-            }
-
-               awim.get(progress).setVisibility(View.VISIBLE);
-
-            if (no_wake==10){
-                waket.setText(no_wake+"or more times");
-                waket.setTextSize(16);
-            }
-            else if(no_wake == 1)
-            {
-                waket.setTextSize(22);
-                waket.setText(no_wake + " time");
-            }
-            else
-            {
-                waket.setText(no_wake + " times");
-                waket.setTextSize(22);
-
-            }
-
-        }
+//        if(seekBar == Snowake)
+//        {
+//
+//            no_wake = progress;
+//            for (int bc = 0; bc<11;bc++)
+//            {
+//                if(bc == no_wake)
+//                    continue;
+//                awim.get(bc).setVisibility(View.INVISIBLE);
+//            }
+//
+//               awim.get(progress).setVisibility(View.VISIBLE);
+//
+//            if (no_wake==10){
+//                waket.setText(no_wake+"or more times");
+//                waket.setTextSize(16);
+//            }
+//            else if(no_wake == 1)
+//            {
+//                waket.setTextSize(22);
+//                waket.setText(no_wake + " time");
+//            }
+//            else
+//            {
+//                waket.setText(no_wake + " times");
+//                waket.setTextSize(22);
+//
+//            }
+//
+//        }
 
         if (seekBar == SleepQ)
         {
             sq = progress;
-            if (sq ==5)
+            for (int i = 0; i<22;i++)
             {
-                green14.setVisibility(View.VISIBLE);
-            }
-            else
-            {
-                green14.setVisibility(View.INVISIBLE);
+//
+               if (i== sq )
+               {
+
+                   q14_s.get(i).setVisibility(View.VISIBLE);
+                   q14_s.get(i+11).setVisibility(View.VISIBLE);
+               }
+                else
+               {
+                    if(i != sq+11)
+                   q14_s.get(i).setVisibility(View.INVISIBLE);
+
+               }
+
             }
         }
 
         if (seekBar == AwakeQ)
         {
             awq = progress;
-            if (awq ==5)
+            for (int i = 0; i<22;i++)
             {
-                green15.setVisibility(View.VISIBLE);
-            }
-            else
-            {
-                green15.setVisibility(View.INVISIBLE);
+//
+                if (i== awq )
+                {
+
+                    q15_a.get(i).setVisibility(View.VISIBLE);
+                    q15_a.get(i+11).setVisibility(View.VISIBLE);
+                }
+                else
+                {
+                    if(i != awq+11)
+                        q15_a.get(i).setVisibility(View.INVISIBLE);
+
+                }
+
             }
         }
     }

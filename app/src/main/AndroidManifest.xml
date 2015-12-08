@@ -72,7 +72,7 @@
                     android:pathPrefix="/m30"/>
                 <data android:scheme="sleep"
                     android:host="diary.com"
-                    android:pathPrefix="/adopa1"/>
+                    android:pathPrefix="/mdopa1"/>
                 <data android:scheme="sleep"
                     android:host="diary.com"
                     android:pathPrefix="/adopa"/>

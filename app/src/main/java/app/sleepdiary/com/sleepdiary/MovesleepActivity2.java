@@ -388,9 +388,9 @@ public class MovesleepActivity2 extends ActionBarActivity implements SeekBar.OnS
                 query1.findInBackground(new FindCallback<ParseObject>() {
                     public void done(List<ParseObject> scoreList, ParseException e) {
                         if (e == null) {
-                            //Log.d("score", "Retrieved " + scoreList.size() + " scores");
-//                            Toast pass = Toast.makeText(MovesleepActivity2.this, "size: " + scoreList.size(), Toast.LENGTH_SHORT);
-//                            pass.show();
+                            Log.d("score", "Retrieved " + scoreList.size() + " scores");
+                            Toast pass = Toast.makeText(MovesleepActivity2.this, "size: " + scoreList.size(), Toast.LENGTH_SHORT);
+                            pass.show();
                             if(lastpage.equals("M30"))
                             {
                             scoreList.get(0).put("M30_Movesleep", 1);
