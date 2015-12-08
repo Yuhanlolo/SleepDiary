@@ -355,18 +355,60 @@ public class NapMoveSleepActivity extends ActionBarActivity implements SeekBar.O
                 }
             }
 
-            if (!(fallh_edt.getText().toString()).isEmpty() && !(fallm_edt.getText().toString()).isEmpty()) {
-                dHour = Integer.parseInt(fallh_edt.getText().toString());
-                dMinute = Integer.parseInt(fallm_edt.getText().toString());
-                if (dHour < 0 || dHour > 23) {
+            else
+            {
+                bedtime = "";
+            }
 
-                    fallhour1 = true;
-                } else if (dMinute < 0 || dMinute > 59) {
+            if (!(fallh_edt.getText().toString()).isEmpty() || !(fallm_edt.getText().toString()).isEmpty()) {
+                if (!(fallh_edt.getText().toString()).isEmpty()){
+                    dHour = Integer.parseInt(fallh_edt.getText().toString());
+                    if (dHour < 0 || dHour > 23) {
 
-                    fallmin1 = true;
-                } else {
-                    asleeptime = pad(dHour) + ":" + pad(dMinute);
+                        fallhour1 = true;
+                    }
+                    else
+                    {
+                        if (dHour ==1)
+                            temp_h = " hr";
+                        else
+                            temp_h = " hrs";
+                    }
                 }
+
+                if (!(fallm_edt.getText().toString()).isEmpty()){
+                    dMinute = Integer.parseInt(fallm_edt.getText().toString());
+                    if (dMinute < 0 || dMinute > 59) {
+
+                        fallmin1 = true;
+                    }
+                    else
+                    {
+                        if (dMinute ==1)
+                            temp_m = " min";
+                        else
+                            temp_m = " mins";
+                    }
+                }
+
+                if (!(fallh_edt.getText().toString()).isEmpty()&&!(fallm_edt.getText().toString()).isEmpty()){
+                    asleeptime = pad(dHour) + temp_h + pad(dMinute) + temp_m;
+                }
+                else if (!(fallh_edt.getText().toString()).isEmpty()&&(fallm_edt.getText().toString()).isEmpty())
+                {
+                    asleeptime = pad(dHour) + temp_h + "0 mins";
+                    fallm_edt.setText("0");
+                }
+                else if ((fallh_edt.getText().toString()).isEmpty()&&(fallm_edt.getText().toString()).isEmpty()){
+                    asleeptime ="0 hrs"+pad(dMinute) + temp_m;
+                    fallh_edt.setText("0");
+                }
+
+            }
+
+            else
+            {
+                asleeptime = "";
             }
 
             if(currentUser1 == null)
@@ -551,39 +593,77 @@ public class NapMoveSleepActivity extends ActionBarActivity implements SeekBar.O
         }
 
 
-        if (v.getId() == R.id.nap_h) {
-            if (actionId == EditorInfo.IME_ACTION_DONE && !(fallh_edt.getText().toString().isEmpty())) {
+        if (v.getId()== R.id.nap_h )
+        {
+            if (actionId == EditorInfo.IME_ACTION_DONE && !(fallh_edt.getText().toString().isEmpty()))
+            {
                 dHour = Integer.parseInt(fallh_edt.getText().toString());
-                if (dHour > 23 || dHour < 0) {
+                if(dHour>23 || dHour<0)
+                {
                     fallh_edt.setText("");
                     Toast pass = Toast.makeText(NapMoveSleepActivity.this, "Please input hour of time between 0-23!", Toast.LENGTH_LONG);
                     pass.show();
                     fallh_edt.requestFocus();
-                } else {
-
-                    if (dHour == 1) {
-                        fallh.setText("hr");
-                        temp_h = "hr";
-                    } else {
-                        fallh.setText("hrs");
-                        temp_h = "hrs";
-                    }
-
-                    if (dHour != -1 && dMinute != -1) {
-                        asleeptime = pad(dHour) + temp_h + pad(dMinute) + temp_m;
-                    }
-
-                    fallm_edt.requestFocus();
                 }
+                else
+                {
 
+                    if (dHour == 1)
+                    {
+                        fallh.setText("hr");
+                        temp_h = " hr";
+                    }
+                    else
+                    {
+                        fallh.setText("hrs");
+                        temp_h = " hrs";
+                    }
+
+                    if(dHour!= -1 && dMinute!= -1)
+                    {
+                        asleeptime = pad(dHour) + temp_h + pad(dMinute)+temp_m;
+                    }
+
+                    else if (dHour!= -1 && dMinute == -1)
+                    {
+                        asleeptime = pad(dHour) + temp_h;
+                    }
+                    else if (dHour == -1 && dMinute != -1)
+                    {
+                        asleeptime = pad(dMinute)+temp_m;
+                    }
+                    else
+                    {
+                        asleeptime ="";
+                    }
+
+                }
+            }
+            else if (actionId == EditorInfo.IME_ACTION_DONE && (fallh_edt.getText().toString().isEmpty()))
+            {
+                fallh_edt.setText("0");
+                asleeptime = "0 hrs"+pad(dMinute)+temp_m;
+                dHour = 0;
             }
 
+            fallm_edt.requestFocus();
 
         }
 
-        if (v.getId() == R.id.nap_m) {
-            if (actionId == EditorInfo.IME_ACTION_DONE && !(fallm_edt.getText().toString().isEmpty())) {
-                if (Integer.parseInt(fallm_edt.getText().toString()) > 59 || Integer.parseInt(fallm_edt.getText().toString()) < 0) {
+        if (v.getId()== R.id.nap_m)
+        {
+            if (actionId == EditorInfo.IME_ACTION_DONE && (fallm_edt.getText().toString().isEmpty()))
+            {
+                if (!(fallh_edt.getText().toString().isEmpty()))
+                {
+                    asleeptime = pad(dHour) + temp_h + "0 mins";
+                    fallm_edt.setText("0");
+                }
+
+                dMinute = 0;
+            }
+            else if (actionId == EditorInfo.IME_ACTION_DONE && !( fallm_edt.getText().toString().isEmpty())) {
+                if (Integer.parseInt( fallm_edt.getText().toString()) > 59 || Integer.parseInt( fallm_edt.getText().toString()) < 0) {
                     fallm_edt.setText("");
                     Toast pass = Toast.makeText(NapMoveSleepActivity.this, "Please input nap minute of time between 0-59!", Toast.LENGTH_LONG);
                     pass.show();
@@ -594,20 +674,35 @@ public class NapMoveSleepActivity extends ActionBarActivity implements SeekBar.O
 
                     if (dMinute == 1) {
                         fallm.setText("min");
-                        temp_m = "min";
+                        temp_m = " min";
                     } else {
                         fallm.setText("mins");
-                        temp_m = "mins";
+                        temp_m = " mins";
                     }
 
                     if (dHour != -1 && dMinute != -1) {
                         asleeptime = pad(dHour) + temp_h + pad(dMinute) + temp_m;
                     }
-                    //wakeh_edt.requestFocus();
+                    else if (dHour!= -1 && dMinute == -1)
+                    {
+                        asleeptime = pad(dHour) + temp_h;
+                    }
+                    else if (dHour == -1 && dMinute != -1)
+                    {
+                        asleeptime = pad(dMinute)+temp_m;
+                    }
+                    else
+                    {
+                        asleeptime ="";
+                        fallm_edt.requestFocus();
+                    }
+//                    if (dHour != -1)
+//                    {
+//                        wakeh_edt.requestFocus();
+//                  }
                 }
 
             }
-
 
         }
         return false;

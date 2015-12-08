@@ -81,12 +81,36 @@
             android:layout_height="wrap_content"
             android:id="@+id/naps_move"
             android:layout_marginTop="55dp"
-            android:max="7"
+            android:max="8"
             android:progress="0"
             android:layout_row="2"
             android:layout_column="0"
             android:layout_marginLeft="50dp"
             />
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:id="@+id/empty"
+            android:src = "@drawable/blankslider2"
+            android:layout_row="2"
+            android:layout_column="0"
+
+            android:progress="0"
+            android:layout_marginTop="62dp"
+            android:layout_marginLeft="372dp" />
+
+        <ImageView
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:id="@+id/green7"
+            android:src = "@drawable/greenslider"
+            android:layout_row="2"
+            android:layout_column="0"
+            android:visibility="invisible"
+            android:progress="0"
+            android:layout_marginTop="64dp"
+            android:layout_marginLeft="374.5dp" />
 
         <TextView
             android:id="@+id/stanford"
@@ -98,7 +122,7 @@
             android:layout_row="5"
             android:layout_column="0"
             android:layout_marginLeft="40dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="15dp"
 
             />
 
@@ -117,7 +141,7 @@
                 android:background="#fafafa"
                 android:layout_row="1"
                 android:layout_column="0"
-                android:layout_marginTop="0dp"
+                android:layout_marginTop="5dp"
                 android:icon="@drawable/ic_launcher">
                 <TextView
                     android:id="@+id/stanford"
@@ -161,7 +185,7 @@
                 android:background="#fafafa"
                 android:layout_row="2"
                 android:layout_column="0"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="10dp"
 
                 android:icon="@drawable/ic_launcher">
 
@@ -207,7 +231,7 @@
                 android:background="#fafafa"
                 android:layout_row="3"
                 android:layout_column="0"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="10dp"
                 android:icon="@drawable/ic_launcher">
 
                 <TextView
@@ -269,7 +293,7 @@
                 android:background="#fafafa"
                 android:layout_row="4"
                 android:layout_column="0"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="10dp"
                 android:icon="@drawable/ic_launcher">
                 <TextView
                     android:id="@+id/napstanford3"
@@ -315,7 +339,7 @@
                 android:background="#fafafa"
                 android:layout_row="5"
                 android:layout_column="0"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="10dp"
                 android:icon="@drawable/ic_launcher">
                 <TextView
                     android:id="@+id/napstanford4"
@@ -360,7 +384,7 @@
                 android:background="#fafafa"
                 android:layout_row="6"
                 android:layout_column="0"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="10dp"
                 android:icon="@drawable/ic_launcher">
                 <TextView
                     android:id="@+id/napstanford5"
@@ -405,7 +429,7 @@
                 android:background="#fafafa"
                 android:layout_row="7"
                 android:layout_column="0"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="10dp"
                 android:icon="@drawable/ic_launcher">
                 <TextView
                     android:id="@+id/napstanford6"
@@ -451,7 +475,7 @@
                 android:background="#fafafa"
                 android:layout_row="8"
                 android:layout_column="0"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="10dp"
                 android:icon="@drawable/ic_launcher">
                 <TextView
                     android:id="@+id/napstanford7"
@@ -496,7 +520,7 @@
             android:orientation="horizontal"
             android:minHeight="100dp"
             android:minWidth="200dp"
-            android:layout_marginTop="35dp"
+            android:layout_marginTop="50dp"
             android:layout_row="14"
             android:layout_column="0">
 

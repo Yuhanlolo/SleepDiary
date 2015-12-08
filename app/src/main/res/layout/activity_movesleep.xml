@@ -76,7 +76,7 @@
             android:id="@+id/wscopa1"
             android:src="@drawable/scopa1"
             android:layout_marginLeft="55dp"
-            android:layout_width="130dp"
+            android:layout_width="150dp"
             android:layout_height="70dp"
             android:layout_marginTop="0dp"
 
@@ -87,7 +87,7 @@
 
 
         <ImageView
-            android:layout_width="130dp"
+            android:layout_width="150dp"
             android:layout_height="70dp"
             android:layout_marginTop="0dp"
             android:id="@+id/wscopa2"
@@ -99,7 +99,7 @@
             />
 
         <ImageView
-            android:layout_width="130dp"
+            android:layout_width="150dp"
             android:layout_height="70dp"
             android:layout_marginTop="0dp"
             android:id="@+id/wscopa3"
@@ -111,7 +111,7 @@
             />
 
         <ImageView
-            android:layout_width="130dp"
+            android:layout_width="150dp"
             android:layout_height="70dp"
             android:layout_marginTop="0dp"
             android:id="@+id/wscopa4"
@@ -123,7 +123,7 @@
             />
 
         <ImageView
-            android:layout_width="130dp"
+            android:layout_width="150dp"
             android:layout_height="70dp"
             android:layout_marginTop="0dp"
             android:id="@+id/wsscopa1"
@@ -137,7 +137,7 @@
 
 
         <ImageView
-            android:layout_width="130dp"
+            android:layout_width="150dp"
             android:layout_height="70dp"
             android:layout_marginTop="0dp"
             android:id="@+id/wsscopa2"
@@ -153,7 +153,7 @@
             android:id="@+id/wsscopa3"
             android:src="@drawable/s_scopa_3"
             android:layout_marginLeft="385dp"
-            android:layout_width="130dp"
+            android:layout_width="150dp"
             android:layout_height="70dp"
             android:layout_marginTop="0dp"
             android:layout_row="2"
@@ -163,7 +163,7 @@
             />
 
         <ImageView
-            android:layout_width="130dp"
+            android:layout_width="150dp"
             android:layout_height="70dp"
             android:layout_marginTop="0dp"
             android:id="@+id/wsscopa4"
@@ -213,7 +213,7 @@
         android:layout_marginTop="10dp"
         android:icon="@drawable/ic_launcher">
         <ImageView
-            android:layout_width="130dp"
+            android:layout_width="150dp"
             android:layout_height="70dp"
             android:layout_marginTop="0dp"
             android:id="@+id/cscopa1"
@@ -226,7 +226,7 @@
 
 
         <ImageView
-            android:layout_width="130dp"
+            android:layout_width="150dp"
             android:layout_height="70dp"
             android:layout_marginTop="0dp"
             android:id="@+id/cscopa2"
@@ -238,7 +238,7 @@
             />
 
         <ImageView
-            android:layout_width="130dp"
+            android:layout_width="150dp"
             android:layout_height="70dp"
             android:layout_marginTop="0dp"
             android:id="@+id/cscopa3"
@@ -250,7 +250,7 @@
             />
 
         <ImageView
-            android:layout_width="130dp"
+            android:layout_width="150dp"
             android:layout_height="70dp"
             android:layout_marginTop="0dp"
             android:id="@+id/cscopa4"
@@ -265,7 +265,7 @@
             android:id="@+id/csscopa1"
             android:src="@drawable/s_scopa_1"
             android:layout_marginLeft="55dp"
-            android:layout_width="130dp"
+            android:layout_width="150dp"
             android:layout_height="70dp"
             android:layout_marginTop="0dp"
             android:layout_row="4"
@@ -278,7 +278,7 @@
             android:id="@+id/csscopa2"
             android:src="@drawable/s_scopa_2"
             android:layout_marginLeft="220dp"
-            android:layout_width="130dp"
+            android:layout_width="150dp"
             android:layout_height="70dp"
             android:layout_marginTop="0dp"
             android:layout_row="4"
@@ -291,7 +291,7 @@
             android:id="@+id/csscopa3"
             android:src="@drawable/s_scopa_3"
             android:layout_marginLeft="385dp"
-            android:layout_width="130dp"
+            android:layout_width="150dp"
             android:layout_height="70dp"
             android:layout_marginTop="0dp"
             android:layout_row="4"
@@ -304,7 +304,7 @@
             android:id="@+id/csscopa4"
             android:src="@drawable/s_scopa_4"
             android:layout_marginLeft="560dp"
-            android:layout_width="130dp"
+            android:layout_width="150dp"
             android:layout_height="70dp"
             android:layout_marginTop="0dp"
             android:layout_row="4"
@@ -351,7 +351,7 @@
         android:icon="@drawable/ic_launcher">
 
         <ImageView
-            android:layout_width="130dp"
+            android:layout_width="150dp"
             android:layout_height="70dp"
             android:layout_marginTop="0dp"
             android:id="@+id/uscopa1"
@@ -369,7 +369,7 @@
             android:id="@+id/uscopa2"
             android:src="@drawable/scopa2"
             android:layout_marginLeft="220dp"
-            android:layout_width="130dp"
+            android:layout_width="150dp"
             android:layout_height="70dp"
             android:layout_marginTop="0dp"
             android:layout_row="6"
@@ -378,7 +378,7 @@
             />
 
         <ImageView
-            android:layout_width="130dp"
+            android:layout_width="150dp"
             android:layout_height="70dp"
             android:layout_marginTop="0dp"
             android:id="@+id/uscopa3"
@@ -391,7 +391,7 @@
             />
 
         <ImageView
-            android:layout_width="130dp"
+            android:layout_width="150dp"
             android:layout_height="70dp"
             android:layout_marginTop="0dp"
             android:id="@+id/uscopa4"
@@ -404,7 +404,7 @@
             />
 
         <ImageView
-            android:layout_width="130dp"
+            android:layout_width="150dp"
             android:layout_height="70dp"
             android:layout_marginTop="0dp"
             android:id="@+id/usscopa1"
@@ -417,7 +417,7 @@
 
 
         <ImageView
-            android:layout_width="130dp"
+            android:layout_width="150dp"
             android:layout_height="70dp"
             android:layout_marginTop="0dp"
             android:id="@+id/usscopa2"
@@ -429,7 +429,7 @@
             />
 
         <ImageView
-            android:layout_width="130dp"
+            android:layout_width="150dp"
             android:layout_height="70dp"
             android:layout_marginTop="0dp"
             android:id="@+id/usscopa3"
@@ -441,7 +441,7 @@
             />
 
         <ImageView
-            android:layout_width="130dp"
+            android:layout_width="150dp"
             android:layout_height="70dp"
             android:layout_marginTop="0dp"
             android:id="@+id/usscopa4"
@@ -502,7 +502,7 @@
 
 
         <ImageView
-            android:layout_width="130dp"
+            android:layout_width="150dp"
             android:layout_height="70dp"
             android:layout_marginTop="0dp"
             android:id="@+id/umscopa2"
@@ -515,7 +515,7 @@
             />
 
         <ImageView
-            android:layout_width="130dp"
+            android:layout_width="150dp"
             android:layout_height="70dp"
             android:layout_marginTop="0dp"
             android:id="@+id/umscopa3"
@@ -528,7 +528,7 @@
             />
 
         <ImageView
-            android:layout_width="130dp"
+            android:layout_width="150dp"
             android:layout_height="70dp"
             android:layout_marginTop="0dp"
             android:id="@+id/umscopa4"
@@ -541,7 +541,7 @@
             />
 
         <ImageView
-            android:layout_width="130dp"
+            android:layout_width="150dp"
             android:layout_height="70dp"
             android:layout_marginTop="0dp"
             android:id="@+id/umsscopa1"
@@ -555,7 +555,7 @@
 
 
         <ImageView
-            android:layout_width="130dp"
+            android:layout_width="150dp"
             android:layout_height="70dp"
             android:layout_marginTop="0dp"
             android:id="@+id/umsscopa2"
@@ -568,7 +568,7 @@
             />
 
         <ImageView
-            android:layout_width="130dp"
+            android:layout_width="150dp"
             android:layout_height="70dp"
             android:layout_marginTop="0dp"
             android:id="@+id/umsscopa3"
@@ -581,7 +581,7 @@
             />
 
         <ImageView
-            android:layout_width="130dp"
+            android:layout_width="150dp"
             android:layout_height="70dp"
             android:layout_marginTop="0dp"
             android:id="@+id/umsscopa4"
@@ -638,14 +638,36 @@
             android:layout_height="wrap_content"
             android:id="@+id/s_move"
             android:layout_marginTop="65dp"
-            android:max="7"
+            android:max="8"
             android:progress="0"
             android:layout_row="17"
             android:layout_column="0"
             android:layout_marginLeft="50dp"
             />
 
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:id="@+id/empty"
+            android:src = "@drawable/blankslider2"
+            android:layout_row="17"
+            android:layout_column="0"
 
+            android:progress="0"
+            android:layout_marginTop="72dp"
+            android:layout_marginLeft="372dp" />
+
+        <ImageView
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:id="@+id/green5"
+            android:src = "@drawable/greenslider"
+            android:layout_row="17"
+            android:layout_column="0"
+            android:visibility="invisible"
+            android:progress="0"
+            android:layout_marginTop="74.5dp"
+            android:layout_marginLeft="374.5dp" />
 
         <RadioGroup
             android:id="@+id/buttongroup"

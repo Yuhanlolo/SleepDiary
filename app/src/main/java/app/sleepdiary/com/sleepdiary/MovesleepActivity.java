@@ -30,7 +30,7 @@ public class MovesleepActivity extends ActionBarActivity implements SeekBar.OnSe
 //    int uncontrol = 0;
 
     int movep = 0;
-
+    ImageView green5;
     ImageView wsscopa0, wsscopa1, wsscopa2, wsscopa3, csscopa0,csscopa1, csscopa2, csscopa3,uhsscopa0, uhsscopa1, uhsscopa2, uhsscopa3;
     ImageView umsscopa0,umsscopa1, umsscopa2, umsscopa3;
     int wss = -1;
@@ -117,7 +117,7 @@ public class MovesleepActivity extends ActionBarActivity implements SeekBar.OnSe
 
         movescale = (SeekBar)findViewById(R.id.s_move);
         movescale.setOnSeekBarChangeListener(this);
-
+        green5 = (ImageView)findViewById(R.id.green5);
         /** Get the current time */
 
         month = cal.get(Calendar.MONTH) + 1;
@@ -395,6 +395,14 @@ public class MovesleepActivity extends ActionBarActivity implements SeekBar.OnSe
         if (seekBar == movescale)
         {
             movep = progress;
+            if(movep == 4)
+            {
+                green5.setVisibility(View.VISIBLE);
+            }
+            else
+            {
+                green5.setVisibility(View.INVISIBLE);
+            }
 
         }
 

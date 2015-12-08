@@ -51,7 +51,7 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
 
     EditText bedh_edt, bedm_edt,fallh_edt, fallm_edt, wakeh_edt, wakem_edt,outh_edt, outm_edt, awake_edt;
     TextView fallh, fallm, t_awake;
-
+    ImageView green14, green15;
     int tempbedh = -1, tempbedm = -1,  tempwakeh = -1, tempwakem = -1, tempouth = -1, tempoutm = -1;
     int dHour = -1, dMinute = -1;
     String lastpage = "";
@@ -206,7 +206,8 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
         AwakeQ.setOnSeekBarChangeListener(this);
 
         //waket = (TextView)findViewById(R.id.d_wake);
-
+        green14 = (ImageView)findViewById(R.id.green14);
+        green15 = (ImageView)findViewById(R.id.green15);
 
 //        SQ1_g = (ImageView)findViewById(R.id.SQquality1_gray);
 //        SQ1 = (ImageView)findViewById(R.id.SQquality1);
@@ -400,18 +401,60 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
                 }
             }
 
-            if (!(fallh_edt.getText().toString()).isEmpty() && !(fallm_edt.getText().toString()).isEmpty()) {
-                dHour = Integer.parseInt(fallh_edt.getText().toString());
-                dMinute = Integer.parseInt(fallm_edt.getText().toString());
-                if (dHour < 0 || dHour > 23) {
+           else
+            {
+                bedtime = "";
+            }
 
-                    fallhour1 = true;
-                } else if (dMinute < 0 || dMinute > 59) {
+            if (!(fallh_edt.getText().toString()).isEmpty() || !(fallm_edt.getText().toString()).isEmpty()) {
+                if (!(fallh_edt.getText().toString()).isEmpty()){
+                    dHour = Integer.parseInt(fallh_edt.getText().toString());
+                    if (dHour < 0 || dHour > 23) {
 
-                    fallmin1 = true;
-                } else {
-                    asleeptime = pad(dHour) + ":" + pad(dMinute);
+                        fallhour1 = true;
+                    }
+                    else
+                    {
+                        if (dHour ==1)
+                            temp_h = " hr";
+                        else
+                            temp_h = " hrs";
+                    }
                 }
+
+                if (!(fallm_edt.getText().toString()).isEmpty()){
+                    dMinute = Integer.parseInt(fallm_edt.getText().toString());
+                    if (dMinute < 0 || dMinute > 59) {
+
+                        fallmin1 = true;
+                    }
+                    else
+                    {
+                        if (dMinute ==1)
+                            temp_m = " min";
+                        else
+                            temp_m = " mins";
+                    }
+                }
+
+                if (!(fallh_edt.getText().toString()).isEmpty()&&!(fallm_edt.getText().toString()).isEmpty()){
+                    asleeptime = pad(dHour) + temp_h + pad(dMinute) + temp_m;
+                }
+                else if (!(fallh_edt.getText().toString()).isEmpty()&&(fallm_edt.getText().toString()).isEmpty())
+                {
+                    asleeptime = pad(dHour) + temp_h + "0 mins";
+                    fallm_edt.setText("0");
+                }
+                else if ((fallh_edt.getText().toString()).isEmpty()&&(fallm_edt.getText().toString()).isEmpty()){
+                    asleeptime ="0 hrs"+pad(dMinute) + temp_m;
+                    fallh_edt.setText("0");
+                }
+
+            }
+
+            else
+            {
+                asleeptime = "";
             }
 
             if (!(wakeh_edt.getText().toString()).isEmpty() && !(wakem_edt.getText().toString()).isEmpty()) {
@@ -435,6 +478,10 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
                     temp_wake = 100*tempwakeh+tempwakem;
                 }
             }
+            else
+            {
+             woketime = "";
+            }
 
             if (!(outh_edt.getText().toString()).isEmpty() && !(outm_edt.getText().toString()).isEmpty()) {
                 tempouth = Integer.parseInt(outh_edt.getText().toString());
@@ -457,7 +504,10 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
                     temp_out = 100*tempouth+tempoutm;
                 }
             }
-
+                else
+            {
+                outtime = "";
+            }
 
                 if (currentUser1 == null) {
                     Toast pass = Toast.makeText(SleepDiaryActivity2.this, "Please Login in first!", Toast.LENGTH_SHORT);
@@ -659,11 +709,27 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
         if (seekBar == SleepQ)
         {
             sq = progress;
+            if (sq ==5)
+            {
+                green14.setVisibility(View.VISIBLE);
+            }
+            else
+            {
+                green14.setVisibility(View.INVISIBLE);
+            }
         }
 
         if (seekBar == AwakeQ)
         {
             awq = progress;
+            if (awq ==5)
+            {
+                green15.setVisibility(View.VISIBLE);
+            }
+            else
+            {
+                green15.setVisibility(View.INVISIBLE);
+            }
         }
     }
 
@@ -750,12 +816,12 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
                     if (dHour == 1)
                     {
                         fallh.setText("hr");
-                        temp_h = "hr";
+                        temp_h = " hr";
                     }
                     else
                     {
                         fallh.setText("hrs");
-                        temp_h = "hrs";
+                        temp_h = " hrs";
                     }
 
                     if(dHour!= -1 && dMinute!= -1)
@@ -763,17 +829,45 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
                         asleeptime = pad(dHour) + temp_h + pad(dMinute)+temp_m;
                     }
 
-                    fallm_edt.requestFocus();
-                }
+                    else if (dHour!= -1 && dMinute == -1)
+                    {
+                        asleeptime = pad(dHour) + temp_h;
+                    }
+                    else if (dHour == -1 && dMinute != -1)
+                    {
+                        asleeptime = pad(dMinute)+temp_m;
+                    }
+                    else
+                    {
+                        asleeptime ="";
+                    }
 
+                }
+            }
+            else if (actionId == EditorInfo.IME_ACTION_DONE && (fallh_edt.getText().toString().isEmpty()))
+            {
+                fallh_edt.setText("0");
+                asleeptime = "0 hrs"+pad(dMinute)+temp_m;
+                dHour = 0;
             }
 
+            fallm_edt.requestFocus();
 
         }
 
         if (v.getId()== R.id.fall_m)
         {
-            if (actionId == EditorInfo.IME_ACTION_DONE && !( fallm_edt.getText().toString().isEmpty())) {
+            if (actionId == EditorInfo.IME_ACTION_DONE && (fallm_edt.getText().toString().isEmpty()))
+            {
+                if (!(fallh_edt.getText().toString().isEmpty()))
+                {
+                    asleeptime = pad(dHour) + temp_h + "0 mins";
+                    fallm_edt.setText("0");
+                }
+
+                dMinute = 0;
+            }
+            else if (actionId == EditorInfo.IME_ACTION_DONE && !( fallm_edt.getText().toString().isEmpty())) {
                 if (Integer.parseInt( fallm_edt.getText().toString()) > 59 || Integer.parseInt( fallm_edt.getText().toString()) < 0) {
                     fallm_edt.setText("");
                     Toast pass = Toast.makeText(SleepDiaryActivity2.this, "Please input nap minute of time between 0-59!", Toast.LENGTH_LONG);
@@ -785,20 +879,38 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
 
                     if (dMinute == 1) {
                         fallm.setText("min");
-                        temp_m = "min";
+                        temp_m = " min";
                     } else {
                         fallm.setText("mins");
-                        temp_m = "mins";
+                        temp_m = " mins";
                     }
 
                     if (dHour != -1 && dMinute != -1) {
                         asleeptime = pad(dHour) + temp_h + pad(dMinute) + temp_m;
                     }
-                    wakeh_edt.requestFocus();
+                    else if (dHour!= -1 && dMinute == -1)
+                    {
+                        asleeptime = pad(dHour) + temp_h;
+                    }
+                    else if (dHour == -1 && dMinute != -1)
+                    {
+                        asleeptime = pad(dMinute)+temp_m;
+                    }
+                    else
+                    {
+                        asleeptime ="";
+                        fallm_edt.requestFocus();
+                    }
+//                    if (dHour != -1)
+//                    {
+//                        wakeh_edt.requestFocus();
+//                  }
                 }
 
             }
 
+
+            wakeh_edt.requestFocus();
 
         }
 

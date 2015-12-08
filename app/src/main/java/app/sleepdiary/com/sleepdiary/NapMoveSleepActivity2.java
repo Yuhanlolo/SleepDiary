@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.GridLayout;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -46,6 +47,7 @@ public class NapMoveSleepActivity2 extends ActionBarActivity implements SeekBar.
     int year = 0;
     String today = "";
 
+    ImageView green7;
     List<TextView> sleepscale = new ArrayList<TextView>(7);
     List<RadioButton> sleepscaleb = new ArrayList<RadioButton>(7);
     List<GridLayout> gl = new ArrayList<GridLayout>(7);
@@ -139,6 +141,7 @@ public class NapMoveSleepActivity2 extends ActionBarActivity implements SeekBar.
         year = cal.get(Calendar.YEAR);
         today = String.valueOf(month)+"/"+String.valueOf(date)+"/"+String.valueOf(year);
 
+        green7 = (ImageView)findViewById(R.id.green7);
 
     }
     @Override
@@ -171,6 +174,15 @@ public class NapMoveSleepActivity2 extends ActionBarActivity implements SeekBar.
         if (seekBar == movescale)
         {
             movep = progress;
+
+            if(movep ==4)
+            {
+                green7.setVisibility(View.VISIBLE);
+            }
+            else
+            {
+                green7.setVisibility(View.INVISIBLE);
+            }
 
         }
 

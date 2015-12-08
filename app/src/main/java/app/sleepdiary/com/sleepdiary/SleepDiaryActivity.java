@@ -338,50 +338,97 @@ public class SleepDiaryActivity extends ActionBarActivity implements  View.OnCli
                 napm.setTextColor(0xFFBABABA);
             }
 
-            if (no_nap>0  && !(napduh_edt.getText().toString()).isEmpty() && !(napdum_edt.getText().toString()).isEmpty())
+            if (no_nap>0  && (!(napduh_edt.getText().toString()).isEmpty() || !(napdum_edt.getText().toString()).isEmpty()))
             {
-                dHour = Integer.parseInt(napduh_edt.getText().toString());
-                dMinute = Integer.parseInt(napdum_edt.getText().toString());
-                if (dHour<0 || dHour>23)
+                if (!(napduh_edt.getText().toString()).isEmpty() )
                 {
+                    dHour = Integer.parseInt(napduh_edt.getText().toString());
+                    if (dHour<0 || dHour>23)
+                    {
 //                    Toast errormsg = Toast.makeText(SleepDiaryActivity.this,"For Question 5, Please input hour of time between 0-23!", Toast.LENGTH_LONG);
 //                    errormsg.show();
-                    dhour1 = true;
+                        dhour1 = true;
+                    }
+                    else
+                    {
+                        if (dHour ==1)
+                            temp_h = " hr";
+                        else
+                            temp_h = " hrs";
+                    }
                 }
-                else if (dMinute<0 || dMinute>59)
+
+                if (!(napdum_edt.getText().toString()).isEmpty())
                 {
+                    dMinute = Integer.parseInt(napdum_edt.getText().toString());
+                    if (dMinute<0 || dMinute>59)
+                    {
 //                    Toast errormsg = Toast.makeText(SleepDiaryActivity.this,"For Question 5, Please input minute of time between 0-59!", Toast.LENGTH_LONG);
 //                    errormsg.show();
-                    dmin1 = true;
+                        dmin1 = true;
+                    }
+                    else
+                    {
+                        if (dMinute ==1)
+                            temp_m = " min";
+                        else
+                            temp_m = " mins";
+                    }
                 }
-                else
+
+                if (!(napduh_edt.getText().toString()).isEmpty()&& !(napdum_edt.getText().toString()).isEmpty())
                 {
-                    sleepduration =  pad(dHour) + ":" + pad(dMinute);
+                    sleepduration =  pad(dHour) + temp_h + pad(dMinute) + temp_m;
+                }
+                else if (!(napduh_edt.getText().toString()).isEmpty()&& (napdum_edt.getText().toString()).isEmpty())
+                {
+                    sleepduration =  pad(dHour) + temp_h + "0 mins";
+                    napdum_edt.setText("0");
+                }
+
+                else if ((napduh_edt.getText().toString()).isEmpty()&& !(napdum_edt.getText().toString()).isEmpty())
+                {
+                    sleepduration =  "0 hrs"+pad(dMinute) + temp_m;
+                    napduh_edt.setText("0");
                 }
             }
 
-            if(pill && !(pillh_edt.getText().toString()).isEmpty() && !(pillm_edt.getText().toString()).isEmpty())
+            else if (no_nap>0 && (napduh_edt.getText().toString()).isEmpty() && (napdum_edt.getText().toString()).isEmpty())
             {
-                pHour = Integer.parseInt(pillh_edt.getText().toString());
-                pMinute = Integer.parseInt(pillm_edt.getText().toString());
-                if (pHour<0 || pHour>23)
-                {
+                sleepduration = "";
+            }
+
+            if(pill && (!(pillh_edt.getText().toString()).isEmpty() && !(pillm_edt.getText().toString()).isEmpty()))
+            {
+
+                    pHour = Integer.parseInt(pillh_edt.getText().toString());
+                    if (pHour<0 || pHour>23)
+                    {
 //                    Toast errormsg = Toast.makeText(SleepDiaryActivity.this,"For Question 7, Please input hour of time between 0-23!", Toast.LENGTH_LONG);
 //                    errormsg.show();
-                    phour1 = true;
-                }
-                else if (pMinute<0 || pMinute>59)
-                {
+                        phour1 = true;
+                    }
+
+
+                    pMinute = Integer.parseInt(pillm_edt.getText().toString());
+                    if (pMinute<0 || pMinute>59)
+                    {
 //                    Toast errormsg = Toast.makeText(SleepDiaryActivity.this,"For Question 7, Please input minute of time between 0-59!", Toast.LENGTH_LONG);
 //                    errormsg.show();
-                    pmin1 = true;
-                }
+                        pmin1 = true;
+                    }
+
+                pilltime =  pad(pHour) + ":" + pad(pMinute);
+
+                if (!(edtView.getText().toString()).isEmpty())
+                    pillname = edtView.getText().toString();
                 else
-                {
-                    pilltime =  pad(pHour) + ":" + pad(pMinute);
-                    if (!(edtView.getText().toString()).isEmpty())
-                        pillname = edtView.getText().toString();
-                }
+                    pillname = "";
+            }
+
+            if(pill && ((pillh_edt.getText().toString()).isEmpty() || (pillm_edt.getText().toString()).isEmpty()))
+            {
+                pilltime = "";
             }
 
             if(currentUser1 == null)
@@ -753,22 +800,41 @@ public class SleepDiaryActivity extends ActionBarActivity implements  View.OnCli
                     if (dHour == 1)
                     {
                         naph.setText("hr");
-                        temp_h = "hr";
+                        temp_h = " hr";
                     }
                     else
                     {
                         naph.setText("hrs");
-                        temp_h = "hrs";
+                        temp_h = " hrs";
                     }
 
                     if(dHour!= -1 && dMinute!= -1)
                     {
                         sleepduration = pad(dHour) + temp_h + pad(dMinute)+temp_m;
                     }
-                    napdum_edt.requestFocus();
-            }
+                    else if (dHour!= -1 && dMinute == -1)
+                    {
+                        sleepduration = pad(dHour) + temp_h + "0 mins";
+                    }
+                    else if (dHour == -1 && dMinute != -1)
+                    {
+                        sleepduration = pad(dMinute)+temp_m;
+
+                    }
+                    else
+                    {
+                        sleepduration ="";
+                    }
+                }
             }
 
+            else if (actionId == EditorInfo.IME_ACTION_DONE && (napduh_edt.getText().toString().isEmpty()))
+            {
+                napduh_edt.setText("0");
+                sleepduration = "0 hrs"+pad(dMinute)+temp_m;
+                dHour = 0;
+            }
+            napdum_edt.requestFocus();
         }
 
         if (v.getId()== R.id.nap_du_m)
@@ -785,18 +851,45 @@ public class SleepDiaryActivity extends ActionBarActivity implements  View.OnCli
 
                     if (dMinute == 1) {
                         napm.setText("min");
-                        temp_m = "min";
+                        temp_m = " min";
                     } else {
                         napm.setText("mins");
-                        temp_m = "mins";
+                        temp_m = " mins";
                     }
 
                     if (dHour != -1 && dMinute != -1) {
                         sleepduration = pad(dHour) + temp_h + pad(dMinute) + temp_m;
                     }
+                    else if (dHour!= -1 && dMinute == -1)
+                    {
+                        sleepduration = pad(dHour) + temp_h;
+                        napdum_edt.setText("0");
+                    }
+                    else if (dHour == -1 && dMinute != -1)
+                    {
+                        sleepduration = "0 hrs"+pad(dMinute)+temp_m;
+                        //napduh_edt.setText("0");
+                    }
+                    else
+                    {
+                        sleepduration ="";
+                    }
                 }
             }
 
+            else if (actionId == EditorInfo.IME_ACTION_DONE && (napdum_edt.getText().toString().isEmpty()))
+            {
+                if (!(napduh_edt.getText().toString().isEmpty()))
+                {
+                    sleepduration = pad(dHour) + temp_h + "0 mins";
+                    napdum_edt.setText("0");
+                }
+
+                dMinute = 0;
+            }
+
+//            napdum_edt.clearFocus();
+//            coffee_edt.clearFocus();
         }
 
         if (v.getId()== R.id.pillh)
@@ -820,9 +913,12 @@ public class SleepDiaryActivity extends ActionBarActivity implements  View.OnCli
                     }
                     pillm_edt.requestFocus();
                 }
-
             }
-
+            else if (actionId == EditorInfo.IME_ACTION_DONE && (pillh_edt.getText().toString().isEmpty()))
+            {
+                pHour = -1;
+                pillh_edt.requestFocus();
+            }
 
         }
 
@@ -848,6 +944,12 @@ public class SleepDiaryActivity extends ActionBarActivity implements  View.OnCli
 
             }
 
+            else if (actionId == EditorInfo.IME_ACTION_DONE && (pillm_edt.getText().toString().isEmpty()))
+            {
+                pMinute = -1;
+                pillm_edt.requestFocus();
+            }
+
         }
 
         if(v.getId() == R.id.pillname){
@@ -855,6 +957,12 @@ public class SleepDiaryActivity extends ActionBarActivity implements  View.OnCli
             {
                 pillname = edtView.getText().toString();
                 edtView.clearFocus();
+            }
+
+            else if(actionId ==EditorInfo.IME_ACTION_DONE && (edtView.getText().toString().isEmpty()))
+            {
+                pillname = "";
+                edtView.requestFocus();
             }
         }
 

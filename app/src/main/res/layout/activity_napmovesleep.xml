@@ -249,7 +249,7 @@
                 android:id="@+id/napwscopa1"
                 android:src="@drawable/scopa1"
                 android:layout_marginLeft="55dp"
-                android:layout_width="130dp"
+                android:layout_width="150dp"
                 android:layout_height="70dp"
                 android:layout_marginTop="0dp"
 
@@ -260,7 +260,7 @@
 
 
             <ImageView
-                android:layout_width="130dp"
+                android:layout_width="150dp"
                 android:layout_height="70dp"
                 android:layout_marginTop="0dp"
                 android:id="@+id/napwscopa2"
@@ -272,7 +272,7 @@
                 />
 
             <ImageView
-                android:layout_width="130dp"
+                android:layout_width="150dp"
                 android:layout_height="70dp"
                 android:layout_marginTop="0dp"
                 android:id="@+id/napwscopa3"
@@ -284,7 +284,7 @@
                 />
 
             <ImageView
-                android:layout_width="130dp"
+                android:layout_width="150dp"
                 android:layout_height="70dp"
                 android:layout_marginTop="0dp"
                 android:id="@+id/napwscopa4"
@@ -296,7 +296,7 @@
                 />
 
             <ImageView
-                android:layout_width="130dp"
+                android:layout_width="150dp"
                 android:layout_height="70dp"
                 android:layout_marginTop="0dp"
                 android:id="@+id/napwsscopa1"
@@ -310,7 +310,7 @@
 
 
             <ImageView
-                android:layout_width="130dp"
+                android:layout_width="150dp"
                 android:layout_height="70dp"
                 android:layout_marginTop="0dp"
                 android:id="@+id/napwsscopa2"
@@ -326,7 +326,7 @@
                 android:id="@+id/napwsscopa3"
                 android:src="@drawable/s_scopa_3"
                 android:layout_marginLeft="385dp"
-                android:layout_width="130dp"
+                android:layout_width="150dp"
                 android:layout_height="70dp"
                 android:layout_marginTop="0dp"
                 android:layout_row="2"
@@ -336,7 +336,7 @@
                 />
 
             <ImageView
-                android:layout_width="130dp"
+                android:layout_width="150dp"
                 android:layout_height="70dp"
                 android:layout_marginTop="0dp"
                 android:id="@+id/napwsscopa4"
@@ -386,7 +386,7 @@
             android:layout_marginTop="10dp"
             android:icon="@drawable/ic_launcher">
             <ImageView
-                android:layout_width="130dp"
+                android:layout_width="150dp"
                 android:layout_height="70dp"
                 android:layout_marginTop="0dp"
                 android:id="@+id/napcscopa1"
@@ -399,7 +399,7 @@
 
 
             <ImageView
-                android:layout_width="130dp"
+                android:layout_width="150dp"
                 android:layout_height="70dp"
                 android:layout_marginTop="0dp"
                 android:id="@+id/napcscopa2"
@@ -411,7 +411,7 @@
                 />
 
             <ImageView
-                android:layout_width="130dp"
+                android:layout_width="150dp"
                 android:layout_height="70dp"
                 android:layout_marginTop="0dp"
                 android:id="@+id/napcscopa3"
@@ -423,7 +423,7 @@
                 />
 
             <ImageView
-                android:layout_width="130dp"
+                android:layout_width="150dp"
                 android:layout_height="70dp"
                 android:layout_marginTop="0dp"
                 android:id="@+id/napcscopa4"
@@ -438,7 +438,7 @@
                 android:id="@+id/napcsscopa1"
                 android:src="@drawable/s_scopa_1"
                 android:layout_marginLeft="55dp"
-                android:layout_width="130dp"
+                android:layout_width="150dp"
                 android:layout_height="70dp"
                 android:layout_marginTop="0dp"
                 android:layout_row="4"
@@ -451,7 +451,7 @@
                 android:id="@+id/napcsscopa2"
                 android:src="@drawable/s_scopa_2"
                 android:layout_marginLeft="220dp"
-                android:layout_width="130dp"
+                android:layout_width="150dp"
                 android:layout_height="70dp"
                 android:layout_marginTop="0dp"
                 android:layout_row="4"
@@ -464,7 +464,7 @@
                 android:id="@+id/napcsscopa3"
                 android:src="@drawable/s_scopa_3"
                 android:layout_marginLeft="385dp"
-                android:layout_width="130dp"
+                android:layout_width="150dp"
                 android:layout_height="70dp"
                 android:layout_marginTop="0dp"
                 android:layout_row="4"
@@ -477,7 +477,7 @@
                 android:id="@+id/napcsscopa4"
                 android:src="@drawable/s_scopa_4"
                 android:layout_marginLeft="560dp"
-                android:layout_width="130dp"
+                android:layout_width="150dp"
                 android:layout_height="70dp"
                 android:layout_marginTop="0dp"
                 android:layout_row="4"
@@ -524,7 +524,7 @@
             android:icon="@drawable/ic_launcher">
 
             <ImageView
-                android:layout_width="130dp"
+                android:layout_width="150dp"
                 android:layout_height="70dp"
                 android:layout_marginTop="0dp"
                 android:id="@+id/napuscopa1"
@@ -542,7 +542,7 @@
                 android:id="@+id/napuscopa2"
                 android:src="@drawable/scopa2"
                 android:layout_marginLeft="220dp"
-                android:layout_width="130dp"
+                android:layout_width="150dp"
                 android:layout_height="70dp"
                 android:layout_marginTop="0dp"
                 android:layout_row="6"
@@ -551,7 +551,7 @@
                 />
 
             <ImageView
-                android:layout_width="130dp"
+                android:layout_width="150dp"
                 android:layout_height="70dp"
                 android:layout_marginTop="0dp"
                 android:id="@+id/napuscopa3"
@@ -564,7 +564,7 @@
                 />
 
             <ImageView
-                android:layout_width="130dp"
+                android:layout_width="150dp"
                 android:layout_height="70dp"
                 android:layout_marginTop="0dp"
                 android:id="@+id/napuscopa4"
@@ -577,7 +577,7 @@
                 />
 
             <ImageView
-                android:layout_width="130dp"
+                android:layout_width="150dp"
                 android:layout_height="70dp"
                 android:layout_marginTop="0dp"
                 android:id="@+id/napusscopa1"
@@ -590,7 +590,7 @@
 
 
             <ImageView
-                android:layout_width="130dp"
+                android:layout_width="150dp"
                 android:layout_height="70dp"
                 android:layout_marginTop="0dp"
                 android:id="@+id/napusscopa2"
@@ -602,7 +602,7 @@
                 />
 
             <ImageView
-                android:layout_width="130dp"
+                android:layout_width="150dp"
                 android:layout_height="70dp"
                 android:layout_marginTop="0dp"
                 android:id="@+id/napusscopa3"
@@ -614,7 +614,7 @@
                 />
 
             <ImageView
-                android:layout_width="130dp"
+                android:layout_width="150dp"
                 android:layout_height="70dp"
                 android:layout_marginTop="0dp"
                 android:id="@+id/napusscopa4"
@@ -675,7 +675,7 @@
 
 
             <ImageView
-                android:layout_width="130dp"
+                android:layout_width="150dp"
                 android:layout_height="70dp"
                 android:layout_marginTop="0dp"
                 android:id="@+id/napumscopa2"
@@ -688,7 +688,7 @@
                 />
 
             <ImageView
-                android:layout_width="130dp"
+                android:layout_width="150dp"
                 android:layout_height="70dp"
                 android:layout_marginTop="0dp"
                 android:id="@+id/napumscopa3"
@@ -701,7 +701,7 @@
                 />
 
             <ImageView
-                android:layout_width="130dp"
+                android:layout_width="150dp"
                 android:layout_height="70dp"
                 android:layout_marginTop="0dp"
                 android:id="@+id/napumscopa4"
@@ -714,7 +714,7 @@
                 />
 
             <ImageView
-                android:layout_width="130dp"
+                android:layout_width="150dp"
                 android:layout_height="70dp"
                 android:layout_marginTop="0dp"
                 android:id="@+id/napumsscopa1"
@@ -728,7 +728,7 @@
 
 
             <ImageView
-                android:layout_width="130dp"
+                android:layout_width="150dp"
                 android:layout_height="70dp"
                 android:layout_marginTop="0dp"
                 android:id="@+id/napumsscopa2"
@@ -741,7 +741,7 @@
                 />
 
             <ImageView
-                android:layout_width="130dp"
+                android:layout_width="150dp"
                 android:layout_height="70dp"
                 android:layout_marginTop="0dp"
                 android:id="@+id/napumsscopa3"
@@ -754,7 +754,7 @@
                 />
 
             <ImageView
-                android:layout_width="130dp"
+                android:layout_width="150dp"
                 android:layout_height="70dp"
                 android:layout_marginTop="0dp"
                 android:id="@+id/napumsscopa4"
