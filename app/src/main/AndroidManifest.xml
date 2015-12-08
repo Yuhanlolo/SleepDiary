@@ -59,7 +59,7 @@
 
         <activity
             android:name=".SleepActivity"
-            android:label="second"
+            android:label="Sleep Benefit"
             android:exported="true">
 
             <intent-filter>
@@ -93,7 +93,7 @@
 
         <activity
             android:name=".SleepDiaryActivity"
-            android:label="sleepDiary"
+            android:label="Sleep Benefit"
             android:exported="true">
 
             <!--<meta-data-->
