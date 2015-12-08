@@ -29,7 +29,7 @@ public class MovesleepActivity extends ActionBarActivity implements SeekBar.OnSe
 //    int usehand = 0;
 //    int uncontrol = 0;
 
-    int movep = 0;
+    int movep = -1;
     ImageView green5;
     ImageView wsscopa0, wsscopa1, wsscopa2, wsscopa3, csscopa0,csscopa1, csscopa2, csscopa3,uhsscopa0, uhsscopa1, uhsscopa2, uhsscopa3;
     ImageView umsscopa0,umsscopa1, umsscopa2, umsscopa3;
@@ -342,6 +342,10 @@ public class MovesleepActivity extends ActionBarActivity implements SeekBar.OnSe
             }
             else if (umss == -1){
                 Toast errormsg = Toast.makeText(MovesleepActivity.this,"Please finish Question 4!", Toast.LENGTH_SHORT);
+                errormsg.show();
+            }
+            else if (movep == -1){
+                Toast errormsg = Toast.makeText(MovesleepActivity.this,"Please finish Question 5!", Toast.LENGTH_SHORT);
                 errormsg.show();
             }
             else

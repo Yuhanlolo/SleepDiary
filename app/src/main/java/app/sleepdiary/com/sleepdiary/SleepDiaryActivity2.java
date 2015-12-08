@@ -594,11 +594,17 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
                 else if (outtime.isEmpty()) {
                     Toast errormsg = Toast.makeText(SleepDiaryActivity2.this, "Please finish Question 12!", Toast.LENGTH_SHORT);
                     errormsg.show();
-                } else if (sq == -1) {
-                    Toast errormsg = Toast.makeText(SleepDiaryActivity2.this, "Please finish Question 13!", Toast.LENGTH_SHORT);
+                }
+                else if(awake_edt.getText().toString().isEmpty())
+                {
+                    no_wake = 0;
+                    awake_edt.setText("0");
+                }
+                else if (sq == -1) {
+                    Toast errormsg = Toast.makeText(SleepDiaryActivity2.this, "Please finish Question 14!", Toast.LENGTH_SHORT);
                     errormsg.show();
                 } else if (awq == -1) {
-                    Toast errormsg = Toast.makeText(SleepDiaryActivity2.this, "Please finish Question 14!", Toast.LENGTH_SHORT);
+                    Toast errormsg = Toast.makeText(SleepDiaryActivity2.this, "Please finish Question 15!", Toast.LENGTH_SHORT);
                     errormsg.show();
                 } else {
                     //query.whereEqualTo("User_ID",objectID);
@@ -1066,15 +1072,24 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
         }
 
         if (v.getId()== R.id.no_awake) {
-            if (actionId == EditorInfo.IME_ACTION_DONE && !(awake_edt.getText().toString().isEmpty())) {
+            if (actionId == EditorInfo.IME_ACTION_DONE && !(awake_edt.getText().toString().isEmpty()))
+            {
                 no_wake = Integer.parseInt(awake_edt.getText().toString());
 
-                if (no_wake == 1) {
+                if (no_wake == 1)
+                {
                     t_awake.setText("time");
-                } else {
+                } else
+                {
                     t_awake.setText("times");
                 }
             }
+            else if(actionId == EditorInfo.IME_ACTION_DONE && (awake_edt.getText().toString().isEmpty()))
+            {
+                no_wake = 0;
+                awake_edt.setText("0");
+            }
+
         }
         return false;
     }

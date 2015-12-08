@@ -301,15 +301,23 @@ public class SleepDiaryActivity extends ActionBarActivity implements  View.OnCli
 
             if (!(coffee_edt.getText().toString()).isEmpty())
                 no_coffee = Integer.parseInt(coffee_edt.getText().toString());
+            else
+                coffee_edt.setText("0");
 
             if (!(alcohol_edt.getText().toString()).isEmpty())
                 no_wine = Integer.parseInt(alcohol_edt.getText().toString());
+            else
+                alcohol_edt.setText("0");
 
             if (!(smoke_edt.getText().toString()).isEmpty())
                 no_smoke = Integer.parseInt(smoke_edt.getText().toString());
+            else
+                smoke_edt.setText("0");
 
             if (!(nap_edt.getText().toString()).isEmpty())
                 no_nap = Integer.parseInt(nap_edt.getText().toString());
+            else
+                nap_edt.setText("0");
 
             if (no_nap>0)
             {
@@ -695,8 +703,13 @@ public class SleepDiaryActivity extends ActionBarActivity implements  View.OnCli
                 {
                     t_coffe.setText("glasses");
                 }
-                alcohol_edt.requestFocus();
+
             }
+            else if (actionId == EditorInfo.IME_ACTION_DONE && (coffee_edt.getText().toString().isEmpty()))
+            {
+                coffee_edt.setText("0");
+            }
+            alcohol_edt.requestFocus();
         }
 
         if (v.getId()== R.id.no_alcohol) {
@@ -710,11 +723,12 @@ public class SleepDiaryActivity extends ActionBarActivity implements  View.OnCli
                 {
                     t_wine.setText("glasses");
                 }
-
-                smoke_edt.requestFocus();
             }
-
-
+            else if (actionId == EditorInfo.IME_ACTION_DONE && (alcohol_edt.getText().toString().isEmpty()))
+            {
+                alcohol_edt.setText("0");
+            }
+            smoke_edt.requestFocus();
         }
 
         if (v.getId()== R.id.no_pipe)
@@ -731,10 +745,13 @@ public class SleepDiaryActivity extends ActionBarActivity implements  View.OnCli
             {
                 t_smoke.setText("units");
             }
-                nap_edt.requestFocus();
+
             }
-
-
+            else if (actionId == EditorInfo.IME_ACTION_DONE && (smoke_edt.getText().toString().isEmpty()))
+            {
+                smoke_edt.setText("0");
+            }
+            nap_edt.requestFocus();
         }
 
         if (v.getId()== R.id.no_nap)
@@ -779,6 +796,11 @@ public class SleepDiaryActivity extends ActionBarActivity implements  View.OnCli
                 naph.setTextColor(0xFFBABABA);
                 napm.setTextColor(0xFFBABABA);
             }
+            }
+
+            else if (actionId == EditorInfo.IME_ACTION_DONE && (nap_edt.getText().toString().isEmpty()))
+            {
+                nap_edt.setText("0");
             }
         }
 
@@ -956,13 +978,13 @@ public class SleepDiaryActivity extends ActionBarActivity implements  View.OnCli
             if(actionId ==EditorInfo.IME_ACTION_DONE && !(edtView.getText().toString().isEmpty()))
             {
                 pillname = edtView.getText().toString();
-                edtView.clearFocus();
+                //edtView.clearFocus();
             }
 
             else if(actionId ==EditorInfo.IME_ACTION_DONE && (edtView.getText().toString().isEmpty()))
             {
                 pillname = "";
-                edtView.requestFocus();
+                //edtView.requestFocus();
             }
         }
 
