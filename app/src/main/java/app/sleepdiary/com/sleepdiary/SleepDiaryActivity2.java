@@ -146,14 +146,14 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
     String[] minuteValues = {"0","5","10","15","20","25","30","35","40","45","50","55"};
     final Calendar cal = Calendar.getInstance();
 
-    int bedhour = 22;
-    int bedmin = 0;
-
-    int wokehour= 6;
-    int wokemin = 0;
-
-    int outhour = 6;
-    int outmin = 0;
+    int bedtemp = 0;
+    int sleepdu = 0;
+//
+//    int wokehour= 6;
+//    int wokemin = 0;
+//
+//    int outhour = 6;
+//    int outmin = 0;
 
     List<ImageView> awim = new ArrayList<ImageView>(10);
     //SleepdiaryDBHepler sleephelper = new SleepdiaryDBHepler(this);
@@ -526,6 +526,7 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
                     bedmin1 = true;
                 } else {
                     bedtime = pad(tempbedh) + ":" + pad(tempbedm);
+                    bedtemp = 100*tempbedh + tempbedm;
                 }
 
             }
@@ -568,15 +569,18 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
 
                 if (!(fallh_edt.getText().toString()).isEmpty()&&!(fallm_edt.getText().toString()).isEmpty()){
                     asleeptime = pad(dHour) + temp_h + pad(dMinute) + temp_m;
+                    sleepdu = 100*dHour+dMinute;
                 }
                 else if (!(fallh_edt.getText().toString()).isEmpty()&&(fallm_edt.getText().toString()).isEmpty())
                 {
                     asleeptime = pad(dHour) + temp_h + "0 mins";
                     fallm_edt.setText("0");
+                    sleepdu = 100*dHour;
                 }
                 else if ((fallh_edt.getText().toString()).isEmpty()&&(fallm_edt.getText().toString()).isEmpty()){
                     asleeptime ="0 hrs"+pad(dMinute) + temp_m;
                     fallh_edt.setText("0");
+                    sleepdu = dMinute;
                 }
 
             }
@@ -598,6 +602,7 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
 //                    errormsg.show();
                     wakemin1 = true;
                 }
+
                 else if (temp_out<temp_wake)
                 {
                     early1 = true;
@@ -735,7 +740,41 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
                 } else if (awq == -1) {
                     Toast errormsg = Toast.makeText(SleepDiaryActivity2.this, "Please finish Question 15!", Toast.LENGTH_SHORT);
                     errormsg.show();
-                } else {
+                }
+                else  if ((tempbedh<12)&&(temp_wake-bedtemp-sleepdu>1200)||((tempbedh>12)||(tempbedh ==12))&&(temp_wake +(2400-bedtemp)-sleepdu>1200))
+                {
+                    final Dialog dialoglogout = new Dialog(SleepDiaryActivity2.this);
+                    dialoglogout.setTitle("");
+
+                    dialoglogout.setContentView(R.layout.sleeptoolonger);
+                    dialoglogout.show();
+
+
+                    Button cdt = (Button)dialoglogout.findViewById(R.id.cancel_long);
+                    Button sdt = (Button)dialoglogout.findViewById(R.id.ok_long);
+
+                    cdt.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                            dialoglogout.cancel();
+                        }
+                    });
+
+
+                    sdt.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                            //ParseUser user = ParseUser.getCurrentUser();
+                            dialoglogout.cancel();
+                            Intent i = new Intent(SleepDiaryActivity2.this, SleepDiaryActivity3.class);
+                            SleepDiaryActivity2.this.startActivity(i);
+                        }
+                    });
+
+                }
+                else {
                     //query.whereEqualTo("User_ID",objectID);
                     query.getInBackground(objectID, new GetCallback<ParseObject>() {
                         @Override
@@ -745,7 +784,7 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
                                 pass.show();
                             } else {
 
-                                if(tempbedh<10){
+                                if(tempbedh<12){
                                     object.put("Date", today);
                                 }
                                 object.put("Bed_Time", bedtime);
