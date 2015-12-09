@@ -68,6 +68,9 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
     int date;
     int year;
 
+    String yesterdaystr ="";
+    String today= "";
+
 //    int temp_bed_h = 22;
 //    int temp_bed_m = 0;
 //    int temp_wake_h = -1;
@@ -360,6 +363,8 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
         date = cal.get(Calendar.DATE);
         year = cal.get(Calendar.YEAR);
 
+        today = String.valueOf(month)+"/"+String.valueOf(date)+"/"+String.valueOf(year);
+
         if (date == 1){
             month = month -1;
             if(month == 1||month == 3||month == 5||month == 7||month == 8||month == 10||month == 12)
@@ -522,6 +527,7 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
                 } else {
                     bedtime = pad(tempbedh) + ":" + pad(tempbedm);
                 }
+
             }
 
            else
@@ -738,6 +744,10 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
                                 Toast pass = Toast.makeText(SleepDiaryActivity2.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT);
                                 pass.show();
                             } else {
+
+                                if(tempbedh<10){
+                                    object.put("Date", today);
+                                }
                                 object.put("Bed_Time", bedtime);
                                 object.put("Sleep_Duration", asleeptime);
                                 object.put("Wake_Time", woketime);

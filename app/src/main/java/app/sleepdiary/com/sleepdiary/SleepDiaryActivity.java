@@ -63,6 +63,7 @@ public class SleepDiaryActivity extends ActionBarActivity implements  View.OnCli
     String pilltime = "";
     String pillname = "";
     String yesterdaystr ="";
+    String today= "";
 
     String temp_m = "";
     String temp_h = "";
@@ -192,7 +193,7 @@ public class SleepDiaryActivity extends ActionBarActivity implements  View.OnCli
         month = cal.get(Calendar.MONTH) + 1;
         date = cal.get(Calendar.DATE);
         year = cal.get(Calendar.YEAR);
-
+        today = String.valueOf(month)+"/"+String.valueOf(date)+"/"+String.valueOf(year);
         if (date == 1){
             month = month -1;
             if(month == 1||month == 3||month == 5||month == 7||month == 8||month == 10||month == 12)

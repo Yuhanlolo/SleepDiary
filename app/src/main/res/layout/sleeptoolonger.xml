@@ -43,24 +43,24 @@
 
 
             <TextView
-             android:id="@+id/text"
-             android:text="      Are you sure to log out? \nYou may lose the data that \nyou have input!"
-             android:textSize="22dp"
-             android:textColor="#8B8989"
-             android:layout_marginLeft="10dp"
-             android:layout_marginTop="25dp"
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
+                android:id="@+id/text"
+                android:text="      Are you sure you had \nmore than 12 hours sleep \nbefore move on?"
+                android:textSize="22dp"
+                android:textColor="#8B8989"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="25dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
 
-             android:typeface="sans"
-             android:layout_weight="0.12"
-             android:layout_row="0"
-             android:layout_column="0"
+                android:typeface="sans"
+                android:layout_weight="0.12"
+                android:layout_row="0"
+                android:layout_column="0"
 
-             />
+                />
 
             <Button
-                android:id="@+id/cancel_logout"
+                android:id="@+id/cancel_long"
                 android:textAllCaps="false"
                 android:background="?android:attr/selectableItemBackground"
                 android:textColor="#008b8b"
@@ -74,7 +74,7 @@
                 />
 
             <Button
-                android:id="@+id/ok_logout"
+                android:id="@+id/ok_long"
                 android:textAllCaps="false"
                 android:textColor="#008b8b"
                 android:background="?android:attr/selectableItemBackground"
