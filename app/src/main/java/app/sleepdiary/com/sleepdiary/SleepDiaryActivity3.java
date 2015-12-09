@@ -305,8 +305,11 @@ public class SleepDiaryActivity3 extends ActionBarActivity implements RadioGroup
                             });
 
                         } else {
-//                            Toast pass = Toast.makeText(MovesleepActivity2.this, "Error: " + "not found!", Toast.LENGTH_SHORT);
-//                            pass.show();
+                           Toast pass = Toast.makeText(SleepDiaryActivity3.this, "The page is outdated, Please start over!" , Toast.LENGTH_LONG);
+                           pass.show();
+                           Intent i = new Intent(SleepDiaryActivity3.this, MainActivity.class);
+                           SleepDiaryActivity3.this.startActivity(i);
+                           Log.d("score", "Error: " + e.getMessage());
                             Log.d("score", "Error: " + e.getMessage());
                         }
                     }
@@ -360,6 +363,13 @@ public class SleepDiaryActivity3 extends ActionBarActivity implements RadioGroup
                                         i.putExtra("f2", f);
                                         SleepDiaryActivity3.this.startActivity(i);
                                     }
+                                    else{
+                                        Toast pass = Toast.makeText(SleepDiaryActivity3.this, "The page is outdated, Please start over!" , Toast.LENGTH_LONG);
+                                        pass.show();
+                                        Intent i = new Intent(SleepDiaryActivity3.this, MainActivity.class);
+                                        SleepDiaryActivity3.this.startActivity(i);
+                                        Log.d("score", "Error: " + e.getMessage());
+                                    }
                                 }
                             });
 
@@ -387,6 +397,11 @@ public class SleepDiaryActivity3 extends ActionBarActivity implements RadioGroup
                                             }
                                         });
                                     } else {
+                                        Toast pass = Toast.makeText(SleepDiaryActivity3.this, "The page is outdated, Please start over!" , Toast.LENGTH_LONG);
+                                        pass.show();
+                                        Intent i = new Intent(SleepDiaryActivity3.this, MainActivity.class);
+                                        SleepDiaryActivity3.this.startActivity(i);
+                                        Log.d("score", "Error: " + e.getMessage());
                                         Log.d("score", "Error: " + e.getMessage());
                                     }
                                 }

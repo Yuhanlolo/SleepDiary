@@ -1168,8 +1168,10 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
                                 });
 
                             } else {
-//                            Toast pass = Toast.makeText(MovesleepActivity2.this, "Error: " + "not found!", Toast.LENGTH_SHORT);
-//                            pass.show();
+                                Toast pass = Toast.makeText(SleepDiaryActivity2.this, "The page is outdated, Please start over!" , Toast.LENGTH_LONG);
+                                pass.show();
+                                Intent i = new Intent(SleepDiaryActivity2.this, MainActivity.class);
+                                SleepDiaryActivity2.this.startActivity(i);
                                 Log.d("score", "Error: " + e.getMessage());
                             }
                         }

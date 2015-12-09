@@ -422,6 +422,11 @@ public class NapMoveSleepActivity2 extends ActionBarActivity implements SeekBar.
                         if (e != null) {
                             Toast pass = Toast.makeText(NapMoveSleepActivity2.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT);
                             pass.show();
+                            Toast pass1 = Toast.makeText(NapMoveSleepActivity2.this, "The page is outdated, Please start over!" , Toast.LENGTH_LONG);
+                            pass1.show();
+                            Intent i = new Intent(NapMoveSleepActivity2.this, MainActivity.class);
+                            NapMoveSleepActivity2.this.startActivity(i);
+                            Log.d("score", "Error: " + e.getMessage());
                         } else {
                             object.put("Move_Capability", movep);
                             object.put("Sleepiness_Scale", sleepp);

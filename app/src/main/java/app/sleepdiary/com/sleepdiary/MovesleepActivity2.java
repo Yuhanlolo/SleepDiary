@@ -392,8 +392,11 @@ public class MovesleepActivity2 extends ActionBarActivity implements SeekBar.OnS
                             });
 
                         } else {
-//                            Toast pass = Toast.makeText(MovesleepActivity2.this, "Error: " + "not found!", Toast.LENGTH_SHORT);
-//                            pass.show();
+                            Toast pass = Toast.makeText(MovesleepActivity2.this, "The page is outdated, Please start over!" , Toast.LENGTH_LONG);
+                            pass.show();
+                            Intent i = new Intent(MovesleepActivity2.this, MainActivity.class);
+                            MovesleepActivity2.this.startActivity(i);
+                            Log.d("score", "Error: " + e.getMessage());
                             Log.d("score", "Error: " + e.getMessage());
                         }
                     }
@@ -450,6 +453,13 @@ public class MovesleepActivity2 extends ActionBarActivity implements SeekBar.OnS
                                         i.putExtra("f2", f);
                                         MovesleepActivity2.this.startActivity(i);
                                     }
+                                    else{
+                                        Toast pass = Toast.makeText(MovesleepActivity2.this, "The page is outdated, Please start over!" , Toast.LENGTH_LONG);
+                                        pass.show();
+                                        Intent i = new Intent(MovesleepActivity2.this, MainActivity.class);
+                                        MovesleepActivity2.this.startActivity(i);
+                                        Log.d("score", "Error: " + e.getMessage());
+                                    }
                                 }
                             });
 
@@ -490,6 +500,10 @@ public class MovesleepActivity2 extends ActionBarActivity implements SeekBar.OnS
                                             }
                                         });
                                     } else {
+                                        Toast pass = Toast.makeText(MovesleepActivity2.this, "The page is outdated, Please start over!" , Toast.LENGTH_LONG);
+                                        pass.show();
+                                        Intent i = new Intent(MovesleepActivity2.this, MainActivity.class);
+                                        MovesleepActivity2.this.startActivity(i);
                                         Log.d("score", "Error: " + e.getMessage());
                                     }
                                 }
