@@ -13,6 +13,8 @@ import android.support.v7.app.ActionBarActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.app.Activity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -185,33 +187,353 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
         t_awake = (TextView)findViewById(R.id.d_awake);
 
         bedh_edt = (EditText)findViewById(R.id.bedh);
-        //napduh_edt.setInputType(InputType.TYPE_NULL);
-        //bedh_edt.setEnabled(false);
+        bedh_edt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+//                myadapter.getFilter().filter(s);
+//                listview.setAdapter(myadapter);
+
+            }
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count,
+                                          int after) {
+                // TODO Auto-generated method stub
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
+                // TODO Auto-generated method stub
+                if (bedh_edt.getText().toString().length()==2)
+                {
+                    if (Integer.parseInt(bedh_edt.getText().toString()) > 23 || Integer.parseInt(bedh_edt.getText().toString()) < 0) {
+                        bedh_edt.setText("");
+                        Toast pass = Toast.makeText(SleepDiaryActivity2.this, "Please input hour of time between 0-23!", Toast.LENGTH_LONG);
+                        pass.show();
+                        bedh_edt.requestFocus();
+                    }
+                    else
+                    bedm_edt.requestFocus();
+                }
+            }
+        });
         bedh_edt.setOnEditorActionListener(this);
 
         bedm_edt = (EditText)findViewById(R.id.bedm);
-        //napduh_edt.setInputType(InputType.TYPE_NULL);
-        //bedm_edt.setEnabled(false);
+        bedm_edt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+//                myadapter.getFilter().filter(s);
+//                listview.setAdapter(myadapter);
+
+            }
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count,
+                                          int after) {
+                // TODO Auto-generated method stub
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
+                // TODO Auto-generated method stub
+                if (bedm_edt.getText().toString().length()==2)
+                {
+                    if (Integer.parseInt(bedm_edt.getText().toString()) > 59 || Integer.parseInt(bedm_edt.getText().toString()) < 0) {
+                        bedm_edt.setText("");
+                        Toast pass = Toast.makeText(SleepDiaryActivity2.this, "Please input minute of time between 0-59!", Toast.LENGTH_LONG);
+                        pass.show();
+                        bedm_edt.requestFocus();
+                    }
+                    else
+                    fallh_edt.requestFocus();
+                }
+            }
+        });
         bedm_edt.setOnEditorActionListener(this);
 
         fallh_edt = (EditText)findViewById(R.id.fall_h);
-        //napdum_edt.setInputType(InputType.TYPE_NULL);
+        fallh_edt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+//                myadapter.getFilter().filter(s);
+//                listview.setAdapter(myadapter);
+
+            }
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count,
+                                          int after) {
+                // TODO Auto-generated method stub
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
+                // TODO Auto-generated method stub
+                if (fallh_edt.getText().toString().length()==2)
+                {
+                    dHour = Integer.parseInt(fallh_edt.getText().toString());
+                    if(dHour>23 || dHour<0)
+                    {
+                        fallh_edt.setText("");
+                        Toast pass = Toast.makeText(SleepDiaryActivity2.this, "Please input hour of time between 0-23!", Toast.LENGTH_LONG);
+                        pass.show();
+                        fallh_edt.requestFocus();
+                    }
+                    else{
+                        if (dHour == 1)
+                        {
+                            fallh.setText("hr");
+                            temp_h = " hr";
+                        }
+                        else
+                        {
+                            fallh.setText("hrs");
+                            temp_h = " hrs";
+                        }
+                    fallm_edt.requestFocus();}
+                }
+            }
+        });
         fallh_edt.setOnEditorActionListener(this);
 
         fallm_edt = (EditText)findViewById(R.id.fall_m);
-        //napdum_edt.setInputType(InputType.TYPE_NULL);
+        fallm_edt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+//                myadapter.getFilter().filter(s);
+//                listview.setAdapter(myadapter);
+
+            }
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count,
+                                          int after) {
+                // TODO Auto-generated method stub
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
+                // TODO Auto-generated method stub
+                if (fallm_edt.getText().toString().length()==2)
+                {
+                    if (Integer.parseInt( fallm_edt.getText().toString()) > 59 || Integer.parseInt( fallm_edt.getText().toString()) < 0) {
+                        fallm_edt.setText("");
+                        Toast pass = Toast.makeText(SleepDiaryActivity2.this, "Please input nap minute of time between 0-59!", Toast.LENGTH_LONG);
+                        pass.show();
+                        fallm_edt.requestFocus();
+                    } else {
+                        dMinute = Integer.parseInt(fallm_edt.getText().toString());
+                        if (dMinute == 1) {
+                            fallm.setText("min");
+                            temp_m = " min";
+                        } else {
+                            fallm.setText("mins");
+                            temp_m = " mins";
+                        }
+                    wakeh_edt.requestFocus();
+                    }
+                }
+            }
+        });
         fallm_edt.setOnEditorActionListener(this);
 
         wakeh_edt = (EditText)findViewById(R.id.wakeh);
+        wakeh_edt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+//                myadapter.getFilter().filter(s);
+//                listview.setAdapter(myadapter);
+
+            }
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count,
+                                          int after) {
+                // TODO Auto-generated method stub
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
+                // TODO Auto-generated method stub
+                if (wakeh_edt.getText().toString().length()==2)
+                {
+                    if (Integer.parseInt(wakeh_edt.getText().toString()) > 23 || Integer.parseInt(wakeh_edt.getText().toString()) < 0) {
+                        wakeh_edt.setText("");
+                        Toast pass = Toast.makeText(SleepDiaryActivity2.this, "Please input hour of time between 0-23!", Toast.LENGTH_LONG);
+                        pass.show();
+                        wakeh_edt.requestFocus();
+                    }else
+                    {
+                        if(!wakem_edt.getText().toString().isEmpty()){
+                            tempwakem = Integer.parseInt(wakem_edt.getText().toString());
+                        tempwakeh = Integer.parseInt(wakeh_edt.getText().toString());
+                        temp_wake = 100*tempwakeh+tempwakem;
+
+                        if(temp_out-temp_wake<0)
+                        {
+                            Toast pass = Toast.makeText(SleepDiaryActivity2.this, "Wake up time should be earlier than out of bed time!", Toast.LENGTH_LONG);
+                            pass.show();
+                            wakeh_edt.setText("");
+                            wakem_edt.setText("");
+                            temp_wake = 0;
+                            tempwakeh = -1;
+                            tempwakem = -1;
+                            wakeh_edt.requestFocus();}
+                        }
+                        else
+                        wakem_edt.requestFocus();}
+                }
+            }
+        });
         wakeh_edt.setOnEditorActionListener(this);
 
         wakem_edt = (EditText)findViewById(R.id.wakem);
+        wakem_edt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+//                myadapter.getFilter().filter(s);
+//                listview.setAdapter(myadapter);
+
+            }
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count,
+                                          int after) {
+                // TODO Auto-generated method stub
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
+                // TODO Auto-generated method stub
+                if (wakem_edt.getText().toString().length()==2)
+                {
+                    if (Integer.parseInt(wakem_edt.getText().toString()) > 59 || Integer.parseInt(wakem_edt.getText().toString()) < 0) {
+                        wakem_edt.setText("");
+                        Toast pass = Toast.makeText(SleepDiaryActivity2.this, "Please input minute of time between 0-59!", Toast.LENGTH_LONG);
+                        pass.show();
+                        wakem_edt.requestFocus();
+                    }
+
+                    else
+                    {
+                        tempwakem = Integer.parseInt(wakem_edt.getText().toString());
+                        if(!wakeh_edt.getText().toString().isEmpty()){
+                            tempwakeh = Integer.parseInt(wakeh_edt.getText().toString());
+                        temp_wake = 100*tempwakeh+tempwakem;
+
+                        if(temp_out-temp_wake<0)
+                        {
+                            Toast pass = Toast.makeText(SleepDiaryActivity2.this, "Wake up time should be earlier than out of bed time!", Toast.LENGTH_LONG);
+                            pass.show();
+                            wakeh_edt.setText("");
+                            wakem_edt.setText("");
+                            temp_wake = 0;
+                            tempwakeh = -1;
+                            tempwakem = -1;
+                            wakeh_edt.requestFocus();
+                        }
+                        else
+                            outh_edt.requestFocus();
+                        }
+
+                    }
+                }
+            }
+        });
         wakem_edt.setOnEditorActionListener(this);
 
         outh_edt = (EditText)findViewById(R.id.outh);
+        outh_edt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+//                myadapter.getFilter().filter(s);
+//                listview.setAdapter(myadapter);
+
+            }
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count,
+                                          int after) {
+                // TODO Auto-generated method stub
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
+                // TODO Auto-generated method stub
+                if (outh_edt.getText().toString().length()==2)
+                {
+                    if (Integer.parseInt(outh_edt.getText().toString()) > 23 || Integer.parseInt(outh_edt.getText().toString()) < 0) {
+                        outh_edt.setText("");
+                        Toast pass = Toast.makeText(SleepDiaryActivity2.this, "Please input hour of time between 0-23!", Toast.LENGTH_LONG);
+                        pass.show();
+                        outh_edt.requestFocus();
+                    } else
+                    {
+                        tempouth = Integer.parseInt(outh_edt.getText().toString());
+                        if(!outm_edt.getText().toString().isEmpty()){
+                            tempoutm = Integer.parseInt(outm_edt.getText().toString());
+                        temp_out = 100*tempouth+tempoutm;
+
+                        if(temp_out-temp_wake<0)
+                        {
+                            Toast pass = Toast.makeText(SleepDiaryActivity2.this, "Out of bed time should be later than wake up time!", Toast.LENGTH_LONG);
+                            pass.show();
+                            outh_edt.setText("");
+                            outm_edt.setText("");
+                            temp_out = 2400;
+                            tempouth = -1;
+                            tempoutm = -1;
+                            outh_edt.requestFocus();}
+                        }else
+                        outm_edt.requestFocus();
+                    }
+                }
+            }
+        });
         outh_edt.setOnEditorActionListener(this);
 
         outm_edt = (EditText)findViewById(R.id.outm);
+        outm_edt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+//                myadapter.getFilter().filter(s);
+//                listview.setAdapter(myadapter);
+
+            }
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count,
+                                          int after) {
+                // TODO Auto-generated method stub
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
+                // TODO Auto-generated method stub
+                if (outm_edt.getText().toString().length()==2)
+                {
+                    if (Integer.parseInt(outm_edt.getText().toString()) > 59 || Integer.parseInt(outm_edt.getText().toString()) < 0) {
+                        outm_edt.setText("");
+                        Toast pass = Toast.makeText(SleepDiaryActivity2.this, "Please input minute of time between 0-59!", Toast.LENGTH_LONG);
+                        pass.show();
+                        outm_edt.requestFocus();
+                    } else{
+                        tempoutm = Integer.parseInt(outm_edt.getText().toString());
+                        if(!outh_edt.getText().toString().isEmpty()){
+                            tempouth = Integer.parseInt(outh_edt.getText().toString());
+                        temp_out = 100*tempouth+tempoutm;
+
+                        if(temp_out-temp_wake<0)
+                        {
+                            Toast pass = Toast.makeText(SleepDiaryActivity2.this, "Out of bed time should be later than wake up time!", Toast.LENGTH_LONG);
+                            pass.show();
+                            outh_edt.setText("");
+                            outm_edt.setText("");
+                            temp_out = 2400;
+                            tempouth = -1;
+                            tempoutm = -1;
+                            outh_edt.requestFocus();
+                        }
+                        else
+                            awake_edt.requestFocus();
+                        }
+                    }
+                }
+            }
+        });
         outm_edt.setOnEditorActionListener(this);
 
         fallh = (TextView)findViewById(R.id.falluh);
@@ -1158,7 +1480,7 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
 
                         if(temp_out-temp_wake<0)
                         {
-                            Toast pass = Toast.makeText(SleepDiaryActivity2.this, "Question 11 should be earlier than the time out of bed!", Toast.LENGTH_LONG);
+                            Toast pass = Toast.makeText(SleepDiaryActivity2.this, "Wake up time should be earlier than out of bed time!", Toast.LENGTH_LONG);
                             pass.show();
                             wakeh_edt.setText("");
                             wakem_edt.setText("");
@@ -1196,7 +1518,7 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
 
                         if(temp_out-temp_wake<0)
                         {
-                            Toast pass = Toast.makeText(SleepDiaryActivity2.this, "Question 11 should be earlier than the time out of bed!", Toast.LENGTH_LONG);
+                            Toast pass = Toast.makeText(SleepDiaryActivity2.this, "Wake up time should be earlier than out of bed time!", Toast.LENGTH_LONG);
                             pass.show();
                             wakeh_edt.setText("");
                             wakem_edt.setText("");
@@ -1234,7 +1556,7 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
 
                         if(temp_out-temp_wake<0)
                         {
-                            Toast pass = Toast.makeText(SleepDiaryActivity2.this, "Question 12 should be later than woke up time!", Toast.LENGTH_LONG);
+                            Toast pass = Toast.makeText(SleepDiaryActivity2.this, "Out of bed time should be later than wake up time!", Toast.LENGTH_LONG);
                             pass.show();
                             outh_edt.setText("");
                             outm_edt.setText("");
@@ -1271,7 +1593,7 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
 
                         if(temp_out-temp_wake<0)
                         {
-                            Toast pass = Toast.makeText(SleepDiaryActivity2.this, "Question 12 should be later than woke up time!", Toast.LENGTH_LONG);
+                            Toast pass = Toast.makeText(SleepDiaryActivity2.this, "Out of bed time should be later than wake up time!", Toast.LENGTH_LONG);
                             pass.show();
                             outh_edt.setText("");
                             outm_edt.setText("");

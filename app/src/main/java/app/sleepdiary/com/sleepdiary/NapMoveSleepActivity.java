@@ -4,6 +4,8 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -90,21 +92,152 @@ public class NapMoveSleepActivity extends ActionBarActivity implements SeekBar.O
         currentpage.setText(currenttask);
 
         bedh_edt = (EditText)findViewById(R.id.naph);
-        //napduh_edt.setInputType(InputType.TYPE_NULL);
-        //bedh_edt.setEnabled(false);
+        bedh_edt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+//                myadapter.getFilter().filter(s);
+//                listview.setAdapter(myadapter);
+
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count,
+                                          int after) {
+                // TODO Auto-generated method stub
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                // TODO Auto-generated method stub
+                if (bedh_edt.getText().toString().length() == 2) {
+                    if (Integer.parseInt(bedh_edt.getText().toString()) > 23 || Integer.parseInt(bedh_edt.getText().toString()) < 0) {
+                        bedh_edt.setText("");
+                        Toast pass = Toast.makeText(NapMoveSleepActivity.this, "Please input hour of time between 0-23!", Toast.LENGTH_LONG);
+                        pass.show();
+                        bedh_edt.requestFocus();
+                    }
+                    else
+                        bedm_edt.requestFocus();
+                }
+            }
+        });
         bedh_edt.setOnEditorActionListener(this);
 
         bedm_edt = (EditText)findViewById(R.id.napm);
-        //napduh_edt.setInputType(InputType.TYPE_NULL);
-        //bedm_edt.setEnabled(false);
+        bedm_edt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+//                myadapter.getFilter().filter(s);
+//                listview.setAdapter(myadapter);
+
+            }
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count,
+                                          int after) {
+                // TODO Auto-generated method stub
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
+                // TODO Auto-generated method stub
+                if (bedm_edt.getText().toString().length()==2)
+                {
+                    if (Integer.parseInt(bedm_edt.getText().toString()) > 59 || Integer.parseInt(bedm_edt.getText().toString()) < 0) {
+                        bedm_edt.setText("");
+                        Toast pass = Toast.makeText(NapMoveSleepActivity.this, "Please input minute of time between 0-59!", Toast.LENGTH_LONG);
+                        pass.show();
+                        bedm_edt.requestFocus();
+                    }
+                    else
+                        fallh_edt.requestFocus();
+                }
+            }
+        });
         bedm_edt.setOnEditorActionListener(this);
 
         fallh_edt = (EditText)findViewById(R.id.nap_h);
-        //napdum_edt.setInputType(InputType.TYPE_NULL);
+        fallh_edt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+//                myadapter.getFilter().filter(s);
+//                listview.setAdapter(myadapter);
+
+            }
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count,
+                                          int after) {
+                // TODO Auto-generated method stub
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
+                // TODO Auto-generated method stub
+                if (fallh_edt.getText().toString().length()==2)
+                {
+                    dHour = Integer.parseInt(fallh_edt.getText().toString());
+                    if(dHour>23 || dHour<0)
+                    {
+                        fallh_edt.setText("");
+                        Toast pass = Toast.makeText(NapMoveSleepActivity.this, "Please input hour of time between 0-23!", Toast.LENGTH_LONG);
+                        pass.show();
+                        fallh_edt.requestFocus();
+                    }
+                    else{
+                        if (dHour == 1)
+                        {
+                            fallh.setText("hr");
+                            temp_h = " hr";
+                        }
+                        else
+                        {
+                            fallh.setText("hrs");
+                            temp_h = " hrs";
+                        }
+                        fallm_edt.requestFocus();}
+                }
+            }
+        });
         fallh_edt.setOnEditorActionListener(this);
 
         fallm_edt = (EditText)findViewById(R.id.nap_m);
-        //napdum_edt.setInputType(InputType.TYPE_NULL);
+        fallm_edt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+//                myadapter.getFilter().filter(s);
+//                listview.setAdapter(myadapter);
+
+            }
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count,
+                                          int after) {
+                // TODO Auto-generated method stub
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
+                // TODO Auto-generated method stub
+                if (fallm_edt.getText().toString().length()==2)
+                {
+                    if (Integer.parseInt( fallm_edt.getText().toString()) > 59 || Integer.parseInt( fallm_edt.getText().toString()) < 0) {
+                        fallm_edt.setText("");
+                        Toast pass = Toast.makeText(NapMoveSleepActivity.this, "Please input nap minute of time between 0-59!", Toast.LENGTH_LONG);
+                        pass.show();
+                        fallm_edt.requestFocus();
+                    } else {
+                        dMinute = Integer.parseInt(fallm_edt.getText().toString());
+                        if (dMinute == 1) {
+                            fallm.setText("min");
+                            temp_m = " min";
+                        } else {
+                            fallm.setText("mins");
+                            temp_m = " mins";
+                        }
+
+                    }
+                }
+            }
+        });
         fallm_edt.setOnEditorActionListener(this);
 
         fallh = (TextView)findViewById(R.id.napuh);
