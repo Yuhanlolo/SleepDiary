@@ -689,7 +689,7 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
 
                 else if (early1)
                 {
-                    Toast errormsg = Toast.makeText(SleepDiaryActivity2.this, "For Question 11, Woke up time should earlier than the time out of bed!", Toast.LENGTH_LONG);
+                    Toast errormsg = Toast.makeText(SleepDiaryActivity2.this, "Wake up time should earlier than out of bed time!", Toast.LENGTH_LONG);
                     errormsg.show();
                 }
                 else if (woketime.isEmpty()) {
@@ -711,7 +711,7 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
 
                 else if (late1)
                 {
-                    Toast errormsg = Toast.makeText(SleepDiaryActivity2.this, "For Question 12, the time out of bed should later than woke up time", Toast.LENGTH_LONG);
+                    Toast errormsg = Toast.makeText(SleepDiaryActivity2.this, "Out of bed time should be later than wake up time!", Toast.LENGTH_LONG);
                     errormsg.show();
                 }
                 else if (outtime.isEmpty()) {

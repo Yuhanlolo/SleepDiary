@@ -389,16 +389,16 @@ public class MovesleepActivity2 extends ActionBarActivity implements SeekBar.OnS
                     public void done(List<ParseObject> scoreList, ParseException e) {
                         if (e == null) {
                             Log.d("score", "Retrieved " + scoreList.size() + " scores");
-                            Toast pass = Toast.makeText(MovesleepActivity2.this, "size: " + scoreList.size(), Toast.LENGTH_SHORT);
-                            pass.show();
+//                            Toast pass = Toast.makeText(MovesleepActivity2.this, "size: " + scoreList.size(), Toast.LENGTH_SHORT);
+//                            pass.show();
                             if(lastpage.equals("M30"))
                             {
-                            scoreList.get(0).put("M30_Movesleep", 1);
+                                scoreList.get(0).put("M30_Movesleep", 1);
                             }
 
                             if(lastpage.equals("A_DOPA1"))
                             {
-                                scoreList.get(0).put("A_DOPA1_Movesleep", 1);
+                                scoreList.get(0).put("MDOPA1_Movesleep", 1);
                             }
                             if(lastpage.equals("A_DOPA"))
                             {

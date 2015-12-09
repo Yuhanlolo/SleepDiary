@@ -100,7 +100,7 @@ public class MainActivity  extends ActionBarActivity {
                             finish_M30.setVisibility(View.VISIBLE);
                         }
 
-                        if ( object.getInt("A_DOPA1_Movesleep") == 1) {
+                        if ( object.getInt("MDOPA1_Movesleep") == 1) {
                             A_DOPA1 = true;
                             finish_adi.setVisibility(View.VISIBLE);
                         }
@@ -108,6 +108,8 @@ public class MainActivity  extends ActionBarActivity {
                         if ( object.getInt("A_DOPA_Movesleep") == 1) {
                             A_DOPA = true;
                             finish_bdi.setVisibility(View.VISIBLE);
+//                            Toast pass = Toast.makeText(MainActivity.this,"ADOPA TRUE", Toast.LENGTH_SHORT);
+//                            pass.show();
                         }
 
                         if (object.getInt("E_Movesleep") == 1) {
@@ -226,11 +228,11 @@ public class MainActivity  extends ActionBarActivity {
                 pass.show();
             }
 
-            else if (A_DOPA1)
-            {
-                Toast pass = Toast.makeText(MainActivity.this,"You have finished this part!", Toast.LENGTH_SHORT);
-                pass.show();
-            }
+//            else if (A_DOPA1)
+//            {
+//                Toast pass = Toast.makeText(MainActivity.this,"You have finished this part!", Toast.LENGTH_SHORT);
+//                pass.show();
+//            }
             else
             {
                 Intent i = new Intent(MainActivity.this, SleepActivity.class);

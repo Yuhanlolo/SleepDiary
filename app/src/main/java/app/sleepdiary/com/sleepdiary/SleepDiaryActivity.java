@@ -315,7 +315,14 @@ public class SleepDiaryActivity extends ActionBarActivity implements  View.OnCli
                 smoke_edt.setText("0");
 
             if (!(nap_edt.getText().toString()).isEmpty())
+            {
                 no_nap = Integer.parseInt(nap_edt.getText().toString());
+//                if(no_nap ==0)
+//                {
+//                    napduh_edt.setText("");
+//                    napdum_edt.setText("");
+//                }
+            }
             else
                 nap_edt.setText("0");
 
@@ -336,9 +343,11 @@ public class SleepDiaryActivity extends ActionBarActivity implements  View.OnCli
             {
                 //napduh_edt.setInputType(InputType.TYPE_NULL);
                 napduh_edt.setEnabled(false);
+                napduh_edt.clearFocus();
                 napduh_edt.setText("");
                 // napdum_edt.setInputType(InputType.TYPE_NULL);
                 napdum_edt.setEnabled(false);
+                napdum_edt.clearFocus();
                 napdum_edt.setText("");
 
                 q5.setTextColor(0xFFBABABA);

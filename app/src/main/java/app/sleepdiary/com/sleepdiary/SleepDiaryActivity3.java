@@ -3,6 +3,7 @@ package app.sleepdiary.com.sleepdiary;
 import android.content.Intent;
 import android.os.Bundle;
 import android.app.Activity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.RadioGroup;
 import android.widget.RadioButton;
 import android.support.v7.app.ActionBarActivity;
 
+import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -19,6 +21,7 @@ import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 import java.util.Calendar;
+import java.util.List;
 
 /**
  * Created by ypl5142 on 10/5/15.
@@ -87,7 +90,7 @@ public class SleepDiaryActivity3 extends ActionBarActivity implements RadioGroup
     String lastpage = "";
     ParseQuery<ParseObject> query;
     ParseObject TaskCheckList  = new ParseObject("TaskCheckList");
-    //ParseQuery<ParseObject> query1 = ParseQuery.getQuery("TaskCheckList");
+    ParseQuery<ParseObject> query1 = ParseQuery.getQuery("TaskCheckList");
     //ParseObject userActivity = new ParseObject("UserActivity");
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -295,23 +298,61 @@ public class SleepDiaryActivity3 extends ActionBarActivity implements RadioGroup
 //                userActivity.put("Enviro_Disturbance", a_distur);
 //                //userActivity.pinInBackground();
 //                userActivity.saveInBackground();
-                TaskCheckList.put("User_ID", ParseUser.getCurrentUser().getUsername());
-                TaskCheckList.put("Date", today);
 
-                TaskCheckList.put("M30_Briantest", 0);
-                TaskCheckList.put("M30_Sleepdiary", 1);
-                TaskCheckList.put("M30_Movesleep", 0);
+//                TaskCheckList.put("User_ID", ParseUser.getCurrentUser().getUsername());
+//                TaskCheckList.put("Date", today);
+//
+//                TaskCheckList.put("M30_Briantest", 0);
+//                TaskCheckList.put("M30_Sleepdiary", 1);
+//                TaskCheckList.put("M30_Movesleep", 0);
+//
+//                TaskCheckList.put("A_DOPA1_Briantest", 0);
+//                TaskCheckList.put("A_DOPA1_Movesleep", 0);
+//
+//                TaskCheckList.put("A_DOPA_Briantest", 0);
+//                TaskCheckList.put("A_DOPA_Movesleep", 0);
+//
+//                TaskCheckList.put("E_Briantest", 0);
+//                TaskCheckList.put("E_Movesleep", 0);
+//
+//                TaskCheckList.saveInBackground();
 
-                TaskCheckList.put("A_DOPA1_Briantest", 0);
-                TaskCheckList.put("A_DOPA1_Movesleep", 0);
+                query1.whereEqualTo("User_ID", ParseUser.getCurrentUser().getUsername());
+                query1.whereEqualTo("Date", today);
+                query1.setLimit(1);
+                query1.findInBackground(new FindCallback<ParseObject>() {
+                    public void done(List<ParseObject> scoreList, ParseException e) {
+                        if (e == null) {
+                            Log.d("score", "Retrieved " + scoreList.size() + " scores");
+//                            Toast pass = Toast.makeText(SleepDiaryActivity3.this, "size: " + scoreList.size(), Toast.LENGTH_SHORT);
+//                            pass.show();
+                            scoreList.get(0).put("M30_Sleepdiary", 1);
+//                            if(lastpage.equals("M30"))
+//                            {
+//                                scoreList.get(0).put("M30_Movesleep", 1);
+//                            }
+//
+//                            if(lastpage.equals("A_DOPA1"))
+//                            {
+//                                scoreList.get(0).put("MDOPA1_Movesleep", 1);
+//                            }
+//                            if(lastpage.equals("A_DOPA"))
+//                            {
+//                                scoreList.get(0).put("A_DOPA_Movesleep", 1);
+//                            }
+//                            if(lastpage.equals("E"))
+//                            {
+//                                scoreList.get(0).put("E_Movesleep", 1);
+//                            }
 
-                TaskCheckList.put("A_DOPA_Briantest", 0);
-                TaskCheckList.put("A_DOPA_Movesleep", 0);
-
-                TaskCheckList.put("E_Briantest", 0);
-                TaskCheckList.put("E_Movesleep", 0);
-
-                TaskCheckList.saveInBackground();
+                            scoreList.get(0).saveInBackground();
+                        } else {
+//                            Toast pass = Toast.makeText(MovesleepActivity2.this, "Error: " + "not found!", Toast.LENGTH_SHORT);
+//                            pass.show();
+                            Log.d("score", "Error: " + e.getMessage());
+                        }
+                    }
+                });
 
                 //f = true;
                 Intent i = new Intent(SleepDiaryActivity3.this,SleepActivity.class);

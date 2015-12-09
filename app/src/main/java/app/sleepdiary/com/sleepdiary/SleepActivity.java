@@ -102,7 +102,7 @@ public class SleepActivity extends ActionBarActivity{
 
                 if (struri.equals("sleep://diary.com/m30"))
                     lastpage = "M30";
-                else if (struri.equals("sleep://diary.com/adopa1"))
+                else if (struri.equals("sleep://diary.com/mdopa1"))
                     lastpage = "A_DOPA1";
                 else if (struri.equals("sleep://diary.com/adopa"))
                     lastpage = "A_DOPA";
@@ -367,12 +367,12 @@ public class SleepActivity extends ActionBarActivity{
 
                         } else {
 
-                            if ( object.getInt("A_DOPA1_Movesleep") == 1) {
+                            if ( object.getInt("MDOPA1_Movesleep") == 1) {
                                 finish_movesleep = true;
                                 f3.setVisibility(View.VISIBLE);
                             }
 
-                            if (object.getInt("A_DOPA1_Braintest") == 1 ) {
+                            if (object.getInt("MDOPA1_Braintest") == 1 ) {
                                 finish_braintest = true;
                                 f1.setVisibility(View.VISIBLE);
                             }
