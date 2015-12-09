@@ -7,7 +7,8 @@ package app.sleepdiary.com.sleepdiary;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
-
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import android.support.v7.app.ActionBarActivity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -412,8 +413,7 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
 
 
 
-    public void button_SD2dOnClick(View view)
-    {
+    public void button_SD2dOnClick(View view) throws java.text.ParseException {
 //        if(view.getId() == SQ1_g.getId()){
 //            sq =1;
 //            SQ1.setVisibility(View.VISIBLE);
@@ -515,6 +515,13 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
             boolean wakehour1 = false, wakemin1 = false;
             boolean outhour1 = false, outmin1 = false;
             boolean early1 = false, late1 = false;
+            int difference = 0;
+            boolean over = false;
+            String bedddff = "";
+            int waked_cal = 0;
+            int bed_cal = 0;
+            int du_cal = 0;
+//            SimpleDateFormat format = new SimpleDateFormat("HH:mm");
 
             if (!(bedh_edt.getText().toString()).isEmpty() && !(bedm_edt.getText().toString()).isEmpty()) {
                 tempbedh = Integer.parseInt(bedh_edt.getText().toString());
@@ -527,6 +534,7 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
                 } else {
                     bedtime = pad(tempbedh) + ":" + pad(tempbedm);
                     bedtemp = 100*tempbedh + tempbedm;
+                    bed_cal = 60*tempbedh +tempbedm;
                 }
 
             }
@@ -570,17 +578,20 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
                 if (!(fallh_edt.getText().toString()).isEmpty()&&!(fallm_edt.getText().toString()).isEmpty()){
                     asleeptime = pad(dHour) + temp_h + pad(dMinute) + temp_m;
                     sleepdu = 100*dHour+dMinute;
+                    du_cal = 60*dHour+dMinute;
                 }
                 else if (!(fallh_edt.getText().toString()).isEmpty()&&(fallm_edt.getText().toString()).isEmpty())
                 {
                     asleeptime = pad(dHour) + temp_h + "0 mins";
                     fallm_edt.setText("0");
                     sleepdu = 100*dHour;
+                    du_cal = 60 *dHour;
                 }
                 else if ((fallh_edt.getText().toString()).isEmpty()&&(fallm_edt.getText().toString()).isEmpty()){
                     asleeptime ="0 hrs"+pad(dMinute) + temp_m;
                     fallh_edt.setText("0");
                     sleepdu = dMinute;
+                    du_cal = dMinute;
                 }
 
             }
@@ -610,6 +621,19 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
                 else {
                     woketime = pad(tempwakeh) + ":" + pad(tempwakem);
                     temp_wake = 100*tempwakeh+tempwakem;
+                    waked_cal = tempwakeh *60 +tempwakem;
+                    if (tempbedh>12)
+                    {
+                        difference = waked_cal + (1440-bed_cal)-du_cal;
+                    }
+                    else
+                    {
+
+                        difference = waked_cal - bed_cal -du_cal;
+                    }
+
+//                    Toast errormsg = Toast.makeText(SleepDiaryActivity2.this, "Over:" + (difference), Toast.LENGTH_SHORT);
+//                    errormsg.show();
                 }
             }
             else
@@ -741,8 +765,10 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
                     Toast errormsg = Toast.makeText(SleepDiaryActivity2.this, "Please finish Question 15!", Toast.LENGTH_SHORT);
                     errormsg.show();
                 }
-                else  if ((tempbedh<12)&&(temp_wake-bedtemp-sleepdu>1200)||((tempbedh>12)||(tempbedh ==12))&&(temp_wake +(2400-bedtemp)-sleepdu>1200))
+
+                else  if (difference>720)
                 {
+
                     final Dialog dialoglogout = new Dialog(SleepDiaryActivity2.this);
                     dialoglogout.setTitle("");
 
