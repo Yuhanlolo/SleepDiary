@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -39,6 +40,7 @@ import java.util.List;
 
 import android.view.Menu;
 
+import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
@@ -66,6 +68,7 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
     SeekBar Snowake, SleepQ, AwakeQ;
     private TextView waket;
 
+    String yesterday = "";
     TextView lastnight;
     int month;
     int date;
@@ -704,6 +707,7 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
             date = date -1;
         }
 
+        yesterday = String.valueOf(month) + "/" + String.valueOf(date) + "/" + String.valueOf(year);
         lastnight = (TextView)findViewById(R.id.lastnight);
         lastnight.setText("Sleep Diary for Yesterday (" + String.valueOf(month)+"/"+String.valueOf(date)+"/"+String.valueOf(year)+")");
 
@@ -1124,57 +1128,83 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
                 }
                 else {
                     //query.whereEqualTo("User_ID",objectID);
-                    query.getInBackground(objectID, new GetCallback<ParseObject>() {
-                        @Override
-                        public void done(ParseObject object, ParseException e) {
-                            if (e != null) {
-                                Toast pass = Toast.makeText(SleepDiaryActivity2.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT);
-                                pass.show();
-                            } else {
+                    query.whereEqualTo("User_ID", ParseUser.getCurrentUser().getUsername());
+                    query.whereEqualTo("Date", today);
+                    query.setLimit(1);
+                    query.findInBackground(new FindCallback<ParseObject>() {
+                        public void done(List<ParseObject> scoreList, ParseException e) {
+                            if (e == null) {
 
-                                if(tempbedh<12){
-                                    object.put("Date", today);
-                                }
-                                object.put("Bed_Time", bedtime);
-                                object.put("Sleep_Duration", asleeptime);
-                                object.put("Wake_Time", woketime);
-                                object.put("OutofBed_Time", outtime);
-                                object.put("No_Awakenings", no_wake);
-                                object.put("Sleep_Quality", sq);
-                                object.put("Awake_Quality", awq);
+                                scoreList.get(0).put("Bed_Time", bedtime);
+                                scoreList.get(0).put("Sleep_Duration", asleeptime);
+                                scoreList.get(0).put("Wake_Time", woketime);
+                                scoreList.get(0).put("OutofBed_Time", outtime);
+                                scoreList.get(0).put("No_Awakenings", no_wake);
+                                scoreList.get(0).put("Sleep_Quality", sq);
+                                scoreList.get(0).put("Awake_Quality", awq);
+
                                 //userActivity.pinInBackground();
-                                object.saveInBackground();
+
+                                scoreList.get(0).saveInBackground(new SaveCallback() {
+                                    @Override
+                                    public void done(ParseException e) {
+                                        if (e != null) {
+                                            Toast pass = Toast.makeText(SleepDiaryActivity2.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT);
+                                            pass.show();
+                                        } else {
+                                           // objectID = userActivity.getObjectId();
+//                             Toast pass = Toast.makeText(SleepDiaryActivity.this,"id 1: "+objectID, Toast.LENGTH_SHORT);
+//                             pass.show();
+                                            Intent i = new Intent(SleepDiaryActivity2.this, SleepDiaryActivity3.class);
+                                            if(tempbedh>12){
+                                                i.putExtra("yesterd",true);
+                                            }
+                                            else{i.putExtra("midnight",false);}
+                                            i.putExtra("lastpage", lastpage);
+                                            i.putExtra("objectID", objectID);
+                                            SleepDiaryActivity2.this.startActivity(i);
+                                        }
+                                    }
+                                });
+
+                            } else {
+//                            Toast pass = Toast.makeText(MovesleepActivity2.this, "Error: " + "not found!", Toast.LENGTH_SHORT);
+//                            pass.show();
+                                Log.d("score", "Error: " + e.getMessage());
                             }
                         }
                     });
 
-//                userActivity.put("Bed_Time", bedtime);
-//                userActivity.put("Sleep_Duration",asleeptime);
-//                userActivity.put("Wake_Time",woketime);
-//                userActivity.put("OutofBed_Time", outtime);
-//                userActivity.put("No_Awakenings",no_wake);
-//                userActivity.put("Sleep_Quality",sq);
-//                userActivity.put("Awake_Quality", awq);
-                    //userActivity.pinInBackground();
-                    //userActivity.saveInBackground();
-//                userActivity.saveInBackground(new SaveCallback() {
-//                    @Override
-//                    public void done(ParseException e) {
-//                        if(e!=null)
-//                        {
-//                            Toast pass = Toast.makeText(SleepDiaryActivity2.this,"error"+e.getMessage(), Toast.LENGTH_SHORT);
-//                            pass.show();
+//                    query.getInBackground(objectID, new GetCallback<ParseObject>() {
+//                        @Override
+//                        public void done(ParseObject object, ParseException e) {
+//                            if (e != null) {
+//                                Toast pass = Toast.makeText(SleepDiaryActivity2.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT);
+//                                pass.show();
+//                            } else {
+//
+//                                if(tempbedh<12){
+//                                    object.put("Date", today);
+//                                }
+//                                object.put("Bed_Time", bedtime);
+//                                object.put("Sleep_Duration", asleeptime);
+//                                object.put("Wake_Time", woketime);
+//                                object.put("OutofBed_Time", outtime);
+//                                object.put("No_Awakenings", no_wake);
+//                                object.put("Sleep_Quality", sq);
+//                                object.put("Awake_Quality", awq);
+//                                //userActivity.pinInBackground();
+//                                object.saveInBackground();
+//                            }
 //                        }
-//                        else{
-//                            objectID = userActivity.getObjectId();
-//                        }
-//                    }
-//                });
+//                    });
 
-                    Intent i = new Intent(SleepDiaryActivity2.this, SleepDiaryActivity3.class);
-                    i.putExtra("objectID", objectID);
-                    i.putExtra("lastpage", lastpage);
-                    SleepDiaryActivity2.this.startActivity(i);
+
+
+//                    Intent i = new Intent(SleepDiaryActivity2.this, SleepDiaryActivity3.class);
+//                    i.putExtra("objectID", objectID);
+//                    i.putExtra("lastpage", lastpage);
+//                    SleepDiaryActivity2.this.startActivity(i);
 
                 }
             }

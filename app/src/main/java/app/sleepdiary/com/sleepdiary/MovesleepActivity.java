@@ -3,6 +3,7 @@ package app.sleepdiary.com.sleepdiary;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -12,8 +13,11 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.parse.FindCallback;
+import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
@@ -45,6 +49,7 @@ public class MovesleepActivity extends ActionBarActivity implements SeekBar.OnSe
     String currenttask = "";
     TextView currentpage;
 
+    String today = "";
     ParseObject movesleep;
 
     final Calendar cal = Calendar.getInstance();
@@ -79,6 +84,9 @@ public class MovesleepActivity extends ActionBarActivity implements SeekBar.OnSe
     private ImageView empty149;
     private ImageView empty1410;
 
+    ParseQuery<ParseObject> query3 ;
+    ParseQuery<ParseObject> query4 ;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movesleep);
@@ -96,22 +104,30 @@ public class MovesleepActivity extends ActionBarActivity implements SeekBar.OnSe
         if(lastpage.equals("M30"))
         {
             movesleep  = new ParseObject("M30_MoveSleep");
+            query3 = ParseQuery.getQuery("M30_MoveSleep");
+            query4 = ParseQuery.getQuery("M30_MoveSleep");
             currenttask = "30 minutes after morning awakening";
         }
-        else if (lastpage.equals("A_DOPA1"))
+        else if (lastpage.equals("MDOPA1"))
         {
 
-            movesleep  = new ParseObject("A_DOPA1_MoveSleep");
+            movesleep  = new ParseObject("MDOPA1_MoveSleep");
+            query3 = ParseQuery.getQuery("MDOPA1_MoveSleep");
+            query4 = ParseQuery.getQuery("MDOPA1_MoveSleep");
             currenttask = "After last dopaminergic drug intake";
         }
         else if (lastpage.equals("A_DOPA"))
         {
             movesleep  = new ParseObject("A_DOPA_MoveSleep");
+            query3 = ParseQuery.getQuery("A_DOPA_MoveSleep");
+            query4 = ParseQuery.getQuery("A_DOPA_MoveSleep");
             currenttask = "Before dinner";
         }
         else if(lastpage.equals("E"))
         {
             movesleep  = new ParseObject("E_MoveSleep");
+            query3 = ParseQuery.getQuery("E_MoveSleep");
+            query4 = ParseQuery.getQuery("E_MoveSleep");
             currenttask = "Bed Time in the evening";
         }
 //        else if(lastpage.equals("Nap"))
@@ -197,6 +213,7 @@ public class MovesleepActivity extends ActionBarActivity implements SeekBar.OnSe
         date = cal.get(Calendar.DATE);
         year = cal.get(Calendar.YEAR);
 
+        today = String.valueOf(month)+"/"+String.valueOf(date)+"/"+String.valueOf(year);
         if (date == 1){
             month = month -1;
             if(month == 1||month == 3||month == 5||month == 7||month == 8||month == 10||month == 12)
@@ -423,18 +440,26 @@ public class MovesleepActivity extends ActionBarActivity implements SeekBar.OnSe
             }
             else
             {
-                movesleep.put("User_ID", ParseUser.getCurrentUser().getUsername());
-                movesleep.put("Date",yesterdaystr);
-                movesleep.put("SCOPA_walking",wss);
-                movesleep.put("SCOPA_change_position",css);
-                movesleep.put("SCOPA_use_hands",uhss);
-                movesleep.put("SCOPA_uncontrollable_movement",umss);
 
-                movesleep.put("Move_Capability", movep);
-                //movesleep.put("Move_Capability",0);
-                movesleep.put("Sleepiness_Scale",0);
+                query3.whereEqualTo("User_ID", ParseUser.getCurrentUser().getUsername());
+                query3.whereEqualTo("Date", today);
 
-                movesleep.saveInBackground(new SaveCallback() {
+                query3.setLimit(1);
+                query3.getFirstInBackground(new GetCallback<ParseObject>() {
+                    public void done(ParseObject object, ParseException e) {
+                        if (object == null) {
+                            //Log.d("User_ID", "The getFirst request failed.");
+                            movesleep.put("User_ID", ParseUser.getCurrentUser().getUsername());
+                            movesleep.put("Date", today);
+
+                            movesleep.put("SCOPA_walking", wss);
+                            movesleep.put("SCOPA_change_position", css);
+                            movesleep.put("SCOPA_use_hands", uhss);
+                            movesleep.put("SCOPA_uncontrollable_movement", umss);
+                            movesleep.put("Move_Capability", movep);
+//
+
+                            movesleep.saveInBackground(new SaveCallback() {
                     @Override
                     public void done(ParseException e) {
                         if (e != null) {
@@ -442,8 +467,6 @@ public class MovesleepActivity extends ActionBarActivity implements SeekBar.OnSe
                             pass.show();
                         } else {
                             objectID = movesleep.getObjectId();
-//                             Toast pass = Toast.makeText(MovesleepActivity.this,"id 1: "+objectID, Toast.LENGTH_SHORT);
-//                             pass.show();
                             Intent i = new Intent(MovesleepActivity.this, MovesleepActivity2.class);
                             i.putExtra("objectID", objectID);
                             i.putExtra("lastpage",lastpage);
@@ -453,6 +476,80 @@ public class MovesleepActivity extends ActionBarActivity implements SeekBar.OnSe
                         }
                     }
                 });
+
+
+                        } else {
+                            query4.whereEqualTo("User_ID", ParseUser.getCurrentUser().getUsername());
+                            query4.whereEqualTo("Date", today);
+                            query4.setLimit(1);
+                            query4.findInBackground(new FindCallback<ParseObject>() {
+
+                                public void done(List<ParseObject> scoreList, ParseException e) {
+
+                                    if (e == null) {
+                                        scoreList.get(0).put("SCOPA_walking", wss);
+                                        scoreList.get(0).put("SCOPA_change_position", css);
+                                        scoreList.get(0).put("SCOPA_use_hands", uhss);
+                                        scoreList.get(0).put("SCOPA_uncontrollable_movement", umss);
+                                        scoreList.get(0).put("Move_Capability", movep);
+
+                                        scoreList.get(0).saveInBackground(new SaveCallback() {
+                                            @Override
+                                            public void done(ParseException e) {
+                                                if (e != null) {
+                                                    Toast pass = Toast.makeText(MovesleepActivity.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT);
+                                                    pass.show();
+                                                } else {
+                                                    objectID = movesleep.getObjectId();
+                                                    Intent i = new Intent(MovesleepActivity.this, MovesleepActivity2.class);
+                                                    i.putExtra("lastpage", lastpage);
+                                                    i.putExtra("objectID", objectID);
+                                                    MovesleepActivity.this.startActivity(i);
+                                                }
+                                            }
+                                        });
+
+                                    } else {
+                                        Log.d("score", "Error: " + e.getMessage());
+                                    }
+                                }
+                            });
+                        }
+                    }
+                });
+
+
+
+//                movesleep.put("User_ID", ParseUser.getCurrentUser().getUsername());
+//                movesleep.put("Date",yesterdaystr);
+//                movesleep.put("SCOPA_walking",wss);
+//                movesleep.put("SCOPA_change_position",css);
+//                movesleep.put("SCOPA_use_hands",uhss);
+//                movesleep.put("SCOPA_uncontrollable_movement",umss);
+//
+//                movesleep.put("Move_Capability", movep);
+//                //movesleep.put("Move_Capability",0);
+//                movesleep.put("Sleepiness_Scale",0);
+//
+//                movesleep.saveInBackground(new SaveCallback() {
+//                    @Override
+//                    public void done(ParseException e) {
+//                        if (e != null) {
+//                            Toast pass = Toast.makeText(MovesleepActivity.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT);
+//                            pass.show();
+//                        } else {
+//                            objectID = movesleep.getObjectId();
+//                            Intent i = new Intent(MovesleepActivity.this, MovesleepActivity2.class);
+//                            i.putExtra("objectID", objectID);
+//                            i.putExtra("lastpage",lastpage);
+//                            MovesleepActivity.this.startActivity(i);
+//
+//
+//                        }
+//                    }
+//                });
+
+
 
 //            Intent i = new Intent(MovesleepActivity.this,MovesleepActivity2.class);
 //            MovesleepActivity.this.startActivity(i);

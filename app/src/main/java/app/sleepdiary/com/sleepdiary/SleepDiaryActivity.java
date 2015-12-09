@@ -36,6 +36,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import android.os.Build;
+
+import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.Parse;
 import com.parse.ParseException;
@@ -63,6 +65,7 @@ public class SleepDiaryActivity extends ActionBarActivity implements  View.OnCli
     String pilltime = "";
     String pillname = "";
     String yesterdaystr ="";
+
     String today= "";
 
     String temp_m = "";
@@ -101,7 +104,8 @@ public class SleepDiaryActivity extends ActionBarActivity implements  View.OnCli
 
     //SleepdiaryDBHepler sleephelper = new SleepdiaryDBHepler(this);
     ParseObject userActivity;
-    ParseQuery<ParseObject> query;
+    ParseQuery<ParseObject> query = ParseQuery.getQuery("Sleep_Diary");
+    ParseQuery<ParseObject> query2 = ParseQuery.getQuery("Sleep_Diary");
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -159,34 +163,29 @@ public class SleepDiaryActivity extends ActionBarActivity implements  View.OnCli
 //                listview.setAdapter(myadapter);
 
             }
+
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count,
                                           int after) {
                 // TODO Auto-generated method stub
             }
+
             @Override
             public void afterTextChanged(Editable s) {
                 // TODO Auto-generated method stub
-                if (napduh_edt.getText().toString().length()==2)
-                {
+                if (napduh_edt.getText().toString().length() == 2) {
                     dHour = Integer.parseInt(napduh_edt.getText().toString());
-                    if(dHour>23 || dHour<0)
-                    {
+                    if (dHour > 23 || dHour < 0) {
                         napduh_edt.setText("");
                         Toast pass = Toast.makeText(SleepDiaryActivity.this, "Please input nap hours between 0-23!", Toast.LENGTH_LONG);
                         pass.show();
                         napduh_edt.requestFocus();
-                    }
-                    else
-                    {
+                    } else {
 
-                        if (dHour == 1)
-                        {
+                        if (dHour == 1) {
                             naph.setText("hr");
                             temp_h = " hr";
-                        }
-                        else
-                        {
+                        } else {
                             naph.setText("hrs");
                             temp_h = " hrs";
                         }
@@ -209,16 +208,17 @@ public class SleepDiaryActivity extends ActionBarActivity implements  View.OnCli
 //                listview.setAdapter(myadapter);
 
             }
+
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count,
                                           int after) {
                 // TODO Auto-generated method stub
             }
+
             @Override
             public void afterTextChanged(Editable s) {
                 // TODO Auto-generated method stub
-                if (napdum_edt.getText().toString().length()==2)
-                {
+                if (napdum_edt.getText().toString().length() == 2) {
                     //napdum_edt.requestFocus();
                     if (Integer.parseInt(napdum_edt.getText().toString()) > 59 || Integer.parseInt(napdum_edt.getText().toString()) < 0) {
                         napdum_edt.setText("");
@@ -237,7 +237,7 @@ public class SleepDiaryActivity extends ActionBarActivity implements  View.OnCli
                             temp_m = " mins";
                         }
                     }
-                    }
+                }
             }
         });
         napdum_edt.setEnabled(false);
@@ -312,8 +312,7 @@ public class SleepDiaryActivity extends ActionBarActivity implements  View.OnCli
                         Toast pass = Toast.makeText(SleepDiaryActivity.this, "Please input minute of time between 0-59!", Toast.LENGTH_LONG);
                         pass.show();
                         pillm_edt.requestFocus();
-                    }
-                    else{
+                    } else {
                         edtView.requestFocus();
                     }
 
@@ -652,46 +651,26 @@ public class SleepDiaryActivity extends ActionBarActivity implements  View.OnCli
 
             else
             {
-//                dHour = Integer.parseInt(napduh_edt.getText().toString());
-//                dMinute = Integer.parseInt(napdum_edt.getText().toString());
-//                sleepduration =  pad(dHour) + ":" + pad(dMinute);
-//
-//                pHour = Integer.parseInt(pillh_edt.getText().toString());
-//                pMinute = Integer.parseInt(pillm_edt.getText().toString());
-//                pilltime =  pad(pHour) + ":" + pad(pMinute);
+                query2.whereEqualTo("User_ID", ParseUser.getCurrentUser().getUsername());
+                query2.whereEqualTo("Date", today);
+                query2.setLimit(1);
 
-                userActivity.put("User_ID",ParseUser.getCurrentUser().getUsername());
-                userActivity.put("Date",yesterdaystr);
-                userActivity.put("No_Coffee",no_coffee);
-                userActivity.put("No_Alcohol",no_wine);
-                userActivity.put("No_Tobacco",no_smoke);
-                userActivity.put("Nap_Time",no_nap);
-                userActivity.put("Nap_Duration",sleepduration);
-                userActivity.put("Pill_Time",pilltime);
-                userActivity.put("Pill_Name",pillname);
+                query2.getFirstInBackground(new GetCallback<ParseObject>() {
+                    public void done(ParseObject object, ParseException e) {
+                        if (object == null) {
+                            Log.d("User_ID", "Sleep create" + ParseUser.getCurrentUser().getUsername());
+                            userActivity.put("User_ID", ParseUser.getCurrentUser().getUsername());
+                            userActivity.put("Date", today);
 
-                userActivity.put("Bed_Time", "");
-                userActivity.put("Sleep_Duration","");
-                userActivity.put("Wake_Time","");
-                userActivity.put("OutofBed_Time","");
-                userActivity.put("No_Awakenings",0);
-                userActivity.put("Sleep_Quality",0);
-                userActivity.put("Awake_Quality",0);
+                            userActivity.put("No_Coffee", no_coffee);
+                            userActivity.put("No_Alcohol", no_wine);
+                            userActivity.put("No_Tobacco", no_smoke);
+                            userActivity.put("Nap_Time", no_nap);
+                            userActivity.put("Nap_Duration", sleepduration);
+                            userActivity.put("Pill_Time", pilltime);
+                            userActivity.put("Pill_Name", pillname);
 
-                userActivity.put("Urge_move","");
-                userActivity.put("Muscle_cramp", "");
-                userActivity.put("Difficulty_turn_bed", "");
-                userActivity.put("Pain", "");
-                userActivity.put("distressDream", "");
-                userActivity.put("Visual_hallucinations", "");
-                userActivity.put("Difficulty_Breath", "");
-                userActivity.put("Pass_Urine", "");
-                userActivity.put("Enviro_Disturbance", "");
-                userActivity.pinInBackground();
-
-                //userActivity.saveInBackground();
-
-                userActivity.saveInBackground(new SaveCallback() {
+                            userActivity.saveInBackground(new SaveCallback() {
                     @Override
                     public void done(ParseException e) {
                         if(e!=null)
@@ -710,6 +689,99 @@ public class SleepDiaryActivity extends ActionBarActivity implements  View.OnCli
                         }
                     }
                 });
+
+
+                        } else {
+                            query.whereEqualTo("User_ID", ParseUser.getCurrentUser().getUsername());
+                            query.whereEqualTo("Date", today);
+                            query.setLimit(1);
+                            query.findInBackground(new FindCallback<ParseObject>() {
+
+                                public void done(List<ParseObject> scoreList, ParseException e) {
+
+                                    if (e == null) {
+                                        scoreList.get(0).put("No_Coffee", no_coffee);
+                                        scoreList.get(0).put("No_Alcohol", no_wine);
+                                        scoreList.get(0).put("No_Tobacco", no_smoke);
+                                        scoreList.get(0).put("Nap_Time", no_nap);
+                                        scoreList.get(0).put("Nap_Duration", sleepduration);
+                                        scoreList.get(0).put("Pill_Time", pilltime);
+                                        scoreList.get(0).put("Pill_Name", pillname);
+                                        scoreList.get(0).saveInBackground(new SaveCallback() {
+                                            @Override
+                                            public void done(ParseException e) {
+                                                if (e != null) {
+                                                    Toast pass = Toast.makeText(SleepDiaryActivity.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT);
+                                                    pass.show();
+                                                } else {
+                                                    objectID = userActivity.getObjectId();
+                                                    Intent i = new Intent(SleepDiaryActivity.this, SleepDiaryActivity2.class);
+                                                    i.putExtra("lastpage", lastpage);
+                                                    i.putExtra("objectID", objectID);
+                                                    SleepDiaryActivity.this.startActivity(i);
+                                                }
+                                            }
+                                        });
+
+                                    } else {
+                                        Log.d("score", "Error: " + e.getMessage());
+                                    }
+                                }
+                            });
+                        }
+                    }
+                });
+
+//                userActivity.put("User_ID",ParseUser.getCurrentUser().getUsername());
+//                userActivity.put("Date",yesterdaystr);
+//                userActivity.put("No_Coffee",no_coffee);
+//                userActivity.put("No_Alcohol",no_wine);
+//                userActivity.put("No_Tobacco",no_smoke);
+//                userActivity.put("Nap_Time",no_nap);
+//                userActivity.put("Nap_Duration",sleepduration);
+//                userActivity.put("Pill_Time",pilltime);
+//                userActivity.put("Pill_Name",pillname);
+//
+//                userActivity.put("Bed_Time", "");
+//                userActivity.put("Sleep_Duration","");
+//                userActivity.put("Wake_Time","");
+//                userActivity.put("OutofBed_Time","");
+//                userActivity.put("No_Awakenings",0);
+//                userActivity.put("Sleep_Quality",0);
+//                userActivity.put("Awake_Quality",0);
+//
+//                userActivity.put("Urge_move","");
+//                userActivity.put("Muscle_cramp", "");
+//                userActivity.put("Difficulty_turn_bed", "");
+//                userActivity.put("Pain", "");
+//                userActivity.put("distressDream", "");
+//                userActivity.put("Visual_hallucinations", "");
+//                userActivity.put("Difficulty_Breath", "");
+//                userActivity.put("Pass_Urine", "");
+//                userActivity.put("Enviro_Disturbance", "");
+//                userActivity.pinInBackground();
+
+                //userActivity.saveInBackground();
+
+//                userActivity.saveInBackground(new SaveCallback() {
+//                    @Override
+//                    public void done(ParseException e) {
+//                        if(e!=null)
+//                        {
+//                            Toast pass = Toast.makeText(SleepDiaryActivity.this,"Error: "+e.getMessage(), Toast.LENGTH_SHORT);
+//                            pass.show();
+//                        }
+//                        else{
+//                             objectID = userActivity.getObjectId();
+////                             Toast pass = Toast.makeText(SleepDiaryActivity.this,"id 1: "+objectID, Toast.LENGTH_SHORT);
+////                             pass.show();
+//                            Intent i = new Intent(SleepDiaryActivity.this,SleepDiaryActivity2.class);
+//                            i.putExtra("lastpage",lastpage);
+//                            i.putExtra("objectID",objectID);
+//                            SleepDiaryActivity.this.startActivity(i);
+//                        }
+//                    }
+//                });
 
 
 

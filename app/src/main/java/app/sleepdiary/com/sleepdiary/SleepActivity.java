@@ -103,7 +103,7 @@ public class SleepActivity extends ActionBarActivity{
                 if (struri.equals("sleep://diary.com/m30"))
                     lastpage = "M30";
                 else if (struri.equals("sleep://diary.com/mdopa1"))
-                    lastpage = "A_DOPA1";
+                    lastpage = "MDOPA1";
                 else if (struri.equals("sleep://diary.com/adopa"))
                     lastpage = "A_DOPA";
                 else if (struri.equals("sleep://diary.com/e"))
@@ -351,7 +351,7 @@ public class SleepActivity extends ActionBarActivity{
             }
 
         }
-        else if (lastpage.equals("A_DOPA1"))
+        else if (lastpage.equals("MDOPA1"))
         {
             sd.setVisibility(View.INVISIBLE);
 

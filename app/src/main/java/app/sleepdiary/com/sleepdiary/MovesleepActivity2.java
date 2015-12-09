@@ -21,6 +21,8 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.FindCallback;
+import com.parse.SaveCallback;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -48,6 +50,8 @@ public class MovesleepActivity2 extends ActionBarActivity implements SeekBar.OnS
 
     ParseQuery<ParseObject> query;
     ParseQuery<ParseObject> query1 = ParseQuery.getQuery("TaskCheckList");
+    ParseObject TaskCheckList  = new ParseObject("TaskCheckList");
+    ParseQuery<ParseObject> query2 = ParseQuery.getQuery("TaskCheckList");
 
     int month = 0;
     int date = 0;
@@ -88,9 +92,9 @@ public class MovesleepActivity2 extends ActionBarActivity implements SeekBar.OnS
             currenttask = "30 minutes after morning awakening";
             end = end0;
         }
-        else if (lastpage.equals("A_DOPA1"))
+        else if (lastpage.equals("MDOPA1"))
         {
-            query = ParseQuery.getQuery("A_DOPA1_MoveSleep");
+            query = ParseQuery.getQuery("MDOPA1_MoveSleep");
             currenttask = "After last dopaminergic drug intake";
             end = end1;
         }
@@ -365,51 +369,28 @@ public class MovesleepActivity2 extends ActionBarActivity implements SeekBar.OnS
             }
             else
             {
+                query.whereEqualTo("User_ID", ParseUser.getCurrentUser().getUsername());
+                query.whereEqualTo("Date", today);
 
-                query.getInBackground(objectID, new GetCallback<ParseObject>() {
-                    @Override
-                    public void done(ParseObject object, ParseException e) {
-                        if (e != null) {
-                            Toast pass = Toast.makeText(MovesleepActivity2.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT);
-                            pass.show();
-                        } else {
-//                            object.put("Move_Capability", movep);
-                            object.put("Sleepiness_Scale", sleepp);
+                query.setLimit(1);
+                query.findInBackground(new FindCallback<ParseObject>() {
 
-                            //userActivity.pinInBackground();
-                            object.saveInBackground();
-                        }
-                    }
-                });
-
-                query1.whereEqualTo("User_ID", ParseUser.getCurrentUser().getUsername());
-                query1.whereEqualTo("Date", today);
-                query1.setLimit(1);
-                query1.findInBackground(new FindCallback<ParseObject>() {
                     public void done(List<ParseObject> scoreList, ParseException e) {
+
                         if (e == null) {
-                            Log.d("score", "Retrieved " + scoreList.size() + " scores");
-//                            Toast pass = Toast.makeText(MovesleepActivity2.this, "size: " + scoreList.size(), Toast.LENGTH_SHORT);
-//                            pass.show();
-                            if(lastpage.equals("M30"))
-                            {
-                                scoreList.get(0).put("M30_Movesleep", 1);
-                            }
 
-                            if(lastpage.equals("A_DOPA1"))
-                            {
-                                scoreList.get(0).put("MDOPA1_Movesleep", 1);
-                            }
-                            if(lastpage.equals("A_DOPA"))
-                            {
-                                scoreList.get(0).put("A_DOPA_Movesleep", 1);
-                            }
-                            if(lastpage.equals("E"))
-                            {
-                                scoreList.get(0).put("E_Movesleep", 1);
-                            }
+                            scoreList.get(0).put("Sleepiness_Scale", sleepp);
 
-                            scoreList.get(0).saveInBackground();
+                            scoreList.get(0).saveInBackground(new SaveCallback() {
+                                @Override
+                                public void done(ParseException e) {
+                                    if (e != null) {
+                                        Toast pass = Toast.makeText(MovesleepActivity2.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT);
+                                        pass.show();
+                                    }
+                                }
+                            });
+
                         } else {
 //                            Toast pass = Toast.makeText(MovesleepActivity2.this, "Error: " + "not found!", Toast.LENGTH_SHORT);
 //                            pass.show();
@@ -419,12 +400,106 @@ public class MovesleepActivity2 extends ActionBarActivity implements SeekBar.OnS
                 });
 
 
-                f = true;
-                Intent i = new Intent(MovesleepActivity2.this,MainActivity.class);
-                i.putExtra("endstr",end);
-                i.putExtra("lastpage",lastpage);
-                i.putExtra("loginstatus",f);
-                MovesleepActivity2.this.startActivity(i);
+//                query.getInBackground(objectID, new GetCallback<ParseObject>() {
+//                    @Override
+//                    public void done(ParseObject object, ParseException e) {
+//                        if (e != null) {
+//                            Toast pass = Toast.makeText(MovesleepActivity2.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT);
+//                            pass.show();
+//                        } else {
+////                            object.put("Move_Capability", movep);
+//                            object.put("Sleepiness_Scale", sleepp);
+//
+//                            //userActivity.pinInBackground();
+//                            object.saveInBackground();
+//                        }
+//                    }
+//                });
+
+                query2.whereEqualTo("User_ID", ParseUser.getCurrentUser().getUsername());
+                query2.whereEqualTo("Date", today);
+                query2.setLimit(1);
+                query2.getFirstInBackground(new GetCallback<ParseObject>() {
+                    public void done(ParseObject object, ParseException e) {
+                        if (object == null) {
+                            Log.d("User_ID", "create task list." + ParseUser.getCurrentUser().getUsername());
+                            TaskCheckList.put("User_ID", ParseUser.getCurrentUser().getUsername());
+                            TaskCheckList.put("Date", today);
+                            if (lastpage.equals("M30")) {
+                                TaskCheckList.put("M30_Movesleep", 1);
+                            }
+
+                            if (lastpage.equals("MDOPA1")) {
+                                TaskCheckList.put("MDOPA1_Movesleep", 1);
+                            }
+                            if (lastpage.equals("A_DOPA")) {
+                                TaskCheckList.put("A_DOPA_Movesleep", 1);
+                            }
+                            if (lastpage.equals("E")) {
+                                TaskCheckList.put("E_Movesleep", 1);
+                            }
+                            TaskCheckList.saveInBackground(new SaveCallback() {
+                                @Override
+                                public void done(ParseException e) {
+                                    if (e == null) {
+
+                                        //f = true;
+                                        Intent i = new Intent(MovesleepActivity2.this, MainActivity.class);
+                                        i.putExtra("lastpage", lastpage);
+                                        //i.putExtra("loginstatus",f);
+                                        i.putExtra("f2", f);
+                                        MovesleepActivity2.this.startActivity(i);
+                                    }
+                                }
+                            });
+
+                        } else {
+                            query1.whereEqualTo("User_ID", ParseUser.getCurrentUser().getUsername());
+                            query1.whereEqualTo("Date", today);
+                            query1.setLimit(1);
+                            query1.findInBackground(new FindCallback<ParseObject>() {
+                                public void done(List<ParseObject> scoreList, ParseException e) {
+                                    if (e == null) {
+                                        Log.d("score", "Retrieved " + scoreList.size() + " scores");
+                                        if (lastpage.equals("M30")) {
+                                            scoreList.get(0).put("M30_Movesleep", 1);
+                                        }
+
+                                        if (lastpage.equals("A_DOPA1")) {
+                                            scoreList.get(0).put("MDOPA1_Movesleep", 1);
+                                        }
+                                        if (lastpage.equals("A_DOPA")) {
+                                            scoreList.get(0).put("A_DOPA_Movesleep", 1);
+                                        }
+                                        if (lastpage.equals("E")) {
+                                            scoreList.get(0).put("E_Movesleep", 1);
+                                        }
+
+                                        scoreList.get(0).saveInBackground(new SaveCallback() {
+                                            @Override
+                                            public void done(ParseException e) {
+                                                if (e == null) {
+
+                                                    //f = true;
+                                                    Intent i = new Intent(MovesleepActivity2.this, MainActivity.class);
+                                                    i.putExtra("lastpage", lastpage);
+                                                    //i.putExtra("loginstatus",f);
+                                                    i.putExtra("f2", f);
+                                                    MovesleepActivity2.this.startActivity(i);
+                                                }
+                                            }
+                                        });
+                                    } else {
+                                        Log.d("score", "Error: " + e.getMessage());
+                                    }
+                                }
+                            });
+
+                        }
+                    }
+                });
+
+
             }
         }
 

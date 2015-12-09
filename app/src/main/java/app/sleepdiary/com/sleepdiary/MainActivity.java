@@ -236,7 +236,7 @@ public class MainActivity  extends ActionBarActivity {
             else
             {
                 Intent i = new Intent(MainActivity.this, SleepActivity.class);
-                lastpage = "A_DOPA1";
+                lastpage = "MDOPA1";
                 i.putExtra("lastpage",lastpage);
                 MainActivity.this.startActivity(i);
             }

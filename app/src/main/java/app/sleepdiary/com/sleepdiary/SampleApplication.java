@@ -23,13 +23,33 @@ public class SampleApplication extends Application {
 
     ParseObject TaskCheckList  = new ParseObject("TaskCheckList");
     ParseQuery<ParseObject> query1 = ParseQuery.getQuery("TaskCheckList");
+
+    ParseObject Sleepdiary  = new ParseObject("Sleep_Diary");
+    ParseQuery<ParseObject> query2 = ParseQuery.getQuery("Sleep_Diary");
+
+    ParseObject M30_Movesleep  = new ParseObject("M30_MoveSleep");
+    ParseQuery<ParseObject> query3 = ParseQuery.getQuery("M30_MoveSleep");
+
+    ParseObject MDOPA1_MoveSleep  = new ParseObject("MDOPA1_MoveSleep");
+    ParseQuery<ParseObject> query4 = ParseQuery.getQuery("MDOPA1_MoveSleep");
+
+    ParseObject DOPA_Movesleep  = new ParseObject("A_DOPA_MoveSleep");
+    ParseQuery<ParseObject> query5 = ParseQuery.getQuery("A_DOPA_MoveSleep");
+
+    ParseObject E_Movesleep  = new ParseObject("E_MoveSleep");
+    ParseQuery<ParseObject> query6 = ParseQuery.getQuery("E_MoveSleep");
+
+    ParseObject Nap_Movesleep  = new ParseObject("Nap_MoveSleep");
+    ParseQuery<ParseObject> query7 = ParseQuery.getQuery("Nap_MoveSleep");
+
     String userid = "";
     final Calendar cal = Calendar.getInstance();
     int month = cal.get(Calendar.MONTH) + 1;
     int date = cal.get(Calendar.DATE);
     int year = cal.get(Calendar.YEAR);
     String today = String.valueOf(month)+"/"+String.valueOf(date)+"/"+String.valueOf(year);
-    //String yesterday =String.valueOf(month)+"/"+String.valueOf(date)+"/"+String.valueOf(year);
+
+    String yesterday ="";
     ParseUser currentUser;
 
     public void onCreate() {
@@ -39,9 +59,21 @@ public class SampleApplication extends Application {
         Parse.enableLocalDatastore(this);
         Parse.initialize(this, getString(R.string.parse_app_id), getString(R.string.parse_client_key));
 
+        if (date == 1) {
+            month = month - 1;
+            if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12) {
+                date = 31;
+            } else {
+                date = 30;
+            }
+        } else {
+            date = date - 1;
+        }
+
+        yesterday = String.valueOf(month) + "/" + String.valueOf(date) + "/" + String.valueOf(year);
         currentUser = ParseUser.getCurrentUser();
 
-        if(currentUser != null) {
+        if (currentUser != null) {
             userid = ParseUser.getCurrentUser().getUsername();
             query1.whereEqualTo("User_ID", userid);
             query1.whereEqualTo("Date", today);
@@ -50,35 +82,96 @@ public class SampleApplication extends Application {
             //object.getInt("A_DOPA_Braintest") == 1 &&
             //object.getInt("E_Braintest") == 1 &&
 
-            query1.getFirstInBackground(new GetCallback<ParseObject>() {
-                public void done(ParseObject object, ParseException e) {
-                    if (object == null) {
-                        Log.d("User_ID", "The getFirst request failed.");
-                        TaskCheckList.put("User_ID", ParseUser.getCurrentUser().getUsername());
-                        TaskCheckList.put("Date", today);
-
-                        TaskCheckList.put("M30_Briantest", 0);
-                        TaskCheckList.put("M30_Sleepdiary", 0);
-                        TaskCheckList.put("M30_Movesleep", 0);
-
-                        TaskCheckList.put("MDOPA1_Briantest", 0);
-                        TaskCheckList.put("MDOPA1_Movesleep", 0);
-
-                        TaskCheckList.put("A_DOPA_Briantest", 0);
-                        TaskCheckList.put("A_DOPA_Movesleep", 0);
-
-                        TaskCheckList.put("E_Briantest", 0);
-                        TaskCheckList.put("E_Movesleep", 0);
-
-                        TaskCheckList.saveInBackground();
-
-                    }
-                }
-            });
+//            query1.getFirstInBackground(new GetCallback<ParseObject>() {
+//                public void done(ParseObject object, ParseException e) {
+//                    if (object == null) {
+//                        Log.d("User_ID", "create task list."+userid);
+//                        TaskCheckList.put("User_ID", ParseUser.getCurrentUser().getUsername());
+//                        TaskCheckList.put("Date", today);
+//
+//                        TaskCheckList.saveInBackground();
+//
+//                    }
+//                }
+//            });
+//
+//
+//            query2.whereEqualTo("User_ID", userid);
+//            query2.whereEqualTo("Date", today);
+//            query2.getFirstInBackground(new GetCallback<ParseObject>() {
+//                public void done(ParseObject object, ParseException e) {
+//                    if (object == null) {
+//                        Log.d("User_ID", "create"+userid);
+//                        Sleepdiary.put("User_ID", ParseUser.getCurrentUser().getUsername());
+//                        Sleepdiary.put("Date", today);
+//
+//                        Sleepdiary.saveInBackground();
+//
+//                    }
+//                }
+//            });
+//
+//            query3.whereEqualTo("User_ID", userid);
+//            query3.whereEqualTo("Date", today);
+//            query3.getFirstInBackground(new GetCallback<ParseObject>() {
+//                public void done(ParseObject object, ParseException e) {
+//                    if (object == null) {
+//                        //Log.d("User_ID", "The getFirst request failed.");
+//                        M30_Movesleep.put("User_ID", ParseUser.getCurrentUser().getUsername());
+//                        M30_Movesleep.put("Date", today);
+//                        M30_Movesleep.saveInBackground();
+//
+//                    }
+//                }
+//            });
+//
+//            query4.whereEqualTo("User_ID", userid);
+//            query4.whereEqualTo("Date", today);
+//            query4.getFirstInBackground(new GetCallback<ParseObject>() {
+//                public void done(ParseObject object, ParseException e) {
+//                    if (object == null) {
+//                        //Log.d("User_ID", "The getFirst request failed.");
+//                        MDOPA1_MoveSleep.put("User_ID", ParseUser.getCurrentUser().getUsername());
+//                        MDOPA1_MoveSleep.put("Date", today);
+//                        MDOPA1_MoveSleep.saveInBackground();
+//
+//                    }
+//                }
+//            });
+//
+//            query5.whereEqualTo("User_ID", userid);
+//            query5.whereEqualTo("Date", today);
+//            query5.getFirstInBackground(new GetCallback<ParseObject>() {
+//                public void done(ParseObject object, ParseException e) {
+//                    if (object == null) {
+//                        //Log.d("User_ID", "The getFirst request failed.");
+//                        DOPA_Movesleep.put("User_ID", ParseUser.getCurrentUser().getUsername());
+//                        DOPA_Movesleep.put("Date", today);
+//                        DOPA_Movesleep.saveInBackground();
+//
+//                    }
+//                }
+//            });
+//            query6.whereEqualTo("User_ID", userid);
+//            query6.whereEqualTo("Date", today);
+//            query6.getFirstInBackground(new GetCallback<ParseObject>() {
+//                public void done(ParseObject object, ParseException e) {
+//                    if (object == null) {
+//                        //Log.d("User_ID", "The getFirst request failed.");
+//                        E_Movesleep.put("User_ID", ParseUser.getCurrentUser().getUsername());
+//                        E_Movesleep.put("Date", today);
+//
+//                        E_Movesleep.saveInBackground();
+//
+//                    }
+//                }
+//            });
+//
+//
         }
 
-
     }
+                }
     //    public boolean shouldOverrideUrlLoading(WebView view, String url) {
 //        if(url.startsWith("www.yuhanexample.com")) {
 //            Intent MnRegister = new Intent(getApplicationContext(), MainActivity.class);
@@ -87,4 +180,3 @@ public class SampleApplication extends Application {
 //        view.loadUrl(url);
 //        return true;
 //    }
-}
