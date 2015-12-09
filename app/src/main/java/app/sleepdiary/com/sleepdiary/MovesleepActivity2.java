@@ -465,7 +465,7 @@ public class MovesleepActivity2 extends ActionBarActivity implements SeekBar.OnS
                                             scoreList.get(0).put("M30_Movesleep", 1);
                                         }
 
-                                        if (lastpage.equals("A_DOPA1")) {
+                                        if (lastpage.equals("MDOPA1")) {
                                             scoreList.get(0).put("MDOPA1_Movesleep", 1);
                                         }
                                         if (lastpage.equals("A_DOPA")) {
