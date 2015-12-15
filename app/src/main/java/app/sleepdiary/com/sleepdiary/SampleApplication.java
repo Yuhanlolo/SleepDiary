@@ -27,20 +27,20 @@ public class SampleApplication extends Application {
     ParseObject Sleepdiary  = new ParseObject("Sleep_Diary");
     ParseQuery<ParseObject> query2 = ParseQuery.getQuery("Sleep_Diary");
 
-    ParseObject M30_Movesleep  = new ParseObject("M30_MoveSleep");
-    ParseQuery<ParseObject> query3 = ParseQuery.getQuery("M30_MoveSleep");
+    ParseObject M30_Movesleep  = new ParseObject("M30");
+    ParseQuery<ParseObject> query3 = ParseQuery.getQuery("M30");
 
-    ParseObject MDOPA1_MoveSleep  = new ParseObject("MDOPA1_MoveSleep");
-    ParseQuery<ParseObject> query4 = ParseQuery.getQuery("MDOPA1_MoveSleep");
+    ParseObject MDOPA1_MoveSleep  = new ParseObject("MDOPA1");
+    ParseQuery<ParseObject> query4 = ParseQuery.getQuery("MDOPA1");
 
-    ParseObject DOPA_Movesleep  = new ParseObject("A_DOPA_MoveSleep");
-    ParseQuery<ParseObject> query5 = ParseQuery.getQuery("A_DOPA_MoveSleep");
+    ParseObject DOPA_Movesleep  = new ParseObject("ADOPA");
+    ParseQuery<ParseObject> query5 = ParseQuery.getQuery("ADOPA");
 
-    ParseObject E_Movesleep  = new ParseObject("E_MoveSleep");
-    ParseQuery<ParseObject> query6 = ParseQuery.getQuery("E_MoveSleep");
+    ParseObject E_Movesleep  = new ParseObject("E");
+    ParseQuery<ParseObject> query6 = ParseQuery.getQuery("E");
 
-    ParseObject Nap_Movesleep  = new ParseObject("Nap_MoveSleep");
-    ParseQuery<ParseObject> query7 = ParseQuery.getQuery("Nap_MoveSleep");
+    ParseObject Nap_Movesleep  = new ParseObject("Nap");
+    ParseQuery<ParseObject> query7 = ParseQuery.getQuery("Nap");
 
     String userid = "";
     final Calendar cal = Calendar.getInstance();
@@ -57,6 +57,7 @@ public class SampleApplication extends Application {
 
         // Enable Local Datastore.
         Parse.enableLocalDatastore(this);
+        //Parse.initialize(this);
         Parse.initialize(this, getString(R.string.parse_app_id), getString(R.string.parse_client_key));
 
         if (date == 1) {
@@ -78,22 +79,22 @@ public class SampleApplication extends Application {
             query1.whereEqualTo("User_ID", userid);
             query1.whereEqualTo("Date", today);
 
-            //object.getInt("A_DOPA1_Braintest") == 1 &&
-            //object.getInt("A_DOPA_Braintest") == 1 &&
+            //object.getInt("MDOPA1_Braintest") == 1 &&
+            //object.getInt("ADOPA_Braintest") == 1 &&
             //object.getInt("E_Braintest") == 1 &&
 
-//            query1.getFirstInBackground(new GetCallback<ParseObject>() {
-//                public void done(ParseObject object, ParseException e) {
-//                    if (object == null) {
-//                        Log.d("User_ID", "create task list."+userid);
-//                        TaskCheckList.put("User_ID", ParseUser.getCurrentUser().getUsername());
-//                        TaskCheckList.put("Date", today);
-//
-//                        TaskCheckList.saveInBackground();
-//
-//                    }
-//                }
-//            });
+            query1.getFirstInBackground(new GetCallback<ParseObject>() {
+                public void done(ParseObject object, ParseException e) {
+                    if (object == null) {
+                        Log.d("User_ID", "create task list."+userid);
+                        TaskCheckList.put("User_ID", ParseUser.getCurrentUser().getUsername());
+                        TaskCheckList.put("Date", today);
+
+                        TaskCheckList.saveInBackground();
+
+                    }
+                }
+            });
 //
 //
 //            query2.whereEqualTo("User_ID", userid);

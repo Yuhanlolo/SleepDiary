@@ -85,7 +85,7 @@ public class NapMoveSleepActivity extends ActionBarActivity implements SeekBar.O
         Intent i_getvalue = getIntent();
         lastpage = i_getvalue.getStringExtra("lastpage");
 
-            movesleep  = new ParseObject("NAP_MoveSleep");
+            movesleep  = new ParseObject("Nap");
             currenttask = "After nap";
 
         currentpage = (TextView)findViewById(R.id.lastpagem);
@@ -606,18 +606,18 @@ public class NapMoveSleepActivity extends ActionBarActivity implements SeekBar.O
             }
             else
             {
-                movesleep.put("User_ID", ParseUser.getCurrentUser().getUsername());
+                movesleep.put("User_ID", currentUser1.getUsername());
                 movesleep.put("Date",yesterdaystr);
-                movesleep.put("NAP_time",bedtime);
-                movesleep.put("NAP_duration",asleeptime);
-                movesleep.put("SCOPA_walking",wss);
-                movesleep.put("SCOPA_change_position",css);
-                movesleep.put("SCOPA_use_hands",uhss);
-                movesleep.put("SCOPA_uncontrollable_movement",umss);
+                movesleep.put("A50_NAP_time",bedtime);
+                movesleep.put("A51_NAP_duration",asleeptime);
+                movesleep.put("A52_NAP_SCOPA_walking",wss);
+                movesleep.put("A53_NAP_SCOPA_change",css);
+                movesleep.put("A54_NAP_SCOPA_hands",uhss);
+                movesleep.put("A55_NAP_SCOPA_involuntary",umss);
 
                 //movesleep.put("Move_Capability", movep);
                 //movesleep.put("Move_Capability",0);
-                movesleep.put("Sleepiness_Scale",0);
+                //movesleep.put("A56_NAP_VAS_motor",0);
 
                 movesleep.saveInBackground(new SaveCallback() {
                     @Override

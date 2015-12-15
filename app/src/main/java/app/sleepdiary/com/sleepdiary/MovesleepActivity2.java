@@ -88,33 +88,27 @@ public class MovesleepActivity2 extends ActionBarActivity implements SeekBar.OnS
 
         if(lastpage.equals("M30"))
         {
-            query = ParseQuery.getQuery("M30_MoveSleep");
+            query = ParseQuery.getQuery("M30");
             currenttask = "30 minutes after morning awakening";
             end = end0;
         }
         else if (lastpage.equals("MDOPA1"))
         {
-            query = ParseQuery.getQuery("MDOPA1_MoveSleep");
+            query = ParseQuery.getQuery("MDOPA1");
             currenttask = "After last dopaminergic drug intake";
             end = end1;
         }
         else if (lastpage.equals("A_DOPA"))
         {
-            query = ParseQuery.getQuery("A_DOPA_MoveSleep");
+            query = ParseQuery.getQuery("ADOPA");
             currenttask = "Before dinner";
             end = end2;
         }
         else if(lastpage.equals("E"))
         {
-            query = ParseQuery.getQuery("E_MoveSleep");
+            query = ParseQuery.getQuery("E");
             currenttask = "Bed Time in the evening";
             end = end3;
-        }
-        else if(lastpage.equals("Nap"))
-        {
-            query = ParseQuery.getQuery("NAP_MoveSleep");
-            currenttask = "After nap";
-            end = end4;
         }
 
         currentpage = (TextView)findViewById(R.id.lastpagem2);
@@ -355,7 +349,7 @@ public class MovesleepActivity2 extends ActionBarActivity implements SeekBar.OnS
     {
         if(view.getId() == R.id.save_ms2)
         {
-            ParseUser currentUser1 = ParseUser.getCurrentUser();
+            final ParseUser currentUser1 = ParseUser.getCurrentUser();
 
             if(currentUser1 == null)
             {
@@ -369,7 +363,7 @@ public class MovesleepActivity2 extends ActionBarActivity implements SeekBar.OnS
             }
             else
             {
-                query.whereEqualTo("User_ID", ParseUser.getCurrentUser().getUsername());
+                query.whereEqualTo("User_ID", currentUser1.getUsername());
                 query.whereEqualTo("Date", today);
 
                 query.setLimit(1);
@@ -379,7 +373,22 @@ public class MovesleepActivity2 extends ActionBarActivity implements SeekBar.OnS
 
                         if (e == null) {
 
-                            scoreList.get(0).put("Sleepiness_Scale", sleepp);
+//                            Toast errormsg = Toast.makeText(MovesleepActivity2.this,"scorelist length: "+scoreList.size(), Toast.LENGTH_SHORT);
+//                            errormsg.show();
+                            if(lastpage.equals("M30")){
+                                scoreList.get(0).put("A31_M30_SSS", sleepp);
+                            }
+                            else if(lastpage.equals("MDOPA1")){
+                                scoreList.get(0).put("A37_MDOPA1_SSS", sleepp);
+                            }
+
+                            else if(lastpage.equals("A_DOPA")){
+                               scoreList.get(0).put("A43_ADOPA_SSS", sleepp);
+                            }
+
+                           else if(lastpage.equals("E")){
+                                scoreList.get(0).put("A49_E_SSS", sleepp);
+                            }
 
                             scoreList.get(0).saveInBackground(new SaveCallback() {
                                 @Override
@@ -402,31 +411,14 @@ public class MovesleepActivity2 extends ActionBarActivity implements SeekBar.OnS
                     }
                 });
 
-
-//                query.getInBackground(objectID, new GetCallback<ParseObject>() {
-//                    @Override
-//                    public void done(ParseObject object, ParseException e) {
-//                        if (e != null) {
-//                            Toast pass = Toast.makeText(MovesleepActivity2.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT);
-//                            pass.show();
-//                        } else {
-////                            object.put("Move_Capability", movep);
-//                            object.put("Sleepiness_Scale", sleepp);
-//
-//                            //userActivity.pinInBackground();
-//                            object.saveInBackground();
-//                        }
-//                    }
-//                });
-
-                query2.whereEqualTo("User_ID", ParseUser.getCurrentUser().getUsername());
+                query2.whereEqualTo("User_ID", currentUser1.getUsername());
                 query2.whereEqualTo("Date", today);
                 query2.setLimit(1);
                 query2.getFirstInBackground(new GetCallback<ParseObject>() {
                     public void done(ParseObject object, ParseException e) {
                         if (object == null) {
-                            Log.d("User_ID", "create task list." + ParseUser.getCurrentUser().getUsername());
-                            TaskCheckList.put("User_ID", ParseUser.getCurrentUser().getUsername());
+                            Log.d("User_ID", "create task list." + currentUser1.getUsername());
+                            TaskCheckList.put("User_ID", currentUser1.getUsername());
                             TaskCheckList.put("Date", today);
                             if (lastpage.equals("M30")) {
                                 TaskCheckList.put("M30_Movesleep", 1);
@@ -436,7 +428,7 @@ public class MovesleepActivity2 extends ActionBarActivity implements SeekBar.OnS
                                 TaskCheckList.put("MDOPA1_Movesleep", 1);
                             }
                             if (lastpage.equals("A_DOPA")) {
-                                TaskCheckList.put("A_DOPA_Movesleep", 1);
+                                TaskCheckList.put("ADOPA_Movesleep", 1);
                             }
                             if (lastpage.equals("E")) {
                                 TaskCheckList.put("E_Movesleep", 1);
@@ -464,7 +456,7 @@ public class MovesleepActivity2 extends ActionBarActivity implements SeekBar.OnS
                             });
 
                         } else {
-                            query1.whereEqualTo("User_ID", ParseUser.getCurrentUser().getUsername());
+                            query1.whereEqualTo("User_ID", currentUser1.getUsername());
                             query1.whereEqualTo("Date", today);
                             query1.setLimit(1);
                             query1.findInBackground(new FindCallback<ParseObject>() {
@@ -479,7 +471,7 @@ public class MovesleepActivity2 extends ActionBarActivity implements SeekBar.OnS
                                             scoreList.get(0).put("MDOPA1_Movesleep", 1);
                                         }
                                         if (lastpage.equals("A_DOPA")) {
-                                            scoreList.get(0).put("A_DOPA_Movesleep", 1);
+                                            scoreList.get(0).put("ADOPA_Movesleep", 1);
                                         }
                                         if (lastpage.equals("E")) {
                                             scoreList.get(0).put("E_Movesleep", 1);

@@ -235,7 +235,7 @@ public class SleepDiaryActivity3 extends ActionBarActivity implements RadioGroup
         if(view.getId() == R.id.save_s3)
         {
 
-            ParseUser currentUser1 = ParseUser.getCurrentUser();
+            final ParseUser currentUser1 = ParseUser.getCurrentUser();
 
             if(currentUser1 == null)
             {
@@ -268,22 +268,23 @@ public class SleepDiaryActivity3 extends ActionBarActivity implements RadioGroup
 //                sleephelper.insertColumn(s);
 
 
-                query.whereEqualTo("User_ID", ParseUser.getCurrentUser().getUsername());
+                query.whereEqualTo("User_ID", currentUser1.getUsername());
                 query.whereEqualTo("Date", today);
                 query.setLimit(1);
+
                 query.findInBackground(new FindCallback<ParseObject>() {
                     public void done(List<ParseObject> scoreList, ParseException e) {
                        if (e == null) {
 
-                            scoreList.get(0).put("Urge_move", a_urge);
-                            scoreList.get(0).put("Muscle_cramp", a_muscle);
-                            scoreList.get(0).put("Difficulty_turn_bed", a_tobed);
-                            scoreList.get(0).put("Pain", a_pain);
-                            scoreList.get(0).put("distressDream", a_dream);
-                            scoreList.get(0).put("Visual_hallucinations", a_hall);
-                            scoreList.get(0).put("Difficulty_Breath", a_breath);
-                            scoreList.get(0).put("Pass_Urine", a_urine);
-                            scoreList.get(0).put("Enviro_Disturbance", a_distur);
+                            scoreList.get(0).put("A16_Urge_move", a_urge);
+                            scoreList.get(0).put("A17_Cramps", a_muscle);
+                            scoreList.get(0).put("A18_Bed_turning", a_tobed);
+                            scoreList.get(0).put("A19_Pain", a_pain);
+                            scoreList.get(0).put("A20_Dreams", a_dream);
+                            scoreList.get(0).put("A21_Visual_hallucinations", a_hall);
+                            scoreList.get(0).put("A22_Difficulty_Breath", a_breath);
+                            scoreList.get(0).put("A23_Urine", a_urine);
+                            scoreList.get(0).put("A24_Enviro_Disturbance", a_distur);
 
 
                         if (getIntent().getBooleanExtra("yesterd",false)){
@@ -341,14 +342,14 @@ public class SleepDiaryActivity3 extends ActionBarActivity implements RadioGroup
 //                    }
 //                });
 
-                query2.whereEqualTo("User_ID", ParseUser.getCurrentUser().getUsername());
+                query2.whereEqualTo("User_ID", currentUser1.getUsername());
                 query2.whereEqualTo("Date", today);
                 query2.setLimit(1);
                 query2.getFirstInBackground(new GetCallback<ParseObject>() {
                     public void done(ParseObject object, ParseException e) {
                         if (object == null) {
-                            Log.d("User_ID", "create task list." + ParseUser.getCurrentUser().getUsername());
-                            TaskCheckList.put("User_ID", ParseUser.getCurrentUser().getUsername());
+                            Log.d("User_ID", "create task list." + currentUser1.getUsername());
+                            TaskCheckList.put("User_ID", currentUser1.getUsername());
                             TaskCheckList.put("Date", today);
                             TaskCheckList.put("M30_Sleepdiary", 1);
                             TaskCheckList.saveInBackground(new SaveCallback() {
@@ -374,7 +375,7 @@ public class SleepDiaryActivity3 extends ActionBarActivity implements RadioGroup
                             });
 
                         } else {
-                            query1.whereEqualTo("User_ID", ParseUser.getCurrentUser().getUsername());
+                            query1.whereEqualTo("User_ID",currentUser1.getUsername());
                             query1.whereEqualTo("Date", today);
                             query1.setLimit(1);
                             query1.findInBackground(new FindCallback<ParseObject>() {

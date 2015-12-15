@@ -57,6 +57,10 @@ public class MainActivity  extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+//        ParseObject testObject = new ParseObject("TestObject");
+//        testObject.put("foo", "bar");
+//        testObject.saveInBackground();
+
         Intent i_getvalue = getIntent();
         String action = i_getvalue.getAction();
 
@@ -82,8 +86,8 @@ public class MainActivity  extends ActionBarActivity {
             query1.whereEqualTo("User_ID", userid);
             query1.whereEqualTo("Date", today);
 
-            //object.getInt("A_DOPA1_Braintest") == 1 &&
-            //object.getInt("A_DOPA_Braintest") == 1 &&
+            //object.getInt("MDOPA1_Braintest") == 1 &&
+            //object.getInt("ADOPA_Braintest") == 1 &&
             //object.getInt("E_Braintest") == 1 &&
             
             query1.getFirstInBackground(new GetCallback<ParseObject>() {
@@ -105,7 +109,7 @@ public class MainActivity  extends ActionBarActivity {
                             finish_adi.setVisibility(View.VISIBLE);
                         }
 
-                        if ( object.getInt("A_DOPA_Movesleep") == 1) {
+                        if ( object.getInt("ADOPA_Movesleep") == 1) {
                             A_DOPA = true;
                             finish_bdi.setVisibility(View.VISIBLE);
 //                            Toast pass = Toast.makeText(MainActivity.this,"ADOPA TRUE", Toast.LENGTH_SHORT);

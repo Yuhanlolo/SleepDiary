@@ -66,6 +66,7 @@ public class SleepDiaryActivity extends ActionBarActivity implements  View.OnCli
     String pillname = "";
     String yesterdaystr ="";
 
+    String pillyn = "N";
     String today= "";
 
     String temp_m = "";
@@ -443,7 +444,7 @@ public class SleepDiaryActivity extends ActionBarActivity implements  View.OnCli
         if(view.getId() == R.id.save_s)
         {
 
-            ParseUser currentUser1 = ParseUser.getCurrentUser();
+            final ParseUser currentUser1 = ParseUser.getCurrentUser();
             boolean phour1 = false, pmin1 = false;
             boolean dhour1 = false, dmin1 = false;
 
@@ -651,24 +652,26 @@ public class SleepDiaryActivity extends ActionBarActivity implements  View.OnCli
 
             else
             {
-                query2.whereEqualTo("User_ID", ParseUser.getCurrentUser().getUsername());
+                query2.whereEqualTo("User_ID", currentUser1.getUsername());
                 query2.whereEqualTo("Date", today);
                 query2.setLimit(1);
 
                 query2.getFirstInBackground(new GetCallback<ParseObject>() {
                     public void done(ParseObject object, ParseException e) {
                         if (object == null) {
-                            Log.d("User_ID", "Sleep create" + ParseUser.getCurrentUser().getUsername());
-                            userActivity.put("User_ID", ParseUser.getCurrentUser().getUsername());
+                            Log.d("User_ID", "Sleep create" + currentUser1.getUsername());
+                            userActivity.put("User_ID", currentUser1.getUsername());
                             userActivity.put("Date", today);
 
-                            userActivity.put("No_Coffee", no_coffee);
-                            userActivity.put("No_Alcohol", no_wine);
-                            userActivity.put("No_Tobacco", no_smoke);
-                            userActivity.put("Nap_Time", no_nap);
-                            userActivity.put("Nap_Duration", sleepduration);
-                            userActivity.put("Pill_Time", pilltime);
-                            userActivity.put("Pill_Name", pillname);
+                            userActivity.put("A01_No_Coffee", no_coffee);
+                            userActivity.put("A02_No_Alcohol", no_wine);
+                            userActivity.put("A03_No_Tobacco", no_smoke);
+                            userActivity.put("A04_No_Naps", no_nap);
+                            userActivity.put("A05_Nap_Duration", sleepduration);
+                            userActivity.put("A06_Pills_YN", pillyn);
+                            userActivity.put("A07_Pill_Time", pilltime);
+                            userActivity.put("A08_Pill_Name", pillname);
+
 
                             userActivity.saveInBackground(new SaveCallback() {
                     @Override
@@ -692,7 +695,7 @@ public class SleepDiaryActivity extends ActionBarActivity implements  View.OnCli
 
 
                         } else {
-                            query.whereEqualTo("User_ID", ParseUser.getCurrentUser().getUsername());
+                            query.whereEqualTo("User_ID", currentUser1.getUsername());
                             query.whereEqualTo("Date", today);
                             query.setLimit(1);
                             query.findInBackground(new FindCallback<ParseObject>() {
@@ -701,12 +704,15 @@ public class SleepDiaryActivity extends ActionBarActivity implements  View.OnCli
 
                                     if (e == null) {
                                         scoreList.get(0).put("No_Coffee", no_coffee);
-                                        scoreList.get(0).put("No_Alcohol", no_wine);
-                                        scoreList.get(0).put("No_Tobacco", no_smoke);
-                                        scoreList.get(0).put("Nap_Time", no_nap);
-                                        scoreList.get(0).put("Nap_Duration", sleepduration);
-                                        scoreList.get(0).put("Pill_Time", pilltime);
-                                        scoreList.get(0).put("Pill_Name", pillname);
+                                        scoreList.get(0).put("A01_No_Coffee", no_coffee);
+                                        scoreList.get(0).put("A02_No_Alcohol", no_wine);
+                                        scoreList.get(0).put("A03_No_Tobacco", no_smoke);
+                                        scoreList.get(0).put("A04_No_Naps", no_nap);
+                                        scoreList.get(0).put("A05_Nap_Duration", sleepduration);
+                                        scoreList.get(0).put("A06_Pills_YN", pillyn);
+                                        scoreList.get(0).put("A07_Pill_Time", pilltime);
+                                        scoreList.get(0).put("A08_Pill_Name", pillname);
+
                                         scoreList.get(0).saveInBackground(new SaveCallback() {
                                             @Override
                                             public void done(ParseException e) {
@@ -732,36 +738,7 @@ public class SleepDiaryActivity extends ActionBarActivity implements  View.OnCli
                     }
                 });
 
-//                userActivity.put("User_ID",ParseUser.getCurrentUser().getUsername());
-//                userActivity.put("Date",yesterdaystr);
-//                userActivity.put("No_Coffee",no_coffee);
-//                userActivity.put("No_Alcohol",no_wine);
-//                userActivity.put("No_Tobacco",no_smoke);
-//                userActivity.put("Nap_Time",no_nap);
-//                userActivity.put("Nap_Duration",sleepduration);
-//                userActivity.put("Pill_Time",pilltime);
-//                userActivity.put("Pill_Name",pillname);
-//
-//                userActivity.put("Bed_Time", "");
-//                userActivity.put("Sleep_Duration","");
-//                userActivity.put("Wake_Time","");
-//                userActivity.put("OutofBed_Time","");
-//                userActivity.put("No_Awakenings",0);
-//                userActivity.put("Sleep_Quality",0);
-//                userActivity.put("Awake_Quality",0);
-//
-//                userActivity.put("Urge_move","");
-//                userActivity.put("Muscle_cramp", "");
-//                userActivity.put("Difficulty_turn_bed", "");
-//                userActivity.put("Pain", "");
-//                userActivity.put("distressDream", "");
-//                userActivity.put("Visual_hallucinations", "");
-//                userActivity.put("Difficulty_Breath", "");
-//                userActivity.put("Pass_Urine", "");
-//                userActivity.put("Enviro_Disturbance", "");
-//                userActivity.pinInBackground();
 
-                //userActivity.saveInBackground();
 
 //                userActivity.saveInBackground(new SaveCallback() {
 //                    @Override
@@ -782,12 +759,6 @@ public class SleepDiaryActivity extends ActionBarActivity implements  View.OnCli
 //                        }
 //                    }
 //                });
-
-
-
-//                Intent i = new Intent(SleepDiaryActivity.this,SleepDiaryActivity2.class);
-//                i.putExtra("objectID",objectID);
-//                SleepDiaryActivity.this.startActivity(i);
 
             }
         }
@@ -883,6 +854,7 @@ public class SleepDiaryActivity extends ActionBarActivity implements  View.OnCli
                 pillm_edt.setInputType(InputType.TYPE_CLASS_NUMBER);
                 pillm_edt.setEnabled(true);
                 pill = true;
+                pillyn = "Y";
                 q7.setTextColor(0xFF000000);
                 colon.setTextColor(0xFF000000);
                 q8.setTextColor(0xFF000000);
@@ -896,6 +868,7 @@ public class SleepDiaryActivity extends ActionBarActivity implements  View.OnCli
                 edtView.setText("");
                 edtView.setInputType(0);
                 edtView.setEnabled(false);
+                pillyn = "N";
                // pillh_edt.setInputType(InputType.TYPE_NULL);
                 pillh_edt.setEnabled(false);
                 pillh_edt.setText("");

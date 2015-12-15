@@ -74,8 +74,8 @@ public class LoginActivity extends ActionBarActivity{
             stracc = account.getText().toString();
             strpass = pwd.getText().toString();
 
-            String password = helper.searchpass(stracc);
-            System.out.println(password);
+            //String password = helper.searchpass(stracc);
+            //System.out.println(password);
 
             ParseUser.logInInBackground(stracc, strpass, new LogInCallback() {
                 @Override

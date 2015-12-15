@@ -76,6 +76,7 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
 
     String yesterdaystr ="";
     String today= "";
+    String tst = "";
 
 //    int temp_bed_h = 22;
 //    int temp_bed_m = 0;
@@ -847,6 +848,10 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
             int waked_cal = 0;
             int bed_cal = 0;
             int du_cal = 0;
+            int out_cal = 0;
+            int tsth = 0;
+            int tstm = 0;
+
 //            SimpleDateFormat format = new SimpleDateFormat("HH:mm");
 
             if (!(bedh_edt.getText().toString()).isEmpty() && !(bedm_edt.getText().toString()).isEmpty()) {
@@ -986,6 +991,7 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
                 else {
                     outtime = pad(tempouth) + ":" + pad(tempoutm);
                     temp_out = 100*tempouth+tempoutm;
+                    out_cal = 60*tempouth+tempoutm;
                 }
             }
                 else
@@ -1127,21 +1133,45 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
 
                 }
                 else {
-                    //query.whereEqualTo("User_ID",objectID);
-                    query.whereEqualTo("User_ID", ParseUser.getCurrentUser().getUsername());
+                    int duration = 0;
+                    if (tempbedh<12 || tempbedh == 12)
+                    {
+                        duration  = out_cal -bed_cal;
+
+                    }
+                    else
+                    {
+                        duration  = out_cal + (1440-bed_cal);
+
+                    }
+
+                    tsth = duration/60;
+                    tstm = duration%60;
+                    String duh = "hrs";
+                    String dum = "mins";
+                    if(tsth ==1){
+                    duh = "hr";
+                    }
+                    if(tstm==1){
+                    dum = "min";
+                    }
+                    tst = Integer.toString(tsth)+duh+Integer.toString(tstm)+dum;
+
+                    query.whereEqualTo("User_ID", currentUser1.getUsername());
                     query.whereEqualTo("Date", today);
                     query.setLimit(1);
                     query.findInBackground(new FindCallback<ParseObject>() {
                         public void done(List<ParseObject> scoreList, ParseException e) {
                             if (e == null) {
 
-                                scoreList.get(0).put("Bed_Time", bedtime);
-                                scoreList.get(0).put("Sleep_Duration", asleeptime);
-                                scoreList.get(0).put("Wake_Time", woketime);
-                                scoreList.get(0).put("OutofBed_Time", outtime);
-                                scoreList.get(0).put("No_Awakenings", no_wake);
-                                scoreList.get(0).put("Sleep_Quality", sq);
-                                scoreList.get(0).put("Awake_Quality", awq);
+                                scoreList.get(0).put("A09_Bed_Time", bedtime);
+                                scoreList.get(0).put("A10_SL", asleeptime);
+                                scoreList.get(0).put("A11_Wake_Time", woketime);
+                                scoreList.get(0).put("A12_OutofBed_Time", outtime);
+                                scoreList.get(0).put("A13_No_Awakenings", no_wake);
+                                scoreList.get(0).put("A14_Sleep_Quality", sq);
+                                scoreList.get(0).put("A15_Awake_Quality", awq);
+                                scoreList.get(0).put("A25_TST",tst);
 
                                 //userActivity.pinInBackground();
 
@@ -1176,32 +1206,6 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
                             }
                         }
                     });
-
-//                    query.getInBackground(objectID, new GetCallback<ParseObject>() {
-//                        @Override
-//                        public void done(ParseObject object, ParseException e) {
-//                            if (e != null) {
-//                                Toast pass = Toast.makeText(SleepDiaryActivity2.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT);
-//                                pass.show();
-//                            } else {
-//
-//                                if(tempbedh<12){
-//                                    object.put("Date", today);
-//                                }
-//                                object.put("Bed_Time", bedtime);
-//                                object.put("Sleep_Duration", asleeptime);
-//                                object.put("Wake_Time", woketime);
-//                                object.put("OutofBed_Time", outtime);
-//                                object.put("No_Awakenings", no_wake);
-//                                object.put("Sleep_Quality", sq);
-//                                object.put("Awake_Quality", awq);
-//                                //userActivity.pinInBackground();
-//                                object.saveInBackground();
-//                            }
-//                        }
-//                    });
-
-
 
 //                    Intent i = new Intent(SleepDiaryActivity2.this, SleepDiaryActivity3.class);
 //                    i.putExtra("objectID", objectID);

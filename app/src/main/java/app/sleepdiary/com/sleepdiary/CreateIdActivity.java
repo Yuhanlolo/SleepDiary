@@ -123,7 +123,7 @@ public class CreateIdActivity extends ActionBarActivity {
                 user.setUsername(useridstr);
                 user.setPassword(pass1str);
 
-                helper.insertColumn(c);
+                //helper.insertColumn(c);
 
                 user.signUpInBackground(new SignUpCallback ()
                 {

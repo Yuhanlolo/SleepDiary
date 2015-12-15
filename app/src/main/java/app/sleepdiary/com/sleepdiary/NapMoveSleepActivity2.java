@@ -88,7 +88,7 @@ public class NapMoveSleepActivity2 extends ActionBarActivity implements SeekBar.
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN
         );
 
-        query = ParseQuery.getQuery("NAP_MoveSleep");
+        query = ParseQuery.getQuery("Nap");
         currenttask = "After nap";
 
         currentpage = (TextView)findViewById(R.id.lastnappagem2);
@@ -428,8 +428,8 @@ public class NapMoveSleepActivity2 extends ActionBarActivity implements SeekBar.
                             NapMoveSleepActivity2.this.startActivity(i);
                             Log.d("score", "Error: " + e.getMessage());
                         } else {
-                            object.put("Move_Capability", movep);
-                            object.put("Sleepiness_Scale", sleepp);
+                            object.put("A56_NAP_VAS_motor", movep);
+                            object.put("A57_NAP_SSS", sleepp);
 
                             //userActivity.pinInBackground();
                             object.saveInBackground();

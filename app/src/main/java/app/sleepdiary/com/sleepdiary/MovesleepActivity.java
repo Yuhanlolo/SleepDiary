@@ -103,31 +103,31 @@ public class MovesleepActivity extends ActionBarActivity implements SeekBar.OnSe
 
         if(lastpage.equals("M30"))
         {
-            movesleep  = new ParseObject("M30_MoveSleep");
-            query3 = ParseQuery.getQuery("M30_MoveSleep");
-            query4 = ParseQuery.getQuery("M30_MoveSleep");
+            movesleep  = new ParseObject("M30");
+            query3 = ParseQuery.getQuery("M30");
+            query4 = ParseQuery.getQuery("M30");
             currenttask = "30 minutes after morning awakening";
         }
         else if (lastpage.equals("MDOPA1"))
         {
 
-            movesleep  = new ParseObject("MDOPA1_MoveSleep");
-            query3 = ParseQuery.getQuery("MDOPA1_MoveSleep");
-            query4 = ParseQuery.getQuery("MDOPA1_MoveSleep");
+            movesleep  = new ParseObject("MDOPA1");
+            query3 = ParseQuery.getQuery("MDOPA1");
+            query4 = ParseQuery.getQuery("MDOPA1");
             currenttask = "After last dopaminergic drug intake";
         }
         else if (lastpage.equals("A_DOPA"))
         {
-            movesleep  = new ParseObject("A_DOPA_MoveSleep");
-            query3 = ParseQuery.getQuery("A_DOPA_MoveSleep");
-            query4 = ParseQuery.getQuery("A_DOPA_MoveSleep");
+            movesleep  = new ParseObject("ADOPA");
+            query3 = ParseQuery.getQuery("ADOPA");
+            query4 = ParseQuery.getQuery("ADOPA");
             currenttask = "Before dinner";
         }
         else if(lastpage.equals("E"))
         {
-            movesleep  = new ParseObject("E_MoveSleep");
-            query3 = ParseQuery.getQuery("E_MoveSleep");
-            query4 = ParseQuery.getQuery("E_MoveSleep");
+            movesleep  = new ParseObject("E");
+            query3 = ParseQuery.getQuery("E");
+            query4 = ParseQuery.getQuery("E");
             currenttask = "Bed Time in the evening";
         }
 //        else if(lastpage.equals("Nap"))
@@ -409,7 +409,7 @@ public class MovesleepActivity extends ActionBarActivity implements SeekBar.OnSe
 
         if(view.getId() == R.id.save_ms)
         {
-            ParseUser currentUser1 = ParseUser.getCurrentUser();
+            final ParseUser currentUser1 = ParseUser.getCurrentUser();
 
             if(currentUser1 == null)
             {
@@ -441,7 +441,7 @@ public class MovesleepActivity extends ActionBarActivity implements SeekBar.OnSe
             else
             {
 
-                query3.whereEqualTo("User_ID", ParseUser.getCurrentUser().getUsername());
+                query3.whereEqualTo("User_ID", currentUser1.getUsername());
                 query3.whereEqualTo("Date", today);
 
                 query3.setLimit(1);
@@ -452,12 +452,42 @@ public class MovesleepActivity extends ActionBarActivity implements SeekBar.OnSe
                             movesleep.put("User_ID", ParseUser.getCurrentUser().getUsername());
                             movesleep.put("Date", today);
 
-                            movesleep.put("SCOPA_walking", wss);
-                            movesleep.put("SCOPA_change_position", css);
-                            movesleep.put("SCOPA_use_hands", uhss);
-                            movesleep.put("SCOPA_uncontrollable_movement", umss);
-                            movesleep.put("Move_Capability", movep);
-//
+                            if (lastpage.equals("M30"))
+                            {
+                                movesleep.put("A26_M30_SCOPA_walking", wss);
+                                movesleep.put("A27_M30_SCOPA_change", css);
+                                movesleep.put("A28_M30_SCOPA_hands", uhss);
+                                movesleep.put("A29_M30_SCOPA_involuntary", umss);
+                                movesleep.put("A30_M30_VAS_motor", movep);
+                            }
+
+                           else if (lastpage.equals("MDOPA1"))
+                            {
+                                movesleep.put("A32_MDOPA1_SCOPA_walking", wss);
+                                movesleep.put("A33_MDOPA1_SCOPA_change", css);
+                                movesleep.put("A34_MDOPA1_SCOPA_hands", uhss);
+                                movesleep.put("A35_MDOPA1_SCOPA_involuntary", umss);
+                                movesleep.put("A36_MDOPA1_VAS_motor", movep);
+                            }
+
+                           else if (lastpage.equals("A_DOPA"))
+                            {
+                                movesleep.put("A38_ADOPA_SCOPA_walking", wss);
+                                movesleep.put("A39_ADOPA_SCOPA_change", css);
+                                movesleep.put("A40_ADOPA_SCOPA_hands", uhss);
+                                movesleep.put("A41_ADOPA_SCOPA_involuntary", umss);
+                                movesleep.put("A42_ADOPA_VAS_motor", movep);
+                            }
+
+                          else  if (lastpage.equals("E"))
+                            {
+                                movesleep.put("A44_E_SCOPA_walking", wss);
+                                movesleep.put("A45_E_SCOPA_change", css);
+                                movesleep.put("A46_E_SCOPA_hands", uhss);
+                                movesleep.put("A47_E_SCOPA_involuntary", umss);
+                                movesleep.put("A48_E_VAS_motor", movep);
+                            }
+
 
                             movesleep.saveInBackground(new SaveCallback() {
                     @Override
@@ -479,7 +509,7 @@ public class MovesleepActivity extends ActionBarActivity implements SeekBar.OnSe
 
 
                         } else {
-                            query4.whereEqualTo("User_ID", ParseUser.getCurrentUser().getUsername());
+                            query4.whereEqualTo("User_ID", currentUser1.getUsername());
                             query4.whereEqualTo("Date", today);
                             query4.setLimit(1);
                             query4.findInBackground(new FindCallback<ParseObject>() {
@@ -487,11 +517,44 @@ public class MovesleepActivity extends ActionBarActivity implements SeekBar.OnSe
                                 public void done(List<ParseObject> scoreList, ParseException e) {
 
                                     if (e == null) {
-                                        scoreList.get(0).put("SCOPA_walking", wss);
-                                        scoreList.get(0).put("SCOPA_change_position", css);
-                                        scoreList.get(0).put("SCOPA_use_hands", uhss);
-                                        scoreList.get(0).put("SCOPA_uncontrollable_movement", umss);
-                                        scoreList.get(0).put("Move_Capability", movep);
+
+                                        if (lastpage == "M30")
+                                        {
+                                            scoreList.get(0).put("A26_M30_SCOPA_walking", wss);
+                                            scoreList.get(0).put("A27_M30_SCOPA_change", css);
+                                            scoreList.get(0).put("A28_M30_SCOPA_hands", uhss);
+                                            scoreList.get(0).put("A29_M30_SCOPA_involuntary", umss);
+                                            scoreList.get(0).put("A30_M30_VAS_motor", movep);
+                                        }
+
+                                        else if (lastpage == "MDOPA1")
+                                        {
+                                            scoreList.get(0).put("A32_MDOPA1_SCOPA_walking", wss);
+                                            scoreList.get(0).put("A33_MDOPA1_SCOPA_change", css);
+                                            scoreList.get(0).put("A34_MDOPA1_SCOPA_hands", uhss);
+                                            scoreList.get(0).put("A35_MDOPA1_SCOPA_involuntary", umss);
+                                            scoreList.get(0).put("A36_MDOPA1_VAS_motor", movep);
+                                        }
+
+                                       else if (lastpage == "A_DOPA")
+                                        {
+                                            scoreList.get(0).put("A38_ADOPA_SCOPA_walking", wss);
+                                            scoreList.get(0).put("A39_ADOPA_SCOPA_change", css);
+                                            scoreList.get(0).put("A40_ADOPA_SCOPA_hands", uhss);
+                                            scoreList.get(0).put("A41_ADOPA_SCOPA_involuntary", umss);
+                                            scoreList.get(0).put("A42_ADOPA_VAS_motor", movep);
+                                        }
+
+                                        else if (lastpage == "E")
+                                        {
+                                            scoreList.get(0).put("A44_E_SCOPA_walking", wss);
+                                            scoreList.get(0).put("A45_E_SCOPA_change", css);
+                                            scoreList.get(0).put("A46_E_SCOPA_hands", uhss);
+                                            scoreList.get(0).put("A47_E_SCOPA_involuntary", umss);
+                                            scoreList.get(0).put("A48_E_VAS_motor", movep);
+                                        }
+
+
 
                                         scoreList.get(0).saveInBackground(new SaveCallback() {
                                             @Override

@@ -122,159 +122,6 @@ public class SleepActivity extends ActionBarActivity{
             buttonlayout(lastpage);
         }
 
-
-//        else if(lastpage.equals("M30"))
-//        {
-////            GridLayout.LayoutParams llp = new GridLayout.LayoutParams();
-////            f3.setLayoutParams(llp);
-////            f3.setVisibility(View.VISIBLE);
-//
-//            sd.setVisibility(View.VISIBLE);
-//
-//            if(currentUser != null) {
-//                userid = ParseUser.getCurrentUser().getUsername();
-//                query1.whereEqualTo("User_ID", userid);
-//                query1.whereEqualTo("Date", today);
-//
-//                query1.getFirstInBackground(new GetCallback<ParseObject>() {
-//                    public void done(ParseObject object, ParseException e) {
-//                        if (object == null) {
-//                            Log.d("User_ID", "The getFirst request failed.");
-//
-//                        } else {
-//                            //Log.d("score", "Retrieved the object.");
-//                            //if(object.getInt("MBraintest")== 0 || object.getInt("MBraintest") ==1)
-//
-//                            if (object.getInt("M30_Sleepdiary") == 1 ) {
-//                                finish_sleepdiary = true;
-//                                f2.setVisibility(View.VISIBLE);
-//                            }
-//
-//                            if ( object.getInt("M30_Movesleep") == 1) {
-//                                finish_movesleep = true;
-//                                f3.setVisibility(View.VISIBLE);
-//                            }
-//
-//                            if (object.getInt("M30_Braintest") == 1 ) {
-//                                finish_braintest = true;
-//                                f1.setVisibility(View.VISIBLE);
-//                            }
-//
-//
-//                        }
-//                    }
-//                });
-//            }
-//
-//        }
-//        else if (lastpage.equals("A_DOPA1"))
-//        {
-//            sd.setVisibility(View.INVISIBLE);
-//
-//            if(currentUser != null) {
-//                userid = ParseUser.getCurrentUser().getUsername();
-//                query1.whereEqualTo("User_ID", userid);
-//                query1.whereEqualTo("Date", today);
-//
-//                query1.getFirstInBackground(new GetCallback<ParseObject>() {
-//                    public void done(ParseObject object, ParseException e) {
-//                        if (object == null) {
-//                            Log.d("User_ID", "The getFirst request failed.");
-//
-//                        } else {
-//
-//                            if ( object.getInt("A_DOPA1_Movesleep") == 1) {
-//                                finish_movesleep = true;
-//                                f3.setVisibility(View.VISIBLE);
-//                            }
-//
-//                            if (object.getInt("A_DOPA1_Braintest") == 1 ) {
-//                                finish_braintest = true;
-//                                f1.setVisibility(View.VISIBLE);
-//                            }
-//
-//
-//                        }
-//                    }
-//                });
-//            }
-//        }
-//
-//        else if (lastpage.equals("A_DOPA"))
-//        {
-//            sd.setVisibility(View.INVISIBLE);
-//
-//            if(currentUser != null) {
-//                userid = ParseUser.getCurrentUser().getUsername();
-//                query1.whereEqualTo("User_ID", userid);
-//                query1.whereEqualTo("Date", today);
-//
-//                query1.getFirstInBackground(new GetCallback<ParseObject>() {
-//                    public void done(ParseObject object, ParseException e) {
-//                        if (object == null) {
-//                            Log.d("User_ID", "The getFirst request failed.");
-//
-//                        } else {
-//
-//                            if ( object.getInt("A_DOPA_Movesleep") == 1) {
-//                                finish_movesleep = true;
-//                                f3.setVisibility(View.VISIBLE);
-//                            }
-//
-//                            if (object.getInt("A_DOPA_Braintest") == 1 ) {
-//                                finish_braintest = true;
-//                                f1.setVisibility(View.VISIBLE);
-//                            }
-//
-//
-//                        }
-//                    }
-//                });
-//            }
-//        }
-//
-//        else if (lastpage.equals("E"))
-//        {
-//            sd.setVisibility(View.INVISIBLE);
-//
-//            if(currentUser != null) {
-//                userid = ParseUser.getCurrentUser().getUsername();
-//                query1.whereEqualTo("User_ID", userid);
-//                query1.whereEqualTo("Date", today);
-//
-//                query1.getFirstInBackground(new GetCallback<ParseObject>() {
-//                    public void done(ParseObject object, ParseException e) {
-//                        if (object == null) {
-//                            Log.d("User_ID", "The getFirst request failed.");
-//
-//                        } else {
-//
-//                            if ( object.getInt("E_Movesleep") == 1) {
-//                                finish_movesleep = true;
-//                                f3.setVisibility(View.VISIBLE);
-//                            }
-//
-//                            if (object.getInt("E_Braintest") == 1 ) {
-//                                finish_braintest = true;
-//                                f1.setVisibility(View.VISIBLE);
-//                            }
-//
-//
-//                        }
-//                    }
-//                });
-//            }
-//        }
-//
-//        else if (lastpage.equals("Nap"))
-//        {
-//            sd.setVisibility(View.INVISIBLE);
-//            f1.setVisibility(View.INVISIBLE);
-//            f2.setVisibility(View.INVISIBLE);
-//            f3.setVisibility(View.INVISIBLE);
-//        }
-//
-
         //Parse.initialize(this, getString(R.string.parse_app_id), getString(R.string.parse_client_key));
         userid = getIntent().getStringExtra("userid");
         //TextView tv = (TextView)findViewById(R.id.title);
@@ -400,12 +247,12 @@ public class SleepActivity extends ActionBarActivity{
 
                         } else {
 
-                            if ( object.getInt("A_DOPA_Movesleep") == 1) {
+                            if ( object.getInt("ADOPA_Movesleep") == 1) {
                                 finish_movesleep = true;
                                 f3.setVisibility(View.VISIBLE);
                             }
 
-                            if (object.getInt("A_DOPA_Braintest") == 1 ) {
+                            if (object.getInt("ADOPA_Braintest") == 1 ) {
                                 finish_braintest = true;
                                 f1.setVisibility(View.VISIBLE);
                             }
@@ -453,9 +300,34 @@ public class SleepActivity extends ActionBarActivity{
         else if (lastpage.equals("Nap"))
         {
             sd.setVisibility(View.INVISIBLE);
-            f1.setVisibility(View.INVISIBLE);
-            f2.setVisibility(View.INVISIBLE);
-            f3.setVisibility(View.INVISIBLE);
+
+            if(currentUser != null) {
+                userid = ParseUser.getCurrentUser().getUsername();
+                query1.whereEqualTo("User_ID", userid);
+                query1.whereEqualTo("Date", today);
+
+                query1.getFirstInBackground(new GetCallback<ParseObject>() {
+                    public void done(ParseObject object, ParseException e) {
+                        if (object == null) {
+                            Log.d("User_ID", "The getFirst request failed.");
+
+                        } else {
+
+                            if ( object.getInt("Nap_Movesleep") == 1) {
+                                finish_movesleep = true;
+                                f3.setVisibility(View.VISIBLE);
+                            }
+
+                            if (object.getInt("Nap_Braintest") == 1 ) {
+                                finish_braintest = true;
+                                f1.setVisibility(View.VISIBLE);
+                            }
+
+
+                        }
+                    }
+                });
+            }
         }
 
     }
