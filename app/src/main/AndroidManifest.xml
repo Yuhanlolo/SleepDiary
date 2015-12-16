@@ -68,20 +68,20 @@
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data android:scheme="sleep"
-                    android:host="diary.com"
-                    android:pathPrefix="/m30"/>
-                <data android:scheme="sleep"
-                    android:host="diary.com"
-                    android:pathPrefix="/mdopa1"/>
-                <data android:scheme="sleep"
-                    android:host="diary.com"
-                    android:pathPrefix="/adopa"/>
-                <data android:scheme="sleep"
-                    android:host="diary.com"
-                    android:pathPrefix="/e"/>
-                <data android:scheme="sleep"
-                    android:host="diary.com"
-                    android:pathPrefix="/nap"/>
+                    android:host="benefit.com"
+                   />
+                <!--<data android:scheme="sleep"-->
+                    <!--android:host="diary.com"-->
+                    <!--android:pathPrefix="/mdopa1"/>-->
+                <!--<data android:scheme="sleep"-->
+                    <!--android:host="diary.com"-->
+                    <!--android:pathPrefix="/adopa"/>-->
+                <!--<data android:scheme="sleep"-->
+                    <!--android:host="diary.com"-->
+                    <!--android:pathPrefix="/e"/>-->
+                <!--<data android:scheme="sleep"-->
+                    <!--android:host="diary.com"-->
+                    <!--android:pathPrefix="/nap"/>-->
 
             </intent-filter>
 

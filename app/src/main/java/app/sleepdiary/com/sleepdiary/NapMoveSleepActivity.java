@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,12 +22,16 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.parse.FindCallback;
+import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
 import java.util.Calendar;
+import java.util.List;
 
 /**
  * Created by ypl5142 on 10/25/15.
@@ -41,15 +46,18 @@ public class NapMoveSleepActivity extends ActionBarActivity implements SeekBar.O
     String temp_h = "";
     String temp_m= "";
 
+    String today ="";
     int dHour =-1;
     int dMinute = -1;
+    int t_nap = 0;
 
+    String userid = "";
     EditText bedh_edt, bedm_edt,fallh_edt, fallm_edt;
     TextView fallh, fallm, t_awake;
 
     //Button Bnaptime, Bnapdu;
     final Calendar cal = Calendar.getInstance();
-    String yesterdaystr ="";
+    //String yesterdaystr ="";
 
     int month;
     int date;
@@ -72,7 +80,12 @@ public class NapMoveSleepActivity extends ActionBarActivity implements SeekBar.O
     String naptime = "";
     String napdu = "";
 
+    ParseUser currentUser;
     ParseObject movesleep;
+    ParseObject TaskCheckList  = new ParseObject("TaskCheckList");
+    ParseQuery<ParseObject> query1 = ParseQuery.getQuery("TaskCheckList");
+    ParseQuery<ParseObject> query2 = ParseQuery.getQuery("TaskCheckList");
+
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,13 +98,10 @@ public class NapMoveSleepActivity extends ActionBarActivity implements SeekBar.O
         Intent i_getvalue = getIntent();
         lastpage = i_getvalue.getStringExtra("lastpage");
 
-            movesleep  = new ParseObject("Nap");
-            currenttask = "After nap";
+        currentpage = (TextView) findViewById(R.id.lastpagem);
 
-        currentpage = (TextView)findViewById(R.id.lastpagem);
-        currentpage.setText(currenttask);
 
-        bedh_edt = (EditText)findViewById(R.id.naph);
+        bedh_edt = (EditText) findViewById(R.id.naph);
         bedh_edt.addTextChangedListener(new TextWatcher() {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -116,15 +126,14 @@ public class NapMoveSleepActivity extends ActionBarActivity implements SeekBar.O
                         Toast pass = Toast.makeText(NapMoveSleepActivity.this, "Please input hour of time between 0-23!", Toast.LENGTH_LONG);
                         pass.show();
                         bedh_edt.requestFocus();
-                    }
-                    else
+                    } else
                         bedm_edt.requestFocus();
                 }
             }
         });
         bedh_edt.setOnEditorActionListener(this);
 
-        bedm_edt = (EditText)findViewById(R.id.napm);
+        bedm_edt = (EditText) findViewById(R.id.napm);
         bedm_edt.addTextChangedListener(new TextWatcher() {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -133,30 +142,30 @@ public class NapMoveSleepActivity extends ActionBarActivity implements SeekBar.O
 //                listview.setAdapter(myadapter);
 
             }
+
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count,
                                           int after) {
                 // TODO Auto-generated method stub
             }
+
             @Override
             public void afterTextChanged(Editable s) {
                 // TODO Auto-generated method stub
-                if (bedm_edt.getText().toString().length()==2)
-                {
+                if (bedm_edt.getText().toString().length() == 2) {
                     if (Integer.parseInt(bedm_edt.getText().toString()) > 59 || Integer.parseInt(bedm_edt.getText().toString()) < 0) {
                         bedm_edt.setText("");
                         Toast pass = Toast.makeText(NapMoveSleepActivity.this, "Please input minute of time between 0-59!", Toast.LENGTH_LONG);
                         pass.show();
                         bedm_edt.requestFocus();
-                    }
-                    else
+                    } else
                         fallh_edt.requestFocus();
                 }
             }
         });
         bedm_edt.setOnEditorActionListener(this);
 
-        fallh_edt = (EditText)findViewById(R.id.nap_h);
+        fallh_edt = (EditText) findViewById(R.id.nap_h);
         fallh_edt.addTextChangedListener(new TextWatcher() {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -165,42 +174,39 @@ public class NapMoveSleepActivity extends ActionBarActivity implements SeekBar.O
 //                listview.setAdapter(myadapter);
 
             }
+
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count,
                                           int after) {
                 // TODO Auto-generated method stub
             }
+
             @Override
             public void afterTextChanged(Editable s) {
                 // TODO Auto-generated method stub
-                if (fallh_edt.getText().toString().length()==2)
-                {
+                if (fallh_edt.getText().toString().length() == 2) {
                     dHour = Integer.parseInt(fallh_edt.getText().toString());
-                    if(dHour>23 || dHour<0)
-                    {
+                    if (dHour > 23 || dHour < 0) {
                         fallh_edt.setText("");
                         Toast pass = Toast.makeText(NapMoveSleepActivity.this, "Please input hour of time between 0-23!", Toast.LENGTH_LONG);
                         pass.show();
                         fallh_edt.requestFocus();
-                    }
-                    else{
-                        if (dHour == 1)
-                        {
+                    } else {
+                        if (dHour == 1) {
                             fallh.setText("hr");
                             temp_h = " hr";
-                        }
-                        else
-                        {
+                        } else {
                             fallh.setText("hrs");
                             temp_h = " hrs";
                         }
-                        fallm_edt.requestFocus();}
+                        fallm_edt.requestFocus();
+                    }
                 }
             }
         });
         fallh_edt.setOnEditorActionListener(this);
 
-        fallm_edt = (EditText)findViewById(R.id.nap_m);
+        fallm_edt = (EditText) findViewById(R.id.nap_m);
         fallm_edt.addTextChangedListener(new TextWatcher() {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -209,17 +215,18 @@ public class NapMoveSleepActivity extends ActionBarActivity implements SeekBar.O
 //                listview.setAdapter(myadapter);
 
             }
+
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count,
                                           int after) {
                 // TODO Auto-generated method stub
             }
+
             @Override
             public void afterTextChanged(Editable s) {
                 // TODO Auto-generated method stub
-                if (fallm_edt.getText().toString().length()==2)
-                {
-                    if (Integer.parseInt( fallm_edt.getText().toString()) > 59 || Integer.parseInt( fallm_edt.getText().toString()) < 0) {
+                if (fallm_edt.getText().toString().length() == 2) {
+                    if (Integer.parseInt(fallm_edt.getText().toString()) > 59 || Integer.parseInt(fallm_edt.getText().toString()) < 0) {
                         fallm_edt.setText("");
                         Toast pass = Toast.makeText(NapMoveSleepActivity.this, "Please input nap minute of time between 0-59!", Toast.LENGTH_LONG);
                         pass.show();
@@ -240,28 +247,28 @@ public class NapMoveSleepActivity extends ActionBarActivity implements SeekBar.O
         });
         fallm_edt.setOnEditorActionListener(this);
 
-        fallh = (TextView)findViewById(R.id.napuh);
-        fallm = (TextView)findViewById(R.id.napum);
+        fallh = (TextView) findViewById(R.id.napuh);
+        fallm = (TextView) findViewById(R.id.napum);
 
-        wsscopa0 = (ImageView)findViewById(R.id.napwsscopa1);
-        wsscopa1 = (ImageView)findViewById(R.id.napwsscopa2);
-        wsscopa2 = (ImageView)findViewById(R.id.napwsscopa3);
-        wsscopa3 = (ImageView)findViewById(R.id.napwsscopa4);
+        wsscopa0 = (ImageView) findViewById(R.id.napwsscopa1);
+        wsscopa1 = (ImageView) findViewById(R.id.napwsscopa2);
+        wsscopa2 = (ImageView) findViewById(R.id.napwsscopa3);
+        wsscopa3 = (ImageView) findViewById(R.id.napwsscopa4);
 
-        csscopa0 = (ImageView)findViewById(R.id.napcsscopa1);
-        csscopa1 = (ImageView)findViewById(R.id.napcsscopa2);
-        csscopa2 = (ImageView)findViewById(R.id.napcsscopa3);
-        csscopa3 = (ImageView)findViewById(R.id.napcsscopa4);
+        csscopa0 = (ImageView) findViewById(R.id.napcsscopa1);
+        csscopa1 = (ImageView) findViewById(R.id.napcsscopa2);
+        csscopa2 = (ImageView) findViewById(R.id.napcsscopa3);
+        csscopa3 = (ImageView) findViewById(R.id.napcsscopa4);
 
-        uhsscopa0 = (ImageView)findViewById(R.id.napusscopa1);
-        uhsscopa1 = (ImageView)findViewById(R.id.napusscopa2);
-        uhsscopa2 = (ImageView)findViewById(R.id.napusscopa3);
-        uhsscopa3 = (ImageView)findViewById(R.id.napusscopa4);
+        uhsscopa0 = (ImageView) findViewById(R.id.napusscopa1);
+        uhsscopa1 = (ImageView) findViewById(R.id.napusscopa2);
+        uhsscopa2 = (ImageView) findViewById(R.id.napusscopa3);
+        uhsscopa3 = (ImageView) findViewById(R.id.napusscopa4);
 
-        umsscopa0 = (ImageView)findViewById(R.id.napumsscopa1);
-        umsscopa1 = (ImageView)findViewById(R.id.napumsscopa2);
-        umsscopa2 = (ImageView)findViewById(R.id.napumsscopa3);
-        umsscopa3 = (ImageView)findViewById(R.id.napumsscopa4);
+        umsscopa0 = (ImageView) findViewById(R.id.napumsscopa1);
+        umsscopa1 = (ImageView) findViewById(R.id.napumsscopa2);
+        umsscopa2 = (ImageView) findViewById(R.id.napumsscopa3);
+        umsscopa3 = (ImageView) findViewById(R.id.napumsscopa4);
 
 //        movescale = (SeekBar)findViewById(R.id.naps_move);
 //        movescale.setOnSeekBarChangeListener(this);
@@ -272,25 +279,84 @@ public class NapMoveSleepActivity extends ActionBarActivity implements SeekBar.O
         date = cal.get(Calendar.DATE);
         year = cal.get(Calendar.YEAR);
 
-        if (date == 1){
-            month = month -1;
-            if(month == 1||month == 3||month == 5||month == 7||month == 8||month == 10||month == 12)
-            {
-                date = 31;
-            }
-            else
-            {
-                date = 30;
-            }
-        }
-        else
-        {
-            date = date -1;
-        }
+        today = String.valueOf(month) + "/" + String.valueOf(date) + "/" + String.valueOf(year);
 
-        yesterdaystr = String.valueOf(month)+"/"+String.valueOf(date)+"/"+String.valueOf(year);
+
+        //yesterdaystr = String.valueOf(month) + "/" + String.valueOf(date) + "/" + String.valueOf(year);
         //yesterday.setText("Sleep Diary for Yesterday (" + String.valueOf(month) + "/" + String.valueOf(date) + "/" + String.valueOf(year) + ")");
 
+        currentUser = ParseUser.getCurrentUser();
+        if (currentUser != null) {
+            userid = currentUser.getUsername();
+            query1.whereEqualTo("User_ID", userid);
+            query1.whereEqualTo("Date", today);
+            query1.setLimit(1);
+            query1.getFirstInBackground(new GetCallback<ParseObject>() {
+                public void done(ParseObject object, ParseException e) {
+                    if (object == null) {
+                        Log.d("User_ID", "create task list." + userid);
+                        TaskCheckList.put("User_ID", ParseUser.getCurrentUser().getUsername());
+                        TaskCheckList.put("Date", today);
+                        TaskCheckList.put("Nap",0);
+                        TaskCheckList.saveInBackground();
+                        movesleep = new ParseObject("Nap_1");
+                        //currenttask = "After nap";
+
+                    }
+                    else
+                    {
+                        query2.whereEqualTo("User_ID", userid);
+                        query2.whereEqualTo("Date", today);
+                        query2.setLimit(1);
+                        query2.getFirstInBackground(new GetCallback<ParseObject>() {
+                            @Override
+                            public void done(ParseObject object, ParseException e) {
+                                if (object == null) {
+                                    Log.d("User_ID", "The getFirst request failed.");
+
+                                } else
+                                {
+                                    if(object.getInt("Nap") == 0)
+                                    {
+                                        movesleep = new ParseObject("Nap_1");
+                                        currenttask = "After once nap";
+                                        t_nap = 0;
+                                    }
+                                    else if(object.getInt("Nap") == 1)
+                                    {
+                                        movesleep = new ParseObject("Nap_2");
+                                        currenttask = "After twice nap";
+                                        t_nap = 1;
+                                    }
+                                    else if(object.getInt("Nap") == 2)
+                                    {
+                                        movesleep = new ParseObject("Nap_3");
+                                        currenttask = "After three-times nap";
+                                        t_nap = 2;
+                                    }
+                                    else if(object.getInt("Nap") == 3)
+                                    {
+                                        movesleep = new ParseObject("Nap_4");
+                                        currenttask = "After four-times nap";
+                                        t_nap = 3;
+                                    }
+                                    else if(object.getInt("Nap") == 4)
+                                    {
+                                        movesleep = new ParseObject("Nap_5");
+                                        currenttask = "After five-times nap";
+                                        t_nap = 4;
+                                    }
+                                }
+                            }
+                        });
+                    }
+                }
+            });
+
+        }
+
+
+        currentpage.setText(currenttask);
 
     }
 
@@ -606,14 +672,55 @@ public class NapMoveSleepActivity extends ActionBarActivity implements SeekBar.O
             }
             else
             {
+                if (t_nap == 0){
                 movesleep.put("User_ID", currentUser1.getUsername());
-                movesleep.put("Date",yesterdaystr);
+                movesleep.put("Date",today);
                 movesleep.put("A50_NAP_time",bedtime);
                 movesleep.put("A51_NAP_duration",asleeptime);
                 movesleep.put("A52_NAP_SCOPA_walking",wss);
                 movesleep.put("A53_NAP_SCOPA_change",css);
                 movesleep.put("A54_NAP_SCOPA_hands",uhss);
-                movesleep.put("A55_NAP_SCOPA_involuntary",umss);
+                movesleep.put("A55_NAP_SCOPA_involuntary",umss);}
+
+               else if (t_nap == 1){
+                    movesleep.put("User_ID", currentUser1.getUsername());
+                    movesleep.put("Date",today);
+                    movesleep.put("A58_NAP_time",bedtime);
+                    movesleep.put("A59_NAP_duration",asleeptime);
+                    movesleep.put("A60_NAP_SCOPA_walking",wss);
+                    movesleep.put("A61_NAP_SCOPA_change",css);
+                    movesleep.put("A62_NAP_SCOPA_hands",uhss);
+                    movesleep.put("A63_NAP_SCOPA_involuntary",umss);}
+
+                else if (t_nap == 2){
+                    movesleep.put("User_ID", currentUser1.getUsername());
+                    movesleep.put("Date",today);
+                    movesleep.put("A66_NAP_time",bedtime);
+                    movesleep.put("A67_NAP_duration",asleeptime);
+                    movesleep.put("A68_NAP_SCOPA_walking",wss);
+                    movesleep.put("A69_NAP_SCOPA_change",css);
+                    movesleep.put("A70_NAP_SCOPA_hands",uhss);
+                    movesleep.put("A71_NAP_SCOPA_involuntary",umss);}
+
+                else if (t_nap == 3){
+                    movesleep.put("User_ID", currentUser1.getUsername());
+                    movesleep.put("Date",today);
+                    movesleep.put("A74_NAP_time",bedtime);
+                    movesleep.put("A75_NAP_duration",asleeptime);
+                    movesleep.put("A76_NAP_SCOPA_walking",wss);
+                    movesleep.put("A77_NAP_SCOPA_change",css);
+                    movesleep.put("A78_NAP_SCOPA_hands",uhss);
+                    movesleep.put("A79_NAP_SCOPA_involuntary",umss);}
+
+                else if (t_nap == 4){
+                    movesleep.put("User_ID", currentUser1.getUsername());
+                    movesleep.put("Date",today);
+                    movesleep.put("A82_NAP_time",bedtime);
+                    movesleep.put("A83_NAP_duration",asleeptime);
+                    movesleep.put("A84_NAP_SCOPA_walking",wss);
+                    movesleep.put("A85_NAP_SCOPA_change",css);
+                    movesleep.put("A86_NAP_SCOPA_hands",uhss);
+                    movesleep.put("A87_NAP_SCOPA_involuntary",umss);}
 
                 //movesleep.put("Move_Capability", movep);
                 //movesleep.put("Move_Capability",0);

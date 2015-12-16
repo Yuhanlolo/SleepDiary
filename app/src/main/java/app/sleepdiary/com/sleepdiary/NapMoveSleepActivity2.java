@@ -22,6 +22,7 @@ import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -39,13 +40,19 @@ public class NapMoveSleepActivity2 extends ActionBarActivity implements SeekBar.
     TextView currentpage;
     int movep = -1;
     int sleepp = -1;
+    String userid = "";
     GridLayout g1, g2, g3,g4,g5,g6,g7;
+    ParseUser currentUser;
+    ParseObject TaskCheckList  = new ParseObject("TaskCheckList");
+    ParseQuery<ParseObject> query1 = ParseQuery.getQuery("TaskCheckList");
+    ParseQuery<ParseObject> query2 = ParseQuery.getQuery("TaskCheckList");
     ParseQuery<ParseObject> query;
 
     int month = 0;
     int date = 0;
     int year = 0;
     String today = "";
+    int t_nap = 0;
 
     ImageView green7;
     List<TextView> sleepscale = new ArrayList<TextView>(7);
@@ -88,11 +95,11 @@ public class NapMoveSleepActivity2 extends ActionBarActivity implements SeekBar.
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN
         );
 
-        query = ParseQuery.getQuery("Nap");
-        currenttask = "After nap";
+        //query = ParseQuery.getQuery("Nap");
+
 
         currentpage = (TextView)findViewById(R.id.lastnappagem2);
-        currentpage.setText(currenttask);
+
 
         movescale = (SeekBar)findViewById(R.id.naps_move);
         movescale.setOnSeekBarChangeListener(this);
@@ -211,6 +218,88 @@ public class NapMoveSleepActivity2 extends ActionBarActivity implements SeekBar.
         q14_s.add(empty149);
         empty1410 = (ImageView)findViewById(R.id.empty610);
         q14_s.add(empty1410);
+
+        month = cal.get(Calendar.MONTH) + 1;
+        date = cal.get(Calendar.DATE);
+        year = cal.get(Calendar.YEAR);
+
+        today = String.valueOf(month) + "/" + String.valueOf(date) + "/" + String.valueOf(year);
+
+        currentUser = ParseUser.getCurrentUser();
+        if (currentUser != null) {
+            userid = currentUser.getUsername();
+            query1.whereEqualTo("User_ID", userid);
+            query1.whereEqualTo("Date", today);
+            query1.setLimit(1);
+            query1.getFirstInBackground(new GetCallback<ParseObject>() {
+                public void done(ParseObject object, ParseException e) {
+                    if (object == null) {
+                        Log.d("User_ID", "The getFirst request failed.");
+                        Toast pass = Toast.makeText(NapMoveSleepActivity2.this,"The page is outdated, please start over!", Toast.LENGTH_SHORT);
+                        pass.show();
+                        Intent i = new Intent(NapMoveSleepActivity2.this,MainActivity.class);
+                        i.putExtra("lastpage",lastpage);
+                        startActivity(i);
+                    }
+                    else
+                    {
+                        query2.whereEqualTo("User_ID", userid);
+                        query2.whereEqualTo("Date", today);
+                        query2.setLimit(1);
+                        query2.getFirstInBackground(new GetCallback<ParseObject>() {
+                            @Override
+                            public void done(ParseObject object, ParseException e) {
+                                if (object == null) {
+                                    Log.d("User_ID", "The getFirst request failed.");
+                                    Toast pass = Toast.makeText(NapMoveSleepActivity2.this,"The page is outdated, please start over!", Toast.LENGTH_SHORT);
+                                    pass.show();
+                                    Intent i = new Intent(NapMoveSleepActivity2.this,MainActivity.class);
+                                    i.putExtra("lastpage",lastpage);
+                                    startActivity(i);
+
+                                } else
+                                {
+                                    if(object.getInt("Nap") == 0)
+                                    {
+                                        query = ParseQuery.getQuery("Nap_1");
+                                        currenttask = "After once nap";
+                                        t_nap = 0;
+                                    }
+                                    else if(object.getInt("Nap") == 1)
+                                    {
+                                        query = ParseQuery.getQuery("Nap_2");
+                                        currenttask = "After twice nap";
+                                        t_nap = 1;
+                                    }
+                                    else if(object.getInt("Nap") == 2)
+                                    {
+                                        query = ParseQuery.getQuery("Nap_3");
+                                        currenttask = "After three-times nap";
+                                        t_nap = 2;
+                                    }
+                                    else if(object.getInt("Nap") == 3)
+                                    {
+                                        query = ParseQuery.getQuery("Nap_4");
+                                        currenttask = "After four-times nap";
+                                        t_nap = 3;
+                                    }
+                                    else if(object.getInt("Nap") == 4)
+                                    {
+                                        query =  ParseQuery.getQuery("Nap_5");
+                                        currenttask = "After five-times nap";
+                                        t_nap = 4;
+                                    }
+                                }
+                            }
+                        });
+                    }
+                }
+            });
+
+        }
+
+
+        currentpage.setText(currenttask);
 
     }
     @Override
@@ -413,36 +502,93 @@ public class NapMoveSleepActivity2 extends ActionBarActivity implements SeekBar.
             }
             else
             {
-
-//                Toast pass = Toast.makeText(NapMoveSleepActivity2.this,"id 2: "+objectID, Toast.LENGTH_SHORT);
-//                pass.show();
-                query.getInBackground(objectID, new GetCallback<ParseObject>() {
+                query.whereEqualTo("User_ID",userid);
+                query.whereEqualTo("Date",today);
+                query.setLimit(1);
+                query.findInBackground(new FindCallback<ParseObject>() {
                     @Override
-                    public void done(ParseObject object, ParseException e) {
-                        if (e != null) {
-                            Toast pass = Toast.makeText(NapMoveSleepActivity2.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT);
+                    public void done(List<ParseObject> objects, ParseException e) {
+                        if (e == null)
+                        {
+                            if (t_nap ==0){
+                            objects.get(0).put("A56_NAP_VAS_motor", movep);
+                            objects.get(0).put("A57_NAP_SSS", sleepp);
+                            }
+
+                            else if (t_nap ==1){
+                                objects.get(0).put("A64_NAP_VAS_motor", movep);
+                                objects.get(0).put("A65_NAP_SSS", sleepp);
+                            }
+
+                            else if (t_nap ==2){
+                                objects.get(0).put("A72_NAP_VAS_motor", movep);
+                                objects.get(0).put("A73_NAP_SSS", sleepp);
+                            }
+
+                            else if (t_nap ==3){
+                                objects.get(0).put("A80_NAP_VAS_motor", movep);
+                                objects.get(0).put("A81_NAP_SSS", sleepp);
+                            }
+
+                            else if (t_nap ==4){
+                                objects.get(0).put("A88_NAP_VAS_motor", movep);
+                                objects.get(0).put("A89_NAP_SSS", sleepp);
+                            }
+
+
+                            objects.get(0).saveInBackground(new SaveCallback() {
+                                @Override
+                                public void done(ParseException e) {
+                                    if (e == null) {
+                                        query1.whereEqualTo("User_ID", userid);
+                                        query1.whereEqualTo("Date", today);
+                                        query1.setLimit(1);
+                                        query1.findInBackground(new FindCallback<ParseObject>() {
+                                            public void done(List<ParseObject> scoreList, ParseException e) {
+                                                if (e == null) {
+                                                    Log.d("score", "Retrieved " + scoreList.size() + " scores");
+
+                                                    if (t_nap==4){t_nap = 3;}
+                                                        scoreList.get(0).put("Nap", t_nap+1);
+                                                        scoreList.get(0).saveInBackground();
+
+                                                }
+                                            }
+                                                              });
+
+                                            Intent i = new Intent(NapMoveSleepActivity2.this, MainActivity.class);
+                                            i.putExtra("endstr",end);
+                                            //i.putExtra("lastpage",lastpage);
+                                            //i.putExtra("loginstatus",f);
+                                            NapMoveSleepActivity2.this.
+
+                                            startActivity(i);
+                                        }
+
+                                        else
+                                        {
+                                            Toast pass = Toast.makeText(NapMoveSleepActivity2.this, "The page is outdated, please start over!", Toast.LENGTH_SHORT);
+                                            pass.show();
+                                            Intent i = new Intent(NapMoveSleepActivity2.this, MainActivity.class);
+                                            i.putExtra("lastpage", lastpage);
+                                            startActivity(i);
+                                        }
+                                    }
+                                }
+
+                                );
+                            }
+                            else
+                        {
+                            Toast pass = Toast.makeText(NapMoveSleepActivity2.this,"The page is outdated, please start over!", Toast.LENGTH_SHORT);
                             pass.show();
-                            Toast pass1 = Toast.makeText(NapMoveSleepActivity2.this, "The page is outdated, Please start over!" , Toast.LENGTH_LONG);
-                            pass1.show();
-                            Intent i = new Intent(NapMoveSleepActivity2.this, MainActivity.class);
-                            NapMoveSleepActivity2.this.startActivity(i);
-                            Log.d("score", "Error: " + e.getMessage());
-                        } else {
-                            object.put("A56_NAP_VAS_motor", movep);
-                            object.put("A57_NAP_SSS", sleepp);
-
-                            //userActivity.pinInBackground();
-                            object.saveInBackground();
-
+                            Intent i = new Intent(NapMoveSleepActivity2.this,MainActivity.class);
+                            i.putExtra("lastpage",lastpage);
+                            startActivity(i);
                         }
                     }
                 });
 
-                Intent i = new Intent(NapMoveSleepActivity2.this, MainActivity.class);
-                i.putExtra("endstr", end);
-                //i.putExtra("lastpage",lastpage);
-                //i.putExtra("loginstatus",f);
-                NapMoveSleepActivity2.this.startActivity(i);
 
             }
         }

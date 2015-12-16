@@ -19,6 +19,8 @@ import android.widget.TextView;
 import android.net.Uri;
 import android.widget.Toast;
 
+import com.parse.FindCallback;
+import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.Parse;
 import com.parse.ParseException;
@@ -27,6 +29,8 @@ import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import android.view.ViewGroup.LayoutParams;
 import java.util.Calendar;
+import java.util.List;
+
 import android.widget.LinearLayout;
 import android.widget.GridLayout;
 
@@ -59,6 +63,11 @@ public class SleepActivity extends ActionBarActivity{
 
     ParseQuery<ParseObject> query1 = ParseQuery.getQuery("TaskCheckList");
     ParseQuery<ParseObject> query2 = ParseQuery.getQuery("Token");
+
+    ParseObject lp  = new ParseObject("Lastpage");
+    ParseQuery<ParseObject> querylp = ParseQuery.getQuery("Lastpage");
+    ParseQuery<ParseObject> querylp2 = ParseQuery.getQuery("Lastpage");
+    ParseQuery<ParseObject> querylp3 = ParseQuery.getQuery("Lastpage");
 
     Uri uri;
 
@@ -93,27 +102,47 @@ public class SleepActivity extends ActionBarActivity{
         if(lastpage == null)
         {
 
-            if(Intent.ACTION_VIEW.equals(action)){
-                uri = i_getvalue.getData();
-//                Toast pass = Toast.makeText(SleepActivity.this, "uri:"+uri, Toast.LENGTH_SHORT);
-//                pass.show();
+//            if(Intent.ACTION_VIEW.equals(action)){
+//                uri = i_getvalue.getData();
+//                String struri = uri.toString();}
 
-                String struri = uri.toString();
-
-                if (struri.equals("sleep://diary.com/m30"))
-                    lastpage = "M30";
-                else if (struri.equals("sleep://diary.com/mdopa1"))
-                    lastpage = "MDOPA1";
-                else if (struri.equals("sleep://diary.com/adopa"))
-                    lastpage = "A_DOPA";
-                else if (struri.equals("sleep://diary.com/e"))
-                    lastpage = "E";
-                else if (struri.equals("sleep://diary.com/nap"))
-                    lastpage = "Nap";
-
-                buttonlayout(lastpage);
+//                if (struri.equals("sleep://diary.com/m30"))
+//                    lastpage = "M30";
+//                else if (struri.equals("sleep://diary.com/mdopa1"))
+//                    lastpage = "MDOPA1";
+//                else if (struri.equals("sleep://diary.com/adopa"))
+//                    lastpage = "A_DOPA";
+//                else if (struri.equals("sleep://diary.com/e"))
+//                    lastpage = "E";
+//                else if (struri.equals("sleep://diary.com/nap"))
+//                    lastpage = "Nap";
+            if(currentUser != null) {
+                userid = currentUser.getUsername();
+                querylp3.whereEqualTo("User_ID", userid);
+                querylp3.whereEqualTo("Date", today);
+                querylp3.getFirstInBackground(new GetCallback<ParseObject>() {
+                    @Override
+                    public void done(ParseObject object, ParseException e) {
+                        if(object ==null){
+                            Toast pass = Toast.makeText(SleepActivity.this,"The page is outdated, please start over!", Toast.LENGTH_SHORT);
+                            pass.show();
+                            Intent i = new Intent(SleepActivity.this,MainActivity.class);
+                            //startService(j);
+                            startActivity(i);
+                        }
+                        else
+                        {
+                            lastpage = object.getString("lastpage");
+                            Log.d(userid, lastpage);
+                            buttonlayout(lastpage);
+                        }
+                    }
+                });
 
             }
+
+
+
         }
 
         else
@@ -163,7 +192,7 @@ public class SleepActivity extends ActionBarActivity{
             sd.setVisibility(View.VISIBLE);
 
             if(currentUser != null) {
-                userid = ParseUser.getCurrentUser().getUsername();
+                userid = currentUser.getUsername();
                 query1.whereEqualTo("User_ID", userid);
                 query1.whereEqualTo("Date", today);
 
@@ -384,30 +413,65 @@ public class SleepActivity extends ActionBarActivity{
 
             currentUser = ParseUser.getCurrentUser();
 
-//            if(currentUser != null) {
-//                String username = ParseUser.getCurrentUser().getUsername();
-//                query2.whereEqualTo("User_ID", username);
-//
-//                query2.getFirstInBackground(new GetCallback<ParseObject>() {
-//                    public void done(ParseObject object, ParseException e) {
-//                        if (object == null) {
-//                            Log.d("User_ID", "The getFirst request failed.");
-//
-//                        } else {
-//                            //Log.d("score", "Retrieved the object.");
-//                            //if(object.getInt("MBraintest")== 0 || object.getInt("MBraintest") ==1)
-//
-//                           token = object.getString("Token");
-//                           link = "http://www.braintaptest.com/en/direct-client/login?token="+token;
-////                            Toast pass = Toast.makeText(SleepActivity.this, link, Toast.LENGTH_LONG);
-////                            pass.show();
-//                            Uri uri = Uri.parse("http://www.braintaptest.com/"); // missing 'http://' will cause crashed
-//                            Intent i = new Intent(Intent.ACTION_VIEW, uri);
-//                            startActivity(i);
-//                        }
-//                    }
-//                });
-//            }
+            if(currentUser != null) {
+                userid =  currentUser .getUsername();
+                querylp.whereEqualTo("User_ID", userid);
+                querylp.whereEqualTo("Date", today);
+                querylp.setLimit(1);
+
+                querylp.getFirstInBackground(new GetCallback<ParseObject>() {
+                    public void done(ParseObject object, ParseException e) {
+                        if (object == null) {
+                            Log.d("User_ID", "create task list."+userid);
+                            lp.put("User_ID", userid);
+                            lp.put("Date", today);
+                            lp.put("lastpage",lastpage);
+                            lp.saveInBackground();
+                        }
+                        else
+                        {
+                            querylp2.whereEqualTo("User_ID", userid);
+                            querylp2.whereEqualTo("Date", today);
+                            querylp2.setLimit(1);
+                            querylp2.findInBackground(new FindCallback<ParseObject>() {
+                                @Override
+                                public void done(List<ParseObject> scoreList, ParseException e) {
+                                    if (e ==null){
+                                        scoreList.get(0).put("lastpage", lastpage);
+                                        scoreList.get(0).saveInBackground();
+                                    }
+                                }
+                            });
+                        }
+                    }
+                });
+
+
+                String username =currentUser.getUsername();
+                query2.whereEqualTo("User_ID", username);
+
+                query2.getFirstInBackground(new GetCallback<ParseObject>() {
+                    public void done(ParseObject object, ParseException e) {
+                        if (object == null) {
+                            Log.d("User_ID", "The getFirst request failed.");
+                            Toast pass = Toast.makeText(SleepActivity.this, "Sorry you don't have a token for brain tap test..", Toast.LENGTH_LONG);
+                            pass.show();
+
+                        } else {
+                            //Log.d("score", "Retrieved the object.");
+                            //if(object.getInt("MBraintest")== 0 || object.getInt("MBraintest") ==1)
+
+                           token = object.getString("token");
+                           link = "http://www.braintaptest.com/en/direct-client/login?token="+token;
+                            Toast pass = Toast.makeText(SleepActivity.this, link, Toast.LENGTH_LONG);
+                            pass.show();
+                            Uri uri = Uri.parse("http://www.braintaptest.com/"); // missing 'http://' will cause crashed
+                            Intent i = new Intent(Intent.ACTION_VIEW, uri);
+                            startActivity(i);
+                        }
+                    }
+                });
+            }
 
             Uri uri = Uri.parse("http://www.braintaptest.com/"); // missing 'http://' will cause crashed
             Intent i = new Intent(Intent.ACTION_VIEW, uri);

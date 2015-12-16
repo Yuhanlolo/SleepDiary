@@ -48,10 +48,9 @@ public class MainActivity  extends ActionBarActivity {
 
     String lastpage = "";
     String endstr = "";
-
-
    // ParseObject TaskCheckList  = new ParseObject("TaskCheckList");
    ParseQuery<ParseObject> query1 = ParseQuery.getQuery("TaskCheckList");
+
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -216,6 +215,7 @@ public class MainActivity  extends ActionBarActivity {
             }
             else
             {
+
             Intent i = new Intent(MainActivity.this, SleepActivity.class);
                 lastpage = "M30";
                 i.putExtra("lastpage",lastpage);

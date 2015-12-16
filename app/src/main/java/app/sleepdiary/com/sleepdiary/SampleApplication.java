@@ -89,7 +89,7 @@ public class SampleApplication extends Application {
                         Log.d("User_ID", "create task list."+userid);
                         TaskCheckList.put("User_ID", ParseUser.getCurrentUser().getUsername());
                         TaskCheckList.put("Date", today);
-
+                        TaskCheckList.put("Nap",0);
                         TaskCheckList.saveInBackground();
 
                     }
