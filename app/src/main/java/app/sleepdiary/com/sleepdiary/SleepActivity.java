@@ -183,7 +183,12 @@ public class SleepActivity extends ActionBarActivity{
 
     public void buttonlayout(String lastpage)
     {
-        if(lastpage.equals("M30"))
+        if (lastpage.equals("practice"))
+        {
+            Intent i = new Intent(SleepActivity.this,SettingsActivity.class);
+            SleepActivity.this.startActivity(i);
+        }
+        else if(lastpage.equals("M30"))
         {
 //            GridLayout.LayoutParams llp = new GridLayout.LayoutParams();
 //            f3.setLayoutParams(llp);

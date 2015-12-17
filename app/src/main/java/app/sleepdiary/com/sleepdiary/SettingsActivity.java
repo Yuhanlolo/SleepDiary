@@ -2,7 +2,9 @@ package app.sleepdiary.com.sleepdiary;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.content.Intent;
@@ -10,6 +12,11 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.support.v7.app.ActionBarActivity;
+
+import com.parse.FindCallback;
+import com.parse.GetCallback;
+import com.parse.ParseException;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.Parse;
 import com.parse.ParseObject;
@@ -19,11 +26,24 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-public class SettingsActivity extends ActionBarActivity {
+import java.util.Calendar;
+import java.util.List;
+
+public class SettingsActivity extends ActionBarActivity implements View.OnClickListener {
 
    Button CreateID, Login;
     ImageView Logout;
+    ImageView btp;
+    String lastpage = "practice";
+    ParseUser currentUser;
+    ParseQuery<ParseObject> query2 = ParseQuery.getQuery("Token");
 
+    ParseObject lp  = new ParseObject("Lastpage");
+    ParseQuery<ParseObject> querylp = ParseQuery.getQuery("Lastpage");
+    ParseQuery<ParseObject> querylp2 = ParseQuery.getQuery("Lastpage");
+    String userid = "";
+    String today = "";
+    //String  link = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +54,9 @@ public class SettingsActivity extends ActionBarActivity {
         Login = (Button)findViewById(R.id.Login);
         Logout = (ImageView)findViewById(R.id.Logout);
 
+        btp = (ImageView)findViewById(R.id.btp);
+        btp.setOnClickListener(this);
+
         ParseUser currentUser = ParseUser.getCurrentUser();
 //        Toast msg = Toast.makeText(SettingsActivity.this,"User"+ currentUser, Toast.LENGTH_SHORT);
 //        msg.show();
@@ -43,6 +66,7 @@ public class SettingsActivity extends ActionBarActivity {
             CreateID.setVisibility(View.VISIBLE);
             Login.setVisibility(View.VISIBLE);
             Logout.setVisibility(View.INVISIBLE);
+            btp.setVisibility(View.INVISIBLE);
         }
 
         else
@@ -50,11 +74,15 @@ public class SettingsActivity extends ActionBarActivity {
             CreateID.setVisibility(View.INVISIBLE);
             Login.setVisibility(View.INVISIBLE);
             Logout.setVisibility(View.VISIBLE);
+            btp.setVisibility(View.VISIBLE);
 
         }
 
-
-
+        final Calendar cal = Calendar.getInstance();
+        int month = cal.get(Calendar.MONTH) + 1;
+        int date = cal.get(Calendar.DATE);
+        int year = cal.get(Calendar.YEAR);
+        today = String.valueOf(month)+"/"+String.valueOf(date)+"/"+String.valueOf(year);
 
     }
 
@@ -141,4 +169,55 @@ public class SettingsActivity extends ActionBarActivity {
             SettingsActivity.this.startActivity(i);
         }
     }
+
+    @Override
+    public void onClick(View v) {
+
+        if(v.getId() == R.id.btp)
+        {
+            currentUser = ParseUser.getCurrentUser();
+
+            if(currentUser != null) {
+                userid =  currentUser .getUsername();
+                querylp.whereEqualTo("User_ID", userid);
+                querylp.whereEqualTo("Date", today);
+                querylp.setLimit(1);
+
+                querylp.getFirstInBackground(new GetCallback<ParseObject>() {
+                    public void done(ParseObject object, ParseException e) {
+                        if (object == null) {
+                            Log.d("User_ID", "create task list." + userid);
+                            lp.put("User_ID", userid);
+                            lp.put("Date", today);
+                            lp.put("lastpage",lastpage);
+                            lp.saveInBackground();
+                        }
+                        else
+                        {
+                            querylp2.whereEqualTo("User_ID", userid);
+                            querylp2.whereEqualTo("Date", today);
+                            querylp2.setLimit(1);
+                            querylp2.findInBackground(new FindCallback<ParseObject>() {
+                                @Override
+                                public void done(List<ParseObject> scoreList, ParseException e) {
+                                    if (e ==null){
+                                        scoreList.get(0).put("lastpage", lastpage);
+                                        scoreList.get(0).saveInBackground();
+                                    }
+                                }
+                            });
+                        }
+                    }
+                });
+
+
+                Uri uri = Uri.parse("http://www.braintaptest.com/"); // missing 'http://' will cause crashed
+            Intent i = new Intent(Intent.ACTION_VIEW, uri);
+            //Intent j = new Intent(SleepActivity.this,SleepActivity.class);
+            i.putExtra("lastpage",lastpage);
+            //startService(j);
+            startActivity(i);
+        }
+    }
+}
 }
