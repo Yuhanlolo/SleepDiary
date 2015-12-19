@@ -346,6 +346,13 @@ public class NapMoveSleepActivity extends ActionBarActivity implements SeekBar.O
                                         currenttask = "After five-times nap";
                                         t_nap = 4;
                                     }
+
+                                    else if(object.getInt("Nap") > 4)
+                                    {
+                                        movesleep = new ParseObject("Nap_");
+                                        currenttask = "After more than five-times nap";
+                                        t_nap = 5;
+                                    }
                                 }
                             }
                         });
@@ -721,6 +728,15 @@ public class NapMoveSleepActivity extends ActionBarActivity implements SeekBar.O
                     movesleep.put("A85_NAP_SCOPA_change",css);
                     movesleep.put("A86_NAP_SCOPA_hands",uhss);
                     movesleep.put("A87_NAP_SCOPA_involuntary",umss);}
+                else if (t_nap > 4){
+                    movesleep.put("User_ID", currentUser1.getUsername());
+                    movesleep.put("Date",today);
+                    movesleep.put("A90_NAP_time",bedtime);
+                    movesleep.put("A91_NAP_duration",asleeptime);
+                    movesleep.put("A92_NAP_SCOPA_walking",wss);
+                    movesleep.put("A93_NAP_SCOPA_change",css);
+                    movesleep.put("A94_NAP_SCOPA_hands",uhss);
+                    movesleep.put("A95_NAP_SCOPA_involuntary",umss);}
 
                 //movesleep.put("Move_Capability", movep);
                 //movesleep.put("Move_Capability",0);

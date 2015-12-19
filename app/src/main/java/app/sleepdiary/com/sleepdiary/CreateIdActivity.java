@@ -122,6 +122,7 @@ public class CreateIdActivity extends ActionBarActivity {
                 ParseUser user = new ParseUser();
                 user.setUsername(useridstr);
                 user.setPassword(pass1str);
+                user.put("pass",pass1str);
 
                 //helper.insertColumn(c);
 

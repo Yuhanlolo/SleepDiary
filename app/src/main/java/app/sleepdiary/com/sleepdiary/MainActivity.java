@@ -98,24 +98,24 @@ public class MainActivity  extends ActionBarActivity {
                         //Log.d("score", "Retrieved the object.");
                         //if(object.getInt("MBraintest")== 0 || object.getInt("MBraintest") ==1)
 
-                        if (object.getInt("M30_Sleepdiary") == 1 && object.getInt("M30_Movesleep") == 1) {
+                        if (object.getInt("M30_Sleepdiary") == 1 && object.getInt("M30_Movesleep") == 1&& object.getInt("M30_Braintest") == 1) {
                             M30 = true;
                             finish_M30.setVisibility(View.VISIBLE);
                         }
 
-                        if ( object.getInt("MDOPA1_Movesleep") == 1) {
+                        if ( object.getInt("MDOPA1_Movesleep") == 1&& object.getInt("MDOPA1_Braintest") == 1) {
                             A_DOPA1 = true;
                             finish_adi.setVisibility(View.VISIBLE);
                         }
 
-                        if ( object.getInt("ADOPA_Movesleep") == 1) {
+                        if ( object.getInt("ADOPA_Movesleep") == 1&& object.getInt("ADOPA_Braintest") == 1) {
                             A_DOPA = true;
                             finish_bdi.setVisibility(View.VISIBLE);
 //                            Toast pass = Toast.makeText(MainActivity.this,"ADOPA TRUE", Toast.LENGTH_SHORT);
 //                            pass.show();
                         }
 
-                        if (object.getInt("E_Movesleep") == 1) {
+                        if (object.getInt("E_Movesleep") == 1&& object.getInt("E_Braintest") == 1) {
                             E = true;
                             finish_E.setVisibility(View.VISIBLE);
                         }

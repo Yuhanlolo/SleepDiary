@@ -289,6 +289,12 @@ public class NapMoveSleepActivity2 extends ActionBarActivity implements SeekBar.
                                         currenttask = "After five-times nap";
                                         t_nap = 4;
                                     }
+                                    else if(object.getInt("Nap") > 4)
+                                    {
+                                        query =  ParseQuery.getQuery("Nap_");
+                                        currenttask = "After more than five-times nap";
+                                        t_nap = 5;
+                                    }
                                 }
                             }
                         });
@@ -535,6 +541,10 @@ public class NapMoveSleepActivity2 extends ActionBarActivity implements SeekBar.
                                 objects.get(0).put("A89_NAP_SSS", sleepp);
                             }
 
+                            else if (t_nap > 4){
+                                objects.get(0).put("A88_NAP_VAS_motor", movep);
+                                objects.get(0).put("A89_NAP_SSS", sleepp);
+                            }
 
                             objects.get(0).saveInBackground(new SaveCallback() {
                                 @Override
@@ -547,22 +557,17 @@ public class NapMoveSleepActivity2 extends ActionBarActivity implements SeekBar.
                                             public void done(List<ParseObject> scoreList, ParseException e) {
                                                 if (e == null) {
                                                     Log.d("score", "Retrieved " + scoreList.size() + " scores");
-
-                                                    if (t_nap==4){t_nap = 3;}
                                                         scoreList.get(0).put("Nap", t_nap+1);
+                                                        scoreList.get(0).put("Nap_Movesleep",1);
                                                         scoreList.get(0).saveInBackground();
-
                                                 }
                                             }
                                                               });
-
                                             Intent i = new Intent(NapMoveSleepActivity2.this, MainActivity.class);
                                             i.putExtra("endstr",end);
                                             //i.putExtra("lastpage",lastpage);
                                             //i.putExtra("loginstatus",f);
-                                            NapMoveSleepActivity2.this.
-
-                                            startActivity(i);
+                                            NapMoveSleepActivity2.this.startActivity(i);
                                         }
 
                                         else
