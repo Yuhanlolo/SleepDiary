@@ -9,6 +9,9 @@ import android.app.Dialog;
 import android.app.TimePickerDialog;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import android.os.Handler;
+import android.os.Looper;
 import android.support.v7.app.ActionBarActivity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -152,6 +155,13 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
     String[] hrValues = {"00","01","02","03","04","05","06","07","08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23"};
     String[] minuteValues = {"0","5","10","15","20","25","30","35","40","45","50","55"};
     final Calendar cal = Calendar.getInstance();
+    final Calendar c = Calendar.getInstance();
+
+    final long delayMillis=1000;
+    Handler h=null;
+    Runnable r;
+
+    int starttime;
 
     int bedtemp = 0;
     int sleepdu = 0;
@@ -691,6 +701,49 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
         year = cal.get(Calendar.YEAR);
 
         today = String.valueOf(month)+"/"+String.valueOf(date)+"/"+String.valueOf(year);
+
+        int hr = cal.get(Calendar.HOUR_OF_DAY);
+        int m=cal.get(Calendar.MINUTE);
+
+        starttime = hr*60+m;
+
+        h = new Handler(Looper.getMainLooper());
+        r = new Runnable() {
+
+            public void run() {
+
+                //current time
+                Calendar c = Calendar.getInstance();
+                int mon = c.get(Calendar.MONTH) + 1;
+                int day = c.get(Calendar.DATE);
+                int yr = c.get(Calendar.YEAR);
+                String temptoday = String.valueOf(mon)+"/"+String.valueOf(day)+"/"+String.valueOf(yr);
+                int hour = c.get(Calendar.HOUR_OF_DAY);
+                int min=c.get(Calendar.MINUTE);
+                //int sec=c.get(Calendar.SECOND);
+                int currenttime = 60*hour + min;
+                //String currenttime= String.valueOf(hour)+" : "+String.valueOf(min)+" : "+String.valueOf(sec);
+
+                //comparing current time with 12:00pm
+                if(currenttime-starttime>60||!temptoday.equals(today)){
+
+                    //restarting the activity
+                    Toast pass = Toast.makeText(SleepDiaryActivity2.this,"the page is invalid, please start over!", Toast.LENGTH_SHORT);
+                    pass.show();
+                    Intent intent = new Intent(SleepDiaryActivity2.this,MainActivity.class);
+
+                    startActivity(intent);
+                    starttime = 2400;
+                    temptoday = today;
+
+                    finish();
+                }
+                h.postDelayed(this, delayMillis);
+
+            }
+        };
+
+        h.post(r);
 
         if (date == 1){
             month = month -1;

@@ -60,26 +60,8 @@
         android:background="#BDBDBD"
         android:onClick="button_createIDOnClick"
         />
-    <ImageView
 
-        android:id="@+id/Logout"
-        android:src = "@drawable/logout"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:text="Log Out"
-        android:textAllCaps="false"
-        android:layout_marginLeft="650dp"
-        android:layout_row="3"
-        android:layout_column="0"
-        android:enabled="true"
-        android:focusable="false"
-        android:focusableInTouchMode="false"
-        android:visibility="invisible"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="200dp"
-        android:textSize="30dp"
-        android:onClick="button_createIDOnClick"
-        />
+
 
     <Button
         android:id="@+id/Login"
@@ -92,7 +74,7 @@
         android:alpha="0.9"
         android:layout_row="2"
         android:layout_column="0"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="60dp"
         android:layout_below="@+id/CreateId"
         android:layout_alignLeft="@+id/CreateId"
         android:textSize="30dp"
@@ -116,24 +98,57 @@
         android:layout_alignParentLeft="true" />
 
 
-    <ImageView
-        android:minHeight="200dp"
-        android:minWidth="560dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/btp"
-        android:src="@drawable/btp"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:layout_row="1"
+    <GridLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:orientation="vertical"
+        android:background="#fafafa"
+        android:layout_row="3"
         android:layout_column="0"
-        android:visibility="invisible"
-        android:onClick="OnClick"
-        android:layout_gravity="left"
-        android:layout_marginLeft="100dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginRight="100dp" />
 
+        android:layout_marginTop="220dp"
+        android:layout_marginLeft="0dp"
+        android:icon="@drawable/ic_launcher">
+
+    <ImageView
+
+        android:id="@+id/Logout"
+        android:src = "@drawable/logout"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:textAllCaps="false"
+        android:layout_marginLeft="650dp"
+        android:layout_row="3"
+        android:layout_column="0"
+        android:enabled="true"
+        android:focusable="false"
+        android:visibility="invisible"
+        android:focusableInTouchMode="false"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="0dp"
+        android:onClick="button_createIDOnClick"
+        />
+
+    <ImageView
+
+        android:id="@+id/restart"
+        android:src = "@drawable/restart"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:textAllCaps="false"
+        android:layout_marginLeft="580dp"
+        android:layout_row="3"
+        android:layout_column="0"
+        android:enabled="true"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:visibility="invisible"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="0dp"
+        android:onClick="button_createIDOnClick"
+        />
+</GridLayout>
 
 
 </GridLayout>

@@ -2,6 +2,8 @@ package app.sleepdiary.com.sleepdiary;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -70,6 +72,12 @@ public class MovesleepActivity2 extends ActionBarActivity implements SeekBar.OnS
     RadioButton rb1,rb2,rb3,rb4,rb5,rb6,rb7;
     int rbsd1, rbsd2,rbsd3, rbsd4,rbsd5, rbsd6,rbsd7;
     //RadioGroup rgSD;
+
+    final long delayMillis=1000;
+    Handler h=null;
+    Runnable r;
+    int starttime;
+    final Calendar c = Calendar.getInstance();
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -202,6 +210,49 @@ public class MovesleepActivity2 extends ActionBarActivity implements SeekBar.OnS
         date = cal.get(Calendar.DATE);
         year = cal.get(Calendar.YEAR);
         today = String.valueOf(month)+"/"+String.valueOf(date)+"/"+String.valueOf(year);
+
+        int hr = cal.get(Calendar.HOUR_OF_DAY);
+        int m=cal.get(Calendar.MINUTE);
+
+        starttime = hr*60+m;
+
+        h = new Handler(Looper.getMainLooper());
+        r = new Runnable() {
+
+            public void run() {
+
+                //current time
+                Calendar c = Calendar.getInstance();
+                int mon = c.get(Calendar.MONTH) + 1;
+                int day = c.get(Calendar.DATE);
+                int yr = c.get(Calendar.YEAR);
+                String temptoday = String.valueOf(mon)+"/"+String.valueOf(day)+"/"+String.valueOf(yr);
+                int hour = c.get(Calendar.HOUR_OF_DAY);
+                int min=c.get(Calendar.MINUTE);
+                //int sec=c.get(Calendar.SECOND);
+                int currenttime = 60*hour + min;
+                //String currenttime= String.valueOf(hour)+" : "+String.valueOf(min)+" : "+String.valueOf(sec);
+
+                //comparing current time with 12:00pm
+                if(currenttime-starttime>60||!temptoday.equals(today)){
+
+                    //restarting the activity
+                    Toast pass = Toast.makeText(MovesleepActivity2.this,"the page is invalid, please start over!", Toast.LENGTH_SHORT);
+                    pass.show();
+                    Intent intent = new Intent(MovesleepActivity2.this,MainActivity.class);
+
+                    startActivity(intent);
+                    starttime = 2400;
+                    temptoday = today;
+
+                    finish();
+                }
+                h.postDelayed(this, delayMillis);
+
+            }
+        };
+
+        h.post(r);
     }
 
     @Override
@@ -363,7 +414,8 @@ public class MovesleepActivity2 extends ActionBarActivity implements SeekBar.OnS
             }
             else
             {
-                query.whereEqualTo("User_ID", currentUser1.getUsername());
+                final String userid =currentUser1.getUsername();
+                query.whereEqualTo("User_ID", userid);
                 query.whereEqualTo("Date", today);
 
                 query.setLimit(1);
@@ -411,7 +463,7 @@ public class MovesleepActivity2 extends ActionBarActivity implements SeekBar.OnS
                     }
                 });
 
-                query2.whereEqualTo("User_ID", currentUser1.getUsername());
+                query2.whereEqualTo("User_ID", userid);
                 query2.whereEqualTo("Date", today);
                 query2.setLimit(1);
                 query2.getFirstInBackground(new GetCallback<ParseObject>() {
@@ -456,7 +508,7 @@ public class MovesleepActivity2 extends ActionBarActivity implements SeekBar.OnS
                             });
 
                         } else {
-                            query1.whereEqualTo("User_ID", currentUser1.getUsername());
+                            query1.whereEqualTo("User_ID", userid);
                             query1.whereEqualTo("Date", today);
                             query1.setLimit(1);
                             query1.findInBackground(new FindCallback<ParseObject>() {
@@ -485,7 +537,7 @@ public class MovesleepActivity2 extends ActionBarActivity implements SeekBar.OnS
                                                     //f = true;
                                                     Intent i = new Intent(MovesleepActivity2.this, MainActivity.class);
                                                     i.putExtra("lastpage", lastpage);
-                                                    //i.putExtra("loginstatus",f);
+                                                    i.putExtra("endstr",end);
                                                     i.putExtra("f2", f);
                                                     MovesleepActivity2.this.startActivity(i);
                                                 }

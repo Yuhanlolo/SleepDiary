@@ -7,6 +7,8 @@ package app.sleepdiary.com.sleepdiary;
 import android.content.Intent;
 import android.os.Bundle;
 import android.app.Activity;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -73,6 +75,12 @@ public class SleepActivity extends ActionBarActivity{
 
     Uri uri;
 
+    final long delayMillis=1000;
+    Handler h=null;
+    Runnable r;
+    int starttime;
+    final Calendar c = Calendar.getInstance();
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sleep);
@@ -120,6 +128,7 @@ public class SleepActivity extends ActionBarActivity{
 //                    lastpage = "Nap";
             if(currentUser != null) {
                 userid = currentUser.getUsername();
+
                 querylp3.whereEqualTo("User_ID", userid);
                 querylp3.whereEqualTo("Date", today);
                 querylp3.getFirstInBackground(new GetCallback<ParseObject>() {
@@ -204,6 +213,49 @@ public class SleepActivity extends ActionBarActivity{
         userid = getIntent().getStringExtra("userid");
         //TextView tv = (TextView)findViewById(R.id.title);
         //tv.setText("Welcome"+userid);
+
+        int hr = cal.get(Calendar.HOUR_OF_DAY);
+        int m=cal.get(Calendar.MINUTE);
+
+        starttime = hr*60+m;
+
+        h = new Handler(Looper.getMainLooper());
+        r = new Runnable() {
+
+            public void run() {
+
+                //current time
+                Calendar c = Calendar.getInstance();
+                int mon = c.get(Calendar.MONTH) + 1;
+                int day = c.get(Calendar.DATE);
+                int yr = c.get(Calendar.YEAR);
+                String temptoday = String.valueOf(mon)+"/"+String.valueOf(day)+"/"+String.valueOf(yr);
+                int hour = c.get(Calendar.HOUR_OF_DAY);
+                int min=c.get(Calendar.MINUTE);
+                //int sec=c.get(Calendar.SECOND);
+                int currenttime = 60*hour + min;
+                //String currenttime= String.valueOf(hour)+" : "+String.valueOf(min)+" : "+String.valueOf(sec);
+
+                //comparing current time with 12:00pm
+                if(currenttime-starttime>60||!temptoday.equals(today)){
+
+                    //restarting the activity
+                    Toast pass = Toast.makeText(SleepActivity.this,"the page is invalid, please start over!", Toast.LENGTH_SHORT);
+                    pass.show();
+                    Intent intent = new Intent(SleepActivity.this,MainActivity.class);
+
+                    startActivity(intent);
+                    starttime = 2400;
+                    temptoday = today;
+
+                    finish();
+                }
+                h.postDelayed(this, delayMillis);
+
+            }
+        };
+
+        h.post(r);
     }
 
     @Override

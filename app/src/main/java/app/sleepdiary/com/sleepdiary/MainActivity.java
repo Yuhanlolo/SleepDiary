@@ -84,12 +84,7 @@ public class MainActivity  extends ActionBarActivity {
             userid = ParseUser.getCurrentUser().getUsername();
             query1.whereEqualTo("User_ID", userid);
             query1.whereEqualTo("Date", today);
-
-            //object.getInt("MDOPA1_Braintest") == 1 &&
-            //object.getInt("ADOPA_Braintest") == 1 &&
-            //object.getInt("E_Braintest") == 1 &&
-            
-            query1.getFirstInBackground(new GetCallback<ParseObject>() {
+             query1.getFirstInBackground(new GetCallback<ParseObject>() {
                 public void done(ParseObject object, ParseException e) {
                     if (object == null) {
                         Log.d("User_ID", "The getFirst request failed.");

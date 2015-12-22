@@ -51,6 +51,10 @@ import android.app.DialogFragment;
 import android.view.inputmethod.EditorInfo;
 import android.text.Selection;
 import android.view.View.OnKeyListener;
+import android.os.Handler;
+import java.lang.Runnable;
+import android.os.Looper;
+
 /**
  * Created by Yuhan on 9/13/15.
  */
@@ -108,6 +112,12 @@ public class SleepDiaryActivity extends ActionBarActivity implements  View.OnCli
     ParseQuery<ParseObject> query = ParseQuery.getQuery("Sleep_Diary");
     ParseQuery<ParseObject> query2 = ParseQuery.getQuery("Sleep_Diary");
 
+    final long delayMillis=1000;
+    Handler h=null;
+    Runnable r;
+
+    int starttime;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sleepdiary);
@@ -116,6 +126,56 @@ public class SleepDiaryActivity extends ActionBarActivity implements  View.OnCli
                 getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN
         );
+
+        /** Get the current time */
+
+        month = cal.get(Calendar.MONTH) + 1;
+        date = cal.get(Calendar.DATE);
+        year = cal.get(Calendar.YEAR);
+        today = String.valueOf(month)+"/"+String.valueOf(date)+"/"+String.valueOf(year);
+
+        int hr = cal.get(Calendar.HOUR_OF_DAY);
+        int m=cal.get(Calendar.MINUTE);
+
+        starttime = hr*60+m;
+
+        h = new Handler(Looper.getMainLooper());
+        r = new Runnable() {
+
+            public void run() {
+
+                //current time
+                Calendar c = Calendar.getInstance();
+                int mon = c.get(Calendar.MONTH) + 1;
+                int day = c.get(Calendar.DATE);
+                int yr = c.get(Calendar.YEAR);
+                String temptoday = String.valueOf(mon)+"/"+String.valueOf(day)+"/"+String.valueOf(yr);
+                int hour = c.get(Calendar.HOUR_OF_DAY);
+                int min=c.get(Calendar.MINUTE);
+                //int sec=c.get(Calendar.SECOND);
+                int currenttime = 60*hour + min;
+                //String currenttime= String.valueOf(hour)+" : "+String.valueOf(min)+" : "+String.valueOf(sec);
+
+                //comparing current time with 12:00pm
+                if(currenttime-starttime>60||!temptoday.equals(today)){
+
+                    //restarting the activity
+                    Toast pass = Toast.makeText(SleepDiaryActivity.this,"the page is invalid, please start over!", Toast.LENGTH_SHORT);
+                    pass.show();
+                    Intent intent = new Intent(SleepDiaryActivity.this,MainActivity.class);
+
+                    startActivity(intent);
+                    starttime = 2400;
+                    temptoday = today;
+
+                    finish();
+                }
+                h.postDelayed(this, delayMillis);
+
+            }
+        };
+
+        h.post(r);
 
         /* Hide the back button*/
         //getActionBar().setHomeAsUpIndicator(null);
@@ -128,6 +188,25 @@ public class SleepDiaryActivity extends ActionBarActivity implements  View.OnCli
         Intent i_getvalue = getIntent();
         lastpage = i_getvalue.getStringExtra("lastpage");
         userActivity  = new ParseObject("Sleep_Diary");
+
+//        query.whereEqualTo("User_ID","yuhan");
+//        //query.whereEqualTo("Date",today);
+//        query.setLimit(1);
+//        query.findInBackground(new FindCallback<ParseObject>() {
+//            @Override
+//            public void done(List<ParseObject> objects, ParseException e) {
+//                if(e ==null){
+//                try {
+//                    objects.get(0).delete();
+//                } catch (ParseException e1) {
+//                    e1.printStackTrace();
+//                }}
+//                else
+//                {
+//
+//                }
+//            }
+//        });
 
         rg = (RadioGroup)findViewById(R.id.group_pill);
         rg_1 = (RadioButton)findViewById(R.id.yes_pill);
@@ -336,12 +415,7 @@ public class SleepDiaryActivity extends ActionBarActivity implements  View.OnCli
         edtView.setEnabled(false);
         edtView.setOnClickListener(this);
 
-        /** Get the current time */
 
-        month = cal.get(Calendar.MONTH) + 1;
-        date = cal.get(Calendar.DATE);
-        year = cal.get(Calendar.YEAR);
-        today = String.valueOf(month)+"/"+String.valueOf(date)+"/"+String.valueOf(year);
         if (date == 1){
             month = month -1;
             if(month == 1||month == 3||month == 5||month == 7||month == 8||month == 10||month == 12)
