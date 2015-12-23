@@ -57,7 +57,7 @@ public class MainActivity  extends ActionBarActivity {
     String end0 = "Thank you for completing Morning test! Please come back for Morning, After Drug-intake test.";
     String end1 = "Thank you for completing Morning, After Drug-intake test! Please come back for Afternoon, Before Drug-intake test.";
     String end2 = "Thank you for completing Afternoon, Before Drug-intake test! Please come back for Bed Time test.";
-    String end3 = "Thank you for completing all the tests for today!.";
+    String end3 = "Thank you for completing all the tests for today!";
     String end4 = "Thank you for completing the Nap test!";
 
 

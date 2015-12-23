@@ -275,7 +275,7 @@ public class NapMoveSleepActivity2 extends ActionBarActivity implements SeekBar.
 
 
         currentpage = (TextView)findViewById(R.id.lastnappagem2);
-        
+
         currentUser = ParseUser.getCurrentUser();
         if (currentUser != null) {
             userid = currentUser.getUsername();
