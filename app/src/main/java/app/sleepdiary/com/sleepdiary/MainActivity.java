@@ -51,6 +51,13 @@ public class MainActivity  extends ActionBarActivity {
    // ParseObject TaskCheckList  = new ParseObject("TaskCheckList");
    ParseQuery<ParseObject> query1 = ParseQuery.getQuery("TaskCheckList");
 
+    String end = "";
+    String end0 = "Thank you for completing Morning test! Please come back for Morning, After Drug-intake test.";
+    String end1 = "Thank you for completing Morning, After Drug-intake test! Please come back for Afternoon, Before Drug-intake test.";
+    String end2 = "Thank you for completing Afternoon, Before Drug-intake test! Please come back for Bed Time test.";
+    String end3 = "Thank you for completing all the tests for today!.";
+    String end4 = "Thank you for completing the Nap test!";
+
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,8 +67,7 @@ public class MainActivity  extends ActionBarActivity {
 //        testObject.put("foo", "bar");
 //        testObject.saveInBackground();
 
-        Intent i_getvalue = getIntent();
-        String action = i_getvalue.getAction();
+
 
 
 //        if(Intent.ACTION_VIEW.equals(action)){
@@ -143,15 +149,45 @@ public class MainActivity  extends ActionBarActivity {
 //        {
 //            finish_E.setVisibility(View.VISIBLE);
 //        }
+        Intent i_getvalue = getIntent();
+        String action = i_getvalue.getAction();
         endstr = i_getvalue.getStringExtra("endstr");
 
         if(endstr!=null)
         {
 
+            if(endstr.equals("end0")&&M30){
+                end=end0;
+                Toast pass = Toast.makeText(MainActivity.this,end, Toast.LENGTH_LONG);
+                for (int i  = 0 ; i< 2;i++)
+                    pass.show();
+            }
+            else if(endstr.equals("end1")&&A_DOPA1){
+                end=end1;
+                Toast pass = Toast.makeText(MainActivity.this,end, Toast.LENGTH_LONG);
+                for (int i  = 0 ; i< 2;i++)
+                    pass.show();
+            }
+            else if(endstr.equals("end2")){
+                end=end2;
+                Toast pass = Toast.makeText(MainActivity.this,end, Toast.LENGTH_LONG);
+                for (int i  = 0 ; i< 2;i++)
+                    pass.show();
+            }
+            else if(endstr.equals("end3")){
+                end=end3;
+                Toast pass = Toast.makeText(MainActivity.this,end, Toast.LENGTH_LONG);
+                for (int i  = 0 ; i< 2;i++)
+                    pass.show();
+            }
+            else if(endstr.equals("end4")){
+                end=end4;
+                Toast pass = Toast.makeText(MainActivity.this,end, Toast.LENGTH_LONG);
+                for (int i  = 0 ; i< 2;i++)
+                    pass.show();
+            }
 
-            Toast pass = Toast.makeText(MainActivity.this,endstr, Toast.LENGTH_LONG);
-            for (int i  = 0 ; i< 2;i++)
-            pass.show();
+
         }
 
 

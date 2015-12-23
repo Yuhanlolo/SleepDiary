@@ -66,7 +66,7 @@ public class SleepActivity extends ActionBarActivity{
     ParseQuery<ParseObject> query1 = ParseQuery.getQuery("TaskCheckList");
     ParseQuery<ParseObject> query3 = ParseQuery.getQuery("TaskCheckList");
     ParseQuery<ParseObject> query4 = ParseQuery.getQuery("TaskCheckList");
-    ParseQuery<ParseObject> query2 = ParseQuery.getQuery("Token");
+    ParseQuery<ParseObject> query2 = ParseQuery.getQuery("TaskCheckList");
 
     ParseObject lp  = new ParseObject("Lastpage");
     ParseQuery<ParseObject> querylp = ParseQuery.getQuery("Lastpage");
@@ -80,6 +80,8 @@ public class SleepActivity extends ActionBarActivity{
     Runnable r;
     int starttime;
     final Calendar c = Calendar.getInstance();
+
+    boolean fall = false;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -111,12 +113,12 @@ public class SleepActivity extends ActionBarActivity{
 
         if(lastpage == null)
         {
+            String struri ="";
+            if(Intent.ACTION_VIEW.equals(action)){
+                uri = i_getvalue.getData();
+                struri = uri.toString();}
 
-//            if(Intent.ACTION_VIEW.equals(action)){
-//                uri = i_getvalue.getData();
-//                String struri = uri.toString();}
-
-//                if (struri.equals("sleep://diary.com/m30"))
+                if (struri.equals("sleep://benefit.com")) {
 //                    lastpage = "M30";
 //                else if (struri.equals("sleep://diary.com/mdopa1"))
 //                    lastpage = "MDOPA1";
@@ -126,69 +128,102 @@ public class SleepActivity extends ActionBarActivity{
 //                    lastpage = "E";
 //                else if (struri.equals("sleep://diary.com/nap"))
 //                    lastpage = "Nap";
-            if(currentUser != null) {
-                userid = currentUser.getUsername();
+                    if (currentUser != null) {
+                        userid = currentUser.getUsername();
 
-                querylp3.whereEqualTo("User_ID", userid);
-                querylp3.whereEqualTo("Date", today);
-                querylp3.getFirstInBackground(new GetCallback<ParseObject>() {
-                    @Override
-                    public void done(final ParseObject object, ParseException e) {
-                        if(object ==null){
-                            Toast pass = Toast.makeText(SleepActivity.this,"The page is outdated, please start over!", Toast.LENGTH_SHORT);
-                            pass.show();
-                            Intent i = new Intent(SleepActivity.this,MainActivity.class);
-                            //startService(j);
-                            startActivity(i);
-                        }
-                        else
-                        {
-                            lastpage = object.getString("lastpage");
-                            query3.whereEqualTo("User_ID",currentUser.getUsername());
-                            query3.whereEqualTo("Date",today);
-                            query3.setLimit(1);
+                        querylp3.whereEqualTo("User_ID", userid);
+                        querylp3.whereEqualTo("Date", today);
+                        querylp3.getFirstInBackground(new GetCallback<ParseObject>() {
+                            @Override
+                            public void done(final ParseObject object, ParseException e) {
+                                if (object == null) {
+                                    Toast pass = Toast.makeText(SleepActivity.this, "The page is outdated, please start over!", Toast.LENGTH_SHORT);
+                                    pass.show();
+                                    Intent i = new Intent(SleepActivity.this, MainActivity.class);
+                                    //startService(j);
+                                    startActivity(i);
+                                } else {
+                                    lastpage = object.getString("lastpage");
+                                    query3.whereEqualTo("User_ID", currentUser.getUsername());
+                                    query3.whereEqualTo("Date", today);
+                                    query3.setLimit(1);
 
-                            query3.findInBackground(new FindCallback<ParseObject>() {
-                                @Override
-                                public void done(List<ParseObject> objects, ParseException e) {
+                                    query3.findInBackground(new FindCallback<ParseObject>() {
+                                        @Override
+                                        public void done(List<ParseObject> objects, ParseException e) {
 
-                                    Log.d("score", "Retrieved " + objects.size() + " scores");
-                                    if (lastpage.equals("M30"))
-                                    {
-                                        objects.get(0).put("M30_Braintest",1);
-                                    }
-                                    else if (lastpage.equals("MDOPA1"))
-                                    {
-                                        objects.get(0).put("MDOPA1_Braintest",1);
-                                    }
-                                    else if (lastpage.equals("A_DOPA"))
-                                    {
-                                        objects.get(0).put("ADOPA_Braintest",1);
-                                    }
-                                    else if (lastpage.equals("E"))
-                                    {
-                                        objects.get(0).put("E_Braintest",1);
-                                    }
-                                    else if (lastpage.equals("Nap"))
-                                    {
-                                        objects.get(0).put("Nap_Braintest",1);
-                                    }
+                                            Log.d("score", "Retrieved " + objects.size() + " scores");
+                                            if (lastpage.equals("M30")) {
+                                                objects.get(0).put("M30_Braintest", 1);
+                                                objects.get(0).saveInBackground();
+                                                if (objects.get(0).getInt("M30_Movesleep") == 1 && objects.get(0).getInt("M30_Sleepdiary") == 1) {
+                                                    Intent i = new Intent(SleepActivity.this, MainActivity.class);
+                                                    i.putExtra("endstr", "end0");
+                                                    SleepActivity.this.startActivity(i);
+                                                }
+                                            } else if (lastpage.equals("MDOPA1")) {
+                                                objects.get(0).put("MDOPA1_Braintest", 1);
+                                                objects.get(0).saveInBackground();
+                                                if (objects.get(0).getInt("MDOPA1_Movesleep") == 1) {
+                                                    Intent i = new Intent(SleepActivity.this, MainActivity.class);
+                                                    i.putExtra("endstr", "end1");
+                                                    SleepActivity.this.startActivity(i);
+                                                }
+                                            } else if (lastpage.equals("A_DOPA")) {
+                                                objects.get(0).put("ADOPA_Braintest", 1);
+                                                objects.get(0).saveInBackground();
+                                                if (objects.get(0).getInt("ADOPA_Movesleep") == 1) {
+                                                    Intent i = new Intent(SleepActivity.this, MainActivity.class);
+                                                    i.putExtra("endstr", "end2");
+                                                    SleepActivity.this.startActivity(i);
+                                                }
+                                            } else if (lastpage.equals("E")) {
+                                                objects.get(0).put("E_Braintest", 1);
+                                                objects.get(0).saveInBackground();
+                                                if (objects.get(0).getInt("E_Movesleep") == 1) {
+                                                    Intent i = new Intent(SleepActivity.this, MainActivity.class);
+                                                    i.putExtra("endstr", "end3");
+                                                    SleepActivity.this.startActivity(i);
+                                                }
+                                            }
+                                            else if (lastpage.equals("Nap")) {
+                                                int n = objects.get(0).getInt("Nap_Braintest");
+                                                objects.get(0).put("Nap_Braintest", n + 1);
+
+                                                int i = objects.get(0).getInt("Nap_Movesleep");
+
+                                                if (n + 1 == i) {
+                                                    int m = objects.get(0).getInt("Nap");
+                                                    objects.get(0).put("Nap", m + 1);
+                                                    fall = true;
+                                                }
+                                                objects.get(0).saveInBackground();
+                                            }
+
+
+                                            if (fall) {
+                                                Intent i = new Intent(SleepActivity.this, MainActivity.class);
+                                                i.putExtra("endstr", "end4");
+                                                SleepActivity.this.startActivity(i);
+                                            }
+
+                                        }
+                                    });
+
+                                    Log.d("AAA", lastpage);
+                                    buttonlayout(lastpage);
                                 }
-                            });
+                            }
+                        });
 
-                            Log.d(userid, lastpage);
-                            buttonlayout(lastpage);
-                        }
                     }
-                });
 
-            }
-
-
+                }
 
         }
         else if (lastpage.equals("Nap"))
         {
+            f2.setVisibility(View.INVISIBLE);
             query4.whereEqualTo("User_ID",currentUser.getUsername());
             query4.whereEqualTo("Date",today);
             query4.setLimit(1);
@@ -196,11 +231,30 @@ public class SleepActivity extends ActionBarActivity{
             query4.findInBackground(new FindCallback<ParseObject>() {
                 @Override
                 public void done(List<ParseObject> objects, ParseException e) {
-                    objects.get(0).put("Nap_Braintest",0);
-                    objects.get(0).put("Nap_Movesleep",0);
+                    int n = objects.get(0).getInt("Nap_Movesleep");
+                    int m =objects.get(0).getInt("Nap_Braintest");
+                    if ( n == m) {
+                        finish_movesleep = false;
+                        f3.setVisibility(View.INVISIBLE);
+                        finish_braintest = false;
+                        f1.setVisibility(View.INVISIBLE);
+                    }
+
+                    else if (n < m ) {
+                        finish_braintest = true;
+                        f1.setVisibility(View.VISIBLE);
+                        Log.d("n<m","!");
+                    }
+
+                    else if ( n > m) {
+                        finish_movesleep = true;
+                        f3.setVisibility(View.VISIBLE);
+                        Log.d("n>m","!");
+                    }
+
                 }
             });
-            buttonlayout(lastpage);
+           // buttonlayout(lastpage);
         }
 
         else
@@ -435,6 +489,7 @@ public class SleepActivity extends ActionBarActivity{
         else if (lastpage.equals("Nap"))
         {
             sd.setVisibility(View.INVISIBLE);
+            f2.setVisibility(View.INVISIBLE);
 
             if(currentUser != null) {
                 userid = ParseUser.getCurrentUser().getUsername();
@@ -448,14 +503,25 @@ public class SleepActivity extends ActionBarActivity{
 
                         } else {
 
-                            if ( object.getInt("Nap_Movesleep") == 1) {
+                            int n = object.getInt("Nap_Movesleep");
+                            int m =object.getInt("Nap_Braintest");
+
+                            if (n == m) {
                                 finish_movesleep = true;
                                 f3.setVisibility(View.VISIBLE);
-                            }
-
-                            if (object.getInt("Nap_Braintest") == 1 ) {
                                 finish_braintest = true;
                                 f1.setVisibility(View.VISIBLE);
+                            }
+
+                           else if (n < m) {
+                                finish_braintest = true;
+                                f1.setVisibility(View.VISIBLE);
+                            }
+
+                            else if ( n > m) {
+                                finish_movesleep = true;
+                                f3.setVisibility(View.VISIBLE);
+                                Log.d("User_ID", "n>m.");
                             }
 
 
@@ -486,14 +552,19 @@ public class SleepActivity extends ActionBarActivity{
                 SleepActivity.this.startActivity(i);}
             else
             {
-                Toast pass = Toast.makeText(SleepActivity.this, " You have already finished this part! " , Toast.LENGTH_SHORT);
+                Toast pass = Toast.makeText(SleepActivity.this, " You have already finished sleep diary in this part! " , Toast.LENGTH_SHORT);
                 pass.show();
             }
         }
 
         else if(view.getId() == R.id.movesleep)
         {
-            if(lastpage.equals("M30")&&(!finish_sleepdiary)){
+            if (finish_movesleep)
+            {
+                Toast pass = Toast.makeText(SleepActivity.this, " You have already finished move and sleep in this part! " , Toast.LENGTH_SHORT);
+                pass.show();
+            }
+            else if(lastpage.equals("M30")&&(!finish_sleepdiary)){
 
                 Toast pass = Toast.makeText(SleepActivity.this, " Please finish Sleep Diary first! " , Toast.LENGTH_SHORT);
                 pass.show();
@@ -520,6 +591,12 @@ public class SleepActivity extends ActionBarActivity{
             currentUser = ParseUser.getCurrentUser();
 
             if(currentUser != null) {
+                if(finish_braintest){
+                    Toast pass = Toast.makeText(SleepActivity.this, "You already have finish brain tap test in this part!", Toast.LENGTH_LONG);
+                    pass.show();
+                }
+                else
+                {
                 userid =  currentUser.getUsername();
                 querylp.whereEqualTo("User_ID", userid);
                 querylp.whereEqualTo("Date", today);
@@ -584,15 +661,17 @@ public class SleepActivity extends ActionBarActivity{
                  //Uri uri = Uri.parse("http://www.braintaptest.com/"); // missing 'http://' will cause crashed
                 //Intent i = new Intent(Intent.ACTION_VIEW, uri);
                //startActivity(i);
+                    Uri uri = Uri.parse(link); // missing 'http://' will cause crashed
+                    Intent i = new Intent(Intent.ACTION_VIEW, uri);
+                    //Intent j = new Intent(SleepActivity.this,SleepActivity.class);
+                    i.putExtra("lastpage",lastpage);
+                    //startService(j);
+                    startActivity(i);
             }
 
-            Uri uri = Uri.parse("http://www.braintaptest.com/"); // missing 'http://' will cause crashed
-            Intent i = new Intent(Intent.ACTION_VIEW, uri);
-            //Intent j = new Intent(SleepActivity.this,SleepActivity.class);
-            i.putExtra("lastpage",lastpage);
-            //startService(j);
-            startActivity(i);
 
+
+        }
         }
 
     }

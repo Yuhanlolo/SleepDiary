@@ -94,6 +94,7 @@ public class NapMoveSleepActivity2 extends ActionBarActivity implements SeekBar.
     Runnable r;
     int starttime;
     final Calendar c = Calendar.getInstance();
+    int x, y;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -608,17 +609,32 @@ public class NapMoveSleepActivity2 extends ActionBarActivity implements SeekBar.
                                             public void done(List<ParseObject> scoreList, ParseException e) {
                                                 if (e == null) {
                                                     Log.d("score", "Retrieved " + scoreList.size() + " scores");
-                                                        scoreList.get(0).put("Nap", t_nap+1);
-                                                        scoreList.get(0).put("Nap_Movesleep",1);
+                                                    int n = scoreList.get(0).getInt("Nap_Movesleep");
+                                                    x = n;
+                                                    scoreList.get(0).put("Nap_Movesleep",n+1);
+                                                    y = scoreList.get(0).getInt("Nap_Braintest");
+                                                    if(y==n+1)
+                                                    {scoreList.get(0).put("Nap", t_nap+1);}
+
                                                         scoreList.get(0).saveInBackground();
                                                 }
                                             }
                                                               });
-                                            Intent i = new Intent(NapMoveSleepActivity2.this, MainActivity.class);
-                                            i.putExtra("endstr",end);
+
+                                            if(y==x+1){
+                                                Intent i = new Intent(NapMoveSleepActivity2.this, MainActivity.class);
+                                                i.putExtra("endstr","end4");
+                                                NapMoveSleepActivity2.this.startActivity(i);
+                                            }
+                                        else
+                                            {
+                                                Intent i = new Intent(NapMoveSleepActivity2.this, SleepActivity.class);
+                                                i.putExtra("lastpage","Nap");
+                                                NapMoveSleepActivity2.this.startActivity(i);
+                                            }
                                             //i.putExtra("lastpage",lastpage);
                                             //i.putExtra("loginstatus",f);
-                                            NapMoveSleepActivity2.this.startActivity(i);
+
                                         }
 
                                         else
