@@ -106,10 +106,6 @@ public class NapMoveSleepActivity2 extends ActionBarActivity implements SeekBar.
 
         //query = ParseQuery.getQuery("Nap");
 
-
-        currentpage = (TextView)findViewById(R.id.lastnappagem2);
-
-
         movescale = (SeekBar)findViewById(R.id.naps_move);
         movescale.setOnSeekBarChangeListener(this);
 
@@ -277,6 +273,9 @@ public class NapMoveSleepActivity2 extends ActionBarActivity implements SeekBar.
 
         h.post(r);
 
+
+        currentpage = (TextView)findViewById(R.id.lastnappagem2);
+        
         currentUser = ParseUser.getCurrentUser();
         if (currentUser != null) {
             userid = currentUser.getUsername();
@@ -347,6 +346,7 @@ public class NapMoveSleepActivity2 extends ActionBarActivity implements SeekBar.
                                         currenttask = "After more than five-times nap";
                                         t_nap = 5;
                                     }
+                                    currentpage.setText(currenttask);
                                 }
                             }
                         });
@@ -357,7 +357,6 @@ public class NapMoveSleepActivity2 extends ActionBarActivity implements SeekBar.
         }
 
 
-        currentpage.setText(currenttask);
 
     }
     @Override

@@ -13,7 +13,7 @@
         >
 
         <TextView
-            android:id="@+id/lastpagem"
+            android:id="@+id/lastnappagem"
             android:text=""
             android:textSize="28dp"
             android:textColor="#000000"

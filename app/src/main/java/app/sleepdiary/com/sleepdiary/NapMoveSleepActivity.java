@@ -106,7 +106,6 @@ public class NapMoveSleepActivity extends ActionBarActivity implements SeekBar.O
         Intent i_getvalue = getIntent();
         lastpage = i_getvalue.getStringExtra("lastpage");
 
-        currentpage = (TextView) findViewById(R.id.lastpagem);
 
 
         bedh_edt = (EditText) findViewById(R.id.naph);
@@ -333,6 +332,7 @@ public class NapMoveSleepActivity extends ActionBarActivity implements SeekBar.O
         h.post(r);
 
 
+        currentpage = (TextView)findViewById(R.id.lastnappagem);
         //yesterdaystr = String.valueOf(month) + "/" + String.valueOf(date) + "/" + String.valueOf(year);
         //yesterday.setText("Sleep Diary for Yesterday (" + String.valueOf(month) + "/" + String.valueOf(date) + "/" + String.valueOf(year) + ")");
 
@@ -404,6 +404,7 @@ public class NapMoveSleepActivity extends ActionBarActivity implements SeekBar.O
                                         currenttask = "After more than five-times nap";
                                         t_nap = 5;
                                     }
+                                    currentpage.setText(currenttask);
                                 }
                             }
                         });
@@ -414,7 +415,6 @@ public class NapMoveSleepActivity extends ActionBarActivity implements SeekBar.O
         }
 
 
-        currentpage.setText(currenttask);
 
     }
 
