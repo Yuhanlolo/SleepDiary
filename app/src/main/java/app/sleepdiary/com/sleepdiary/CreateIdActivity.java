@@ -161,7 +161,13 @@ public class CreateIdActivity extends ActionBarActivity {
             CreateIdActivity.this.startActivity(i);
         }
 
+    }
 
+    public void onBackPressed() {
+        Intent i = new Intent(CreateIdActivity.this,MainActivity.class);
+        //i.putExtra("lastpage",lastpage);
+        //startService(j);
+        startActivity(i);
 
     }
 }

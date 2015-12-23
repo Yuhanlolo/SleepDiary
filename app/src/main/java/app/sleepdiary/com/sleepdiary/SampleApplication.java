@@ -87,7 +87,7 @@ public class SampleApplication extends Application {
                 public void done(ParseObject object, ParseException e) {
                     if (object == null) {
                         Log.d("User_ID", "create task list."+userid);
-                        TaskCheckList.put("User_ID", ParseUser.getCurrentUser().getUsername());
+                        TaskCheckList.put("User_ID", userid);
                         TaskCheckList.put("Date", today);
                         TaskCheckList.put("Nap",0);
                         TaskCheckList.put("Nap_Braintest",0);

@@ -50,6 +50,8 @@ public class MainActivity  extends ActionBarActivity {
     String endstr = "";
    // ParseObject TaskCheckList  = new ParseObject("TaskCheckList");
    ParseQuery<ParseObject> query1 = ParseQuery.getQuery("TaskCheckList");
+    ParseQuery<ParseObject> queryt = ParseQuery.getQuery("TaskCheckList");
+    ParseObject TaskCheckList  = new ParseObject("TaskCheckList");
 
     String end = "";
     String end0 = "Thank you for completing Morning test! Please come back for Morning, After Drug-intake test.";
@@ -88,6 +90,29 @@ public class MainActivity  extends ActionBarActivity {
 
         if(currentUser != null) {
             userid = ParseUser.getCurrentUser().getUsername();
+
+            queryt.whereEqualTo("User_ID", userid);
+            queryt.whereEqualTo("Date", today);
+
+            //object.getInt("MDOPA1_Braintest") == 1 &&
+            //object.getInt("ADOPA_Braintest") == 1 &&
+            //object.getInt("E_Braintest") == 1 &&
+
+            queryt.getFirstInBackground(new GetCallback<ParseObject>() {
+                public void done(ParseObject object, ParseException e) {
+                    if (object == null) {
+                        Log.d("User_ID", "create task list."+userid);
+                        TaskCheckList.put("User_ID", userid);
+                        TaskCheckList.put("Date", today);
+                        TaskCheckList.put("Nap",0);
+                        TaskCheckList.put("Nap_Braintest",0);
+                        TaskCheckList.put("Nap_Movesleep",0);
+                        TaskCheckList.saveInBackground();
+
+                    }
+                }
+            });
+
             query1.whereEqualTo("User_ID", userid);
             query1.whereEqualTo("Date", today);
              query1.getFirstInBackground(new GetCallback<ParseObject>() {
@@ -156,13 +181,13 @@ public class MainActivity  extends ActionBarActivity {
         if(endstr!=null)
         {
 
-            if(endstr.equals("end0")&&M30){
+            if(endstr.equals("end0")){
                 end=end0;
                 Toast pass = Toast.makeText(MainActivity.this,end, Toast.LENGTH_LONG);
                 for (int i  = 0 ; i< 2;i++)
                     pass.show();
             }
-            else if(endstr.equals("end1")&&A_DOPA1){
+            else if(endstr.equals("end1")){
                 end=end1;
                 Toast pass = Toast.makeText(MainActivity.this,end, Toast.LENGTH_LONG);
                 for (int i  = 0 ; i< 2;i++)
