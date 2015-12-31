@@ -380,7 +380,6 @@ public class SleepActivity extends ActionBarActivity{
                                 f1.setVisibility(View.VISIBLE);
                             }
 
-
                         }
                     }
                 });
@@ -656,8 +655,8 @@ public class SleepActivity extends ActionBarActivity{
 
                 token = currentUser.getString("Token");
                 link = "http://www.braintaptest.com/en/direct-client/login?token="+token;
-                Toast pass = Toast.makeText(SleepActivity.this, link, Toast.LENGTH_LONG);
-                pass.show();
+                //Toast pass = Toast.makeText(SleepActivity.this, link, Toast.LENGTH_LONG);
+                //pass.show();
                  //Uri uri = Uri.parse("http://www.braintaptest.com/"); // missing 'http://' will cause crashed
                 //Intent i = new Intent(Intent.ACTION_VIEW, uri);
                //startActivity(i);

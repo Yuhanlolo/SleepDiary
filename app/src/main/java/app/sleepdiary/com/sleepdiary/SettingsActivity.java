@@ -463,9 +463,10 @@ public class SettingsActivity extends ActionBarActivity implements View.OnClickL
 
                 Toast msg = Toast.makeText(SettingsActivity.this,"Data cleared!", Toast.LENGTH_SHORT);
                 msg.show();
+                Intent i = new Intent(SettingsActivity.this,MainActivity.class);
+                SettingsActivity.this.startActivity(i);
             }
         }
-
 }
 
 }
