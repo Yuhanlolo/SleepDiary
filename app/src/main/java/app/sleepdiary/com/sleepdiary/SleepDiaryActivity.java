@@ -4,6 +4,8 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.app.Activity;
 import android.text.Editable;
@@ -515,131 +517,133 @@ public class SleepDiaryActivity extends ActionBarActivity implements  View.OnCli
 
     public void button_SDdOnClick(View view)
     {
-        if(view.getId() == R.id.save_s)
-        {
-
-            final ParseUser currentUser1 = ParseUser.getCurrentUser();
-            boolean phour1 = false, pmin1 = false;
-            boolean dhour1 = false, dmin1 = false;
-
-            if (!(coffee_edt.getText().toString()).isEmpty())
-                no_coffee = Integer.parseInt(coffee_edt.getText().toString());
-            else
-                coffee_edt.setText("0");
-
-            if (!(alcohol_edt.getText().toString()).isEmpty())
-                no_wine = Integer.parseInt(alcohol_edt.getText().toString());
-            else
-                alcohol_edt.setText("0");
-
-            if (!(smoke_edt.getText().toString()).isEmpty())
-                no_smoke = Integer.parseInt(smoke_edt.getText().toString());
-            else
-                smoke_edt.setText("0");
-
-            if (!(nap_edt.getText().toString()).isEmpty())
+        if (isNetworkAvailable()) {
+            // Do your stuff here.
+            if(view.getId() == R.id.save_s)
             {
-                no_nap = Integer.parseInt(nap_edt.getText().toString());
+
+                final ParseUser currentUser1 = ParseUser.getCurrentUser();
+                boolean phour1 = false, pmin1 = false;
+                boolean dhour1 = false, dmin1 = false;
+
+                if (!(coffee_edt.getText().toString()).isEmpty())
+                    no_coffee = Integer.parseInt(coffee_edt.getText().toString());
+                else
+                    coffee_edt.setText("0");
+
+                if (!(alcohol_edt.getText().toString()).isEmpty())
+                    no_wine = Integer.parseInt(alcohol_edt.getText().toString());
+                else
+                    alcohol_edt.setText("0");
+
+                if (!(smoke_edt.getText().toString()).isEmpty())
+                    no_smoke = Integer.parseInt(smoke_edt.getText().toString());
+                else
+                    smoke_edt.setText("0");
+
+                if (!(nap_edt.getText().toString()).isEmpty())
+                {
+                    no_nap = Integer.parseInt(nap_edt.getText().toString());
 //                if(no_nap ==0)
 //                {
 //                    napduh_edt.setText("");
 //                    napdum_edt.setText("");
 //                }
-            }
-            else
-                nap_edt.setText("0");
+                }
+                else
+                    nap_edt.setText("0");
 
-            if (no_nap>0)
-            {
-                napduh_edt.setInputType(InputType.TYPE_CLASS_NUMBER);
-                napduh_edt.setEnabled(true);
-                napdum_edt.setInputType(InputType.TYPE_CLASS_NUMBER);
-                napdum_edt.setEnabled(true);
-
-                q5.setTextColor(0xFF000000);
-                naph.setTextColor(0xFF000000);
-                napm.setTextColor(0xFF000000);
-
-                napduh_edt.requestFocus();
-            }
-            else
-            {
-                //napduh_edt.setInputType(InputType.TYPE_NULL);
-                napduh_edt.setEnabled(false);
-                napduh_edt.clearFocus();
-                napduh_edt.setText("");
-                // napdum_edt.setInputType(InputType.TYPE_NULL);
-                napdum_edt.setEnabled(false);
-                napdum_edt.clearFocus();
-                napdum_edt.setText("");
-
-                q5.setTextColor(0xFFBABABA);
-                naph.setTextColor(0xFFBABABA);
-                napm.setTextColor(0xFFBABABA);
-            }
-
-            if (no_nap>0  && (!(napduh_edt.getText().toString()).isEmpty() || !(napdum_edt.getText().toString()).isEmpty()))
-            {
-                if (!(napduh_edt.getText().toString()).isEmpty() )
+                if (no_nap>0)
                 {
-                    dHour = Integer.parseInt(napduh_edt.getText().toString());
-                    if (dHour<0 || dHour>23)
+                    napduh_edt.setInputType(InputType.TYPE_CLASS_NUMBER);
+                    napduh_edt.setEnabled(true);
+                    napdum_edt.setInputType(InputType.TYPE_CLASS_NUMBER);
+                    napdum_edt.setEnabled(true);
+
+                    q5.setTextColor(0xFF000000);
+                    naph.setTextColor(0xFF000000);
+                    napm.setTextColor(0xFF000000);
+
+                    napduh_edt.requestFocus();
+                }
+                else
+                {
+                    //napduh_edt.setInputType(InputType.TYPE_NULL);
+                    napduh_edt.setEnabled(false);
+                    napduh_edt.clearFocus();
+                    napduh_edt.setText("");
+                    // napdum_edt.setInputType(InputType.TYPE_NULL);
+                    napdum_edt.setEnabled(false);
+                    napdum_edt.clearFocus();
+                    napdum_edt.setText("");
+
+                    q5.setTextColor(0xFFBABABA);
+                    naph.setTextColor(0xFFBABABA);
+                    napm.setTextColor(0xFFBABABA);
+                }
+
+                if (no_nap>0  && (!(napduh_edt.getText().toString()).isEmpty() || !(napdum_edt.getText().toString()).isEmpty()))
+                {
+                    if (!(napduh_edt.getText().toString()).isEmpty() )
                     {
+                        dHour = Integer.parseInt(napduh_edt.getText().toString());
+                        if (dHour<0 || dHour>23)
+                        {
 //                    Toast errormsg = Toast.makeText(SleepDiaryActivity.this,"For Question 5, Please input hour of time between 0-23!", Toast.LENGTH_LONG);
 //                    errormsg.show();
-                        dhour1 = true;
-                    }
-                    else
-                    {
-                        if (dHour ==1)
-                            temp_h = " hr";
+                            dhour1 = true;
+                        }
                         else
-                            temp_h = " hrs";
+                        {
+                            if (dHour ==1)
+                                temp_h = " hr";
+                            else
+                                temp_h = " hrs";
+                        }
                     }
-                }
 
-                if (!(napdum_edt.getText().toString()).isEmpty())
-                {
-                    dMinute = Integer.parseInt(napdum_edt.getText().toString());
-                    if (dMinute<0 || dMinute>59)
+                    if (!(napdum_edt.getText().toString()).isEmpty())
                     {
+                        dMinute = Integer.parseInt(napdum_edt.getText().toString());
+                        if (dMinute<0 || dMinute>59)
+                        {
 //                    Toast errormsg = Toast.makeText(SleepDiaryActivity.this,"For Question 5, Please input minute of time between 0-59!", Toast.LENGTH_LONG);
 //                    errormsg.show();
-                        dmin1 = true;
-                    }
-                    else
-                    {
-                        if (dMinute ==1)
-                            temp_m = " min";
+                            dmin1 = true;
+                        }
                         else
-                            temp_m = " mins";
+                        {
+                            if (dMinute ==1)
+                                temp_m = " min";
+                            else
+                                temp_m = " mins";
+                        }
+                    }
+
+                    if (!(napduh_edt.getText().toString()).isEmpty()&& !(napdum_edt.getText().toString()).isEmpty())
+                    {
+                        sleepduration =  pad(dHour) + temp_h + pad(dMinute) + temp_m;
+                    }
+                    else if (!(napduh_edt.getText().toString()).isEmpty()&& (napdum_edt.getText().toString()).isEmpty())
+                    {
+                        sleepduration =  pad(dHour) + temp_h + "0 mins";
+                        napdum_edt.setText("0");
+                    }
+
+                    else if ((napduh_edt.getText().toString()).isEmpty()&& !(napdum_edt.getText().toString()).isEmpty())
+                    {
+                        sleepduration =  "0 hrs"+pad(dMinute) + temp_m;
+                        napduh_edt.setText("0");
                     }
                 }
 
-                if (!(napduh_edt.getText().toString()).isEmpty()&& !(napdum_edt.getText().toString()).isEmpty())
+                else if (no_nap>0 && (napduh_edt.getText().toString()).isEmpty() && (napdum_edt.getText().toString()).isEmpty())
                 {
-                    sleepduration =  pad(dHour) + temp_h + pad(dMinute) + temp_m;
-                }
-                else if (!(napduh_edt.getText().toString()).isEmpty()&& (napdum_edt.getText().toString()).isEmpty())
-                {
-                    sleepduration =  pad(dHour) + temp_h + "0 mins";
-                    napdum_edt.setText("0");
+                    sleepduration = "";
                 }
 
-                else if ((napduh_edt.getText().toString()).isEmpty()&& !(napdum_edt.getText().toString()).isEmpty())
+                if(pill && (!(pillh_edt.getText().toString()).isEmpty() && !(pillm_edt.getText().toString()).isEmpty()))
                 {
-                    sleepduration =  "0 hrs"+pad(dMinute) + temp_m;
-                    napduh_edt.setText("0");
-                }
-            }
-
-            else if (no_nap>0 && (napduh_edt.getText().toString()).isEmpty() && (napdum_edt.getText().toString()).isEmpty())
-            {
-                sleepduration = "";
-            }
-
-            if(pill && (!(pillh_edt.getText().toString()).isEmpty() && !(pillm_edt.getText().toString()).isEmpty()))
-            {
 
                     pHour = Integer.parseInt(pillh_edt.getText().toString());
                     if (pHour<0 || pHour>23)
@@ -658,159 +662,159 @@ public class SleepDiaryActivity extends ActionBarActivity implements  View.OnCli
                         pmin1 = true;
                     }
 
-                pilltime =  pad(pHour) + ":" + pad(pMinute);
+                    pilltime =  pad(pHour) + ":" + pad(pMinute);
 
-                if (!(edtView.getText().toString()).isEmpty())
-                    pillname = edtView.getText().toString();
+                    if (!(edtView.getText().toString()).isEmpty())
+                        pillname = edtView.getText().toString();
+                    else
+                        pillname = "";
+                }
+
+                if(pill && ((pillh_edt.getText().toString()).isEmpty() || (pillm_edt.getText().toString()).isEmpty()))
+                {
+                    pilltime = "";
+                }
+
+                if(currentUser1 == null)
+                {
+                    Toast pass = Toast.makeText(SleepDiaryActivity.this,"Please Login in first!", Toast.LENGTH_LONG);
+                    pass.show();
+                }
+
+                else if ((no_nap>0)&&dhour1)
+                {
+                    if(Integer.parseInt(napduh_edt.getText().toString())>23||Integer.parseInt(napduh_edt.getText().toString())<0){
+                        Toast errormsg = Toast.makeText(SleepDiaryActivity.this,"For Question 5, Please input hour of time between 0-23!", Toast.LENGTH_LONG);
+                        errormsg.show();}
+                }
+
+                else if ((no_nap>0)&&dmin1)
+                {
+                    Toast errormsg = Toast.makeText(SleepDiaryActivity.this,"For Question 5, Please input minute of time between 0-59!", Toast.LENGTH_LONG);
+                    errormsg.show();
+                }
+
+
+                else if ((no_nap > 0)&& sleepduration.isEmpty())
+                {
+
+                    Toast errormsg = Toast.makeText(SleepDiaryActivity.this,"Please finish Question 5!", Toast.LENGTH_LONG);
+                    errormsg.show();
+                }
+
+                else if ((pill)&&phour1)
+                {
+                    Toast errormsg = Toast.makeText(SleepDiaryActivity.this,"For Question 7, Please input hour of time between 0-23!", Toast.LENGTH_LONG);
+                    errormsg.show();
+                }
+
+                else if ((pill)&&pmin1)
+                {
+                    Toast errormsg = Toast.makeText(SleepDiaryActivity.this,"For Question 7, Please input minute of time between 0-59!", Toast.LENGTH_LONG);
+                    errormsg.show();
+                }
+
+                else if(pill&&pilltime.isEmpty())
+                {
+                    //popup msg
+                    Toast errormsg = Toast.makeText(SleepDiaryActivity.this,"Please finish Question 7!", Toast.LENGTH_LONG);
+                    errormsg.show();
+                }
+
+                else if (pill&&pillname.isEmpty())
+                {
+                    Toast errormsg = Toast.makeText(SleepDiaryActivity.this,"Please finish Question 8!", Toast.LENGTH_LONG);
+                    errormsg.show();
+                }
+
+
                 else
-                    pillname = "";
-            }
+                {
+                    query2.whereEqualTo("User_ID", currentUser1.getUsername());
+                    query2.whereEqualTo("Date", today);
+                    query2.setLimit(1);
 
-            if(pill && ((pillh_edt.getText().toString()).isEmpty() || (pillm_edt.getText().toString()).isEmpty()))
-            {
-                pilltime = "";
-            }
+                    query2.getFirstInBackground(new GetCallback<ParseObject>() {
+                        public void done(ParseObject object, ParseException e) {
+                            if (object == null) {
+                                Log.d("User_ID", "Sleep create" + currentUser1.getUsername());
+                                userActivity.put("User_ID", currentUser1.getUsername());
+                                userActivity.put("Date", today);
 
-            if(currentUser1 == null)
-            {
-                Toast pass = Toast.makeText(SleepDiaryActivity.this,"Please Login in first!", Toast.LENGTH_LONG);
-                pass.show();
-            }
-
-            else if ((no_nap>0)&&dhour1)
-            {
-                if(Integer.parseInt(napduh_edt.getText().toString())>23||Integer.parseInt(napduh_edt.getText().toString())<0){
-                Toast errormsg = Toast.makeText(SleepDiaryActivity.this,"For Question 5, Please input hour of time between 0-23!", Toast.LENGTH_LONG);
-                errormsg.show();}
-            }
-
-            else if ((no_nap>0)&&dmin1)
-            {
-                Toast errormsg = Toast.makeText(SleepDiaryActivity.this,"For Question 5, Please input minute of time between 0-59!", Toast.LENGTH_LONG);
-                errormsg.show();
-            }
+                                userActivity.put("A01_No_Coffee", no_coffee);
+                                userActivity.put("A02_No_Alcohol", no_wine);
+                                userActivity.put("A03_No_Tobacco", no_smoke);
+                                userActivity.put("A04_No_Naps", no_nap);
+                                userActivity.put("A05_Nap_Duration", sleepduration);
+                                userActivity.put("A06_Pills_YN", pillyn);
+                                userActivity.put("A07_Pill_Time", pilltime);
+                                userActivity.put("A08_Pill_Name", pillname);
 
 
-            else if ((no_nap > 0)&& sleepduration.isEmpty())
-            {
-
-                Toast errormsg = Toast.makeText(SleepDiaryActivity.this,"Please finish Question 5!", Toast.LENGTH_LONG);
-                errormsg.show();
-            }
-
-            else if ((pill)&&phour1)
-            {
-                Toast errormsg = Toast.makeText(SleepDiaryActivity.this,"For Question 7, Please input hour of time between 0-23!", Toast.LENGTH_LONG);
-                errormsg.show();
-            }
-
-            else if ((pill)&&pmin1)
-            {
-                Toast errormsg = Toast.makeText(SleepDiaryActivity.this,"For Question 7, Please input minute of time between 0-59!", Toast.LENGTH_LONG);
-                errormsg.show();
-            }
-
-            else if(pill&&pilltime.isEmpty())
-            {
-                //popup msg
-                Toast errormsg = Toast.makeText(SleepDiaryActivity.this,"Please finish Question 7!", Toast.LENGTH_LONG);
-                errormsg.show();
-            }
-
-            else if (pill&&pillname.isEmpty())
-            {
-                Toast errormsg = Toast.makeText(SleepDiaryActivity.this,"Please finish Question 8!", Toast.LENGTH_LONG);
-                errormsg.show();
-            }
-
-
-            else
-            {
-                query2.whereEqualTo("User_ID", currentUser1.getUsername());
-                query2.whereEqualTo("Date", today);
-                query2.setLimit(1);
-
-                query2.getFirstInBackground(new GetCallback<ParseObject>() {
-                    public void done(ParseObject object, ParseException e) {
-                        if (object == null) {
-                            Log.d("User_ID", "Sleep create" + currentUser1.getUsername());
-                            userActivity.put("User_ID", currentUser1.getUsername());
-                            userActivity.put("Date", today);
-
-                            userActivity.put("A01_No_Coffee", no_coffee);
-                            userActivity.put("A02_No_Alcohol", no_wine);
-                            userActivity.put("A03_No_Tobacco", no_smoke);
-                            userActivity.put("A04_No_Naps", no_nap);
-                            userActivity.put("A05_Nap_Duration", sleepduration);
-                            userActivity.put("A06_Pills_YN", pillyn);
-                            userActivity.put("A07_Pill_Time", pilltime);
-                            userActivity.put("A08_Pill_Name", pillname);
-
-
-                            userActivity.saveInBackground(new SaveCallback() {
-                    @Override
-                    public void done(ParseException e) {
-                        if(e!=null)
-                        {
-                            Toast pass = Toast.makeText(SleepDiaryActivity.this,"Error: "+e.getMessage(), Toast.LENGTH_SHORT);
-                            pass.show();
-                        }
-                        else{
-                             objectID = userActivity.getObjectId();
+                                userActivity.saveInBackground(new SaveCallback() {
+                                    @Override
+                                    public void done(ParseException e) {
+                                        if(e!=null)
+                                        {
+                                            Toast pass = Toast.makeText(SleepDiaryActivity.this,"Error: "+e.getMessage(), Toast.LENGTH_SHORT);
+                                            pass.show();
+                                        }
+                                        else{
+                                            objectID = userActivity.getObjectId();
 //                             Toast pass = Toast.makeText(SleepDiaryActivity.this,"id 1: "+objectID, Toast.LENGTH_SHORT);
 //                             pass.show();
-                            Intent i = new Intent(SleepDiaryActivity.this,SleepDiaryActivity2.class);
-                            i.putExtra("lastpage",lastpage);
-                            i.putExtra("objectID",objectID);
-                            SleepDiaryActivity.this.startActivity(i);
-                        }
-                    }
-                });
-
-
-                        } else {
-                            query.whereEqualTo("User_ID", currentUser1.getUsername());
-                            query.whereEqualTo("Date", today);
-                            query.setLimit(1);
-                            query.findInBackground(new FindCallback<ParseObject>() {
-
-                                public void done(List<ParseObject> scoreList, ParseException e) {
-
-                                    if (e == null) {
-                                        scoreList.get(0).put("No_Coffee", no_coffee);
-                                        scoreList.get(0).put("A01_No_Coffee", no_coffee);
-                                        scoreList.get(0).put("A02_No_Alcohol", no_wine);
-                                        scoreList.get(0).put("A03_No_Tobacco", no_smoke);
-                                        scoreList.get(0).put("A04_No_Naps", no_nap);
-                                        scoreList.get(0).put("A05_Nap_Duration", sleepduration);
-                                        scoreList.get(0).put("A06_Pills_YN", pillyn);
-                                        scoreList.get(0).put("A07_Pill_Time", pilltime);
-                                        scoreList.get(0).put("A08_Pill_Name", pillname);
-
-                                        scoreList.get(0).saveInBackground(new SaveCallback() {
-                                            @Override
-                                            public void done(ParseException e) {
-                                                if (e != null) {
-                                                    Toast pass = Toast.makeText(SleepDiaryActivity.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT);
-                                                    pass.show();
-                                                } else {
-                                                    objectID = userActivity.getObjectId();
-                                                    Intent i = new Intent(SleepDiaryActivity.this, SleepDiaryActivity2.class);
-                                                    i.putExtra("lastpage", lastpage);
-                                                    i.putExtra("objectID", objectID);
-                                                    SleepDiaryActivity.this.startActivity(i);
-                                                }
-                                            }
-                                        });
-
-                                    } else {
-                                        Log.d("score", "Error: " + e.getMessage());
+                                            Intent i = new Intent(SleepDiaryActivity.this,SleepDiaryActivity2.class);
+                                            i.putExtra("lastpage",lastpage);
+                                            i.putExtra("objectID",objectID);
+                                            SleepDiaryActivity.this.startActivity(i);
+                                        }
                                     }
-                                }
-                            });
+                                });
+
+
+                            } else {
+                                query.whereEqualTo("User_ID", currentUser1.getUsername());
+                                query.whereEqualTo("Date", today);
+                                query.setLimit(1);
+                                query.findInBackground(new FindCallback<ParseObject>() {
+
+                                    public void done(List<ParseObject> scoreList, ParseException e) {
+
+                                        if (e == null) {
+                                            scoreList.get(0).put("No_Coffee", no_coffee);
+                                            scoreList.get(0).put("A01_No_Coffee", no_coffee);
+                                            scoreList.get(0).put("A02_No_Alcohol", no_wine);
+                                            scoreList.get(0).put("A03_No_Tobacco", no_smoke);
+                                            scoreList.get(0).put("A04_No_Naps", no_nap);
+                                            scoreList.get(0).put("A05_Nap_Duration", sleepduration);
+                                            scoreList.get(0).put("A06_Pills_YN", pillyn);
+                                            scoreList.get(0).put("A07_Pill_Time", pilltime);
+                                            scoreList.get(0).put("A08_Pill_Name", pillname);
+
+                                            scoreList.get(0).saveInBackground(new SaveCallback() {
+                                                @Override
+                                                public void done(ParseException e) {
+                                                    if (e != null) {
+                                                        Toast pass = Toast.makeText(SleepDiaryActivity.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT);
+                                                        pass.show();
+                                                    } else {
+                                                        objectID = userActivity.getObjectId();
+                                                        Intent i = new Intent(SleepDiaryActivity.this, SleepDiaryActivity2.class);
+                                                        i.putExtra("lastpage", lastpage);
+                                                        i.putExtra("objectID", objectID);
+                                                        SleepDiaryActivity.this.startActivity(i);
+                                                    }
+                                                }
+                                            });
+
+                                        } else {
+                                            Log.d("score", "Error: " + e.getMessage());
+                                        }
+                                    }
+                                });
+                            }
                         }
-                    }
-                });
+                    });
 
 
 
@@ -834,8 +838,15 @@ public class SleepDiaryActivity extends ActionBarActivity implements  View.OnCli
 //                    }
 //                });
 
+                }
             }
         }
+        else {
+            Toast pass = Toast.makeText(SleepDiaryActivity.this, "Network is not available, please check your network.", Toast.LENGTH_LONG);
+            pass.show();
+        }
+
+
 
 
     }
@@ -853,6 +864,16 @@ public class SleepDiaryActivity extends ActionBarActivity implements  View.OnCli
             return String.valueOf(c);
         else
             return "0" + String.valueOf(c);
+    }
+    private boolean isNetworkAvailable() {
+        ConnectivityManager manager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = manager.getActiveNetworkInfo();
+
+        boolean isAvailable = false;
+        if (networkInfo != null && networkInfo.isConnected()) {
+            isAvailable = true;
+        }
+        return isAvailable;
     }
 
 

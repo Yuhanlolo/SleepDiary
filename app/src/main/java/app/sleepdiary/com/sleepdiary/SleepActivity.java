@@ -4,7 +4,10 @@ package app.sleepdiary.com.sleepdiary;
  * Created by Yuhan on 9/11/15.
  */
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.app.Activity;
 import android.os.Handler;
@@ -108,15 +111,16 @@ public class SleepActivity extends ActionBarActivity{
 
 
 
+        if (isNetworkAvailable()) {
+            // Do your stuff here.
+            currentUser = ParseUser.getCurrentUser();
 
-        currentUser = ParseUser.getCurrentUser();
-
-        if(lastpage == null)
-        {
-            String struri ="";
-            if(Intent.ACTION_VIEW.equals(action)){
-                uri = i_getvalue.getData();
-                struri = uri.toString();}
+            if(lastpage == null)
+            {
+                String struri ="";
+                if(Intent.ACTION_VIEW.equals(action)){
+                    uri = i_getvalue.getData();
+                    struri = uri.toString();}
 
                 if (struri.equals("sleep://benefit.com")) {
 //                    lastpage = "M30";
@@ -220,48 +224,56 @@ public class SleepActivity extends ActionBarActivity{
 
                 }
 
-        }
-        else if (lastpage.equals("Nap"))
-        {
-            f2.setVisibility(View.INVISIBLE);
-            query4.whereEqualTo("User_ID",currentUser.getUsername());
-            query4.whereEqualTo("Date",today);
-            query4.setLimit(1);
+            }
+            else if (lastpage.equals("Nap"))
+            {
+                f2.setVisibility(View.INVISIBLE);
+                query4.whereEqualTo("User_ID",currentUser.getUsername());
+                query4.whereEqualTo("Date",today);
+                query4.setLimit(1);
 
-            query4.findInBackground(new FindCallback<ParseObject>() {
-                @Override
-                public void done(List<ParseObject> objects, ParseException e) {
-                    int n = objects.get(0).getInt("Nap_Movesleep");
-                    int m =objects.get(0).getInt("Nap_Braintest");
-                    if ( n == m) {
-                        finish_movesleep = false;
-                        f3.setVisibility(View.INVISIBLE);
-                        finish_braintest = false;
-                        f1.setVisibility(View.INVISIBLE);
+                query4.findInBackground(new FindCallback<ParseObject>() {
+                    @Override
+                    public void done(List<ParseObject> objects, ParseException e) {
+                        int n = objects.get(0).getInt("Nap_Movesleep");
+                        int m =objects.get(0).getInt("Nap_Braintest");
+                        if ( n == m) {
+                            finish_movesleep = false;
+                            f3.setVisibility(View.INVISIBLE);
+                            finish_braintest = false;
+                            f1.setVisibility(View.INVISIBLE);
+                        }
+
+                        else if (n < m ) {
+                            finish_braintest = true;
+                            f1.setVisibility(View.VISIBLE);
+                            Log.d("n<m","!");
+                        }
+
+                        else if ( n > m) {
+                            finish_movesleep = true;
+                            f3.setVisibility(View.VISIBLE);
+                            Log.d("n>m","!");
+                        }
+
                     }
+                });
+                // buttonlayout(lastpage);
+            }
 
-                    else if (n < m ) {
-                        finish_braintest = true;
-                        f1.setVisibility(View.VISIBLE);
-                        Log.d("n<m","!");
-                    }
+            else
+            {
 
-                    else if ( n > m) {
-                        finish_movesleep = true;
-                        f3.setVisibility(View.VISIBLE);
-                        Log.d("n>m","!");
-                    }
-
-                }
-            });
-           // buttonlayout(lastpage);
+                buttonlayout(lastpage);
+            }
+        }
+        else {
+            Toast pass = Toast.makeText(SleepActivity.this, "Network is not available, please check your network.", Toast.LENGTH_LONG);
+            pass.show();
         }
 
-        else
-        {
 
-            buttonlayout(lastpage);
-        }
+
 
         //Parse.initialize(this, getString(R.string.parse_app_id), getString(R.string.parse_client_key));
         userid = getIntent().getStringExtra("userid");
@@ -532,101 +544,114 @@ public class SleepActivity extends ActionBarActivity{
 
     }
 
+    private boolean isNetworkAvailable() {
+        ConnectivityManager manager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = manager.getActiveNetworkInfo();
+
+        boolean isAvailable = false;
+        if (networkInfo != null && networkInfo.isConnected()) {
+            isAvailable = true;
+        }
+        return isAvailable;
+    }
+
     public void bedtimeOnClick(View view)
     {
 
-        ParseUser currentUser1 = ParseUser.getCurrentUser();
+        if (isNetworkAvailable()) {
+            // Do your stuff here.
+            ParseUser currentUser1 = ParseUser.getCurrentUser();
 
-        if(currentUser1 == null)
-        {
-            Toast pass = Toast.makeText(SleepActivity.this,"Please Login in first!", Toast.LENGTH_SHORT);
-            pass.show();
-        }
-        else if(view.getId() == R.id.bedtime)
-        {
-            if(!finish_sleepdiary){
-                Intent i = new Intent(SleepActivity.this,SleepDiaryActivity.class);
-                i.putExtra("userid",userid);
-                i.putExtra("lastpage",lastpage);
-                SleepActivity.this.startActivity(i);}
-            else
+            if(currentUser1 == null)
             {
-                Toast pass = Toast.makeText(SleepActivity.this, " You have already finished sleep diary in this part! " , Toast.LENGTH_SHORT);
+                Toast pass = Toast.makeText(SleepActivity.this,"Please Login in first!", Toast.LENGTH_SHORT);
                 pass.show();
             }
-        }
-
-        else if(view.getId() == R.id.movesleep)
-        {
-            if (finish_movesleep)
+            else if(view.getId() == R.id.bedtime)
             {
-                Toast pass = Toast.makeText(SleepActivity.this, " You have already finished move and sleep in this part! " , Toast.LENGTH_SHORT);
-                pass.show();
-            }
-            else if(lastpage.equals("M30")&&(!finish_sleepdiary)){
-
-                Toast pass = Toast.makeText(SleepActivity.this, " Please finish Sleep Diary first! " , Toast.LENGTH_SHORT);
-                pass.show();
-            }
-            else if(lastpage.equals("Nap"))
-            {
-                Intent i = new Intent(SleepActivity.this,NapMoveSleepActivity.class);
-                i.putExtra("lastpage",lastpage);
-                SleepActivity.this.startActivity(i);
-            }
-
-            else
-            {
-                Intent i = new Intent(SleepActivity.this,MovesleepActivity.class);
-                i.putExtra("lastpage",lastpage);
-                SleepActivity.this.startActivity(i);
-            }
-
-        }
-
-        else if(view.getId() == R.id.brain_test)
-        {
-
-            currentUser = ParseUser.getCurrentUser();
-
-            if(currentUser != null) {
-                if(finish_braintest){
-                    Toast pass = Toast.makeText(SleepActivity.this, "You already have finish brain tap test in this part!", Toast.LENGTH_LONG);
-                    pass.show();
-                }
+                if(!finish_sleepdiary){
+                    Intent i = new Intent(SleepActivity.this,SleepDiaryActivity.class);
+                    i.putExtra("userid",userid);
+                    i.putExtra("lastpage",lastpage);
+                    SleepActivity.this.startActivity(i);}
                 else
                 {
-                userid =  currentUser.getUsername();
-                querylp.whereEqualTo("User_ID", userid);
-                querylp.whereEqualTo("Date", today);
-                querylp.setLimit(1);
+                    Toast pass = Toast.makeText(SleepActivity.this, " You have already finished sleep diary in this part! " , Toast.LENGTH_SHORT);
+                    pass.show();
+                }
+            }
 
-                querylp.getFirstInBackground(new GetCallback<ParseObject>() {
-                    public void done(ParseObject object, ParseException e) {
-                        if (object == null) {
-                            Log.d("User_ID", "create task list."+userid);
-                            lp.put("User_ID", userid);
-                            lp.put("Date", today);
-                            lp.put("lastpage",lastpage);
-                            lp.saveInBackground();
-                        }
-                        else
-                        {
-                            querylp2.whereEqualTo("User_ID", userid);
-                            querylp2.whereEqualTo("Date", today);
-                            querylp2.setLimit(1);
-                            querylp2.findInBackground(new FindCallback<ParseObject>() {
-                                @Override
-                                public void done(List<ParseObject> scoreList, ParseException e) {
-                                    if (e ==null){
-                                        scoreList.get(0).put("lastpage", lastpage);
-                                        scoreList.get(0).saveInBackground();
-                                    }
-                                }
-                            });
-                        }
+            else if(view.getId() == R.id.movesleep)
+            {
+                if (finish_movesleep)
+                {
+                    Toast pass = Toast.makeText(SleepActivity.this, " You have already finished move and sleep in this part! " , Toast.LENGTH_SHORT);
+                    pass.show();
+                }
+                else if(lastpage.equals("M30")&&(!finish_sleepdiary)){
+
+                    Toast pass = Toast.makeText(SleepActivity.this, " Please finish Sleep Diary first! " , Toast.LENGTH_SHORT);
+                    pass.show();
+                }
+                else if(lastpage.equals("Nap"))
+                {
+                    Intent i = new Intent(SleepActivity.this,NapMoveSleepActivity.class);
+                    i.putExtra("lastpage",lastpage);
+                    SleepActivity.this.startActivity(i);
+                }
+
+                else
+                {
+                    Intent i = new Intent(SleepActivity.this,MovesleepActivity.class);
+                    i.putExtra("lastpage",lastpage);
+                    SleepActivity.this.startActivity(i);
+                }
+
+            }
+
+            else if(view.getId() == R.id.brain_test)
+            {
+
+                currentUser = ParseUser.getCurrentUser();
+
+                if(currentUser != null) {
+                    if(finish_braintest){
+                        Toast pass = Toast.makeText(SleepActivity.this, "You already have finish brain tap test in this part!", Toast.LENGTH_LONG);
+                        pass.show();
                     }
-                });
+                    else
+                    {
+                        userid =  currentUser.getUsername();
+                        querylp.whereEqualTo("User_ID", userid);
+                        querylp.whereEqualTo("Date", today);
+                        querylp.setLimit(1);
+
+                        querylp.getFirstInBackground(new GetCallback<ParseObject>() {
+                            public void done(ParseObject object, ParseException e) {
+                                if (object == null) {
+                                    Log.d("User_ID", "create task list."+userid);
+                                    lp.put("User_ID", userid);
+                                    lp.put("Date", today);
+                                    lp.put("lastpage",lastpage);
+                                    lp.saveInBackground();
+                                }
+                                else
+                                {
+                                    querylp2.whereEqualTo("User_ID", userid);
+                                    querylp2.whereEqualTo("Date", today);
+                                    querylp2.setLimit(1);
+                                    querylp2.findInBackground(new FindCallback<ParseObject>() {
+                                        @Override
+                                        public void done(List<ParseObject> scoreList, ParseException e) {
+                                            if (e ==null){
+                                                scoreList.get(0).put("lastpage", lastpage);
+                                                scoreList.get(0).saveInBackground();
+                                            }
+                                        }
+                                    });
+                                }
+                            }
+                        });
 
 
 //                String username =currentUser.getUsername();
@@ -653,25 +678,31 @@ public class SleepActivity extends ActionBarActivity{
 //                    }
 //                });
 
-                token = currentUser.getString("Token");
-                link = "http://www.braintaptest.com/en/direct-client/login?token="+token;
-                //Toast pass = Toast.makeText(SleepActivity.this, link, Toast.LENGTH_LONG);
-                //pass.show();
-                 //Uri uri = Uri.parse("http://www.braintaptest.com/"); // missing 'http://' will cause crashed
-                //Intent i = new Intent(Intent.ACTION_VIEW, uri);
-               //startActivity(i);
-                    Uri uri = Uri.parse(link); // missing 'http://' will cause crashed
-                    Intent i = new Intent(Intent.ACTION_VIEW, uri);
-                    //Intent j = new Intent(SleepActivity.this,SleepActivity.class);
-                    i.putExtra("lastpage",lastpage);
-                    //startService(j);
-                    startActivity(i);
+                        token = currentUser.getString("Token");
+                        link = "http://www.braintaptest.com/en/direct-client/login?token="+token;
+                        //Toast pass = Toast.makeText(SleepActivity.this, link, Toast.LENGTH_LONG);
+                        //pass.show();
+                        //Uri uri = Uri.parse("http://www.braintaptest.com/"); // missing 'http://' will cause crashed
+                        //Intent i = new Intent(Intent.ACTION_VIEW, uri);
+                        //startActivity(i);
+                        Uri uri = Uri.parse(link); // missing 'http://' will cause crashed
+                        Intent i = new Intent(Intent.ACTION_VIEW, uri);
+                        //Intent j = new Intent(SleepActivity.this,SleepActivity.class);
+                        i.putExtra("lastpage",lastpage);
+                        //startService(j);
+                        startActivity(i);
+                    }
+
+
+
+                }
             }
-
-
-
         }
+        else {
+            Toast pass = Toast.makeText(SleepActivity.this, "Network is not available, please check your network.", Toast.LENGTH_LONG);
+            pass.show();
         }
+
 
     }
 
