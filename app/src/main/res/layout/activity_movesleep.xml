@@ -654,7 +654,7 @@
             android:layout_column="0"
             android:visibility="visible"
             android:progress="0"
-            android:layout_marginTop="73dp"
+            android:layout_marginTop="74dp"
             android:layout_marginLeft="38.5dp" />
 
         <ImageView
