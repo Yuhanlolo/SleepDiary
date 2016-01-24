@@ -97,25 +97,25 @@ public class MovesleepActivity2 extends ActionBarActivity implements SeekBar.OnS
         if(lastpage.equals("M30"))
         {
             query = ParseQuery.getQuery("M30");
-            currenttask = "30 minutes after morning awakening";
+            currenttask = "Morning";
             end = "end0";
         }
         else if (lastpage.equals("MDOPA1"))
         {
             query = ParseQuery.getQuery("MDOPA1");
-            currenttask = "After last dopaminergic drug intake";
+            currenttask = "Morning, after drug-intake";
             end = "end1";
         }
         else if (lastpage.equals("A_DOPA"))
         {
             query = ParseQuery.getQuery("ADOPA");
-            currenttask = "Before dinner";
+            currenttask = "Afternoon, before drug-intake";
             end = "end2";
         }
         else if(lastpage.equals("E"))
         {
             query = ParseQuery.getQuery("E");
-            currenttask = "Bed Time in the evening";
+            currenttask = "Bed Time";
             end = "end3";
         }
 

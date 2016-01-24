@@ -114,7 +114,7 @@ public class MovesleepActivity extends ActionBarActivity implements SeekBar.OnSe
             movesleep  = new ParseObject("M30");
             query3 = ParseQuery.getQuery("M30");
             query4 = ParseQuery.getQuery("M30");
-            currenttask = "30 minutes after morning awakening";
+            currenttask = "Morning";
         }
         else if (lastpage.equals("MDOPA1"))
         {
@@ -122,21 +122,21 @@ public class MovesleepActivity extends ActionBarActivity implements SeekBar.OnSe
             movesleep  = new ParseObject("MDOPA1");
             query3 = ParseQuery.getQuery("MDOPA1");
             query4 = ParseQuery.getQuery("MDOPA1");
-            currenttask = "After last dopaminergic drug intake";
+            currenttask = "Morning, after drug intake";
         }
         else if (lastpage.equals("A_DOPA"))
         {
             movesleep  = new ParseObject("ADOPA");
             query3 = ParseQuery.getQuery("ADOPA");
             query4 = ParseQuery.getQuery("ADOPA");
-            currenttask = "Before dinner";
+            currenttask = "Afternoon, before drug-intake";
         }
         else if(lastpage.equals("E"))
         {
             movesleep  = new ParseObject("E");
             query3 = ParseQuery.getQuery("E");
             query4 = ParseQuery.getQuery("E");
-            currenttask = "Bed Time in the evening";
+            currenttask = "Bed Time";
         }
 //        else if(lastpage.equals("Nap"))
 //        {
