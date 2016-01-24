@@ -2,6 +2,9 @@ package app.sleepdiary.com.sleepdiary;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -71,37 +74,44 @@ public class SettingsActivity extends ActionBarActivity implements View.OnClickL
         restart.setOnClickListener(this);
 
 
-        ParseUser currentUser = ParseUser.getCurrentUser();
+        if (isNetworkAvailable()) {
+            // Do your stuff here.
+            ParseUser currentUser = ParseUser.getCurrentUser();
 
-
-
-        if (currentUser == null)
-        {
-            CreateID.setVisibility(View.VISIBLE);
-            Login.setVisibility(View.VISIBLE);
-            Logout.setVisibility(View.INVISIBLE);
-            //btp.setVisibility(View.INVISIBLE);
-        }
-
-        else
-        {
-            CreateID.setVisibility(View.INVISIBLE);
-            Login.setVisibility(View.INVISIBLE);
-            Logout.setVisibility(View.VISIBLE);
-            //btp.setVisibility(View.VISIBLE);
-            userid = currentUser.getUsername();
-            researcher =currentUser.getInt("Researcher");
-            if (researcher == 1)
+            if (currentUser == null)
             {
-                restart.setVisibility(View.VISIBLE);
-
+                CreateID.setVisibility(View.VISIBLE);
+                Login.setVisibility(View.VISIBLE);
+                Logout.setVisibility(View.INVISIBLE);
+                //btp.setVisibility(View.INVISIBLE);
             }
+
             else
             {
-                restart.setVisibility(View.INVISIBLE);
-            }
+                CreateID.setVisibility(View.INVISIBLE);
+                Login.setVisibility(View.INVISIBLE);
+                Logout.setVisibility(View.VISIBLE);
+                //btp.setVisibility(View.VISIBLE);
+                userid = currentUser.getUsername();
+                researcher =currentUser.getInt("Researcher");
+                if (researcher == 1)
+                {
+                    restart.setVisibility(View.VISIBLE);
 
+                }
+                else
+                {
+                    restart.setVisibility(View.INVISIBLE);
+                }
+
+            }
         }
+        else {
+            Toast pass = Toast.makeText(SettingsActivity.this, "Network is not available, please check your network.", Toast.LENGTH_LONG);
+            pass.show();
+        }
+
+
 
         final Calendar cal = Calendar.getInstance();
         int month = cal.get(Calendar.MONTH) + 1;
@@ -116,7 +126,7 @@ public class SettingsActivity extends ActionBarActivity implements View.OnClickL
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        //getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
@@ -137,336 +147,375 @@ public class SettingsActivity extends ActionBarActivity implements View.OnClickL
 //        return super.onOptionsItemSelected(item);
 //    }
 
+    private boolean isNetworkAvailable() {
+        ConnectivityManager manager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = manager.getActiveNetworkInfo();
+
+        boolean isAvailable = false;
+        if (networkInfo != null && networkInfo.isConnected()) {
+            isAvailable = true;
+        }
+        return isAvailable;
+    }
 
     public void button_createIDOnClick(View view)
     {
-        if(view.getId() == R.id.CreateId)
-        {
-            Intent i = new Intent(SettingsActivity.this,CreateIdActivity.class);
-            SettingsActivity.this.startActivity(i);
+
+        if (isNetworkAvailable()) {
+            // Do your stuff here.
+            if(view.getId() == R.id.CreateId)
+            {
+                Intent i = new Intent(SettingsActivity.this,CreateIdActivity.class);
+                SettingsActivity.this.startActivity(i);
+            }
+
+            if(view.getId() == R.id.Logout)
+            {
+                final Dialog dialoglogout = new Dialog(SettingsActivity.this);
+                dialoglogout.setTitle("");
+
+                dialoglogout.setContentView(R.layout.logoutalert);
+                dialoglogout.show();
+
+
+
+                Button cdt = (Button)dialoglogout.findViewById(R.id.cancel_logout);
+                Button sdt = (Button)dialoglogout.findViewById(R.id.ok_logout);
+
+                cdt.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        dialoglogout.cancel();
+                    }
+                });
+
+
+                sdt.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        ParseUser.logOut();
+                        //ParseUser user = ParseUser.getCurrentUser();
+                        dialoglogout.cancel();
+                        Intent i = new Intent(SettingsActivity.this, SettingsActivity.class);
+                        SettingsActivity.this.startActivity(i);
+                    }
+                });
+
+
+
+            }
+        }
+        else {
+            Toast pass = Toast.makeText(SettingsActivity.this, "Network is not available, please check your network.", Toast.LENGTH_LONG);
+            pass.show();
         }
 
-        if(view.getId() == R.id.Logout)
-        {
-            final Dialog dialoglogout = new Dialog(SettingsActivity.this);
-            dialoglogout.setTitle("");
 
-            dialoglogout.setContentView(R.layout.logoutalert);
-            dialoglogout.show();
-
-
-
-            Button cdt = (Button)dialoglogout.findViewById(R.id.cancel_logout);
-            Button sdt = (Button)dialoglogout.findViewById(R.id.ok_logout);
-
-            cdt.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    dialoglogout.cancel();
-                }
-            });
-
-
-            sdt.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    ParseUser.logOut();
-                    //ParseUser user = ParseUser.getCurrentUser();
-                    dialoglogout.cancel();
-                    Intent i = new Intent(SettingsActivity.this, SettingsActivity.class);
-                    SettingsActivity.this.startActivity(i);
-                }
-            });
-
-
-
-        }
     }
 
     public void button_LoginOnClick(View view)
     {
-        if(view.getId() == R.id.Login)
-        {
-            Intent i = new Intent(SettingsActivity.this,LoginActivity.class);
-            //startActivity(i);
-            SettingsActivity.this.startActivity(i);
+
+        if (isNetworkAvailable()) {
+            // Do your stuff here.
+            if(view.getId() == R.id.Login)
+            {
+                Intent i = new Intent(SettingsActivity.this,LoginActivity.class);
+                //startActivity(i);
+                SettingsActivity.this.startActivity(i);
+            }
         }
+        else {
+            Toast pass = Toast.makeText(SettingsActivity.this, "Network is not available, please check your network.", Toast.LENGTH_LONG);
+            pass.show();
+        }
+
+
     }
 
     @Override
     public void onClick(View v) {
 
-        if(v.getId() == R.id.restart){
-            if (researcher == 1)
-            {
-        query0.whereEqualTo("User_ID",userid);
-        //query.whereEqualTo("Date",today);
-        //query0.setLimit(1);
-        query0.findInBackground(new FindCallback<ParseObject>() {
-            @Override
-            public void done(List<ParseObject> objects, ParseException e) {
-                if(e ==null){
-                try {
-                   for(int i = 0;i<objects.size();i++){
-                       objects.get(i).delete();
-                   }
-                } catch (ParseException e1) {
-                    e1.printStackTrace();
-                    Toast msg = Toast.makeText(SettingsActivity.this,"User"+ currentUser+"No data to be deleted!", Toast.LENGTH_SHORT);
-                    msg.show();
-                }}
-                else
+
+        if (isNetworkAvailable()) {
+            // Do your stuff here.
+            if(v.getId() == R.id.restart){
+                if (researcher == 1)
                 {
-                  Toast msg = Toast.makeText(SettingsActivity.this,"User"+ currentUser+"No data to be deleted!", Toast.LENGTH_SHORT);
-                  msg.show();
+                    query0.whereEqualTo("User_ID",userid);
+                    //query.whereEqualTo("Date",today);
+                    //query0.setLimit(1);
+                    query0.findInBackground(new FindCallback<ParseObject>() {
+                        @Override
+                        public void done(List<ParseObject> objects, ParseException e) {
+                            if(e ==null){
+                                try {
+                                    for(int i = 0;i<objects.size();i++){
+                                        objects.get(i).delete();
+                                    }
+                                } catch (ParseException e1) {
+                                    e1.printStackTrace();
+                                    Toast msg = Toast.makeText(SettingsActivity.this,"User"+ currentUser+"No data to be deleted!", Toast.LENGTH_SHORT);
+                                    msg.show();
+                                }}
+                            else
+                            {
+                                Toast msg = Toast.makeText(SettingsActivity.this,"User"+ currentUser+"No data to be deleted!", Toast.LENGTH_SHORT);
+                                msg.show();
+                            }
+                        }
+                    });
+
+                    query1.whereEqualTo("User_ID",userid);
+
+                    query1.findInBackground(new FindCallback<ParseObject>() {
+                        @Override
+                        public void done(List<ParseObject> objects, ParseException e) {
+                            if(e ==null){
+                                try {
+                                    for(int i = 0;i<objects.size();i++){
+                                        objects.get(i).delete();
+                                    }
+                                } catch (ParseException e1) {
+                                    e1.printStackTrace();
+                                    Toast msg = Toast.makeText(SettingsActivity.this,"User"+ currentUser+"No data to be deleted!", Toast.LENGTH_SHORT);
+                                    msg.show();
+                                }}
+                            else
+                            {
+                                Toast msg = Toast.makeText(SettingsActivity.this,"User"+ currentUser+"No data to be deleted!", Toast.LENGTH_SHORT);
+                                msg.show();
+                            }
+                        }
+                    });
+
+
+                    query2.whereEqualTo("User_ID",userid);
+
+                    query2.findInBackground(new FindCallback<ParseObject>() {
+                        @Override
+                        public void done(List<ParseObject> objects, ParseException e) {
+                            if(e ==null){
+                                try {
+                                    for(int i = 0;i<objects.size();i++){
+                                        objects.get(i).delete();
+                                    }
+                                } catch (ParseException e1) {
+                                    e1.printStackTrace();
+                                    Toast msg = Toast.makeText(SettingsActivity.this,"User"+ currentUser+"No data to be deleted!", Toast.LENGTH_SHORT);
+                                    msg.show();
+                                }}
+                            else
+                            {
+                                Toast msg = Toast.makeText(SettingsActivity.this,"User"+ currentUser+"No data to be deleted!", Toast.LENGTH_SHORT);
+                                msg.show();
+                            }
+                        }
+                    });
+
+                    query3.whereEqualTo("User_ID",userid);
+
+                    query3.findInBackground(new FindCallback<ParseObject>() {
+                        @Override
+                        public void done(List<ParseObject> objects, ParseException e) {
+                            if(e ==null){
+                                try {
+                                    for(int i = 0;i<objects.size();i++){
+                                        objects.get(i).delete();
+                                    }
+                                } catch (ParseException e1) {
+                                    e1.printStackTrace();
+                                    Toast msg = Toast.makeText(SettingsActivity.this,"User"+ currentUser+"No data to be deleted!", Toast.LENGTH_SHORT);
+                                    msg.show();
+                                }}
+                            else
+                            {
+                                Toast msg = Toast.makeText(SettingsActivity.this,"User"+ currentUser+"No data to be deleted!", Toast.LENGTH_SHORT);
+                                msg.show();
+                            }
+                        }
+                    });
+
+
+                    query4.whereEqualTo("User_ID",userid);
+
+                    query4.findInBackground(new FindCallback<ParseObject>() {
+                        @Override
+                        public void done(List<ParseObject> objects, ParseException e) {
+                            if(e ==null){
+                                try {
+                                    for(int i = 0;i<objects.size();i++){
+                                        objects.get(i).delete();
+                                    }
+                                } catch (ParseException e1) {
+                                    e1.printStackTrace();
+                                    Toast msg = Toast.makeText(SettingsActivity.this,"User"+ currentUser+"No data to be deleted!", Toast.LENGTH_SHORT);
+                                    msg.show();
+                                }}
+                            else
+                            {
+                                Toast msg = Toast.makeText(SettingsActivity.this,"User"+ currentUser+"No data to be deleted!", Toast.LENGTH_SHORT);
+                                msg.show();
+                            }
+                        }
+                    });
+
+
+                    query5.whereEqualTo("User_ID",userid);
+
+                    query5.findInBackground(new FindCallback<ParseObject>() {
+                        @Override
+                        public void done(List<ParseObject> objects, ParseException e) {
+                            if(e ==null){
+                                try {
+                                    for(int i = 0;i<objects.size();i++){
+                                        objects.get(i).delete();
+                                    }
+                                } catch (ParseException e1) {
+                                    e1.printStackTrace();
+                                    Toast msg = Toast.makeText(SettingsActivity.this,"User"+ currentUser+"No data to be deleted!", Toast.LENGTH_SHORT);
+                                    msg.show();
+                                }}
+                            else
+                            {
+                                Toast msg = Toast.makeText(SettingsActivity.this,"User"+ currentUser+"No data to be deleted!", Toast.LENGTH_SHORT);
+                                msg.show();
+                            }
+                        }
+                    });
+
+
+                    query6.whereEqualTo("User_ID",userid);
+
+                    query6.findInBackground(new FindCallback<ParseObject>() {
+                        @Override
+                        public void done(List<ParseObject> objects, ParseException e) {
+                            if(e ==null){
+                                try {
+                                    for(int i = 0;i<objects.size();i++){
+                                        objects.get(i).delete();
+                                    }
+                                } catch (ParseException e1) {
+                                    e1.printStackTrace();
+                                    Toast msg = Toast.makeText(SettingsActivity.this,"User"+ currentUser+"No data to be deleted!", Toast.LENGTH_SHORT);
+                                    msg.show();
+                                }}
+                            else
+                            {
+                                Toast msg = Toast.makeText(SettingsActivity.this,"User"+ currentUser+"No data to be deleted!", Toast.LENGTH_SHORT);
+                                msg.show();
+                            }
+                        }
+                    });
+
+
+                    query7.whereEqualTo("User_ID",userid);
+
+                    query7.findInBackground(new FindCallback<ParseObject>() {
+                        @Override
+                        public void done(List<ParseObject> objects, ParseException e) {
+                            if(e ==null){
+                                try {
+                                    for(int i = 0;i<objects.size();i++){
+                                        objects.get(i).delete();
+                                    }
+                                } catch (ParseException e1) {
+                                    e1.printStackTrace();
+                                    Toast msg = Toast.makeText(SettingsActivity.this,"User"+ currentUser+"No data to be deleted!", Toast.LENGTH_SHORT);
+                                    msg.show();
+                                }}
+                            else
+                            {
+                                Toast msg = Toast.makeText(SettingsActivity.this,"User"+ currentUser+"No data to be deleted!", Toast.LENGTH_SHORT);
+                                msg.show();
+                            }
+                        }
+                    });
+
+                    query8.whereEqualTo("User_ID",userid);
+
+                    query8.findInBackground(new FindCallback<ParseObject>() {
+                        @Override
+                        public void done(List<ParseObject> objects, ParseException e) {
+                            if(e ==null){
+                                try {
+                                    for(int i = 0;i<objects.size();i++){
+                                        objects.get(i).delete();
+                                    }
+                                } catch (ParseException e1) {
+                                    e1.printStackTrace();
+                                    Toast msg = Toast.makeText(SettingsActivity.this,"User"+ currentUser+"No data to be deleted!", Toast.LENGTH_SHORT);
+                                    msg.show();
+                                }}
+                            else
+                            {
+                                Toast msg = Toast.makeText(SettingsActivity.this,"User"+ currentUser+"No data to be deleted!", Toast.LENGTH_SHORT);
+                                msg.show();
+                            }
+                        }
+                    });
+
+
+                    query9.whereEqualTo("User_ID",userid);
+
+                    query9.findInBackground(new FindCallback<ParseObject>() {
+                        @Override
+                        public void done(List<ParseObject> objects, ParseException e) {
+                            if(e ==null){
+                                try {
+                                    for(int i = 0;i<objects.size();i++){
+                                        objects.get(i).delete();
+                                    }
+                                } catch (ParseException e1) {
+                                    e1.printStackTrace();
+                                    Toast msg = Toast.makeText(SettingsActivity.this,"User"+ currentUser+"No data to be deleted!", Toast.LENGTH_SHORT);
+                                    msg.show();
+                                }}
+                            else
+                            {
+                                Toast msg = Toast.makeText(SettingsActivity.this,"User"+ currentUser+"No data to be deleted!", Toast.LENGTH_SHORT);
+                                msg.show();
+                            }
+                        }
+                    });
+
+                    query10.whereEqualTo("User_ID",userid);
+
+                    query10.findInBackground(new FindCallback<ParseObject>() {
+                        @Override
+                        public void done(List<ParseObject> objects, ParseException e) {
+                            if(e ==null){
+                                try {
+                                    for(int i = 0;i<objects.size();i++){
+                                        objects.get(i).delete();
+                                    }
+                                } catch (ParseException e1) {
+                                    e1.printStackTrace();
+                                    Toast msg = Toast.makeText(SettingsActivity.this,"User"+ currentUser+"No data to be deleted!", Toast.LENGTH_SHORT);
+                                    msg.show();
+                                }}
+                            else
+                            {
+                                Toast msg = Toast.makeText(SettingsActivity.this,"User"+ currentUser+"No data to be deleted!", Toast.LENGTH_SHORT);
+                                msg.show();
+                            }
+                        }
+                    });
+
+                    Toast msg = Toast.makeText(SettingsActivity.this,"Data cleared!", Toast.LENGTH_SHORT);
+                    msg.show();
+                    Intent i = new Intent(SettingsActivity.this,MainActivity.class);
+                    SettingsActivity.this.startActivity(i);
                 }
             }
-        });
-
-                query1.whereEqualTo("User_ID",userid);
-
-                query1.findInBackground(new FindCallback<ParseObject>() {
-                    @Override
-                    public void done(List<ParseObject> objects, ParseException e) {
-                        if(e ==null){
-                            try {
-                                for(int i = 0;i<objects.size();i++){
-                                    objects.get(i).delete();
-                                }
-                            } catch (ParseException e1) {
-                                e1.printStackTrace();
-                                Toast msg = Toast.makeText(SettingsActivity.this,"User"+ currentUser+"No data to be deleted!", Toast.LENGTH_SHORT);
-                                msg.show();
-                            }}
-                        else
-                        {
-                            Toast msg = Toast.makeText(SettingsActivity.this,"User"+ currentUser+"No data to be deleted!", Toast.LENGTH_SHORT);
-                            msg.show();
-                        }
-                    }
-                });
-
-
-                query2.whereEqualTo("User_ID",userid);
-
-                query2.findInBackground(new FindCallback<ParseObject>() {
-                    @Override
-                    public void done(List<ParseObject> objects, ParseException e) {
-                        if(e ==null){
-                            try {
-                                for(int i = 0;i<objects.size();i++){
-                                    objects.get(i).delete();
-                                }
-                            } catch (ParseException e1) {
-                                e1.printStackTrace();
-                                Toast msg = Toast.makeText(SettingsActivity.this,"User"+ currentUser+"No data to be deleted!", Toast.LENGTH_SHORT);
-                                msg.show();
-                            }}
-                        else
-                        {
-                            Toast msg = Toast.makeText(SettingsActivity.this,"User"+ currentUser+"No data to be deleted!", Toast.LENGTH_SHORT);
-                            msg.show();
-                        }
-                    }
-                });
-
-                query3.whereEqualTo("User_ID",userid);
-
-                query3.findInBackground(new FindCallback<ParseObject>() {
-                    @Override
-                    public void done(List<ParseObject> objects, ParseException e) {
-                        if(e ==null){
-                            try {
-                                for(int i = 0;i<objects.size();i++){
-                                    objects.get(i).delete();
-                                }
-                            } catch (ParseException e1) {
-                                e1.printStackTrace();
-                                Toast msg = Toast.makeText(SettingsActivity.this,"User"+ currentUser+"No data to be deleted!", Toast.LENGTH_SHORT);
-                                msg.show();
-                            }}
-                        else
-                        {
-                            Toast msg = Toast.makeText(SettingsActivity.this,"User"+ currentUser+"No data to be deleted!", Toast.LENGTH_SHORT);
-                            msg.show();
-                        }
-                    }
-                });
-
-
-                query4.whereEqualTo("User_ID",userid);
-
-                query4.findInBackground(new FindCallback<ParseObject>() {
-                    @Override
-                    public void done(List<ParseObject> objects, ParseException e) {
-                        if(e ==null){
-                            try {
-                                for(int i = 0;i<objects.size();i++){
-                                    objects.get(i).delete();
-                                }
-                            } catch (ParseException e1) {
-                                e1.printStackTrace();
-                                Toast msg = Toast.makeText(SettingsActivity.this,"User"+ currentUser+"No data to be deleted!", Toast.LENGTH_SHORT);
-                                msg.show();
-                            }}
-                        else
-                        {
-                            Toast msg = Toast.makeText(SettingsActivity.this,"User"+ currentUser+"No data to be deleted!", Toast.LENGTH_SHORT);
-                            msg.show();
-                        }
-                    }
-                });
-
-
-                query5.whereEqualTo("User_ID",userid);
-
-                query5.findInBackground(new FindCallback<ParseObject>() {
-                    @Override
-                    public void done(List<ParseObject> objects, ParseException e) {
-                        if(e ==null){
-                            try {
-                                for(int i = 0;i<objects.size();i++){
-                                    objects.get(i).delete();
-                                }
-                            } catch (ParseException e1) {
-                                e1.printStackTrace();
-                                Toast msg = Toast.makeText(SettingsActivity.this,"User"+ currentUser+"No data to be deleted!", Toast.LENGTH_SHORT);
-                                msg.show();
-                            }}
-                        else
-                        {
-                            Toast msg = Toast.makeText(SettingsActivity.this,"User"+ currentUser+"No data to be deleted!", Toast.LENGTH_SHORT);
-                            msg.show();
-                        }
-                    }
-                });
-
-
-                query6.whereEqualTo("User_ID",userid);
-
-                query6.findInBackground(new FindCallback<ParseObject>() {
-                    @Override
-                    public void done(List<ParseObject> objects, ParseException e) {
-                        if(e ==null){
-                            try {
-                                for(int i = 0;i<objects.size();i++){
-                                    objects.get(i).delete();
-                                }
-                            } catch (ParseException e1) {
-                                e1.printStackTrace();
-                                Toast msg = Toast.makeText(SettingsActivity.this,"User"+ currentUser+"No data to be deleted!", Toast.LENGTH_SHORT);
-                                msg.show();
-                            }}
-                        else
-                        {
-                            Toast msg = Toast.makeText(SettingsActivity.this,"User"+ currentUser+"No data to be deleted!", Toast.LENGTH_SHORT);
-                            msg.show();
-                        }
-                    }
-                });
-
-
-                query7.whereEqualTo("User_ID",userid);
-
-                query7.findInBackground(new FindCallback<ParseObject>() {
-                    @Override
-                    public void done(List<ParseObject> objects, ParseException e) {
-                        if(e ==null){
-                            try {
-                                for(int i = 0;i<objects.size();i++){
-                                    objects.get(i).delete();
-                                }
-                            } catch (ParseException e1) {
-                                e1.printStackTrace();
-                                Toast msg = Toast.makeText(SettingsActivity.this,"User"+ currentUser+"No data to be deleted!", Toast.LENGTH_SHORT);
-                                msg.show();
-                            }}
-                        else
-                        {
-                            Toast msg = Toast.makeText(SettingsActivity.this,"User"+ currentUser+"No data to be deleted!", Toast.LENGTH_SHORT);
-                            msg.show();
-                        }
-                    }
-                });
-
-                query8.whereEqualTo("User_ID",userid);
-
-                query8.findInBackground(new FindCallback<ParseObject>() {
-                    @Override
-                    public void done(List<ParseObject> objects, ParseException e) {
-                        if(e ==null){
-                            try {
-                                for(int i = 0;i<objects.size();i++){
-                                    objects.get(i).delete();
-                                }
-                            } catch (ParseException e1) {
-                                e1.printStackTrace();
-                                Toast msg = Toast.makeText(SettingsActivity.this,"User"+ currentUser+"No data to be deleted!", Toast.LENGTH_SHORT);
-                                msg.show();
-                            }}
-                        else
-                        {
-                            Toast msg = Toast.makeText(SettingsActivity.this,"User"+ currentUser+"No data to be deleted!", Toast.LENGTH_SHORT);
-                            msg.show();
-                        }
-                    }
-                });
-
-
-                query9.whereEqualTo("User_ID",userid);
-
-                query9.findInBackground(new FindCallback<ParseObject>() {
-                    @Override
-                    public void done(List<ParseObject> objects, ParseException e) {
-                        if(e ==null){
-                            try {
-                                for(int i = 0;i<objects.size();i++){
-                                    objects.get(i).delete();
-                                }
-                            } catch (ParseException e1) {
-                                e1.printStackTrace();
-                                Toast msg = Toast.makeText(SettingsActivity.this,"User"+ currentUser+"No data to be deleted!", Toast.LENGTH_SHORT);
-                                msg.show();
-                            }}
-                        else
-                        {
-                            Toast msg = Toast.makeText(SettingsActivity.this,"User"+ currentUser+"No data to be deleted!", Toast.LENGTH_SHORT);
-                            msg.show();
-                        }
-                    }
-                });
-
-                query10.whereEqualTo("User_ID",userid);
-
-                query10.findInBackground(new FindCallback<ParseObject>() {
-                    @Override
-                    public void done(List<ParseObject> objects, ParseException e) {
-                        if(e ==null){
-                            try {
-                                for(int i = 0;i<objects.size();i++){
-                                    objects.get(i).delete();
-                                }
-                            } catch (ParseException e1) {
-                                e1.printStackTrace();
-                                Toast msg = Toast.makeText(SettingsActivity.this,"User"+ currentUser+"No data to be deleted!", Toast.LENGTH_SHORT);
-                                msg.show();
-                            }}
-                        else
-                        {
-                            Toast msg = Toast.makeText(SettingsActivity.this,"User"+ currentUser+"No data to be deleted!", Toast.LENGTH_SHORT);
-                            msg.show();
-                        }
-                    }
-                });
-
-                Toast msg = Toast.makeText(SettingsActivity.this,"Data cleared!", Toast.LENGTH_SHORT);
-                msg.show();
-                Intent i = new Intent(SettingsActivity.this,MainActivity.class);
-                SettingsActivity.this.startActivity(i);
-            }
         }
+        else {
+            Toast pass = Toast.makeText(SettingsActivity.this, "Network is not available, please check your network.", Toast.LENGTH_LONG);
+            pass.show();
+        }
+
 }
 
 }

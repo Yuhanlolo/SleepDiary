@@ -1,6 +1,9 @@
 package app.sleepdiary.com.sleepdiary;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
@@ -40,61 +43,81 @@ public class LoginActivity extends ActionBarActivity{
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        //getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
 
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-//            return true;
-            Intent i = new Intent(LoginActivity.this,SettingsActivity.class);
-            LoginActivity.this.startActivity(i);
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        // Handle action bar item clicks here. The action bar will
+//        // automatically handle clicks on the Home/Up button, so long
+//        // as you specify a parent activity in AndroidManifest.xml.
+//        int id = item.getItemId();
+//
+//        if (isNetworkAvailable()) {
+//            // Do your stuff here.
+//            if (id == R.id.action_settings) {
+//                Intent i = new Intent(LoginActivity.this,SettingsActivity.class);
+//                LoginActivity.this.startActivity(i);
+//            }
+//        }
+//        else {
+//            Toast pass = Toast.makeText(LoginActivity.this, "Network is not available, please check your network.", Toast.LENGTH_LONG);
+//            pass.show();
+//        }
+//        //noinspection SimplifiableIfStatement
+//
+//
+//        return super.onOptionsItemSelected(item);
+//    }
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager manager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = manager.getActiveNetworkInfo();
+
+        boolean isAvailable = false;
+        if (networkInfo != null && networkInfo.isConnected()) {
+            isAvailable = true;
         }
-
-        return super.onOptionsItemSelected(item);
+        return isAvailable;
     }
-
 
     public void BLoginOnClick(View view)
     {
-        if(view.getId() == R.id.Logined)
-        {
 
-            account = (EditText)findViewById(R.id.useridl);
-            pwd = (EditText)findViewById(R.id.password);
+        if (isNetworkAvailable()) {
+            // Do your stuff here.
+            if(view.getId() == R.id.Logined)
+            {
 
-            stracc = account.getText().toString();
-            strpass = pwd.getText().toString();
+                account = (EditText)findViewById(R.id.useridl);
+                pwd = (EditText)findViewById(R.id.password);
 
-            //String password = helper.searchpass(stracc);
-            //System.out.println(password);
+                stracc = account.getText().toString();
+                strpass = pwd.getText().toString();
 
-            ParseUser.logInInBackground(stracc, strpass, new LogInCallback() {
-                @Override
-                public void done(ParseUser user, ParseException e) {
-                    if (e != null)
-                    {
-                        Toast pass = Toast.makeText(LoginActivity.this,e.getMessage(), Toast.LENGTH_SHORT);
-                        pass.show();
+                //String password = helper.searchpass(stracc);
+                //System.out.println(password);
+
+                ParseUser.logInInBackground(stracc, strpass, new LogInCallback() {
+                    @Override
+                    public void done(ParseUser user, ParseException e) {
+                        if (e != null)
+                        {
+                            Toast pass = Toast.makeText(LoginActivity.this,e.getMessage(), Toast.LENGTH_SHORT);
+                            pass.show();
+                        }
+                        else
+                        {
+                            Intent i = new Intent(LoginActivity.this,MainActivity.class);
+                            i.putExtra("loginstatus",true);
+                            i.putExtra("userid",stracc);
+                            i.addFlags(i.FLAG_ACTIVITY_CLEAR_TASK|i.FLAG_ACTIVITY_NEW_TASK);
+                            LoginActivity.this.startActivity(i);
+                        }
                     }
-                    else
-                    {
-                        Intent i = new Intent(LoginActivity.this,MainActivity.class);
-                        i.putExtra("loginstatus",true);
-                        i.putExtra("userid",stracc);
-                        i.addFlags(i.FLAG_ACTIVITY_CLEAR_TASK|i.FLAG_ACTIVITY_NEW_TASK);
-                        LoginActivity.this.startActivity(i);
-                    }
-                }
-            });
+                });
 
 //            if(strpass.equals(password))
 //            {
@@ -110,13 +133,19 @@ public class LoginActivity extends ActionBarActivity{
 //                Toast errorlogin = Toast.makeText(LoginActivity.this,"User ID and Password don't match!", Toast.LENGTH_SHORT);
 //                errorlogin.show();
 //            }
+            }
+
+            if(view.getId() == R.id.cancel_l)
+            {
+                Intent i = new Intent(LoginActivity.this,SettingsActivity.class);
+                LoginActivity.this.startActivity(i);
+            }
+        }
+        else {
+            Toast pass = Toast.makeText(LoginActivity.this, "Network is not available, please check your network.", Toast.LENGTH_LONG);
+            pass.show();
         }
 
-        if(view.getId() == R.id.cancel_l)
-        {
-            Intent i = new Intent(LoginActivity.this,SettingsActivity.class);
-            LoginActivity.this.startActivity(i);
-        }
     }
 
     public void onBackPressed() {

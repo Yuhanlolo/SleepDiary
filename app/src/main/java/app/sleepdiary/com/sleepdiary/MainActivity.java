@@ -20,6 +20,9 @@ import java.util.Calendar;
 import java.util.List;
 import android.util.Log;
 import android.webkit.WebView;
+import android.net.NetworkInfo;
+import android.net.ConnectivityManager;
+import android.content.Context;
 /**
  * Created by ypl5142 on 10/25/15.
  */
@@ -86,70 +89,75 @@ public class MainActivity  extends ActionBarActivity {
         finish_bdi = (ImageView)findViewById(R.id.fbdi);
         finish_E = (ImageView)findViewById(R.id.fbt);
 
-       currentUser = ParseUser.getCurrentUser();
+        if (isNetworkAvailable()) {
+            // Do your stuff here.
+            currentUser = ParseUser.getCurrentUser();
 
-        if(currentUser != null) {
-            userid = ParseUser.getCurrentUser().getUsername();
+            if(currentUser != null) {
+                userid = ParseUser.getCurrentUser().getUsername();
 
-            queryt.whereEqualTo("User_ID", userid);
-            queryt.whereEqualTo("Date", today);
+                queryt.whereEqualTo("User_ID", userid);
+                queryt.whereEqualTo("Date", today);
 
-            //object.getInt("MDOPA1_Braintest") == 1 &&
-            //object.getInt("ADOPA_Braintest") == 1 &&
-            //object.getInt("E_Braintest") == 1 &&
 
-            queryt.getFirstInBackground(new GetCallback<ParseObject>() {
-                public void done(ParseObject object, ParseException e) {
-                    if (object == null) {
-                        Log.d("User_ID", "create task list."+userid);
-                        TaskCheckList.put("User_ID", userid);
-                        TaskCheckList.put("Date", today);
-                        TaskCheckList.put("Nap",0);
-                        TaskCheckList.put("Nap_Braintest",0);
-                        TaskCheckList.put("Nap_Movesleep",0);
-                        TaskCheckList.saveInBackground();
+                queryt.getFirstInBackground(new GetCallback<ParseObject>() {
+                    public void done(ParseObject object, ParseException e) {
+                        if (object == null) {
+                            Log.d("User_ID", "create task list."+userid);
+                            TaskCheckList.put("User_ID", userid);
+                            TaskCheckList.put("Date", today);
+                            TaskCheckList.put("Nap",0);
+                            TaskCheckList.put("Nap_Braintest",0);
+                            TaskCheckList.put("Nap_Movesleep",0);
+                            TaskCheckList.saveInBackground();
 
+                        }
                     }
-                }
-            });
+                });
 
-            query1.whereEqualTo("User_ID", userid);
-            query1.whereEqualTo("Date", today);
-             query1.getFirstInBackground(new GetCallback<ParseObject>() {
-                public void done(ParseObject object, ParseException e) {
-                    if (object == null) {
-                        Log.d("User_ID", "The getFirst request failed.");
+                query1.whereEqualTo("User_ID", userid);
+                query1.whereEqualTo("Date", today);
+                query1.getFirstInBackground(new GetCallback<ParseObject>() {
+                    public void done(ParseObject object, ParseException e) {
+                        if (object == null) {
+                            Log.d("User_ID", "The getFirst request failed.");
 
-                    } else {
-                        //Log.d("score", "Retrieved the object.");
-                        //if(object.getInt("MBraintest")== 0 || object.getInt("MBraintest") ==1)
+                        } else {
+                            //Log.d("score", "Retrieved the object.");
+                            //if(object.getInt("MBraintest")== 0 || object.getInt("MBraintest") ==1)
 
-                        if (object.getInt("M30_Sleepdiary") == 1 && object.getInt("M30_Movesleep") == 1&& object.getInt("M30_Braintest") == 1) {
-                            M30 = true;
-                            finish_M30.setVisibility(View.VISIBLE);
-                        }
+                            if (object.getInt("M30_Sleepdiary") == 1 && object.getInt("M30_Movesleep") == 1&& object.getInt("M30_Braintest") == 1) {
+                                M30 = true;
+                                finish_M30.setVisibility(View.VISIBLE);
+                            }
 
-                        if ( object.getInt("MDOPA1_Movesleep") == 1&& object.getInt("MDOPA1_Braintest") == 1) {
-                            A_DOPA1 = true;
-                            finish_adi.setVisibility(View.VISIBLE);
-                        }
+                            if ( object.getInt("MDOPA1_Movesleep") == 1&& object.getInt("MDOPA1_Braintest") == 1) {
+                                A_DOPA1 = true;
+                                finish_adi.setVisibility(View.VISIBLE);
+                            }
 
-                        if ( object.getInt("ADOPA_Movesleep") == 1&& object.getInt("ADOPA_Braintest") == 1) {
-                            A_DOPA = true;
-                            finish_bdi.setVisibility(View.VISIBLE);
+                            if ( object.getInt("ADOPA_Movesleep") == 1&& object.getInt("ADOPA_Braintest") == 1) {
+                                A_DOPA = true;
+                                finish_bdi.setVisibility(View.VISIBLE);
 //                            Toast pass = Toast.makeText(MainActivity.this,"ADOPA TRUE", Toast.LENGTH_SHORT);
 //                            pass.show();
-                        }
+                            }
 
-                        if (object.getInt("E_Movesleep") == 1&& object.getInt("E_Braintest") == 1) {
-                            E = true;
-                            finish_E.setVisibility(View.VISIBLE);
+                            if (object.getInt("E_Movesleep") == 1&& object.getInt("E_Braintest") == 1) {
+                                E = true;
+                                finish_E.setVisibility(View.VISIBLE);
+                            }
                         }
                     }
-                }
-            });
-        }
+                });
+            }
 
+
+        }
+        else {
+            Toast pass = Toast.makeText(MainActivity.this, "Network is not available, please check your network.", Toast.LENGTH_LONG);
+            pass.show();
+        }
 
         //login_status = getIntent().getBooleanExtra("loginstatus",false);
 
@@ -241,131 +249,149 @@ public class MainActivity  extends ActionBarActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-//          return true;
-            Intent i = new Intent(MainActivity.this,SettingsActivity.class);
-            MainActivity.this.startActivity(i);
-        }
+            if (id == R.id.action_settings) {
+                Intent i = new Intent(MainActivity.this,SettingsActivity.class);
+                MainActivity.this.startActivity(i);
+
+            }
+
 
         return super.onOptionsItemSelected(item);
     }
 
+    private boolean isNetworkAvailable() {
+        ConnectivityManager manager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = manager.getActiveNetworkInfo();
+
+        boolean isAvailable = false;
+        if (networkInfo != null && networkInfo.isConnected()) {
+            isAvailable = true;
+        }
+        return isAvailable;
+    }
 
     public void CoverOnClick(View view) {
 
 
-        if (view.getId() == R.id.mt||view.getId() == R.id.fmt)
-        {
-            currentUser = ParseUser.getCurrentUser();
-            if(currentUser == null)
+        if (isNetworkAvailable()) {
+            //if network is available
+            if (view.getId() == R.id.mt||view.getId() == R.id.fmt)
             {
-                Toast pass = Toast.makeText(MainActivity.this,"Please Login in first!", Toast.LENGTH_SHORT);
-                pass.show();
+                currentUser = ParseUser.getCurrentUser();
+                if(currentUser == null)
+                {
+                    Toast pass = Toast.makeText(MainActivity.this,"Please Login in first!", Toast.LENGTH_SHORT);
+                    pass.show();
+                }
+
+                else if (M30)
+                {
+                    Toast pass = Toast.makeText(MainActivity.this,"You have finished this part!", Toast.LENGTH_SHORT);
+                    pass.show();
+                }
+                else
+                {
+
+                    Intent i = new Intent(MainActivity.this, SleepActivity.class);
+                    lastpage = "M30";
+                    i.putExtra("lastpage",lastpage);
+                    MainActivity.this.startActivity(i);
+                }
             }
 
-            else if (M30)
+            if (view.getId() == R.id.adi||view.getId() == R.id.fadi)
             {
-                Toast pass = Toast.makeText(MainActivity.this,"You have finished this part!", Toast.LENGTH_SHORT);
-                pass.show();
-            }
-            else
-            {
-
-            Intent i = new Intent(MainActivity.this, SleepActivity.class);
-                lastpage = "M30";
-                i.putExtra("lastpage",lastpage);
-            MainActivity.this.startActivity(i);
-            }
-        }
-
-        if (view.getId() == R.id.adi||view.getId() == R.id.fadi)
-        {
-            currentUser = ParseUser.getCurrentUser();
-            if(currentUser == null)
-            {
-                Toast pass = Toast.makeText(MainActivity.this,"Please Login in first!", Toast.LENGTH_SHORT);
-                pass.show();
-            }
+                currentUser = ParseUser.getCurrentUser();
+                if(currentUser == null)
+                {
+                    Toast pass = Toast.makeText(MainActivity.this,"Please Login in first!", Toast.LENGTH_SHORT);
+                    pass.show();
+                }
 
 //            else if (A_DOPA1)
 //            {
 //                Toast pass = Toast.makeText(MainActivity.this,"You have finished this part!", Toast.LENGTH_SHORT);
 //                pass.show();
 //            }
-            else
+                else
+                {
+                    Intent i = new Intent(MainActivity.this, SleepActivity.class);
+                    lastpage = "MDOPA1";
+                    i.putExtra("lastpage",lastpage);
+                    MainActivity.this.startActivity(i);
+                }
+            }
+
+            if (view.getId() == R.id.bdi||view.getId() == R.id.fbdi)
             {
-                Intent i = new Intent(MainActivity.this, SleepActivity.class);
-                lastpage = "MDOPA1";
-                i.putExtra("lastpage",lastpage);
-                MainActivity.this.startActivity(i);
+                currentUser = ParseUser.getCurrentUser();
+                if(currentUser == null)
+                {
+                    Toast pass = Toast.makeText(MainActivity.this,"Please Login in first!", Toast.LENGTH_SHORT);
+                    pass.show();
+                }
+
+                else if (A_DOPA)
+                {
+                    Toast pass = Toast.makeText(MainActivity.this,"You have finished this part!", Toast.LENGTH_SHORT);
+                    pass.show();
+                }
+                else
+                {
+                    Intent i = new Intent(MainActivity.this, SleepActivity.class);
+                    lastpage = "A_DOPA";
+                    i.putExtra("lastpage",lastpage);
+                    MainActivity.this.startActivity(i);
+                }
+            }
+
+            if (view.getId() == R.id.btt||view.getId() == R.id.fbt)
+            {
+                currentUser = ParseUser.getCurrentUser();
+                if(currentUser == null)
+                {
+                    Toast pass = Toast.makeText(MainActivity.this,"Please Login in first!", Toast.LENGTH_SHORT);
+                    pass.show();
+                }
+
+                else if (E)
+                {
+                    Toast pass = Toast.makeText(MainActivity.this,"You have finished this part!", Toast.LENGTH_SHORT);
+                    pass.show();
+                }
+                else
+                {
+                    Intent i = new Intent(MainActivity.this, SleepActivity.class);
+                    lastpage = "E";
+                    i.putExtra("lastpage",lastpage);
+                    MainActivity.this.startActivity(i);
+                }
+            }
+
+            if (view.getId() == R.id.naptitle)
+            {
+                currentUser = ParseUser.getCurrentUser();
+                if(currentUser == null)
+                {
+                    Toast pass = Toast.makeText(MainActivity.this,"Please Login in first!", Toast.LENGTH_SHORT);
+                    pass.show();
+                }
+
+
+                else
+                {
+                    Intent i = new Intent(MainActivity.this, SleepActivity.class);
+                    lastpage = "Nap";
+                    i.putExtra("lastpage",lastpage);
+                    MainActivity.this.startActivity(i);
+                }
             }
         }
-
-        if (view.getId() == R.id.bdi||view.getId() == R.id.fbdi)
-        {
-            currentUser = ParseUser.getCurrentUser();
-            if(currentUser == null)
-            {
-                Toast pass = Toast.makeText(MainActivity.this,"Please Login in first!", Toast.LENGTH_SHORT);
-                pass.show();
-            }
-
-            else if (A_DOPA)
-            {
-                Toast pass = Toast.makeText(MainActivity.this,"You have finished this part!", Toast.LENGTH_SHORT);
-                pass.show();
-            }
-            else
-            {
-                Intent i = new Intent(MainActivity.this, SleepActivity.class);
-                lastpage = "A_DOPA";
-                i.putExtra("lastpage",lastpage);
-                MainActivity.this.startActivity(i);
-            }
+        else {
+            Toast pass = Toast.makeText(MainActivity.this, "Network is not available, please check your network.", Toast.LENGTH_LONG);
+            pass.show();
         }
 
-        if (view.getId() == R.id.btt||view.getId() == R.id.fbt)
-        {
-            currentUser = ParseUser.getCurrentUser();
-            if(currentUser == null)
-            {
-                Toast pass = Toast.makeText(MainActivity.this,"Please Login in first!", Toast.LENGTH_SHORT);
-                pass.show();
-            }
-
-            else if (E)
-            {
-                Toast pass = Toast.makeText(MainActivity.this,"You have finished this part!", Toast.LENGTH_SHORT);
-                pass.show();
-            }
-            else
-            {
-                Intent i = new Intent(MainActivity.this, SleepActivity.class);
-                lastpage = "E";
-                i.putExtra("lastpage",lastpage);
-                MainActivity.this.startActivity(i);
-            }
-        }
-
-        if (view.getId() == R.id.naptitle)
-        {
-            currentUser = ParseUser.getCurrentUser();
-            if(currentUser == null)
-            {
-                Toast pass = Toast.makeText(MainActivity.this,"Please Login in first!", Toast.LENGTH_SHORT);
-                pass.show();
-            }
-
-
-            else
-            {
-                Intent i = new Intent(MainActivity.this, SleepActivity.class);
-                lastpage = "Nap";
-                i.putExtra("lastpage",lastpage);
-                MainActivity.this.startActivity(i);
-            }
-        }
     }
 
     @Override

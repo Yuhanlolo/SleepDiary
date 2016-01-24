@@ -825,10 +825,8 @@
 
         <Button
                 android:id="@+id/savenapms2"
-                android:width="300dp"
-                android:height="45dp"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
+                android:layout_height="45dp"
+                android:layout_width="300dp"
                 android:text="Save &amp; Finish"
                 android:textAllCaps="false"
                 android:layout_gravity="center"
