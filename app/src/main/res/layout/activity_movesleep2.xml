@@ -68,7 +68,7 @@
                 android:background="#fafafa"
                 android:layout_row="1"
                 android:layout_column="0"
-                android:layout_marginTop="0dp"
+                android:layout_marginTop="5dp"
                 android:icon="@drawable/ic_launcher">
             <TextView
                 android:id="@+id/stanford"
@@ -83,7 +83,7 @@
                 android:layout_marginLeft="40dp"
                 android:paddingBottom="10dp"
                 android:paddingTop="10dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="0dp"
                 android:paddingLeft="20dp" />
 
             <TextView
@@ -99,7 +99,7 @@
                 android:layout_marginLeft="-60dp"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
-                android:layout_marginTop="10dp" />
+                android:layout_marginTop="0dp" />
             </GridLayout>
 
             <GridLayout
@@ -112,7 +112,7 @@
                 android:background="#fafafa"
                 android:layout_row="2"
                 android:layout_column="0"
-                android:layout_marginTop="0dp"
+                android:layout_marginTop="5dp"
 
                 android:icon="@drawable/ic_launcher">
 
@@ -126,16 +126,17 @@
                 android:layout_row="1"
                 android:layout_column="0"
                 android:layout_marginLeft="0dp"
+                android:layout_marginTop="5dp"
                 android:paddingLeft="20dp"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
                 android:clickable="true"
                 android:onClick="Itemclick"/>
 
             <RadioButton
                 android:layout_width="80dp"
-                android:paddingTop="30dp"
-                android:layout_marginTop="10dp"
+                android:paddingTop="0dp"
+                android:layout_marginTop="3dp"
                 android:layout_marginLeft="600dp"
                 android:paddingBottom="0dp"
                 android:layout_row="1"
@@ -156,7 +157,7 @@
                 android:background="#fafafa"
                 android:layout_row="3"
                 android:layout_column="0"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="5dp"
                 android:icon="@drawable/ic_launcher">
 
                 <TextView
@@ -171,9 +172,9 @@
                     android:layout_row="2"
                     android:layout_column="0"
                     android:layout_marginLeft="0dp"
-
-                    android:paddingTop="10dp"
-                    android:paddingBottom="10dp"
+                    android:layout_marginTop="5dp"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
                     android:paddingLeft="20dp" />
 
                 <RadioButton
@@ -182,8 +183,8 @@
                     android:text=""
                     android:layout_marginLeft="600dp"
                     android:layout_row="2"
-                    android:layout_marginTop="10dp"
-                    android:paddingTop="30dp"
+                    android:layout_marginTop="0dp"
+                    android:paddingTop="0dp"
                     android:width="100dp"
                     android:id="@+id/ds2"
                     android:checked="false"
@@ -218,7 +219,7 @@
                 android:background="#fafafa"
                 android:layout_row="4"
                 android:layout_column="0"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="5dp"
                 android:icon="@drawable/ic_launcher">
             <TextView
                 android:id="@+id/stanford3"
@@ -231,8 +232,9 @@
                 android:layout_row="3"
                 android:layout_column="0"
                 android:layout_marginLeft="0dp"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
+                android:layout_marginTop="5dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
                 android:paddingLeft="20dp"
                 android:onClick="Itemclick"/>
 
@@ -243,8 +245,8 @@
                     android:text=""
                     android:layout_row="3"
                     android:layout_marginLeft="600dp"
-                    android:layout_marginTop="10dp"
-                    android:paddingTop="30dp"
+                    android:layout_marginTop="3dp"
+                    android:paddingTop="0dp"
                     android:paddingBottom="0.5dp"
                     android:width="100dp"
                     android:id="@+id/ds3"
@@ -264,7 +266,7 @@
                 android:background="#fafafa"
                 android:layout_row="5"
                 android:layout_column="0"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="5dp"
                 android:icon="@drawable/ic_launcher">
             <TextView
                 android:id="@+id/stanford4"
@@ -279,8 +281,9 @@
                 android:layout_row="4"
                 android:layout_column="0"
                 android:layout_marginLeft="0dp"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
+                android:layout_marginTop="5dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
                 android:paddingLeft="20dp" />
 
             <RadioButton
@@ -289,8 +292,8 @@
                 android:text=""
                 android:layout_row="4"
                 android:layout_marginLeft="600dp"
-                android:layout_marginTop="10dp"
-                android:paddingTop="30dp"
+                android:layout_marginTop="3dp"
+                android:paddingTop="0dp"
                 android:width="100dp"
                 android:id="@+id/ds4"
                 android:checked="false"
@@ -308,7 +311,7 @@
             android:background="#fafafa"
             android:layout_row="6"
             android:layout_column="0"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:icon="@drawable/ic_launcher">
             <TextView
                 android:id="@+id/stanford5"
@@ -322,9 +325,10 @@
                 android:layout_row="5"
                 android:layout_column="0"
                 android:layout_marginLeft="0dp"
-                android:paddingTop="10dp"
+                android:layout_marginTop="5dp"
+                android:paddingTop="5dp"
 
-                android:paddingBottom="10dp"
+                android:paddingBottom="5dp"
                 android:paddingLeft="20dp" />
 
             <RadioButton
@@ -335,8 +339,8 @@
                 android:layout_column="0"
                 android:layout_marginLeft="600dp"
                 android:layout_marginTop="10dp"
-                android:paddingTop="29dp"
-                android:paddingBottom="26dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="20dp"
                 android:width="100dp"
                 android:id="@+id/ds5"
                 android:checked="false"
@@ -354,7 +358,7 @@
                 android:background="#fafafa"
                 android:layout_row="7"
                 android:layout_column="0"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="5dp"
                 android:icon="@drawable/ic_launcher">
             <TextView
                 android:id="@+id/stanford6"
@@ -369,8 +373,9 @@
                 android:layout_column="0"
 
                 android:layout_marginLeft="0dp"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
+                android:layout_marginTop="5dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
                 android:paddingLeft="20dp" />
 
                 <RadioButton
@@ -380,8 +385,8 @@
                     android:layout_row="6"
                     android:layout_column="0"
                     android:layout_marginLeft="600dp"
-                    android:layout_marginTop="10dp"
-                    android:paddingTop="30dp"
+                    android:layout_marginTop="5dp"
+                    android:paddingTop="0dp"
                     android:paddingBottom="0dp"
                     android:width="100dp"
                     android:id="@+id/ds6"
@@ -401,7 +406,7 @@
                 android:background="#fafafa"
                 android:layout_row="8"
                 android:layout_column="0"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="5dp"
                 android:icon="@drawable/ic_launcher">
             <TextView
                 android:id="@+id/stanford7"
@@ -416,8 +421,9 @@
                 android:layout_row="7"
                 android:layout_column="0"
                 android:layout_marginLeft="0dp"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
+                android:layout_marginTop="5dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
                 android:paddingLeft="20dp" />
 
                 <RadioButton
@@ -428,8 +434,8 @@
                     android:layout_column="0"
                     android:layout_marginLeft="600dp"
                     android:layout_marginTop="11.5dp"
-                    android:paddingTop="30dp"
-                    android:paddingBottom="26dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="20dp"
                     android:width="100dp"
                     android:id="@+id/ds7"
                     android:checked="false"
@@ -443,20 +449,20 @@
             android:id="@+id/text"
             android:text="You are finishing the move &amp; sleep scale test and you won't be able to return."
             android:textSize="20dp"
-            android:textColor="#000000"
+            android:textColor="#31353D"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_row="14"
             android:layout_column="0"
             android:layout_gravity="center"
-            android:paddingTop="35dp" />
+            android:paddingTop="30dp" />
 
 
         <TextView
             android:id="@+id/text"
             android:text="Do you wish to continue?"
             android:textSize="20dp"
-            android:textColor="#000000"
+            android:textColor="#31353D"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_row="15"
@@ -473,7 +479,7 @@
             android:layout_marginTop="20dp"
             android:layout_row = "16"
             android:layout_column="0"
-            android:background="#F2594B"
+            android:background="#F25252"
             android:layout_gravity="center" />
 
             <Button
