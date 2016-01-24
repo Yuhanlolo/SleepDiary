@@ -646,6 +646,18 @@
             />
 
         <ImageView
+            android:layout_width="13.5dp"
+            android:layout_height="15dp"
+            android:id="@+id/hide3"
+            android:src = "@drawable/hide"
+            android:layout_row="17"
+            android:layout_column="0"
+            android:visibility="visible"
+            android:progress="0"
+            android:layout_marginTop="73dp"
+            android:layout_marginLeft="38.5dp" />
+
+        <ImageView
             android:layout_width="21dp"
             android:layout_height="21dp"
             android:id="@+id/empty50"
