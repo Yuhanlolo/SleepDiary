@@ -1,7 +1,10 @@
 package app.sleepdiary.com.sleepdiary;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -443,6 +446,18 @@ public class NapMoveSleepActivity extends ActionBarActivity implements SeekBar.O
         return super.onOptionsItemSelected(item);
     }
 
+    private boolean isNetworkAvailable() {
+        ConnectivityManager manager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = manager.getActiveNetworkInfo();
+
+        boolean isAvailable = false;
+        if (networkInfo != null && networkInfo.isConnected()) {
+            isAvailable = true;
+        }
+        return isAvailable;
+    }
+
+
 
     public void button_napmsdOnClick(View view)
     {
@@ -592,231 +607,238 @@ public class NapMoveSleepActivity extends ActionBarActivity implements SeekBar.O
         }
 
 
-
-        if(view.getId() == R.id.napsave_ms)
-        {
-            ParseUser currentUser1 = ParseUser.getCurrentUser();
-            boolean bedhour1 = false, bedmin1 = false;
-            boolean fallhour1 = false, fallmin1 = false;
-
-            if (!(bedh_edt.getText().toString()).isEmpty() && !(bedm_edt.getText().toString()).isEmpty()) {
-                tempbedh = Integer.parseInt(bedh_edt.getText().toString());
-                tempbedm = Integer.parseInt(bedm_edt.getText().toString());
-                if (tempbedh < 0 || tempbedh > 23) {
-                    bedhour1 = true;
-                } else if (tempbedm < 0 || tempbedm > 59) {
-
-                    bedmin1 = true;
-                } else {
-                    bedtime = pad(tempbedh) + ":" + pad(tempbedm);
-                }
-            }
-
-            else
+        if (isNetworkAvailable()) {
+            // Do your stuff here.
+            if(view.getId() == R.id.napsave_ms)
             {
-                bedtime = "";
-            }
+                ParseUser currentUser1 = ParseUser.getCurrentUser();
+                boolean bedhour1 = false, bedmin1 = false;
+                boolean fallhour1 = false, fallmin1 = false;
 
-            if (!(fallh_edt.getText().toString()).isEmpty() || !(fallm_edt.getText().toString()).isEmpty()) {
-                if (!(fallh_edt.getText().toString()).isEmpty()){
-                    dHour = Integer.parseInt(fallh_edt.getText().toString());
-                    if (dHour < 0 || dHour > 23) {
+                if (!(bedh_edt.getText().toString()).isEmpty() && !(bedm_edt.getText().toString()).isEmpty()) {
+                    tempbedh = Integer.parseInt(bedh_edt.getText().toString());
+                    tempbedm = Integer.parseInt(bedm_edt.getText().toString());
+                    if (tempbedh < 0 || tempbedh > 23) {
+                        bedhour1 = true;
+                    } else if (tempbedm < 0 || tempbedm > 59) {
 
-                        fallhour1 = true;
-                    }
-                    else
-                    {
-                        if (dHour ==1)
-                            temp_h = " hr";
-                        else
-                            temp_h = " hrs";
+                        bedmin1 = true;
+                    } else {
+                        bedtime = pad(tempbedh) + ":" + pad(tempbedm);
                     }
                 }
 
-                if (!(fallm_edt.getText().toString()).isEmpty()){
-                    dMinute = Integer.parseInt(fallm_edt.getText().toString());
-                    if (dMinute < 0 || dMinute > 59) {
-
-                        fallmin1 = true;
-                    }
-                    else
-                    {
-                        if (dMinute ==1)
-                            temp_m = " min";
-                        else
-                            temp_m = " mins";
-                    }
-                }
-
-                if (!(fallh_edt.getText().toString()).isEmpty()&&!(fallm_edt.getText().toString()).isEmpty()){
-                    asleeptime = pad(dHour) + temp_h + pad(dMinute) + temp_m;
-                }
-                else if (!(fallh_edt.getText().toString()).isEmpty()&&(fallm_edt.getText().toString()).isEmpty())
+                else
                 {
-                    asleeptime = pad(dHour) + temp_h + "0 mins";
-                    fallm_edt.setText("0");
-                }
-                else if ((fallh_edt.getText().toString()).isEmpty()&&(fallm_edt.getText().toString()).isEmpty()){
-                    asleeptime ="0 hrs"+pad(dMinute) + temp_m;
-                    fallh_edt.setText("0");
+                    bedtime = "";
                 }
 
-            }
+                if (!(fallh_edt.getText().toString()).isEmpty() || !(fallm_edt.getText().toString()).isEmpty()) {
+                    if (!(fallh_edt.getText().toString()).isEmpty()){
+                        dHour = Integer.parseInt(fallh_edt.getText().toString());
+                        if (dHour < 0 || dHour > 23) {
 
-            else
-            {
-                asleeptime = "";
-            }
-
-            if(currentUser1 == null)
-            {
-                Toast pass = Toast.makeText(NapMoveSleepActivity.this,"Please Login in first!", Toast.LENGTH_SHORT);
-                pass.show();
-            }
-
-            else if (bedhour1)
-            {
-                Toast errormsg = Toast.makeText(NapMoveSleepActivity.this, "For Question 1, Please input hour of time between 0-23!"+tempbedh, Toast.LENGTH_LONG);
-                errormsg.show();
-            }
-
-            else if (bedmin1)
-            {
-                Toast errormsg = Toast.makeText(NapMoveSleepActivity.this, "For Question 1, Please input minute of time between 0-59!", Toast.LENGTH_LONG);
-                errormsg.show();
-            }
-
-
-            else if (bedtime.isEmpty()) {
-                //popup msg
-                Toast errormsg = Toast.makeText(NapMoveSleepActivity.this, "Please finish Question 1!", Toast.LENGTH_SHORT);
-                errormsg.show();
-
-            }
-
-            else if (fallhour1)
-            {
-                Toast errormsg = Toast.makeText(NapMoveSleepActivity.this, "For Question 2, Please input hour of time between 0-23!", Toast.LENGTH_LONG);
-                errormsg.show();
-            }
-
-            else if (fallmin1)
-            {
-                Toast errormsg = Toast.makeText(NapMoveSleepActivity.this, "For Question 2, Please input minute of time between 0-59", Toast.LENGTH_LONG);
-                errormsg.show();
-            }
-
-            else if (asleeptime.isEmpty()) {
-                Toast errormsg = Toast.makeText(NapMoveSleepActivity.this, "Please finish Question 2!", Toast.LENGTH_SHORT);
-                errormsg.show();
-            }
-
-            else if (wss == -1){
-
-                Toast errormsg = Toast.makeText(NapMoveSleepActivity.this,"Please finish Question 3!", Toast.LENGTH_SHORT);
-                errormsg.show();
-            }
-            else if (css == -1){
-                Toast errormsg = Toast.makeText(NapMoveSleepActivity.this,"Please finish Question 4!", Toast.LENGTH_SHORT);
-                errormsg.show();
-            }
-            else if (uhss == -1){
-                Toast errormsg = Toast.makeText(NapMoveSleepActivity.this,"Please finish Question 5!", Toast.LENGTH_SHORT);
-                errormsg.show();
-            }
-            else if (umss == -1){
-                Toast errormsg = Toast.makeText(NapMoveSleepActivity.this,"Please finish Question 6!", Toast.LENGTH_SHORT);
-                errormsg.show();
-            }
-            else
-            {
-                if (t_nap == 0){
-                movesleep.put("User_ID", currentUser1.getUsername());
-                movesleep.put("Date",today);
-                movesleep.put("A50_NAP_time",bedtime);
-                movesleep.put("A51_NAP_duration",asleeptime);
-                movesleep.put("A52_NAP_SCOPA_walking",wss);
-                movesleep.put("A53_NAP_SCOPA_change",css);
-                movesleep.put("A54_NAP_SCOPA_hands",uhss);
-                movesleep.put("A55_NAP_SCOPA_involuntary",umss);}
-
-               else if (t_nap == 1){
-                    movesleep.put("User_ID", currentUser1.getUsername());
-                    movesleep.put("Date",today);
-                    movesleep.put("A58_NAP_time",bedtime);
-                    movesleep.put("A59_NAP_duration",asleeptime);
-                    movesleep.put("A60_NAP_SCOPA_walking",wss);
-                    movesleep.put("A61_NAP_SCOPA_change",css);
-                    movesleep.put("A62_NAP_SCOPA_hands",uhss);
-                    movesleep.put("A63_NAP_SCOPA_involuntary",umss);}
-
-                else if (t_nap == 2){
-                    movesleep.put("User_ID", currentUser1.getUsername());
-                    movesleep.put("Date",today);
-                    movesleep.put("A66_NAP_time",bedtime);
-                    movesleep.put("A67_NAP_duration",asleeptime);
-                    movesleep.put("A68_NAP_SCOPA_walking",wss);
-                    movesleep.put("A69_NAP_SCOPA_change",css);
-                    movesleep.put("A70_NAP_SCOPA_hands",uhss);
-                    movesleep.put("A71_NAP_SCOPA_involuntary",umss);}
-
-                else if (t_nap == 3){
-                    movesleep.put("User_ID", currentUser1.getUsername());
-                    movesleep.put("Date",today);
-                    movesleep.put("A74_NAP_time",bedtime);
-                    movesleep.put("A75_NAP_duration",asleeptime);
-                    movesleep.put("A76_NAP_SCOPA_walking",wss);
-                    movesleep.put("A77_NAP_SCOPA_change",css);
-                    movesleep.put("A78_NAP_SCOPA_hands",uhss);
-                    movesleep.put("A79_NAP_SCOPA_involuntary",umss);}
-
-                else if (t_nap == 4){
-                    movesleep.put("User_ID", currentUser1.getUsername());
-                    movesleep.put("Date",today);
-                    movesleep.put("A82_NAP_time",bedtime);
-                    movesleep.put("A83_NAP_duration",asleeptime);
-                    movesleep.put("A84_NAP_SCOPA_walking",wss);
-                    movesleep.put("A85_NAP_SCOPA_change",css);
-                    movesleep.put("A86_NAP_SCOPA_hands",uhss);
-                    movesleep.put("A87_NAP_SCOPA_involuntary",umss);}
-                else if (t_nap > 4){
-                    movesleep.put("User_ID", currentUser1.getUsername());
-                    movesleep.put("Date",today);
-                    movesleep.put("A90_NAP_time",bedtime);
-                    movesleep.put("A91_NAP_duration",asleeptime);
-                    movesleep.put("A92_NAP_SCOPA_walking",wss);
-                    movesleep.put("A93_NAP_SCOPA_change",css);
-                    movesleep.put("A94_NAP_SCOPA_hands",uhss);
-                    movesleep.put("A95_NAP_SCOPA_involuntary",umss);}
-
-                //movesleep.put("Move_Capability", movep);
-                //movesleep.put("Move_Capability",0);
-                //movesleep.put("A56_NAP_VAS_motor",0);
-
-                movesleep.saveInBackground(new SaveCallback() {
-                    @Override
-                    public void done(ParseException e) {
-                        if (e != null) {
-                            Toast pass = Toast.makeText(NapMoveSleepActivity.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT);
-                            pass.show();
-                        } else {
-                            objectID = movesleep.getObjectId();
-//                             Toast pass = Toast.makeText(NapMoveSleepActivity.this,"id 1: "+objectID, Toast.LENGTH_SHORT);
-//                             pass.show();
-                            Intent i = new Intent(NapMoveSleepActivity.this, NapMoveSleepActivity2.class);
-                            i.putExtra("objectID", objectID);
-                            i.putExtra("lastpage",lastpage);
-                            NapMoveSleepActivity.this.startActivity(i);
-
-
+                            fallhour1 = true;
+                        }
+                        else
+                        {
+                            if (dHour ==1)
+                                temp_h = " hr";
+                            else
+                                temp_h = " hrs";
                         }
                     }
-                });
+
+                    if (!(fallm_edt.getText().toString()).isEmpty()){
+                        dMinute = Integer.parseInt(fallm_edt.getText().toString());
+                        if (dMinute < 0 || dMinute > 59) {
+
+                            fallmin1 = true;
+                        }
+                        else
+                        {
+                            if (dMinute ==1)
+                                temp_m = " min";
+                            else
+                                temp_m = " mins";
+                        }
+                    }
+
+                    if (!(fallh_edt.getText().toString()).isEmpty()&&!(fallm_edt.getText().toString()).isEmpty()){
+                        asleeptime = pad(dHour) + temp_h + pad(dMinute) + temp_m;
+                    }
+                    else if (!(fallh_edt.getText().toString()).isEmpty()&&(fallm_edt.getText().toString()).isEmpty())
+                    {
+                        asleeptime = pad(dHour) + temp_h + "0 mins";
+                        fallm_edt.setText("0");
+                    }
+                    else if ((fallh_edt.getText().toString()).isEmpty()&&(fallm_edt.getText().toString()).isEmpty()){
+                        asleeptime ="0 hrs"+pad(dMinute) + temp_m;
+                        fallh_edt.setText("0");
+                    }
+
+                }
+
+                else
+                {
+                    asleeptime = "";
+                }
+
+                if(currentUser1 == null)
+                {
+                    Toast pass = Toast.makeText(NapMoveSleepActivity.this,"Please Login in first!", Toast.LENGTH_SHORT);
+                    pass.show();
+                }
+
+                else if (bedhour1)
+                {
+                    Toast errormsg = Toast.makeText(NapMoveSleepActivity.this, "For Question 1, Please input hour of time between 0-23!"+tempbedh, Toast.LENGTH_LONG);
+                    errormsg.show();
+                }
+
+                else if (bedmin1)
+                {
+                    Toast errormsg = Toast.makeText(NapMoveSleepActivity.this, "For Question 1, Please input minute of time between 0-59!", Toast.LENGTH_LONG);
+                    errormsg.show();
+                }
+
+
+                else if (bedtime.isEmpty()) {
+                    //popup msg
+                    Toast errormsg = Toast.makeText(NapMoveSleepActivity.this, "Please finish Question 1!", Toast.LENGTH_SHORT);
+                    errormsg.show();
+
+                }
+
+                else if (fallhour1)
+                {
+                    Toast errormsg = Toast.makeText(NapMoveSleepActivity.this, "For Question 2, Please input hour of time between 0-23!", Toast.LENGTH_LONG);
+                    errormsg.show();
+                }
+
+                else if (fallmin1)
+                {
+                    Toast errormsg = Toast.makeText(NapMoveSleepActivity.this, "For Question 2, Please input minute of time between 0-59", Toast.LENGTH_LONG);
+                    errormsg.show();
+                }
+
+                else if (asleeptime.isEmpty()) {
+                    Toast errormsg = Toast.makeText(NapMoveSleepActivity.this, "Please finish Question 2!", Toast.LENGTH_SHORT);
+                    errormsg.show();
+                }
+
+                else if (wss == -1){
+
+                    Toast errormsg = Toast.makeText(NapMoveSleepActivity.this,"Please finish Question 3!", Toast.LENGTH_SHORT);
+                    errormsg.show();
+                }
+                else if (css == -1){
+                    Toast errormsg = Toast.makeText(NapMoveSleepActivity.this,"Please finish Question 4!", Toast.LENGTH_SHORT);
+                    errormsg.show();
+                }
+                else if (uhss == -1){
+                    Toast errormsg = Toast.makeText(NapMoveSleepActivity.this,"Please finish Question 5!", Toast.LENGTH_SHORT);
+                    errormsg.show();
+                }
+                else if (umss == -1){
+                    Toast errormsg = Toast.makeText(NapMoveSleepActivity.this,"Please finish Question 6!", Toast.LENGTH_SHORT);
+                    errormsg.show();
+                }
+                else
+                {
+                    if (t_nap == 0){
+                        movesleep.put("User_ID", currentUser1.getUsername());
+                        movesleep.put("Date",today);
+                        movesleep.put("A50_NAP_time",bedtime);
+                        movesleep.put("A51_NAP_duration",asleeptime);
+                        movesleep.put("A52_NAP_SCOPA_walking",wss);
+                        movesleep.put("A53_NAP_SCOPA_change",css);
+                        movesleep.put("A54_NAP_SCOPA_hands",uhss);
+                        movesleep.put("A55_NAP_SCOPA_involuntary",umss);}
+
+                    else if (t_nap == 1){
+                        movesleep.put("User_ID", currentUser1.getUsername());
+                        movesleep.put("Date",today);
+                        movesleep.put("A58_NAP_time",bedtime);
+                        movesleep.put("A59_NAP_duration",asleeptime);
+                        movesleep.put("A60_NAP_SCOPA_walking",wss);
+                        movesleep.put("A61_NAP_SCOPA_change",css);
+                        movesleep.put("A62_NAP_SCOPA_hands",uhss);
+                        movesleep.put("A63_NAP_SCOPA_involuntary",umss);}
+
+                    else if (t_nap == 2){
+                        movesleep.put("User_ID", currentUser1.getUsername());
+                        movesleep.put("Date",today);
+                        movesleep.put("A66_NAP_time",bedtime);
+                        movesleep.put("A67_NAP_duration",asleeptime);
+                        movesleep.put("A68_NAP_SCOPA_walking",wss);
+                        movesleep.put("A69_NAP_SCOPA_change",css);
+                        movesleep.put("A70_NAP_SCOPA_hands",uhss);
+                        movesleep.put("A71_NAP_SCOPA_involuntary",umss);}
+
+                    else if (t_nap == 3){
+                        movesleep.put("User_ID", currentUser1.getUsername());
+                        movesleep.put("Date",today);
+                        movesleep.put("A74_NAP_time",bedtime);
+                        movesleep.put("A75_NAP_duration",asleeptime);
+                        movesleep.put("A76_NAP_SCOPA_walking",wss);
+                        movesleep.put("A77_NAP_SCOPA_change",css);
+                        movesleep.put("A78_NAP_SCOPA_hands",uhss);
+                        movesleep.put("A79_NAP_SCOPA_involuntary",umss);}
+
+                    else if (t_nap == 4){
+                        movesleep.put("User_ID", currentUser1.getUsername());
+                        movesleep.put("Date",today);
+                        movesleep.put("A82_NAP_time",bedtime);
+                        movesleep.put("A83_NAP_duration",asleeptime);
+                        movesleep.put("A84_NAP_SCOPA_walking",wss);
+                        movesleep.put("A85_NAP_SCOPA_change",css);
+                        movesleep.put("A86_NAP_SCOPA_hands",uhss);
+                        movesleep.put("A87_NAP_SCOPA_involuntary",umss);}
+                    else if (t_nap > 4){
+                        movesleep.put("User_ID", currentUser1.getUsername());
+                        movesleep.put("Date",today);
+                        movesleep.put("A90_NAP_time",bedtime);
+                        movesleep.put("A91_NAP_duration",asleeptime);
+                        movesleep.put("A92_NAP_SCOPA_walking",wss);
+                        movesleep.put("A93_NAP_SCOPA_change",css);
+                        movesleep.put("A94_NAP_SCOPA_hands",uhss);
+                        movesleep.put("A95_NAP_SCOPA_involuntary",umss);}
+
+                    //movesleep.put("Move_Capability", movep);
+                    //movesleep.put("Move_Capability",0);
+                    //movesleep.put("A56_NAP_VAS_motor",0);
+
+                    movesleep.saveInBackground(new SaveCallback() {
+                        @Override
+                        public void done(ParseException e) {
+                            if (e != null) {
+                                Toast pass = Toast.makeText(NapMoveSleepActivity.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT);
+                                pass.show();
+                            } else {
+                                objectID = movesleep.getObjectId();
+//                             Toast pass = Toast.makeText(NapMoveSleepActivity.this,"id 1: "+objectID, Toast.LENGTH_SHORT);
+//                             pass.show();
+                                Intent i = new Intent(NapMoveSleepActivity.this, NapMoveSleepActivity2.class);
+                                i.putExtra("objectID", objectID);
+                                i.putExtra("lastpage",lastpage);
+                                NapMoveSleepActivity.this.startActivity(i);
+
+
+                            }
+                        }
+                    });
 
 //            Intent i = new Intent(MovesleepActivity.this,MovesleepActivity2.class);
 //            MovesleepActivity.this.startActivity(i);
+                }
             }
         }
+        else {
+            Toast pass = Toast.makeText(NapMoveSleepActivity.this, "Network is not available, please check your network.", Toast.LENGTH_LONG);
+            pass.show();
+        }
+
 
 
     }

@@ -1,7 +1,10 @@
 package app.sleepdiary.com.sleepdiary;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -536,132 +539,152 @@ public class NapMoveSleepActivity2 extends ActionBarActivity implements SeekBar.
 
     }
 
+    private boolean isNetworkAvailable() {
+        ConnectivityManager manager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = manager.getActiveNetworkInfo();
+
+        boolean isAvailable = false;
+        if (networkInfo != null && networkInfo.isConnected()) {
+            isAvailable = true;
+        }
+        return isAvailable;
+    }
+
+
     public void button_ms2dOnClick(View view)
     {
-        if(view.getId() == R.id.savenapms2)
-        {
-            ParseUser currentUser1 = ParseUser.getCurrentUser();
-
-            if(currentUser1 == null)
+        if (isNetworkAvailable()) {
+            // Do your stuff here.
+            if(view.getId() == R.id.savenapms2)
             {
-                Toast pass = Toast.makeText(NapMoveSleepActivity2.this,"Please Login in first!", Toast.LENGTH_SHORT);
-                pass.show();
-            }
+                ParseUser currentUser1 = ParseUser.getCurrentUser();
 
-            else if(movep == -1){
-                Toast errormsg = Toast.makeText(NapMoveSleepActivity2.this,"Please finish Question 7!", Toast.LENGTH_SHORT);
-                errormsg.show();
-            }
+                if(currentUser1 == null)
+                {
+                    Toast pass = Toast.makeText(NapMoveSleepActivity2.this,"Please Login in first!", Toast.LENGTH_SHORT);
+                    pass.show();
+                }
 
-            else if(sleepp == -1){
-                Toast errormsg = Toast.makeText(NapMoveSleepActivity2.this,"Please finish Question 8!", Toast.LENGTH_SHORT);
-                errormsg.show();
-            }
-            else
-            {
-                query.whereEqualTo("User_ID",userid);
-                query.whereEqualTo("Date",today);
-                query.setLimit(1);
-                query.findInBackground(new FindCallback<ParseObject>() {
-                    @Override
-                    public void done(List<ParseObject> objects, ParseException e) {
-                        if (e == null)
-                        {
-                            if (t_nap ==0){
-                            objects.get(0).put("A56_NAP_VAS_motor", movep);
-                            objects.get(0).put("A57_NAP_SSS", sleepp);
-                            }
+                else if(movep == -1){
+                    Toast errormsg = Toast.makeText(NapMoveSleepActivity2.this,"Please finish Question 7!", Toast.LENGTH_SHORT);
+                    errormsg.show();
+                }
 
-                            else if (t_nap ==1){
-                                objects.get(0).put("A64_NAP_VAS_motor", movep);
-                                objects.get(0).put("A65_NAP_SSS", sleepp);
-                            }
-
-                            else if (t_nap ==2){
-                                objects.get(0).put("A72_NAP_VAS_motor", movep);
-                                objects.get(0).put("A73_NAP_SSS", sleepp);
-                            }
-
-                            else if (t_nap ==3){
-                                objects.get(0).put("A80_NAP_VAS_motor", movep);
-                                objects.get(0).put("A81_NAP_SSS", sleepp);
-                            }
-
-                            else if (t_nap ==4){
-                                objects.get(0).put("A88_NAP_VAS_motor", movep);
-                                objects.get(0).put("A89_NAP_SSS", sleepp);
-                            }
-
-                            else if (t_nap > 4){
-                                objects.get(0).put("A88_NAP_VAS_motor", movep);
-                                objects.get(0).put("A89_NAP_SSS", sleepp);
-                            }
-
-                            objects.get(0).saveInBackground(new SaveCallback() {
-                                @Override
-                                public void done(ParseException e) {
-                                    if (e == null) {
-                                        query1.whereEqualTo("User_ID", userid);
-                                        query1.whereEqualTo("Date", today);
-                                        query1.setLimit(1);
-                                        query1.findInBackground(new FindCallback<ParseObject>() {
-                                            public void done(List<ParseObject> scoreList, ParseException e) {
-                                                if (e == null) {
-                                                    Log.d("score", "Retrieved " + scoreList.size() + " scores");
-                                                    int n = scoreList.get(0).getInt("Nap_Movesleep");
-                                                    x = n;
-                                                    scoreList.get(0).put("Nap_Movesleep",n+1);
-                                                    y = scoreList.get(0).getInt("Nap_Braintest");
-                                                    if(y==n+1)
-                                                    {scoreList.get(0).put("Nap", t_nap+1);}
-
-                                                        scoreList.get(0).saveInBackground();
-                                                }
-                                            }
-                                                              });
-
-                                            if(y==x+1){
-                                                Intent i = new Intent(NapMoveSleepActivity2.this, MainActivity.class);
-                                                i.putExtra("endstr","end4");
-                                                NapMoveSleepActivity2.this.startActivity(i);
-                                            }
-                                        else
-                                            {
-                                                Intent i = new Intent(NapMoveSleepActivity2.this, SleepActivity.class);
-                                                i.putExtra("lastpage","Nap");
-                                                NapMoveSleepActivity2.this.startActivity(i);
-                                            }
-                                            //i.putExtra("lastpage",lastpage);
-                                            //i.putExtra("loginstatus",f);
-
-                                        }
-
-                                        else
-                                        {
-                                            Toast pass = Toast.makeText(NapMoveSleepActivity2.this, "The page is outdated, please start over!", Toast.LENGTH_SHORT);
-                                            pass.show();
-                                            Intent i = new Intent(NapMoveSleepActivity2.this, MainActivity.class);
-                                            i.putExtra("lastpage", lastpage);
-                                            startActivity(i);
-                                        }
-                                    }
+                else if(sleepp == -1){
+                    Toast errormsg = Toast.makeText(NapMoveSleepActivity2.this,"Please finish Question 8!", Toast.LENGTH_SHORT);
+                    errormsg.show();
+                }
+                else
+                {
+                    query.whereEqualTo("User_ID",userid);
+                    query.whereEqualTo("Date",today);
+                    query.setLimit(1);
+                    query.findInBackground(new FindCallback<ParseObject>() {
+                        @Override
+                        public void done(List<ParseObject> objects, ParseException e) {
+                            if (e == null)
+                            {
+                                if (t_nap ==0){
+                                    objects.get(0).put("A56_NAP_VAS_motor", movep);
+                                    objects.get(0).put("A57_NAP_SSS", sleepp);
                                 }
+
+                                else if (t_nap ==1){
+                                    objects.get(0).put("A64_NAP_VAS_motor", movep);
+                                    objects.get(0).put("A65_NAP_SSS", sleepp);
+                                }
+
+                                else if (t_nap ==2){
+                                    objects.get(0).put("A72_NAP_VAS_motor", movep);
+                                    objects.get(0).put("A73_NAP_SSS", sleepp);
+                                }
+
+                                else if (t_nap ==3){
+                                    objects.get(0).put("A80_NAP_VAS_motor", movep);
+                                    objects.get(0).put("A81_NAP_SSS", sleepp);
+                                }
+
+                                else if (t_nap ==4){
+                                    objects.get(0).put("A88_NAP_VAS_motor", movep);
+                                    objects.get(0).put("A89_NAP_SSS", sleepp);
+                                }
+
+                                else if (t_nap > 4){
+                                    objects.get(0).put("A88_NAP_VAS_motor", movep);
+                                    objects.get(0).put("A89_NAP_SSS", sleepp);
+                                }
+
+                                objects.get(0).saveInBackground(new SaveCallback() {
+                                                                    @Override
+                                                                    public void done(ParseException e) {
+                                                                        if (e == null) {
+                                                                            query1.whereEqualTo("User_ID", userid);
+                                                                            query1.whereEqualTo("Date", today);
+                                                                            query1.setLimit(1);
+                                                                            query1.findInBackground(new FindCallback<ParseObject>() {
+                                                                                public void done(List<ParseObject> scoreList, ParseException e) {
+                                                                                    if (e == null) {
+                                                                                        Log.d("score", "Retrieved " + scoreList.size() + " scores");
+                                                                                        int n = scoreList.get(0).getInt("Nap_Movesleep");
+                                                                                        x = n;
+                                                                                        scoreList.get(0).put("Nap_Movesleep",n+1);
+                                                                                        y = scoreList.get(0).getInt("Nap_Braintest");
+                                                                                        if(y==n+1)
+                                                                                        {scoreList.get(0).put("Nap", t_nap+1);}
+
+                                                                                        scoreList.get(0).saveInBackground();
+                                                                                    }
+                                                                                }
+                                                                            });
+
+                                                                            if(y==x+1){
+                                                                                Intent i = new Intent(NapMoveSleepActivity2.this, MainActivity.class);
+                                                                                i.putExtra("endstr","end4");
+                                                                                NapMoveSleepActivity2.this.startActivity(i);
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                Intent i = new Intent(NapMoveSleepActivity2.this, SleepActivity.class);
+                                                                                i.putExtra("lastpage","Nap");
+                                                                                NapMoveSleepActivity2.this.startActivity(i);
+                                                                            }
+                                                                            //i.putExtra("lastpage",lastpage);
+                                                                            //i.putExtra("loginstatus",f);
+
+                                                                        }
+
+                                                                        else
+                                                                        {
+                                                                            Toast pass = Toast.makeText(NapMoveSleepActivity2.this, "The page is outdated, please start over!", Toast.LENGTH_SHORT);
+                                                                            pass.show();
+                                                                            Intent i = new Intent(NapMoveSleepActivity2.this, MainActivity.class);
+                                                                            i.putExtra("lastpage", lastpage);
+                                                                            startActivity(i);
+                                                                        }
+                                                                    }
+                                                                }
 
                                 );
                             }
                             else
-                        {
-                            Toast pass = Toast.makeText(NapMoveSleepActivity2.this,"The page is outdated, please start over!", Toast.LENGTH_SHORT);
-                            pass.show();
-                            Intent i = new Intent(NapMoveSleepActivity2.this,MainActivity.class);
-                            i.putExtra("lastpage",lastpage);
-                            startActivity(i);
+                            {
+                                Toast pass = Toast.makeText(NapMoveSleepActivity2.this,"The page is outdated, please start over!", Toast.LENGTH_SHORT);
+                                pass.show();
+                                Intent i = new Intent(NapMoveSleepActivity2.this,MainActivity.class);
+                                i.putExtra("lastpage",lastpage);
+                                startActivity(i);
+                            }
                         }
-                    }
-                });
+                    });
 
 
+                }
             }
+
+        }
+        else {
+            Toast pass = Toast.makeText(NapMoveSleepActivity2.this, "Network is not available, please check your network.", Toast.LENGTH_LONG);
+            pass.show();
         }
 
 //        if(view.getId() == R.id.cancel_ms2)

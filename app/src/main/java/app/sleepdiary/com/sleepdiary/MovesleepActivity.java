@@ -1,6 +1,9 @@
 package app.sleepdiary.com.sleepdiary;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -286,6 +289,18 @@ public class MovesleepActivity extends ActionBarActivity implements SeekBar.OnSe
         //yesterday.setText("Sleep Diary for Yesterday (" + String.valueOf(month) + "/" + String.valueOf(date) + "/" + String.valueOf(year) + ")");
     }
 
+    private boolean isNetworkAvailable() {
+        ConnectivityManager manager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = manager.getActiveNetworkInfo();
+
+        boolean isAvailable = false;
+        if (networkInfo != null && networkInfo.isConnected()) {
+            isAvailable = true;
+        }
+        return isAvailable;
+    }
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -458,180 +473,181 @@ public class MovesleepActivity extends ActionBarActivity implements SeekBar.OnSe
             umsscopa2.setVisibility(View.INVISIBLE);
             umsscopa3.setVisibility(View.VISIBLE);
         }
-
-        if(view.getId() == R.id.save_ms)
-        {
-            final ParseUser currentUser1 = ParseUser.getCurrentUser();
-
-            if(currentUser1 == null)
+        if (isNetworkAvailable()) {
+            // Do your stuff here.
+            if(view.getId() == R.id.save_ms)
             {
-                Toast pass = Toast.makeText(MovesleepActivity.this,"Please Login in first!", Toast.LENGTH_SHORT);
-                pass.show();
-            }
+                final ParseUser currentUser1 = ParseUser.getCurrentUser();
 
-            else if (wss == -1){
+                if(currentUser1 == null)
+                {
+                    Toast pass = Toast.makeText(MovesleepActivity.this,"Please Login in first!", Toast.LENGTH_SHORT);
+                    pass.show();
+                }
 
-                Toast errormsg = Toast.makeText(MovesleepActivity.this,"Please finish Question 1!", Toast.LENGTH_SHORT);
-                errormsg.show();
-            }
-            else if (css == -1){
-                Toast errormsg = Toast.makeText(MovesleepActivity.this,"Please finish Question 2!", Toast.LENGTH_SHORT);
-                errormsg.show();
-            }
-            else if (uhss == -1){
-                Toast errormsg = Toast.makeText(MovesleepActivity.this,"Please finish Question 3!", Toast.LENGTH_SHORT);
-                errormsg.show();
-            }
-            else if (umss == -1){
-                Toast errormsg = Toast.makeText(MovesleepActivity.this,"Please finish Question 4!", Toast.LENGTH_SHORT);
-                errormsg.show();
-            }
-            else if (movep == -1){
-                Toast errormsg = Toast.makeText(MovesleepActivity.this,"Please finish Question 5!", Toast.LENGTH_SHORT);
-                errormsg.show();
-            }
-            else
-            {
+                else if (wss == -1){
 
-                query3.whereEqualTo("User_ID", currentUser1.getUsername());
-                query3.whereEqualTo("Date", today);
+                    Toast errormsg = Toast.makeText(MovesleepActivity.this,"Please finish Question 1!", Toast.LENGTH_SHORT);
+                    errormsg.show();
+                }
+                else if (css == -1){
+                    Toast errormsg = Toast.makeText(MovesleepActivity.this,"Please finish Question 2!", Toast.LENGTH_SHORT);
+                    errormsg.show();
+                }
+                else if (uhss == -1){
+                    Toast errormsg = Toast.makeText(MovesleepActivity.this,"Please finish Question 3!", Toast.LENGTH_SHORT);
+                    errormsg.show();
+                }
+                else if (umss == -1){
+                    Toast errormsg = Toast.makeText(MovesleepActivity.this,"Please finish Question 4!", Toast.LENGTH_SHORT);
+                    errormsg.show();
+                }
+                else if (movep == -1){
+                    Toast errormsg = Toast.makeText(MovesleepActivity.this,"Please finish Question 5!", Toast.LENGTH_SHORT);
+                    errormsg.show();
+                }
+                else
+                {
 
-                query3.setLimit(1);
-                query3.getFirstInBackground(new GetCallback<ParseObject>() {
-                    public void done(ParseObject object, ParseException e) {
-                        if (object == null) {
-                            //Log.d("User_ID", "The getFirst request failed.");
-                            movesleep.put("User_ID", ParseUser.getCurrentUser().getUsername());
-                            movesleep.put("Date", today);
+                    query3.whereEqualTo("User_ID", currentUser1.getUsername());
+                    query3.whereEqualTo("Date", today);
 
-                            if (lastpage.equals("M30"))
-                            {
-                                movesleep.put("A26_M30_SCOPA_walking", wss);
-                                movesleep.put("A27_M30_SCOPA_change", css);
-                                movesleep.put("A28_M30_SCOPA_hands", uhss);
-                                movesleep.put("A29_M30_SCOPA_involuntary", umss);
-                                movesleep.put("A30_M30_VAS_motor", movep);
-                            }
+                    query3.setLimit(1);
+                    query3.getFirstInBackground(new GetCallback<ParseObject>() {
+                        public void done(ParseObject object, ParseException e) {
+                            if (object == null) {
+                                //Log.d("User_ID", "The getFirst request failed.");
+                                movesleep.put("User_ID", ParseUser.getCurrentUser().getUsername());
+                                movesleep.put("Date", today);
 
-                           else if (lastpage.equals("MDOPA1"))
-                            {
-                                movesleep.put("A32_MDOPA1_SCOPA_walking", wss);
-                                movesleep.put("A33_MDOPA1_SCOPA_change", css);
-                                movesleep.put("A34_MDOPA1_SCOPA_hands", uhss);
-                                movesleep.put("A35_MDOPA1_SCOPA_involuntary", umss);
-                                movesleep.put("A36_MDOPA1_VAS_motor", movep);
-                            }
-
-                           else if (lastpage.equals("A_DOPA"))
-                            {
-                                movesleep.put("A38_ADOPA_SCOPA_walking", wss);
-                                movesleep.put("A39_ADOPA_SCOPA_change", css);
-                                movesleep.put("A40_ADOPA_SCOPA_hands", uhss);
-                                movesleep.put("A41_ADOPA_SCOPA_involuntary", umss);
-                                movesleep.put("A42_ADOPA_VAS_motor", movep);
-                            }
-
-                          else  if (lastpage.equals("E"))
-                            {
-                                movesleep.put("A44_E_SCOPA_walking", wss);
-                                movesleep.put("A45_E_SCOPA_change", css);
-                                movesleep.put("A46_E_SCOPA_hands", uhss);
-                                movesleep.put("A47_E_SCOPA_involuntary", umss);
-                                movesleep.put("A48_E_VAS_motor", movep);
-                            }
-
-
-                            movesleep.saveInBackground(new SaveCallback() {
-                    @Override
-                    public void done(ParseException e) {
-                        if (e != null) {
-                            Toast pass = Toast.makeText(MovesleepActivity.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT);
-                            pass.show();
-                        } else {
-                            objectID = movesleep.getObjectId();
-                            Intent i = new Intent(MovesleepActivity.this, MovesleepActivity2.class);
-                            i.putExtra("objectID", objectID);
-                            i.putExtra("lastpage",lastpage);
-                            MovesleepActivity.this.startActivity(i);
-
-
-                        }
-                    }
-                });
-
-
-                        } else {
-                            query4.whereEqualTo("User_ID", currentUser1.getUsername());
-                            query4.whereEqualTo("Date", today);
-                            query4.setLimit(1);
-                            query4.findInBackground(new FindCallback<ParseObject>() {
-
-                                public void done(List<ParseObject> scoreList, ParseException e) {
-
-                                    if (e == null) {
-
-                                        if (lastpage == "M30")
-                                        {
-                                            scoreList.get(0).put("A26_M30_SCOPA_walking", wss);
-                                            scoreList.get(0).put("A27_M30_SCOPA_change", css);
-                                            scoreList.get(0).put("A28_M30_SCOPA_hands", uhss);
-                                            scoreList.get(0).put("A29_M30_SCOPA_involuntary", umss);
-                                            scoreList.get(0).put("A30_M30_VAS_motor", movep);
-                                        }
-
-                                        else if (lastpage == "MDOPA1")
-                                        {
-                                            scoreList.get(0).put("A32_MDOPA1_SCOPA_walking", wss);
-                                            scoreList.get(0).put("A33_MDOPA1_SCOPA_change", css);
-                                            scoreList.get(0).put("A34_MDOPA1_SCOPA_hands", uhss);
-                                            scoreList.get(0).put("A35_MDOPA1_SCOPA_involuntary", umss);
-                                            scoreList.get(0).put("A36_MDOPA1_VAS_motor", movep);
-                                        }
-
-                                       else if (lastpage == "A_DOPA")
-                                        {
-                                            scoreList.get(0).put("A38_ADOPA_SCOPA_walking", wss);
-                                            scoreList.get(0).put("A39_ADOPA_SCOPA_change", css);
-                                            scoreList.get(0).put("A40_ADOPA_SCOPA_hands", uhss);
-                                            scoreList.get(0).put("A41_ADOPA_SCOPA_involuntary", umss);
-                                            scoreList.get(0).put("A42_ADOPA_VAS_motor", movep);
-                                        }
-
-                                        else if (lastpage == "E")
-                                        {
-                                            scoreList.get(0).put("A44_E_SCOPA_walking", wss);
-                                            scoreList.get(0).put("A45_E_SCOPA_change", css);
-                                            scoreList.get(0).put("A46_E_SCOPA_hands", uhss);
-                                            scoreList.get(0).put("A47_E_SCOPA_involuntary", umss);
-                                            scoreList.get(0).put("A48_E_VAS_motor", movep);
-                                        }
-
-
-
-                                        scoreList.get(0).saveInBackground(new SaveCallback() {
-                                            @Override
-                                            public void done(ParseException e) {
-                                                if (e != null) {
-                                                    Toast pass = Toast.makeText(MovesleepActivity.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT);
-                                                    pass.show();
-                                                } else {
-                                                    objectID = movesleep.getObjectId();
-                                                    Intent i = new Intent(MovesleepActivity.this, MovesleepActivity2.class);
-                                                    i.putExtra("lastpage", lastpage);
-                                                    i.putExtra("objectID", objectID);
-                                                    MovesleepActivity.this.startActivity(i);
-                                                }
-                                            }
-                                        });
-
-                                    } else {
-                                        Log.d("score", "Error: " + e.getMessage());
-                                    }
+                                if (lastpage.equals("M30"))
+                                {
+                                    movesleep.put("A26_M30_SCOPA_walking", wss);
+                                    movesleep.put("A27_M30_SCOPA_change", css);
+                                    movesleep.put("A28_M30_SCOPA_hands", uhss);
+                                    movesleep.put("A29_M30_SCOPA_involuntary", umss);
+                                    movesleep.put("A30_M30_VAS_motor", movep);
                                 }
-                            });
+
+                                else if (lastpage.equals("MDOPA1"))
+                                {
+                                    movesleep.put("A32_MDOPA1_SCOPA_walking", wss);
+                                    movesleep.put("A33_MDOPA1_SCOPA_change", css);
+                                    movesleep.put("A34_MDOPA1_SCOPA_hands", uhss);
+                                    movesleep.put("A35_MDOPA1_SCOPA_involuntary", umss);
+                                    movesleep.put("A36_MDOPA1_VAS_motor", movep);
+                                }
+
+                                else if (lastpage.equals("A_DOPA"))
+                                {
+                                    movesleep.put("A38_ADOPA_SCOPA_walking", wss);
+                                    movesleep.put("A39_ADOPA_SCOPA_change", css);
+                                    movesleep.put("A40_ADOPA_SCOPA_hands", uhss);
+                                    movesleep.put("A41_ADOPA_SCOPA_involuntary", umss);
+                                    movesleep.put("A42_ADOPA_VAS_motor", movep);
+                                }
+
+                                else  if (lastpage.equals("E"))
+                                {
+                                    movesleep.put("A44_E_SCOPA_walking", wss);
+                                    movesleep.put("A45_E_SCOPA_change", css);
+                                    movesleep.put("A46_E_SCOPA_hands", uhss);
+                                    movesleep.put("A47_E_SCOPA_involuntary", umss);
+                                    movesleep.put("A48_E_VAS_motor", movep);
+                                }
+
+
+                                movesleep.saveInBackground(new SaveCallback() {
+                                    @Override
+                                    public void done(ParseException e) {
+                                        if (e != null) {
+                                            Toast pass = Toast.makeText(MovesleepActivity.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT);
+                                            pass.show();
+                                        } else {
+                                            objectID = movesleep.getObjectId();
+                                            Intent i = new Intent(MovesleepActivity.this, MovesleepActivity2.class);
+                                            i.putExtra("objectID", objectID);
+                                            i.putExtra("lastpage",lastpage);
+                                            MovesleepActivity.this.startActivity(i);
+
+
+                                        }
+                                    }
+                                });
+
+
+                            } else {
+                                query4.whereEqualTo("User_ID", currentUser1.getUsername());
+                                query4.whereEqualTo("Date", today);
+                                query4.setLimit(1);
+                                query4.findInBackground(new FindCallback<ParseObject>() {
+
+                                    public void done(List<ParseObject> scoreList, ParseException e) {
+
+                                        if (e == null) {
+
+                                            if (lastpage == "M30")
+                                            {
+                                                scoreList.get(0).put("A26_M30_SCOPA_walking", wss);
+                                                scoreList.get(0).put("A27_M30_SCOPA_change", css);
+                                                scoreList.get(0).put("A28_M30_SCOPA_hands", uhss);
+                                                scoreList.get(0).put("A29_M30_SCOPA_involuntary", umss);
+                                                scoreList.get(0).put("A30_M30_VAS_motor", movep);
+                                            }
+
+                                            else if (lastpage == "MDOPA1")
+                                            {
+                                                scoreList.get(0).put("A32_MDOPA1_SCOPA_walking", wss);
+                                                scoreList.get(0).put("A33_MDOPA1_SCOPA_change", css);
+                                                scoreList.get(0).put("A34_MDOPA1_SCOPA_hands", uhss);
+                                                scoreList.get(0).put("A35_MDOPA1_SCOPA_involuntary", umss);
+                                                scoreList.get(0).put("A36_MDOPA1_VAS_motor", movep);
+                                            }
+
+                                            else if (lastpage == "A_DOPA")
+                                            {
+                                                scoreList.get(0).put("A38_ADOPA_SCOPA_walking", wss);
+                                                scoreList.get(0).put("A39_ADOPA_SCOPA_change", css);
+                                                scoreList.get(0).put("A40_ADOPA_SCOPA_hands", uhss);
+                                                scoreList.get(0).put("A41_ADOPA_SCOPA_involuntary", umss);
+                                                scoreList.get(0).put("A42_ADOPA_VAS_motor", movep);
+                                            }
+
+                                            else if (lastpage == "E")
+                                            {
+                                                scoreList.get(0).put("A44_E_SCOPA_walking", wss);
+                                                scoreList.get(0).put("A45_E_SCOPA_change", css);
+                                                scoreList.get(0).put("A46_E_SCOPA_hands", uhss);
+                                                scoreList.get(0).put("A47_E_SCOPA_involuntary", umss);
+                                                scoreList.get(0).put("A48_E_VAS_motor", movep);
+                                            }
+
+
+
+                                            scoreList.get(0).saveInBackground(new SaveCallback() {
+                                                @Override
+                                                public void done(ParseException e) {
+                                                    if (e != null) {
+                                                        Toast pass = Toast.makeText(MovesleepActivity.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT);
+                                                        pass.show();
+                                                    } else {
+                                                        objectID = movesleep.getObjectId();
+                                                        Intent i = new Intent(MovesleepActivity.this, MovesleepActivity2.class);
+                                                        i.putExtra("lastpage", lastpage);
+                                                        i.putExtra("objectID", objectID);
+                                                        MovesleepActivity.this.startActivity(i);
+                                                    }
+                                                }
+                                            });
+
+                                        } else {
+                                            Log.d("score", "Error: " + e.getMessage());
+                                        }
+                                    }
+                                });
+                            }
                         }
-                    }
-                });
+                    });
 
 
 
@@ -668,7 +684,13 @@ public class MovesleepActivity extends ActionBarActivity implements SeekBar.OnSe
 
 //            Intent i = new Intent(MovesleepActivity.this,MovesleepActivity2.class);
 //            MovesleepActivity.this.startActivity(i);
+                }
             }
+
+        }
+        else {
+            Toast pass = Toast.makeText(MovesleepActivity.this, "Network is not available, please check your network.", Toast.LENGTH_LONG);
+            pass.show();
         }
 
 //        if(view.getId() == R.id.cancel_ms)

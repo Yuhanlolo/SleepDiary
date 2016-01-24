@@ -10,6 +10,9 @@ import android.app.TimePickerDialog;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.v7.app.ActionBarActivity;
@@ -886,171 +889,172 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
 //                AWQ4.setVisibility(View.INVISIBLE);
 //                AWQ1.setVisibility(View.INVISIBLE);
 //            }
+        if (isNetworkAvailable()) {
+            // Do your stuff here.
+            if(view.getId() == R.id.save_s2) {
 
-        if(view.getId() == R.id.save_s2) {
-
-            ParseUser currentUser1 = ParseUser.getCurrentUser();
-            boolean bedhour1 = false, bedmin1 = false;
-            boolean fallhour1 = false, fallmin1 = false;
-            boolean wakehour1 = false, wakemin1 = false;
-            boolean outhour1 = false, outmin1 = false;
-            boolean early1 = false, late1 = false;
-            int difference = 0;
-            boolean over = false;
-            String bedddff = "";
-            int waked_cal = 0;
-            int bed_cal = 0;
-            int du_cal = 0;
-            int out_cal = 0;
-            int tsth = 0;
-            int tstm = 0;
+                ParseUser currentUser1 = ParseUser.getCurrentUser();
+                boolean bedhour1 = false, bedmin1 = false;
+                boolean fallhour1 = false, fallmin1 = false;
+                boolean wakehour1 = false, wakemin1 = false;
+                boolean outhour1 = false, outmin1 = false;
+                boolean early1 = false, late1 = false;
+                int difference = 0;
+                boolean over = false;
+                String bedddff = "";
+                int waked_cal = 0;
+                int bed_cal = 0;
+                int du_cal = 0;
+                int out_cal = 0;
+                int tsth = 0;
+                int tstm = 0;
 
 //            SimpleDateFormat format = new SimpleDateFormat("HH:mm");
 
-            if (!(bedh_edt.getText().toString()).isEmpty() && !(bedm_edt.getText().toString()).isEmpty()) {
-                tempbedh = Integer.parseInt(bedh_edt.getText().toString());
-                tempbedm = Integer.parseInt(bedm_edt.getText().toString());
-                if (tempbedh < 0 || tempbedh > 23) {
-                    bedhour1 = true;
-                } else if (tempbedm < 0 || tempbedm > 59) {
+                if (!(bedh_edt.getText().toString()).isEmpty() && !(bedm_edt.getText().toString()).isEmpty()) {
+                    tempbedh = Integer.parseInt(bedh_edt.getText().toString());
+                    tempbedm = Integer.parseInt(bedm_edt.getText().toString());
+                    if (tempbedh < 0 || tempbedh > 23) {
+                        bedhour1 = true;
+                    } else if (tempbedm < 0 || tempbedm > 59) {
 
-                    bedmin1 = true;
-                } else {
-                    bedtime = pad(tempbedh) + ":" + pad(tempbedm);
-                    bedtemp = 100*tempbedh + tempbedm;
-                    bed_cal = 60*tempbedh +tempbedm;
+                        bedmin1 = true;
+                    } else {
+                        bedtime = pad(tempbedh) + ":" + pad(tempbedm);
+                        bedtemp = 100*tempbedh + tempbedm;
+                        bed_cal = 60*tempbedh +tempbedm;
+                    }
+
                 }
 
-            }
-
-           else
-            {
-                bedtime = "";
-            }
-
-            if (!(fallh_edt.getText().toString()).isEmpty() || !(fallm_edt.getText().toString()).isEmpty()) {
-                if (!(fallh_edt.getText().toString()).isEmpty()){
-                    dHour = Integer.parseInt(fallh_edt.getText().toString());
-                    if (dHour < 0 || dHour > 23) {
-
-                        fallhour1 = true;
-                    }
-                    else
-                    {
-                        if (dHour ==1)
-                            temp_h = " hr";
-                        else
-                            temp_h = " hrs";
-                    }
-                }
-
-                if (!(fallm_edt.getText().toString()).isEmpty()){
-                    dMinute = Integer.parseInt(fallm_edt.getText().toString());
-                    if (dMinute < 0 || dMinute > 59) {
-
-                        fallmin1 = true;
-                    }
-                    else
-                    {
-                        if (dMinute ==1)
-                            temp_m = " min";
-                        else
-                            temp_m = " mins";
-                    }
-                }
-
-                if (!(fallh_edt.getText().toString()).isEmpty()&&!(fallm_edt.getText().toString()).isEmpty()){
-                    asleeptime = pad(dHour) + temp_h + pad(dMinute) + temp_m;
-                    sleepdu = 100*dHour+dMinute;
-                    du_cal = 60*dHour+dMinute;
-                }
-                else if (!(fallh_edt.getText().toString()).isEmpty()&&(fallm_edt.getText().toString()).isEmpty())
+                else
                 {
-                    asleeptime = pad(dHour) + temp_h + "0 mins";
-                    fallm_edt.setText("0");
-                    sleepdu = 100*dHour;
-                    du_cal = 60 *dHour;
-                }
-                else if ((fallh_edt.getText().toString()).isEmpty()&&(fallm_edt.getText().toString()).isEmpty()){
-                    asleeptime ="0 hrs"+pad(dMinute) + temp_m;
-                    fallh_edt.setText("0");
-                    sleepdu = dMinute;
-                    du_cal = dMinute;
+                    bedtime = "";
                 }
 
-            }
+                if (!(fallh_edt.getText().toString()).isEmpty() || !(fallm_edt.getText().toString()).isEmpty()) {
+                    if (!(fallh_edt.getText().toString()).isEmpty()){
+                        dHour = Integer.parseInt(fallh_edt.getText().toString());
+                        if (dHour < 0 || dHour > 23) {
 
-            else
-            {
-                asleeptime = "";
-            }
+                            fallhour1 = true;
+                        }
+                        else
+                        {
+                            if (dHour ==1)
+                                temp_h = " hr";
+                            else
+                                temp_h = " hrs";
+                        }
+                    }
 
-            if (!(wakeh_edt.getText().toString()).isEmpty() && !(wakem_edt.getText().toString()).isEmpty()) {
-                tempwakeh = Integer.parseInt(wakeh_edt.getText().toString());
-                tempwakem = Integer.parseInt(wakem_edt.getText().toString());
-                if (tempwakeh < 0 || tempwakeh > 23) {
+                    if (!(fallm_edt.getText().toString()).isEmpty()){
+                        dMinute = Integer.parseInt(fallm_edt.getText().toString());
+                        if (dMinute < 0 || dMinute > 59) {
+
+                            fallmin1 = true;
+                        }
+                        else
+                        {
+                            if (dMinute ==1)
+                                temp_m = " min";
+                            else
+                                temp_m = " mins";
+                        }
+                    }
+
+                    if (!(fallh_edt.getText().toString()).isEmpty()&&!(fallm_edt.getText().toString()).isEmpty()){
+                        asleeptime = pad(dHour) + temp_h + pad(dMinute) + temp_m;
+                        sleepdu = 100*dHour+dMinute;
+                        du_cal = 60*dHour+dMinute;
+                    }
+                    else if (!(fallh_edt.getText().toString()).isEmpty()&&(fallm_edt.getText().toString()).isEmpty())
+                    {
+                        asleeptime = pad(dHour) + temp_h + "0 mins";
+                        fallm_edt.setText("0");
+                        sleepdu = 100*dHour;
+                        du_cal = 60 *dHour;
+                    }
+                    else if ((fallh_edt.getText().toString()).isEmpty()&&(fallm_edt.getText().toString()).isEmpty()){
+                        asleeptime ="0 hrs"+pad(dMinute) + temp_m;
+                        fallh_edt.setText("0");
+                        sleepdu = dMinute;
+                        du_cal = dMinute;
+                    }
+
+                }
+
+                else
+                {
+                    asleeptime = "";
+                }
+
+                if (!(wakeh_edt.getText().toString()).isEmpty() && !(wakem_edt.getText().toString()).isEmpty()) {
+                    tempwakeh = Integer.parseInt(wakeh_edt.getText().toString());
+                    tempwakem = Integer.parseInt(wakem_edt.getText().toString());
+                    if (tempwakeh < 0 || tempwakeh > 23) {
 //                    Toast errormsg = Toast.makeText(SleepDiaryActivity2.this, "For Question 11, Please input hour of time between 0-23!", Toast.LENGTH_LONG);
 //                    errormsg.show();
-                    wakehour1 = true;
-                } else if (tempwakem < 0 || tempwakem > 60) {
+                        wakehour1 = true;
+                    } else if (tempwakem < 0 || tempwakem > 60) {
 //                    Toast errormsg = Toast.makeText(SleepDiaryActivity2.this, "For Question 11, Please input minute of time between 0-59!", Toast.LENGTH_LONG);
 //                    errormsg.show();
-                    wakemin1 = true;
-                }
-
-                else if (temp_out<temp_wake)
-                {
-                    early1 = true;
-                }
-                else {
-                    woketime = pad(tempwakeh) + ":" + pad(tempwakem);
-                    temp_wake = 100*tempwakeh+tempwakem;
-                    waked_cal = tempwakeh *60 +tempwakem;
-                    if (tempbedh>12)
-                    {
-                        difference = waked_cal + (1440-bed_cal)-du_cal;
+                        wakemin1 = true;
                     }
-                    else
-                    {
 
-                        difference = waked_cal - bed_cal -du_cal;
+                    else if (temp_out<temp_wake)
+                    {
+                        early1 = true;
                     }
+                    else {
+                        woketime = pad(tempwakeh) + ":" + pad(tempwakem);
+                        temp_wake = 100*tempwakeh+tempwakem;
+                        waked_cal = tempwakeh *60 +tempwakem;
+                        if (tempbedh>12)
+                        {
+                            difference = waked_cal + (1440-bed_cal)-du_cal;
+                        }
+                        else
+                        {
+
+                            difference = waked_cal - bed_cal -du_cal;
+                        }
 
 //                    Toast errormsg = Toast.makeText(SleepDiaryActivity2.this, "Over:" + (difference), Toast.LENGTH_SHORT);
 //                    errormsg.show();
+                    }
                 }
-            }
-            else
-            {
-             woketime = "";
-            }
+                else
+                {
+                    woketime = "";
+                }
 
-            if (!(outh_edt.getText().toString()).isEmpty() && !(outm_edt.getText().toString()).isEmpty()) {
-                tempouth = Integer.parseInt(outh_edt.getText().toString());
-                tempoutm = Integer.parseInt(outm_edt.getText().toString());
-                if (tempouth < 0 || tempouth > 23) {
+                if (!(outh_edt.getText().toString()).isEmpty() && !(outm_edt.getText().toString()).isEmpty()) {
+                    tempouth = Integer.parseInt(outh_edt.getText().toString());
+                    tempoutm = Integer.parseInt(outm_edt.getText().toString());
+                    if (tempouth < 0 || tempouth > 23) {
 //                    Toast errormsg = Toast.makeText(SleepDiaryActivity2.this, "For Question 11, Please input hour of time between 0-23!", Toast.LENGTH_LONG);
 //                    errormsg.show();
-                    outhour1 = true;
-                } else if (tempoutm < 0 || tempoutm > 60) {
+                        outhour1 = true;
+                    } else if (tempoutm < 0 || tempoutm > 60) {
 //                    Toast errormsg = Toast.makeText(SleepDiaryActivity2.this, "For Question 11, Please input minute of time between 0-59!", Toast.LENGTH_LONG);
 //                    errormsg.show();
-                    outmin1 = true;
+                        outmin1 = true;
+                    }
+                    else if (temp_out<temp_wake)
+                    {
+                        late1 = true;
+                    }
+                    else {
+                        outtime = pad(tempouth) + ":" + pad(tempoutm);
+                        temp_out = 100*tempouth+tempoutm;
+                        out_cal = 60*tempouth+tempoutm;
+                    }
                 }
-                else if (temp_out<temp_wake)
-                {
-                    late1 = true;
-                }
-                else {
-                    outtime = pad(tempouth) + ":" + pad(tempoutm);
-                    temp_out = 100*tempouth+tempoutm;
-                    out_cal = 60*tempouth+tempoutm;
-                }
-            }
                 else
-            {
-                outtime = "";
-            }
+                {
+                    outtime = "";
+                }
 
                 if (currentUser1 == null) {
                     Toast pass = Toast.makeText(SleepDiaryActivity2.this, "Please Login in first!", Toast.LENGTH_SHORT);
@@ -1203,10 +1207,10 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
                     String duh = "hrs";
                     String dum = "mins";
                     if(tsth ==1){
-                    duh = "hr";
+                        duh = "hr";
                     }
                     if(tstm==1){
-                    dum = "min";
+                        dum = "min";
                     }
                     tst = Integer.toString(tsth)+duh+Integer.toString(tstm)+dum;
 
@@ -1235,7 +1239,7 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
                                             Toast pass = Toast.makeText(SleepDiaryActivity2.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT);
                                             pass.show();
                                         } else {
-                                           // objectID = userActivity.getObjectId();
+                                            // objectID = userActivity.getObjectId();
 //                             Toast pass = Toast.makeText(SleepDiaryActivity.this,"id 1: "+objectID, Toast.LENGTH_SHORT);
 //                             pass.show();
                                             Intent i = new Intent(SleepDiaryActivity2.this, SleepDiaryActivity3.class);
@@ -1268,6 +1272,13 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
                 }
             }
 
+        }
+        else {
+            Toast pass = Toast.makeText(SleepDiaryActivity2.this, "Network is not available, please check your network.", Toast.LENGTH_LONG);
+            pass.show();
+        }
+
+
 //        else if(view.getId() == R.id.cancel_s2)
 //        {
 //            Intent i = new Intent(SleepDiaryActivity2.this,SleepActivity.class);
@@ -1278,6 +1289,16 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
 
         }
 
+    private boolean isNetworkAvailable() {
+        ConnectivityManager manager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = manager.getActiveNetworkInfo();
+
+        boolean isAvailable = false;
+        if (networkInfo != null && networkInfo.isConnected()) {
+            isAvailable = true;
+        }
+        return isAvailable;
+    }
 
 
     private static String pad(int c) {

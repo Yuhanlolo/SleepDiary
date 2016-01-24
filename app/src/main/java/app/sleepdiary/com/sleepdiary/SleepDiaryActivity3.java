@@ -1,6 +1,9 @@
 package app.sleepdiary.com.sleepdiary;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.app.Activity;
 import android.os.Handler;
@@ -283,28 +286,30 @@ public class SleepDiaryActivity3 extends ActionBarActivity implements RadioGroup
 
     public void button_SD3dOnClick(View view)
     {
-        if(view.getId() == R.id.save_s3)
-        {
-
-            final ParseUser currentUser1 = ParseUser.getCurrentUser();
-
-            if(currentUser1 == null)
+        if (isNetworkAvailable()) {
+            // Do your stuff here.
+            if(view.getId() == R.id.save_s3)
             {
-                Toast pass = Toast.makeText(SleepDiaryActivity3.this,"Please Login in first!", Toast.LENGTH_SHORT);
-                pass.show();
-            }
+
+                final ParseUser currentUser1 = ParseUser.getCurrentUser();
+
+                if(currentUser1 == null)
+                {
+                    Toast pass = Toast.makeText(SleepDiaryActivity3.this,"Please Login in first!", Toast.LENGTH_SHORT);
+                    pass.show();
+                }
 
 
-            else if(a_urge.isEmpty()||a_muscle.isEmpty()||a_tobed.isEmpty()||a_pain.isEmpty()||a_dream.isEmpty()||a_hall.isEmpty()||a_breath.isEmpty()||a_urine.isEmpty()||a_distur.isEmpty())
-            {
-                //popup msg
-                Toast errormsg = Toast.makeText(SleepDiaryActivity3.this,"Please finish all the questions!", Toast.LENGTH_SHORT);
-                errormsg.show();
+                else if(a_urge.isEmpty()||a_muscle.isEmpty()||a_tobed.isEmpty()||a_pain.isEmpty()||a_dream.isEmpty()||a_hall.isEmpty()||a_breath.isEmpty()||a_urine.isEmpty()||a_distur.isEmpty())
+                {
+                    //popup msg
+                    Toast errormsg = Toast.makeText(SleepDiaryActivity3.this,"Please finish all the questions!", Toast.LENGTH_SHORT);
+                    errormsg.show();
 
-            }
+                }
 
-            else
-            {
+                else
+                {
 
 //                SleepdiaryInfo s = new SleepdiaryInfo();
 //                s.setNo_coffee(Integer.parseInt(no_coffee));
@@ -313,59 +318,59 @@ public class SleepDiaryActivity3 extends ActionBarActivity implements RadioGroup
 //
 //                s.setNo_smoke(no_smoke);
 //                s.setNo_naptime(no_naptime)
-                //               s.setSleepdurationday(sleepduration);
+                    //               s.setSleepdurationday(sleepduration);
 //                s.setPilltime(pilltime);
 //                s.setPillname(pillname);
 //                sleephelper.insertColumn(s);
 
 
-                query.whereEqualTo("User_ID", currentUser1.getUsername());
-                query.whereEqualTo("Date", today);
-                query.setLimit(1);
+                    query.whereEqualTo("User_ID", currentUser1.getUsername());
+                    query.whereEqualTo("Date", today);
+                    query.setLimit(1);
 
-                query.findInBackground(new FindCallback<ParseObject>() {
-                    public void done(List<ParseObject> scoreList, ParseException e) {
-                       if (e == null) {
+                    query.findInBackground(new FindCallback<ParseObject>() {
+                        public void done(List<ParseObject> scoreList, ParseException e) {
+                            if (e == null) {
 
-                            scoreList.get(0).put("A16_Urge_move", a_urge);
-                            scoreList.get(0).put("A17_Cramps", a_muscle);
-                            scoreList.get(0).put("A18_Bed_turning", a_tobed);
-                            scoreList.get(0).put("A19_Pain", a_pain);
-                            scoreList.get(0).put("A20_Dreams", a_dream);
-                            scoreList.get(0).put("A21_Visual_hallucinations", a_hall);
-                            scoreList.get(0).put("A22_Difficulty_Breath", a_breath);
-                            scoreList.get(0).put("A23_Urine", a_urine);
-                            scoreList.get(0).put("A24_Enviro_Disturbance", a_distur);
-
-
-                        if (getIntent().getBooleanExtra("yesterd",false)){
-                            scoreList.get(0).put("Date", yesterday);
-                        }
-                            //userActivity.pinInBackground();
-
-                            scoreList.get(0).saveInBackground(new SaveCallback() {
-                                @Override
-                                public void done(ParseException e) {
-                                    if (e != null) {
-                                        Toast pass = Toast.makeText(SleepDiaryActivity3.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT);
-                                        pass.show();
-                                    } else {
+                                scoreList.get(0).put("A16_Urge_move", a_urge);
+                                scoreList.get(0).put("A17_Cramps", a_muscle);
+                                scoreList.get(0).put("A18_Bed_turning", a_tobed);
+                                scoreList.get(0).put("A19_Pain", a_pain);
+                                scoreList.get(0).put("A20_Dreams", a_dream);
+                                scoreList.get(0).put("A21_Visual_hallucinations", a_hall);
+                                scoreList.get(0).put("A22_Difficulty_Breath", a_breath);
+                                scoreList.get(0).put("A23_Urine", a_urine);
+                                scoreList.get(0).put("A24_Enviro_Disturbance", a_distur);
 
 
-                                    }
+                                if (getIntent().getBooleanExtra("yesterd",false)){
+                                    scoreList.get(0).put("Date", yesterday);
                                 }
-                            });
+                                //userActivity.pinInBackground();
 
-                        } else {
-                           Toast pass = Toast.makeText(SleepDiaryActivity3.this, "The page is outdated, Please start over!" , Toast.LENGTH_LONG);
-                           pass.show();
-                           Intent i = new Intent(SleepDiaryActivity3.this, MainActivity.class);
-                           SleepDiaryActivity3.this.startActivity(i);
-                           Log.d("score", "Error: " + e.getMessage());
-                            Log.d("score", "Error: " + e.getMessage());
+                                scoreList.get(0).saveInBackground(new SaveCallback() {
+                                    @Override
+                                    public void done(ParseException e) {
+                                        if (e != null) {
+                                            Toast pass = Toast.makeText(SleepDiaryActivity3.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT);
+                                            pass.show();
+                                        } else {
+
+
+                                        }
+                                    }
+                                });
+
+                            } else {
+                                Toast pass = Toast.makeText(SleepDiaryActivity3.this, "The page is outdated, Please start over!" , Toast.LENGTH_LONG);
+                                pass.show();
+                                Intent i = new Intent(SleepDiaryActivity3.this, MainActivity.class);
+                                SleepDiaryActivity3.this.startActivity(i);
+                                Log.d("score", "Error: " + e.getMessage());
+                                Log.d("score", "Error: " + e.getMessage());
+                            }
                         }
-                    }
-                });
+                    });
 
 //                query.getInBackground(objectID, new GetCallback<ParseObject>() {
 //                    @Override
@@ -393,79 +398,81 @@ public class SleepDiaryActivity3 extends ActionBarActivity implements RadioGroup
 //                    }
 //                });
 
-                query2.whereEqualTo("User_ID", currentUser1.getUsername());
-                query2.whereEqualTo("Date", today);
-                query2.setLimit(1);
-                query2.getFirstInBackground(new GetCallback<ParseObject>() {
-                    public void done(ParseObject object, ParseException e) {
-                        if (object == null) {
-                            Log.d("User_ID", "create task list." + currentUser1.getUsername());
-                            TaskCheckList.put("User_ID", currentUser1.getUsername());
-                            TaskCheckList.put("Date", today);
-                            TaskCheckList.put("M30_Sleepdiary", 1);
-                            TaskCheckList.saveInBackground(new SaveCallback() {
-                                @Override
-                                public void done(ParseException e) {
-                                    if (e == null) {
+                    query2.whereEqualTo("User_ID", currentUser1.getUsername());
+                    query2.whereEqualTo("Date", today);
+                    query2.setLimit(1);
+                    query2.getFirstInBackground(new GetCallback<ParseObject>() {
+                        public void done(ParseObject object, ParseException e) {
+                            if (object == null) {
+                                Log.d("User_ID", "create task list." + currentUser1.getUsername());
+                                TaskCheckList.put("User_ID", currentUser1.getUsername());
+                                TaskCheckList.put("Date", today);
+                                TaskCheckList.put("M30_Sleepdiary", 1);
+                                TaskCheckList.saveInBackground(new SaveCallback() {
+                                    @Override
+                                    public void done(ParseException e) {
+                                        if (e == null) {
 
-                                        //f = true;
-                                        Intent i = new Intent(SleepDiaryActivity3.this, SleepActivity.class);
-                                        i.putExtra("lastpage", "M30");
-                                        //i.putExtra("loginstatus",f);
-                                        i.putExtra("f2", f);
-                                        SleepDiaryActivity3.this.startActivity(i);
+                                            //f = true;
+                                            Intent i = new Intent(SleepDiaryActivity3.this, SleepActivity.class);
+                                            i.putExtra("lastpage", "M30");
+                                            //i.putExtra("loginstatus",f);
+                                            i.putExtra("f2", f);
+                                            SleepDiaryActivity3.this.startActivity(i);
+                                        }
+                                        else{
+                                            Toast pass = Toast.makeText(SleepDiaryActivity3.this, "The page is outdated, Please start over!" , Toast.LENGTH_LONG);
+                                            pass.show();
+                                            Intent i = new Intent(SleepDiaryActivity3.this, MainActivity.class);
+                                            SleepDiaryActivity3.this.startActivity(i);
+                                            Log.d("score", "Error: " + e.getMessage());
+                                        }
                                     }
-                                    else{
-                                        Toast pass = Toast.makeText(SleepDiaryActivity3.this, "The page is outdated, Please start over!" , Toast.LENGTH_LONG);
-                                        pass.show();
-                                        Intent i = new Intent(SleepDiaryActivity3.this, MainActivity.class);
-                                        SleepDiaryActivity3.this.startActivity(i);
-                                        Log.d("score", "Error: " + e.getMessage());
-                                    }
-                                }
-                            });
+                                });
 
-                        } else {
-                            query1.whereEqualTo("User_ID",currentUser1.getUsername());
-                            query1.whereEqualTo("Date", today);
-                            query1.setLimit(1);
-                            query1.findInBackground(new FindCallback<ParseObject>() {
-                                public void done(List<ParseObject> scoreList, ParseException e) {
-                                    if (e == null) {
-                                        Log.d("score", "Retrieved " + scoreList.size() + " scores");
-                                        scoreList.get(0).put("M30_Sleepdiary", 1);
-                                        scoreList.get(0).saveInBackground(new SaveCallback() {
-                                            @Override
-                                            public void done(ParseException e) {
-                                                if (e == null) {
+                            } else {
+                                query1.whereEqualTo("User_ID",currentUser1.getUsername());
+                                query1.whereEqualTo("Date", today);
+                                query1.setLimit(1);
+                                query1.findInBackground(new FindCallback<ParseObject>() {
+                                    public void done(List<ParseObject> scoreList, ParseException e) {
+                                        if (e == null) {
+                                            Log.d("score", "Retrieved " + scoreList.size() + " scores");
+                                            scoreList.get(0).put("M30_Sleepdiary", 1);
+                                            scoreList.get(0).saveInBackground(new SaveCallback() {
+                                                @Override
+                                                public void done(ParseException e) {
+                                                    if (e == null) {
 
-                                                    //f = true;
-                                                    Intent i = new Intent(SleepDiaryActivity3.this, SleepActivity.class);
-                                                    i.putExtra("lastpage", "M30");
-                                                    //i.putExtra("loginstatus",f);
-                                                    i.putExtra("f2", f);
-                                                    SleepDiaryActivity3.this.startActivity(i);
+                                                        //f = true;
+                                                        Intent i = new Intent(SleepDiaryActivity3.this, SleepActivity.class);
+                                                        i.putExtra("lastpage", "M30");
+                                                        //i.putExtra("loginstatus",f);
+                                                        i.putExtra("f2", f);
+                                                        SleepDiaryActivity3.this.startActivity(i);
+                                                    }
                                                 }
-                                            }
-                                        });
-                                    } else {
-                                        Toast pass = Toast.makeText(SleepDiaryActivity3.this, "The page is outdated, Please start over!" , Toast.LENGTH_LONG);
-                                        pass.show();
-                                        Intent i = new Intent(SleepDiaryActivity3.this, MainActivity.class);
-                                        SleepDiaryActivity3.this.startActivity(i);
-                                        Log.d("score", "Error: " + e.getMessage());
-                                        Log.d("score", "Error: " + e.getMessage());
+                                            });
+                                        } else {
+                                            Toast pass = Toast.makeText(SleepDiaryActivity3.this, "The page is outdated, Please start over!" , Toast.LENGTH_LONG);
+                                            pass.show();
+                                            Intent i = new Intent(SleepDiaryActivity3.this, MainActivity.class);
+                                            SleepDiaryActivity3.this.startActivity(i);
+                                            Log.d("score", "Error: " + e.getMessage());
+                                            Log.d("score", "Error: " + e.getMessage());
+                                        }
                                     }
-                                }
-                            });
+                                });
+                            }
                         }
-                    }
-                });
-
-
-
-
+                    });
+                }
             }
+
+        }
+        else {
+            Toast pass = Toast.makeText(SleepDiaryActivity3.this, "Network is not available, please check your network.", Toast.LENGTH_LONG);
+            pass.show();
         }
 
 //        if(view.getId() == R.id.cancel_s3)
@@ -476,6 +483,17 @@ public class SleepDiaryActivity3 extends ActionBarActivity implements RadioGroup
 //        }
 
 
+    }
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager manager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = manager.getActiveNetworkInfo();
+
+        boolean isAvailable = false;
+        if (networkInfo != null && networkInfo.isConnected()) {
+            isAvailable = true;
+        }
+        return isAvailable;
     }
 
 

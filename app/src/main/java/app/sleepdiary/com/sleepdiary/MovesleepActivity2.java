@@ -1,6 +1,9 @@
 package app.sleepdiary.com.sleepdiary;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -263,6 +266,18 @@ public class MovesleepActivity2 extends ActionBarActivity implements SeekBar.OnS
 
     }
 
+    private boolean isNetworkAvailable() {
+        ConnectivityManager manager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = manager.getActiveNetworkInfo();
+
+        boolean isAvailable = false;
+        if (networkInfo != null && networkInfo.isConnected()) {
+            isAvailable = true;
+        }
+        return isAvailable;
+    }
+
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -398,137 +413,139 @@ public class MovesleepActivity2 extends ActionBarActivity implements SeekBar.OnS
 
     public void button_ms2dOnClick(View view)
     {
-        if(view.getId() == R.id.save_ms2)
-        {
-            final ParseUser currentUser1 = ParseUser.getCurrentUser();
-
-            if(currentUser1 == null)
+        if (isNetworkAvailable()) {
+            // Do your stuff here.
+            if(view.getId() == R.id.save_ms2)
             {
-                Toast pass = Toast.makeText(MovesleepActivity2.this,"Please Login in first!", Toast.LENGTH_SHORT);
-                pass.show();
-            }
+                final ParseUser currentUser1 = ParseUser.getCurrentUser();
 
-             else if(sleepp == -1){
-                Toast errormsg = Toast.makeText(MovesleepActivity2.this,"Please finish Question 6!", Toast.LENGTH_SHORT);
-                errormsg.show();
-            }
-            else
-            {
-                final String userid =currentUser1.getUsername();
-                query.whereEqualTo("User_ID", userid);
-                query.whereEqualTo("Date", today);
+                if(currentUser1 == null)
+                {
+                    Toast pass = Toast.makeText(MovesleepActivity2.this,"Please Login in first!", Toast.LENGTH_SHORT);
+                    pass.show();
+                }
 
-                query.setLimit(1);
-                query.findInBackground(new FindCallback<ParseObject>() {
+                else if(sleepp == -1){
+                    Toast errormsg = Toast.makeText(MovesleepActivity2.this,"Please finish Question 6!", Toast.LENGTH_SHORT);
+                    errormsg.show();
+                }
+                else
+                {
+                    final String userid =currentUser1.getUsername();
+                    query.whereEqualTo("User_ID", userid);
+                    query.whereEqualTo("Date", today);
 
-                    public void done(List<ParseObject> scoreList, ParseException e) {
+                    query.setLimit(1);
+                    query.findInBackground(new FindCallback<ParseObject>() {
 
-                        if (e == null) {
+                        public void done(List<ParseObject> scoreList, ParseException e) {
+
+                            if (e == null) {
 
 //                            Toast errormsg = Toast.makeText(MovesleepActivity2.this,"scorelist length: "+scoreList.size(), Toast.LENGTH_SHORT);
 //                            errormsg.show();
-                            if(lastpage.equals("M30")){
-                                scoreList.get(0).put("A31_M30_SSS", sleepp);
-                            }
-                            else if(lastpage.equals("MDOPA1")){
-                                scoreList.get(0).put("A37_MDOPA1_SSS", sleepp);
-                            }
+                                if(lastpage.equals("M30")){
+                                    scoreList.get(0).put("A31_M30_SSS", sleepp);
+                                }
+                                else if(lastpage.equals("MDOPA1")){
+                                    scoreList.get(0).put("A37_MDOPA1_SSS", sleepp);
+                                }
 
-                            else if(lastpage.equals("A_DOPA")){
-                               scoreList.get(0).put("A43_ADOPA_SSS", sleepp);
-                            }
+                                else if(lastpage.equals("A_DOPA")){
+                                    scoreList.get(0).put("A43_ADOPA_SSS", sleepp);
+                                }
 
-                           else if(lastpage.equals("E")){
-                                scoreList.get(0).put("A49_E_SSS", sleepp);
-                            }
+                                else if(lastpage.equals("E")){
+                                    scoreList.get(0).put("A49_E_SSS", sleepp);
+                                }
 
-                            scoreList.get(0).saveInBackground(new SaveCallback() {
-                                @Override
-                                public void done(ParseException e) {
-                                    if (e != null) {
-                                        Toast pass = Toast.makeText(MovesleepActivity2.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT);
-                                        pass.show();
+                                scoreList.get(0).saveInBackground(new SaveCallback() {
+                                    @Override
+                                    public void done(ParseException e) {
+                                        if (e != null) {
+                                            Toast pass = Toast.makeText(MovesleepActivity2.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT);
+                                            pass.show();
+                                        }
+                                    }
+                                });
+
+                            } else {
+                                Toast pass = Toast.makeText(MovesleepActivity2.this, "The page is outdated, Please start over!" , Toast.LENGTH_LONG);
+                                pass.show();
+                                Intent i = new Intent(MovesleepActivity2.this, MainActivity.class);
+                                MovesleepActivity2.this.startActivity(i);
+                                Log.d("score", "Error: " + e.getMessage());
+                                Log.d("score", "Error: " + e.getMessage());
+                            }
+                        }
+                    });
+
+                    query2.whereEqualTo("User_ID", userid);
+                    query2.whereEqualTo("Date", today);
+                    query2.setLimit(1);
+                    query2.getFirstInBackground(new GetCallback<ParseObject>() {
+                        public void done(ParseObject object, ParseException e) {
+                            if (object == null) {
+                                Log.d("User_ID", "create task list." + currentUser1.getUsername());
+                                TaskCheckList.put("User_ID", currentUser1.getUsername());
+                                TaskCheckList.put("Date", today);
+                                if (lastpage.equals("M30")) {
+                                    TaskCheckList.put("M30_Movesleep", 1);
+                                    TaskCheckList.saveInBackground();
+                                    if(TaskCheckList.getInt("M30_Braintest")==1){
+                                        Intent i = new Intent(MovesleepActivity2.this, MainActivity.class);
+                                        i.putExtra("endstr", "end0");
+                                        MovesleepActivity2.this.startActivity(i);
+                                    }
+                                    else{
+                                        Intent i = new Intent(MovesleepActivity2.this, SleepActivity.class);
+                                        i.putExtra("lastpage", lastpage);
+                                        MovesleepActivity2.this.startActivity(i);
                                     }
                                 }
-                            });
 
-                        } else {
-                            Toast pass = Toast.makeText(MovesleepActivity2.this, "The page is outdated, Please start over!" , Toast.LENGTH_LONG);
-                            pass.show();
-                            Intent i = new Intent(MovesleepActivity2.this, MainActivity.class);
-                            MovesleepActivity2.this.startActivity(i);
-                            Log.d("score", "Error: " + e.getMessage());
-                            Log.d("score", "Error: " + e.getMessage());
-                        }
-                    }
-                });
-
-                query2.whereEqualTo("User_ID", userid);
-                query2.whereEqualTo("Date", today);
-                query2.setLimit(1);
-                query2.getFirstInBackground(new GetCallback<ParseObject>() {
-                    public void done(ParseObject object, ParseException e) {
-                        if (object == null) {
-                            Log.d("User_ID", "create task list." + currentUser1.getUsername());
-                            TaskCheckList.put("User_ID", currentUser1.getUsername());
-                            TaskCheckList.put("Date", today);
-                            if (lastpage.equals("M30")) {
-                                TaskCheckList.put("M30_Movesleep", 1);
-                                TaskCheckList.saveInBackground();
-                                if(TaskCheckList.getInt("M30_Braintest")==1){
-                                    Intent i = new Intent(MovesleepActivity2.this, MainActivity.class);
-                                    i.putExtra("endstr", "end0");
-                                    MovesleepActivity2.this.startActivity(i);
+                                if (lastpage.equals("MDOPA1")) {
+                                    TaskCheckList.put("MDOPA1_Movesleep", 1);
+                                    TaskCheckList.saveInBackground();
+                                    if(TaskCheckList.getInt("MDOPA1_Braintest")==1){
+                                        Intent i = new Intent(MovesleepActivity2.this, MainActivity.class);
+                                        i.putExtra("endstr", "end1");
+                                        MovesleepActivity2.this.startActivity(i);
+                                    }
+                                    else{
+                                        Intent i = new Intent(MovesleepActivity2.this, SleepActivity.class);
+                                        i.putExtra("lastpage", lastpage);
+                                        MovesleepActivity2.this.startActivity(i);
+                                    }
                                 }
-                                else{
-                                    Intent i = new Intent(MovesleepActivity2.this, SleepActivity.class);
-                                    i.putExtra("lastpage", lastpage);
-                                    MovesleepActivity2.this.startActivity(i);
+                                if (lastpage.equals("A_DOPA")) {
+                                    TaskCheckList.put("ADOPA_Movesleep", 1);
+                                    TaskCheckList.saveInBackground();
+                                    if(TaskCheckList.getInt("ADOPA_Braintest")==1){
+                                        Intent i = new Intent(MovesleepActivity2.this, MainActivity.class);
+                                        i.putExtra("endstr", "end2");
+                                        MovesleepActivity2.this.startActivity(i);
+                                    }
+                                    else{
+                                        Intent i = new Intent(MovesleepActivity2.this, SleepActivity.class);
+                                        i.putExtra("lastpage", lastpage);
+                                        MovesleepActivity2.this.startActivity(i);
+                                    }
                                 }
-                            }
-
-                            if (lastpage.equals("MDOPA1")) {
-                                TaskCheckList.put("MDOPA1_Movesleep", 1);
-                                TaskCheckList.saveInBackground();
-                                if(TaskCheckList.getInt("MDOPA1_Braintest")==1){
-                                    Intent i = new Intent(MovesleepActivity2.this, MainActivity.class);
-                                    i.putExtra("endstr", "end1");
-                                    MovesleepActivity2.this.startActivity(i);
+                                if (lastpage.equals("E")) {
+                                    TaskCheckList.put("E_Movesleep", 1);
+                                    TaskCheckList.saveInBackground();
+                                    if(TaskCheckList.getInt("E_Braintest")==1){
+                                        Intent i = new Intent(MovesleepActivity2.this, MainActivity.class);
+                                        i.putExtra("endstr", "end4");
+                                        MovesleepActivity2.this.startActivity(i);
+                                    }
+                                    else{
+                                        Intent i = new Intent(MovesleepActivity2.this, SleepActivity.class);
+                                        i.putExtra("lastpage", lastpage);
+                                        MovesleepActivity2.this.startActivity(i);
+                                    }
                                 }
-                                else{
-                                    Intent i = new Intent(MovesleepActivity2.this, SleepActivity.class);
-                                    i.putExtra("lastpage", lastpage);
-                                    MovesleepActivity2.this.startActivity(i);
-                                }
-                            }
-                            if (lastpage.equals("A_DOPA")) {
-                                TaskCheckList.put("ADOPA_Movesleep", 1);
-                                TaskCheckList.saveInBackground();
-                                if(TaskCheckList.getInt("ADOPA_Braintest")==1){
-                                    Intent i = new Intent(MovesleepActivity2.this, MainActivity.class);
-                                    i.putExtra("endstr", "end2");
-                                    MovesleepActivity2.this.startActivity(i);
-                                }
-                                else{
-                                    Intent i = new Intent(MovesleepActivity2.this, SleepActivity.class);
-                                    i.putExtra("lastpage", lastpage);
-                                    MovesleepActivity2.this.startActivity(i);
-                                }
-                            }
-                            if (lastpage.equals("E")) {
-                                TaskCheckList.put("E_Movesleep", 1);
-                                TaskCheckList.saveInBackground();
-                                if(TaskCheckList.getInt("E_Braintest")==1){
-                                    Intent i = new Intent(MovesleepActivity2.this, MainActivity.class);
-                                    i.putExtra("endstr", "end4");
-                                    MovesleepActivity2.this.startActivity(i);
-                                }
-                                else{
-                                    Intent i = new Intent(MovesleepActivity2.this, SleepActivity.class);
-                                    i.putExtra("lastpage", lastpage);
-                                    MovesleepActivity2.this.startActivity(i);
-                                }
-                            }
 //                            TaskCheckList.saveInBackground(new SaveCallback() {
 //                                @Override
 //                                public void done(ParseException e) {
@@ -546,71 +563,71 @@ public class MovesleepActivity2 extends ActionBarActivity implements SeekBar.OnS
 //                                }
 //                            });
 
-                        } else {
-                            query1.whereEqualTo("User_ID", userid);
-                            query1.whereEqualTo("Date", today);
-                            query1.setLimit(1);
-                            query1.findInBackground(new FindCallback<ParseObject>() {
-                                public void done(List<ParseObject> scoreList, ParseException e) {
-                                    if (e == null) {
-                                        Log.d("score", "Retrieved " + scoreList.size() + " scores");
-                                        if (lastpage.equals("M30")) {
-                                            scoreList.get(0).put("M30_Movesleep", 1);
-                                            scoreList.get(0).saveInBackground();
-                                            if (scoreList.get(0).getInt("M30_Braintest")==1){
-                                                Intent i = new Intent(MovesleepActivity2.this, MainActivity.class);
-                                                i.putExtra("endstr","end0");
-                                                MovesleepActivity2.this.startActivity(i);
+                            } else {
+                                query1.whereEqualTo("User_ID", userid);
+                                query1.whereEqualTo("Date", today);
+                                query1.setLimit(1);
+                                query1.findInBackground(new FindCallback<ParseObject>() {
+                                    public void done(List<ParseObject> scoreList, ParseException e) {
+                                        if (e == null) {
+                                            Log.d("score", "Retrieved " + scoreList.size() + " scores");
+                                            if (lastpage.equals("M30")) {
+                                                scoreList.get(0).put("M30_Movesleep", 1);
+                                                scoreList.get(0).saveInBackground();
+                                                if (scoreList.get(0).getInt("M30_Braintest")==1){
+                                                    Intent i = new Intent(MovesleepActivity2.this, MainActivity.class);
+                                                    i.putExtra("endstr","end0");
+                                                    MovesleepActivity2.this.startActivity(i);
+                                                }
+                                                else{
+                                                    Intent i = new Intent(MovesleepActivity2.this, SleepActivity.class);
+                                                    i.putExtra("lastpage", lastpage);
+                                                    MovesleepActivity2.this.startActivity(i);
+                                                }
                                             }
-                                            else{
-                                                Intent i = new Intent(MovesleepActivity2.this, SleepActivity.class);
-                                                i.putExtra("lastpage", lastpage);
-                                                MovesleepActivity2.this.startActivity(i);
-                                            }
-                                        }
 
-                                        if (lastpage.equals("MDOPA1")) {
-                                            scoreList.get(0).put("MDOPA1_Movesleep", 1);
-                                            scoreList.get(0).saveInBackground();
-                                            if (scoreList.get(0).getInt("MDOPA1_Braintest")==1){
-                                                Intent i = new Intent(MovesleepActivity2.this, MainActivity.class);
-                                                i.putExtra("endstr","end1");
-                                                MovesleepActivity2.this.startActivity(i);
+                                            if (lastpage.equals("MDOPA1")) {
+                                                scoreList.get(0).put("MDOPA1_Movesleep", 1);
+                                                scoreList.get(0).saveInBackground();
+                                                if (scoreList.get(0).getInt("MDOPA1_Braintest")==1){
+                                                    Intent i = new Intent(MovesleepActivity2.this, MainActivity.class);
+                                                    i.putExtra("endstr","end1");
+                                                    MovesleepActivity2.this.startActivity(i);
+                                                }
+                                                else{
+                                                    Intent i = new Intent(MovesleepActivity2.this, SleepActivity.class);
+                                                    i.putExtra("lastpage", lastpage);
+                                                    MovesleepActivity2.this.startActivity(i);
+                                                }
                                             }
-                                            else{
-                                                Intent i = new Intent(MovesleepActivity2.this, SleepActivity.class);
-                                                i.putExtra("lastpage", lastpage);
-                                                MovesleepActivity2.this.startActivity(i);
+                                            if (lastpage.equals("A_DOPA")) {
+                                                scoreList.get(0).put("ADOPA_Movesleep", 1);
+                                                scoreList.get(0).saveInBackground();
+                                                if (scoreList.get(0).getInt("ADOPA_Braintest")==1){
+                                                    Intent i = new Intent(MovesleepActivity2.this, MainActivity.class);
+                                                    i.putExtra("endstr","end2");
+                                                    MovesleepActivity2.this.startActivity(i);
+                                                }
+                                                else{
+                                                    Intent i = new Intent(MovesleepActivity2.this, SleepActivity.class);
+                                                    i.putExtra("lastpage", lastpage);
+                                                    MovesleepActivity2.this.startActivity(i);
+                                                }
                                             }
-                                        }
-                                        if (lastpage.equals("A_DOPA")) {
-                                            scoreList.get(0).put("ADOPA_Movesleep", 1);
-                                            scoreList.get(0).saveInBackground();
-                                            if (scoreList.get(0).getInt("ADOPA_Braintest")==1){
-                                                Intent i = new Intent(MovesleepActivity2.this, MainActivity.class);
-                                                i.putExtra("endstr","end2");
-                                                MovesleepActivity2.this.startActivity(i);
+                                            if (lastpage.equals("E")) {
+                                                scoreList.get(0).put("E_Movesleep", 1);
+                                                scoreList.get(0).saveInBackground();
+                                                if (scoreList.get(0).getInt("E_Braintest")==1){
+                                                    Intent i = new Intent(MovesleepActivity2.this, MainActivity.class);
+                                                    i.putExtra("endstr","end3");
+                                                    MovesleepActivity2.this.startActivity(i);
+                                                }
+                                                else{
+                                                    Intent i = new Intent(MovesleepActivity2.this, SleepActivity.class);
+                                                    i.putExtra("lastpage", lastpage);
+                                                    MovesleepActivity2.this.startActivity(i);
+                                                }
                                             }
-                                            else{
-                                                Intent i = new Intent(MovesleepActivity2.this, SleepActivity.class);
-                                                i.putExtra("lastpage", lastpage);
-                                                MovesleepActivity2.this.startActivity(i);
-                                            }
-                                        }
-                                        if (lastpage.equals("E")) {
-                                            scoreList.get(0).put("E_Movesleep", 1);
-                                            scoreList.get(0).saveInBackground();
-                                            if (scoreList.get(0).getInt("E_Braintest")==1){
-                                                Intent i = new Intent(MovesleepActivity2.this, MainActivity.class);
-                                                i.putExtra("endstr","end3");
-                                                MovesleepActivity2.this.startActivity(i);
-                                            }
-                                            else{
-                                                Intent i = new Intent(MovesleepActivity2.this, SleepActivity.class);
-                                                i.putExtra("lastpage", lastpage);
-                                                MovesleepActivity2.this.startActivity(i);
-                                            }
-                                        }
 
 //                                        scoreList.get(0).saveInBackground(new SaveCallback() {
 //                                            @Override
@@ -626,23 +643,29 @@ public class MovesleepActivity2 extends ActionBarActivity implements SeekBar.OnS
 //                                                }
 //                                            }
 //                                        });
-                                    } else {
-                                        Toast pass = Toast.makeText(MovesleepActivity2.this, "The page is outdated, Please start over!" , Toast.LENGTH_LONG);
-                                        pass.show();
-                                        Intent i = new Intent(MovesleepActivity2.this, MainActivity.class);
-                                        MovesleepActivity2.this.startActivity(i);
-                                        Log.d("score", "Error: " + e.getMessage());
+                                        } else {
+                                            Toast pass = Toast.makeText(MovesleepActivity2.this, "The page is outdated, Please start over!" , Toast.LENGTH_LONG);
+                                            pass.show();
+                                            Intent i = new Intent(MovesleepActivity2.this, MainActivity.class);
+                                            MovesleepActivity2.this.startActivity(i);
+                                            Log.d("score", "Error: " + e.getMessage());
+                                        }
                                     }
-                                }
-                            });
+                                });
 
+                            }
                         }
-                    }
-                });
+                    });
 
 
+                }
             }
         }
+        else {
+            Toast pass = Toast.makeText(MovesleepActivity2.this, "Network is not available, please check your network.", Toast.LENGTH_LONG);
+            pass.show();
+        }
+
 
 //        if(view.getId() == R.id.cancel_ms2)
 //        {
