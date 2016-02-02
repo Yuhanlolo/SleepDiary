@@ -479,7 +479,7 @@
             android:layout_marginTop="20dp"
             android:layout_row = "16"
             android:layout_column="0"
-            android:background="#F25252"
+            android:background="#CC4452"
             android:layout_gravity="center" />
 
             <Button
