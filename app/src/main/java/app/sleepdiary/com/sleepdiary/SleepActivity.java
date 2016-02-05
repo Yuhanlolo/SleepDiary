@@ -257,6 +257,8 @@ public class SleepActivity extends ActionBarActivity{
                             f3.setVisibility(View.VISIBLE);
                             finish_braintest = false;
                             f1.setVisibility(View.INVISIBLE);
+                            Toast pass = Toast.makeText(SleepActivity.this, "Please finish brain tap test before continue a new round of nap test!", Toast.LENGTH_SHORT);
+                            pass.show();
                             Log.d("n>m","!");
                         }
 
