@@ -626,28 +626,36 @@ public class NapMoveSleepActivity2 extends ActionBarActivity implements SeekBar.
                                                                                     if (e == null) {
                                                                                         Log.d("score", "Retrieved " + scoreList.size() + " scores");
                                                                                         int n = scoreList.get(0).getInt("Nap_Movesleep");
-                                                                                        x = n;
-                                                                                        scoreList.get(0).put("Nap_Movesleep",n+1);
+                                                                                        x = n+1;
+                                                                                        scoreList.get(0).put("Nap_Movesleep",x);
                                                                                         y = scoreList.get(0).getInt("Nap_Braintest");
+//                                                                                        Log.d("x: ", Integer.toString(x));
+//                                                                                        Log.d("y: ", Integer.toString(y));
+//                                                                                        Log.d("n: ", Integer.toString(n));
+
                                                                                         if(y==n+1)
                                                                                         {scoreList.get(0).put("Nap", t_nap+1);}
 
                                                                                         scoreList.get(0).saveInBackground();
+                                                                                        if(y==x){
+//                                                                                            Log.d("y==x+1 x", Integer.toString(x));
+//                                                                                            Log.d("y==x+1 y", Integer.toString(y));
+                                                                                            Intent i = new Intent(NapMoveSleepActivity2.this, MainActivity.class);
+                                                                                            i.putExtra("endstr","end4");
+                                                                                            NapMoveSleepActivity2.this.startActivity(i);
+                                                                                        }
+                                                                                        else
+                                                                                        {
+                                                                                            Intent i = new Intent(NapMoveSleepActivity2.this, SleepActivity.class);
+                                                                                            i.putExtra("lastpage", "Nap");
+                                                                                            NapMoveSleepActivity2.this.startActivity(i);
+                                                                                        }
                                                                                     }
+
                                                                                 }
                                                                             });
 
-                                                                            if(y==x+1){
-                                                                                Intent i = new Intent(NapMoveSleepActivity2.this, MainActivity.class);
-                                                                                i.putExtra("endstr","end4");
-                                                                                NapMoveSleepActivity2.this.startActivity(i);
-                                                                            }
-                                                                            else
-                                                                            {
-                                                                                Intent i = new Intent(NapMoveSleepActivity2.this, SleepActivity.class);
-                                                                                i.putExtra("lastpage","Nap");
-                                                                                NapMoveSleepActivity2.this.startActivity(i);
-                                                                            }
+
                                                                             //i.putExtra("lastpage",lastpage);
                                                                             //i.putExtra("loginstatus",f);
 

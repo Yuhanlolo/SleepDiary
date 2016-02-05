@@ -84,6 +84,9 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
     String today= "";
     String tst = "";
 
+    int bedcal, ducal, wakecal, outcal;
+    int diff = 9999;
+
 //    int temp_bed_h = 22;
 //    int temp_bed_m = 0;
 //    int temp_wake_h = -1;
@@ -166,7 +169,7 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
 
     int starttime;
 
-    int bedtemp = 0;
+    //int bedtemp = 0;
     int sleepdu = 0;
 //
 //    int wokehour= 6;
@@ -305,6 +308,7 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
                             fallh.setText("hrs");
                             temp_h = " hrs";
                         }
+
                     fallm_edt.requestFocus();}
                 }
             }
@@ -382,7 +386,43 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
                         tempwakeh = Integer.parseInt(wakeh_edt.getText().toString());
                         temp_wake = 100*tempwakeh+tempwakem;
 
-                        if(temp_out-temp_wake<0)
+
+                       if(!bedh_edt.getText().toString().isEmpty()&&!bedm_edt.getText().toString().isEmpty()&&!fallh_edt.getText().toString().isEmpty()&&!fallm_edt.getText().toString().isEmpty()){
+                           int curbedh =Integer.parseInt(bedh_edt.getText().toString());
+
+                           int curbedm = Integer.parseInt(bedm_edt.getText().toString());
+                           //bedcal = 60*curbedh+curbedm;
+                           int curfallh = Integer.parseInt(fallh_edt.getText().toString());
+                           int curfallm = Integer.parseInt(fallm_edt.getText().toString());
+                           ducal = 60*curfallh+curfallm;
+                           wakecal = 60*tempwakeh+tempwakem;
+                           if(curbedh>12){
+                               bedcal = 1440-(60*curbedh+curbedm);
+                               diff = wakecal + bedcal - ducal;
+                           }
+                           else
+                           {
+                               bedcal = 60*curbedh+curbedm;
+                               diff = wakecal - bedcal - ducal;
+                           }
+                           Log.d("diff",Integer.toString(diff));
+
+                       }
+                            if(diff!=9999&&diff<0)
+                            {
+                                Toast pass = Toast.makeText(SleepDiaryActivity2.this, "It takes you longer to fall asleep than you actually stay in bed!", Toast.LENGTH_LONG);
+                                pass.show();
+                                wakeh_edt.setText("");
+                                wakem_edt.setText("");
+                                temp_wake = 0;
+                                tempwakeh = -1;
+                                tempwakem = -1;
+                                diff = 9999;
+                                wakeh_edt.requestFocus();
+                            }
+
+
+                       else if(temp_out-temp_wake<0)
                         {
                             Toast pass = Toast.makeText(SleepDiaryActivity2.this, "Wake up time should be earlier than out of bed time!", Toast.LENGTH_LONG);
                             pass.show();
@@ -393,6 +433,7 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
                             tempwakem = -1;
                             wakeh_edt.requestFocus();}
                         }
+
                         else
                         wakem_edt.requestFocus();}
                 }
@@ -433,7 +474,42 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
                             tempwakeh = Integer.parseInt(wakeh_edt.getText().toString());
                         temp_wake = 100*tempwakeh+tempwakem;
 
-                        if(temp_out-temp_wake<0)
+                            if(!bedh_edt.getText().toString().isEmpty()&&!bedm_edt.getText().toString().isEmpty()&&!fallh_edt.getText().toString().isEmpty()&&!fallm_edt.getText().toString().isEmpty()){
+                                int curbedh =Integer.parseInt(bedh_edt.getText().toString());
+
+                                int curbedm = Integer.parseInt(bedm_edt.getText().toString());
+                                //bedcal = 60*curbedh+curbedm;
+                                int curfallh = Integer.parseInt(fallh_edt.getText().toString());
+                                int curfallm = Integer.parseInt(fallm_edt.getText().toString());
+                                ducal = 60*curfallh+curfallm;
+                                wakecal = 60*tempwakeh+tempwakem;
+                                if(curbedh>12){
+                                    bedcal = 1440-(60*curbedh+curbedm);
+                                    diff = wakecal + bedcal - ducal;
+                                }
+                                else
+                                {
+                                    bedcal = 60*curbedh+curbedm;
+                                    diff = wakecal - bedcal - ducal;
+                                }
+
+                                Log.d("diff",Integer.toString(diff));
+
+                            }
+                            if(diff!=9999&&diff<0)
+                            {
+                                Toast pass = Toast.makeText(SleepDiaryActivity2.this, "It takes you longer to fall asleep than you actually stay in bed!", Toast.LENGTH_LONG);
+                                pass.show();
+                                wakeh_edt.setText("");
+                                wakem_edt.setText("");
+                                temp_wake = 0;
+                                tempwakeh = -1;
+                                tempwakem = -1;
+                                diff = 9999;
+                                wakeh_edt.requestFocus();
+                            }
+
+                        else if(temp_out-temp_wake<0)
                         {
                             Toast pass = Toast.makeText(SleepDiaryActivity2.this, "Wake up time should be earlier than out of bed time!", Toast.LENGTH_LONG);
                             pass.show();
@@ -485,7 +561,42 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
                             tempoutm = Integer.parseInt(outm_edt.getText().toString());
                         temp_out = 100*tempouth+tempoutm;
 
-                        if(temp_out-temp_wake<0)
+
+                            if(!bedh_edt.getText().toString().isEmpty()&&!bedm_edt.getText().toString().isEmpty()&&!fallh_edt.getText().toString().isEmpty()&&!fallm_edt.getText().toString().isEmpty()){
+                                int curbedh =Integer.parseInt(bedh_edt.getText().toString());
+
+                                int curbedm = Integer.parseInt(bedm_edt.getText().toString());
+                                //bedcal = 60*curbedh+curbedm;
+                                int curfallh = Integer.parseInt(fallh_edt.getText().toString());
+                                int curfallm = Integer.parseInt(fallm_edt.getText().toString());
+                                ducal = 60*curfallh+curfallm;
+                                outcal = 60*tempouth+tempoutm;
+                                if(curbedh>12){
+                                    bedcal = 1440-(60*curbedh+curbedm);
+                                    diff = outcal + bedcal - ducal;
+                                }
+                                else
+                                {
+                                    bedcal = 60*curbedh+curbedm;
+                                    diff = outcal - bedcal - ducal;
+                                }
+                                Log.d("diff",Integer.toString(diff));
+
+                            }
+                            if(diff!=9999&&diff<0)
+                            {
+                                Toast pass = Toast.makeText(SleepDiaryActivity2.this, "It takes you longer to fall asleep than you actually stay in bed!", Toast.LENGTH_LONG);
+                                pass.show();
+                                outh_edt.setText("");
+                                outm_edt.setText("");
+                                temp_out = 0;
+                                tempouth = -1;
+                                tempoutm = -1;
+                                diff = 9999;
+                                outh_edt.requestFocus();
+                            }
+
+                        else if(temp_out-temp_wake<0)
                         {
                             Toast pass = Toast.makeText(SleepDiaryActivity2.this, "Out of bed time should be later than wake up time!", Toast.LENGTH_LONG);
                             pass.show();
@@ -532,6 +643,40 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
                         if(!outh_edt.getText().toString().isEmpty()){
                             tempouth = Integer.parseInt(outh_edt.getText().toString());
                         temp_out = 100*tempouth+tempoutm;
+
+                            if(!bedh_edt.getText().toString().isEmpty()&&!bedm_edt.getText().toString().isEmpty()&&!fallh_edt.getText().toString().isEmpty()&&!fallm_edt.getText().toString().isEmpty()){
+                                int curbedh =Integer.parseInt(bedh_edt.getText().toString());
+
+                                int curbedm = Integer.parseInt(bedm_edt.getText().toString());
+                                //bedcal = 60*curbedh+curbedm;
+                                int curfallh = Integer.parseInt(fallh_edt.getText().toString());
+                                int curfallm = Integer.parseInt(fallm_edt.getText().toString());
+                                ducal = 60*curfallh+curfallm;
+                                outcal = 60*tempouth+tempoutm;
+                                if(curbedh>12){
+                                    bedcal = 1440-(60*curbedh+curbedm);
+                                    diff = outcal + bedcal - ducal;
+                                }
+                                else
+                                {
+                                    bedcal = 60*curbedh+curbedm;
+                                    diff = outcal - bedcal - ducal;
+                                }
+                                Log.d("diff",Integer.toString(diff));
+
+                            }
+                            if(diff!=9999&&diff<0)
+                            {
+                                Toast pass = Toast.makeText(SleepDiaryActivity2.this, "It takes you longer to fall asleep than you actually stay in bed!", Toast.LENGTH_LONG);
+                                pass.show();
+                                outh_edt.setText("");
+                                outm_edt.setText("");
+                                temp_out = 0;
+                                tempouth = -1;
+                                tempoutm = -1;
+                                diff = 9999;
+                                outh_edt.requestFocus();
+                            }
 
                         if(temp_out-temp_wake<0)
                         {
@@ -900,6 +1045,7 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
                 boolean outhour1 = false, outmin1 = false;
                 boolean early1 = false, late1 = false;
                 int difference = 0;
+                int difference1 = 0;
                 boolean over = false;
                 String bedddff = "";
                 int waked_cal = 0;
@@ -921,7 +1067,7 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
                         bedmin1 = true;
                     } else {
                         bedtime = pad(tempbedh) + ":" + pad(tempbedm);
-                        bedtemp = 100*tempbedh + tempbedm;
+                        //bedtemp = 100*tempbedh + tempbedm;
                         bed_cal = 60*tempbedh +tempbedm;
                     }
 
@@ -1018,6 +1164,7 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
                         {
 
                             difference = waked_cal - bed_cal -du_cal;
+                            Log.d("difference",Integer.toString(difference));
                         }
 
 //                    Toast errormsg = Toast.makeText(SleepDiaryActivity2.this, "Over:" + (difference), Toast.LENGTH_SHORT);

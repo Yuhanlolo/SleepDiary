@@ -246,6 +246,8 @@ public class SleepActivity extends ActionBarActivity{
 
                         else if (n < m ) {
                             finish_braintest = true;
+                            finish_movesleep = false;
+                            f3.setVisibility(View.INVISIBLE);
                             f1.setVisibility(View.VISIBLE);
                             Log.d("n<m","!");
                         }
@@ -253,6 +255,8 @@ public class SleepActivity extends ActionBarActivity{
                         else if ( n > m) {
                             finish_movesleep = true;
                             f3.setVisibility(View.VISIBLE);
+                            finish_braintest = false;
+                            f1.setVisibility(View.INVISIBLE);
                             Log.d("n>m","!");
                         }
 
