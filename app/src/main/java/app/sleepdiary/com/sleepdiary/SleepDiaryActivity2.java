@@ -410,7 +410,7 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
                        }
                             if(diff!=9999&&diff<0)
                             {
-                                Toast pass = Toast.makeText(SleepDiaryActivity2.this, "It takes you longer to fall asleep than you actually stay in bed!", Toast.LENGTH_LONG);
+                                Toast pass = Toast.makeText(SleepDiaryActivity2.this, "Time to fall asleep is longer than the time you stayed in bed!", Toast.LENGTH_LONG);
                                 pass.show();
                                 wakeh_edt.setText("");
                                 wakem_edt.setText("");
@@ -498,7 +498,7 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
                             }
                             if(diff!=9999&&diff<0)
                             {
-                                Toast pass = Toast.makeText(SleepDiaryActivity2.this, "It takes you longer to fall asleep than you actually stay in bed!", Toast.LENGTH_LONG);
+                                Toast pass = Toast.makeText(SleepDiaryActivity2.this, "Time to fall asleep is longer than the time you stayed in bed!", Toast.LENGTH_LONG);
                                 pass.show();
                                 wakeh_edt.setText("");
                                 wakem_edt.setText("");
@@ -585,7 +585,7 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
                             }
                             if(diff!=9999&&diff<0)
                             {
-                                Toast pass = Toast.makeText(SleepDiaryActivity2.this, "It takes you longer to fall asleep than you actually stay in bed!", Toast.LENGTH_LONG);
+                                Toast pass = Toast.makeText(SleepDiaryActivity2.this, "Time to fall asleep is longer than the time you stayed in bed!", Toast.LENGTH_LONG);
                                 pass.show();
                                 outh_edt.setText("");
                                 outm_edt.setText("");
@@ -667,7 +667,7 @@ public class SleepDiaryActivity2 extends ActionBarActivity implements OnSeekBarC
                             }
                             if(diff!=9999&&diff<0)
                             {
-                                Toast pass = Toast.makeText(SleepDiaryActivity2.this, "It takes you longer to fall asleep than you actually stay in bed!", Toast.LENGTH_LONG);
+                                Toast pass = Toast.makeText(SleepDiaryActivity2.this, "Time to fall asleep is longer than the time you stayed in bed!", Toast.LENGTH_LONG);
                                 pass.show();
                                 outh_edt.setText("");
                                 outm_edt.setText("");

@@ -257,7 +257,7 @@ public class SleepActivity extends ActionBarActivity{
                             f3.setVisibility(View.VISIBLE);
                             finish_braintest = false;
                             f1.setVisibility(View.INVISIBLE);
-                            Toast pass = Toast.makeText(SleepActivity.this, "Please finish brain tap test before continue a new round of nap test!", Toast.LENGTH_SHORT);
+                            Toast pass = Toast.makeText(SleepActivity.this, "Please finish brain tap test!", Toast.LENGTH_SHORT);
                             pass.show();
                             Log.d("n>m","!");
                         }
@@ -591,8 +591,14 @@ public class SleepActivity extends ActionBarActivity{
             {
                 if (finish_movesleep)
                 {
-                    Toast pass = Toast.makeText(SleepActivity.this, " You have already finished move and sleep in this part! " , Toast.LENGTH_SHORT);
-                    pass.show();
+                    Toast pass1;
+                    if(lastpage.equals("Nap")){
+                        pass1 = Toast.makeText(SleepActivity.this, "Please finish brain tap test! " , Toast.LENGTH_SHORT);
+                    }
+                    else{
+                    pass1 = Toast.makeText(SleepActivity.this, " You have already finished move and sleep in this part! " , Toast.LENGTH_SHORT);
+                    }
+                    pass1.show();
                 }
                 else if(lastpage.equals("M30")&&(!finish_sleepdiary)){
 

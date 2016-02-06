@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".SleepDiaryActivity"
+    android:background="#fafafa"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
 <GridLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
@@ -168,7 +175,17 @@
         android:onClick="CoverOnClick"
         android:layout_marginLeft="108dp"
         android:layout_marginTop="25dp"/>
+    <ImageView
+        android:layout_width="900dp"
+        android:layout_height="110dp"
+        android:id="@+id/ba"
+        android:src="@drawable/ba"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:layout_row="3"
+        android:layout_column="0"
+        />
 
 </GridLayout>
-
+</ScrollView>
 
