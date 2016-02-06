@@ -92,7 +92,7 @@
             android:icon="@drawable/ic_launcher">
 
             <SeekBar
-                android:layout_width="685dp"
+                android:layout_width="612dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/naps_move"
                 android:layout_marginTop="0dp"
@@ -100,7 +100,7 @@
                 android:progress="0"
                 android:layout_row="17"
                 android:layout_column="0"
-                android:layout_marginLeft="30dp"
+                android:layout_marginLeft="70dp"
                 />
 
             <ImageView
@@ -113,7 +113,7 @@
                 android:visibility="visible"
                 android:progress="0"
                 android:layout_marginTop="8dp"
-                android:layout_marginLeft="38.5dp" />
+                android:layout_marginLeft="79.5dp" />
 
             <ImageView
                 android:layout_width="21dp"
@@ -125,7 +125,7 @@
                 android:visibility="invisible"
                 android:progress="0"
                 android:layout_marginTop="5dp"
-                android:layout_marginLeft="36dp" />
+                android:layout_marginLeft="76dp" />
 
             <ImageView
                 android:layout_width="15dp"
@@ -137,7 +137,7 @@
                 android:visibility="invisible"
                 android:progress="0"
                 android:layout_marginTop="8dp"
-                android:layout_marginLeft="39dp" />
+                android:layout_marginLeft="79dp" />
 
             <ImageView
                 android:layout_width="21dp"
@@ -149,7 +149,7 @@
                 android:visibility="invisible"
                 android:progress="0"
                 android:layout_marginTop="5dp"
-                android:layout_marginLeft="101.5dp" />
+                android:layout_marginLeft="132.5dp" />
 
             <ImageView
                 android:layout_width="15dp"
@@ -161,7 +161,7 @@
                 android:visibility="invisible"
                 android:progress="0"
                 android:layout_marginTop="8dp"
-                android:layout_marginLeft="104.5dp" />
+                android:layout_marginLeft="135.5dp" />
 
             <ImageView
                 android:layout_width="21dp"
@@ -173,7 +173,7 @@
                 android:visibility="invisible"
                 android:progress="0"
                 android:layout_marginTop="5dp"
-                android:layout_marginLeft="166dp" />
+                android:layout_marginLeft="191dp" />
 
             <ImageView
                 android:layout_width="15dp"
@@ -185,7 +185,7 @@
                 android:visibility="invisible"
                 android:progress="0"
                 android:layout_marginTop="8dp"
-                android:layout_marginLeft="169dp" />
+                android:layout_marginLeft="194dp" />
 
             <ImageView
                 android:layout_width="21dp"
@@ -197,7 +197,7 @@
                 android:visibility="invisible"
                 android:progress="0"
                 android:layout_marginTop="5dp"
-                android:layout_marginLeft="231.5dp" />
+                android:layout_marginLeft="249.5dp" />
 
             <ImageView
                 android:layout_width="15dp"
@@ -209,7 +209,7 @@
                 android:visibility="invisible"
                 android:progress="0"
                 android:layout_marginTop="8dp"
-                android:layout_marginLeft="233.5dp" />
+                android:layout_marginLeft="252.5dp" />
 
             <ImageView
                 android:layout_width="21dp"
@@ -221,7 +221,7 @@
                 android:visibility="invisible"
                 android:progress="0"
                 android:layout_marginTop="5dp"
-                android:layout_marginLeft="296dp" />
+                android:layout_marginLeft="308dp" />
 
             <ImageView
                 android:layout_width="15dp"
@@ -233,7 +233,7 @@
                 android:visibility="invisible"
                 android:progress="0"
                 android:layout_marginTop="8dp"
-                android:layout_marginLeft="299dp" />
+                android:layout_marginLeft="311dp" />
 
             <ImageView
                 android:layout_width="21dp"
@@ -245,7 +245,7 @@
 
                 android:progress="0"
                 android:layout_marginTop="5dp"
-                android:layout_marginLeft="363dp" />
+                android:layout_marginLeft="366.5dp" />
 
             <ImageView
                 android:layout_width="15dp"
@@ -257,7 +257,7 @@
                 android:visibility="invisible"
                 android:progress="0"
                 android:layout_marginTop="8dp"
-                android:layout_marginLeft="365.5dp" />
+                android:layout_marginLeft="369.5dp" />
 
             <ImageView
                 android:layout_width="21dp"
@@ -269,7 +269,7 @@
                 android:visibility="invisible"
                 android:progress="0"
                 android:layout_marginTop="5dp"
-                android:layout_marginLeft="428dp" />
+                android:layout_marginLeft="424.5dp" />
 
             <ImageView
                 android:layout_width="15dp"
@@ -281,7 +281,7 @@
                 android:visibility="invisible"
                 android:progress="0"
                 android:layout_marginTop="8dp"
-                android:layout_marginLeft="431dp" />
+                android:layout_marginLeft="427.5dp" />
             <ImageView
                 android:layout_width="21dp"
                 android:layout_height="21dp"
@@ -292,7 +292,7 @@
                 android:visibility="invisible"
                 android:progress="0"
                 android:layout_marginTop="5dp"
-                android:layout_marginLeft="493.5dp" />
+                android:layout_marginLeft="482.5dp" />
 
             <ImageView
                 android:layout_width="15dp"
@@ -304,7 +304,7 @@
                 android:visibility="invisible"
                 android:progress="0"
                 android:layout_marginTop="8dp"
-                android:layout_marginLeft="496.5dp" />
+                android:layout_marginLeft="485.5dp" />
 
             <ImageView
                 android:layout_width="21dp"
@@ -316,7 +316,7 @@
                 android:visibility="invisible"
                 android:progress="0"
                 android:layout_marginTop="5dp"
-                android:layout_marginLeft="559dp" />
+                android:layout_marginLeft="540.5dp" />
 
             <ImageView
                 android:layout_width="15dp"
@@ -328,7 +328,7 @@
                 android:visibility="invisible"
                 android:progress="0"
                 android:layout_marginTop="8dp"
-                android:layout_marginLeft="562dp" />
+                android:layout_marginLeft="543.5dp" />
 
             <ImageView
                 android:layout_width="21dp"
@@ -340,7 +340,7 @@
                 android:visibility="invisible"
                 android:progress="0"
                 android:layout_marginTop="5dp"
-                android:layout_marginLeft="624dp" />
+                android:layout_marginLeft="598.5dp" />
 
             <ImageView
                 android:layout_width="15dp"
@@ -352,7 +352,7 @@
                 android:visibility="invisible"
                 android:progress="0"
                 android:layout_marginTop="8dp"
-                android:layout_marginLeft="627dp" />
+                android:layout_marginLeft="601.5dp" />
 
             <ImageView
                 android:layout_width="21dp"
@@ -364,7 +364,7 @@
                 android:visibility="invisible"
                 android:progress="0"
                 android:layout_marginTop="5dp"
-                android:layout_marginLeft="689.5dp" />
+                android:layout_marginLeft="656.5dp" />
 
             <ImageView
                 android:layout_width="15dp"
@@ -376,7 +376,7 @@
                 android:visibility="invisible"
                 android:progress="0"
                 android:layout_marginTop="8dp"
-                android:layout_marginLeft="692.5dp" />
+                android:layout_marginLeft="659.5dp" />
 
 
         </GridLayout>
